@@ -34,7 +34,7 @@ export default function HomePage(): JSX.Element {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/articles"
-                className="rounded-2xl bg-white px-6 py-3 text-lg font-bold text-slate-900 transition hover:bg-slate-100"
+                className="rounded-2xl bg-[#f2cf63] px-6 py-3 text-lg font-bold text-slate-900 shadow-[0_6px_0_0_rgba(26,26,26,0.16)] transition hover:bg-[#e8c24f]"
               >
                 Смотреть статьи
               </Link>
@@ -105,6 +105,37 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <LocalPostsFeed />
+
+      <section className="relative overflow-hidden rounded-[2rem] bg-[#6964d9] p-8 text-white shadow-soft md:p-10">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border-[10px] border-white/75" />
+        <div className="pointer-events-none absolute -bottom-24 right-16 h-56 w-56 rounded-full border-[8px] border-white/55" />
+        <div className="relative grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-center">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
+              Подпишитесь на Telegram-канал Дениса
+            </h2>
+            <p className="max-w-[38ch] text-lg text-white/95">
+              Если вы еще не подписаны, обязательно подпишитесь, чтобы не пропускать интересные
+              посты, новости и практические материалы.
+            </p>
+            <Link
+              href={TELEGRAM_CHANNEL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex rounded-2xl bg-[#2bd0e2] px-6 py-3 text-lg font-bold text-[#062c35] shadow-[0_6px_0_0_rgba(8,40,49,0.28)] transition hover:bg-[#22bfd0]"
+            >
+              Подписаться на канал
+            </Link>
+          </div>
+          <div className="hidden md:flex md:justify-end">
+            <div className="rounded-3xl border-4 border-[#2e2a82] bg-[#8c88ea] px-6 py-5 text-right shadow-[0_16px_0_0_rgba(39,34,106,0.35)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">ScrumBaza</p>
+              <p className="mt-2 text-2xl font-extrabold leading-tight">Коротко, по делу, без инфошума</p>
+              <p className="mt-2 text-sm text-white/90">Посты о карьере, менеджменте и AI для практики.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="space-y-5 pb-4">
         <h2 className="serif-display text-4xl font-semibold tracking-tight">Рубрики</h2>
