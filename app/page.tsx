@@ -7,6 +7,7 @@ import { getFeaturedArticles, getLatestArticles } from "@/lib/content";
 export default function HomePage(): JSX.Element {
   const latest = getLatestArticles(10);
   const featured = getFeaturedArticles(3);
+  const newest = latest[0];
 
   return (
     <div className="space-y-12">
@@ -42,8 +43,26 @@ export default function HomePage(): JSX.Element {
           </div>
 
           <aside className="glass fade-in rounded-3xl bg-gradient-to-br from-white/90 to-fuchsia-50/70 p-6">
-            <h2 className="serif-display text-3xl font-semibold tracking-tight">Рекомендованные</h2>
-            <div className="mt-5 space-y-5">
+            <h2 className="serif-display text-3xl font-semibold tracking-tight">Новая статья</h2>
+            {newest ? (
+              <article className="mt-5 rounded-xl border border-slate-200/80 bg-white/70 p-4 dark:border-slate-700 dark:bg-slate-900/70">
+                <p className="text-xs uppercase tracking-wide text-brand">
+                  {CATEGORY_LABELS[newest.frontmatter.category]}
+                </p>
+                <h3 className="mt-2 text-xl font-semibold leading-tight">
+                  <Link href={`/article/${newest.slug}`} className="hover:text-brand">
+                    {newest.frontmatter.title}
+                  </Link>
+                </h3>
+                <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+                  {newest.frontmatter.excerpt}
+                </p>
+              </article>
+            ) : null}
+            <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
+              Рекомендованные
+            </h3>
+            <div className="mt-3 space-y-4">
               {featured.map((item) => (
                 <article
                   key={item.slug}
@@ -52,11 +71,11 @@ export default function HomePage(): JSX.Element {
                   <p className="text-xs uppercase tracking-wide text-brand">
                     {CATEGORY_LABELS[item.frontmatter.category]}
                   </p>
-                  <h3 className="mt-1 text-lg font-semibold leading-tight">
+                  <h4 className="mt-1 text-base font-semibold leading-tight">
                     <Link href={`/article/${item.slug}`} className="hover:text-brand">
                       {item.frontmatter.title}
                     </Link>
-                  </h3>
+                  </h4>
                 </article>
               ))}
             </div>
