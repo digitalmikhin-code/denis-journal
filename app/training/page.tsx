@@ -39,7 +39,7 @@ export default function TrainingPage(): JSX.Element {
           rel="noopener noreferrer"
           className="mt-4 inline-flex rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-dark"
         >
-          Написать в Telegram-канал «Scrum База»
+          Написать в Telegram-канал ScrumBaza
         </Link>
       </section>
     </div>

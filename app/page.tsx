@@ -39,7 +39,7 @@ export default function HomePage(): JSX.Element {
                 rel="noopener noreferrer"
                 className="rounded-xl border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:-translate-y-px hover:border-cyan-500 dark:border-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300"
               >
-                Подписаться на Telegram-канал «Scrum База»
+                Подписаться на Telegram-канал ScrumBaza
               </Link>
             </div>
           </div>
