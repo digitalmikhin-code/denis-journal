@@ -5,6 +5,8 @@ export const DEFAULT_AUTHOR = "Денис Михин";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
+export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
+export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
 
 export const CATEGORY_LABELS = {
   career: "Карьера",
