@@ -137,20 +137,17 @@ export default function HomePage(): JSX.Element {
         </div>
       </section>
 
-      <section className="space-y-5 pb-4">
-        <h2 className="serif-display text-4xl font-semibold tracking-tight">Рубрики</h2>
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <section className="rounded-[2rem] bg-[#d7d7d7] p-8 pb-10 md:p-10">
+        <h2 className="text-5xl font-extrabold tracking-tight text-slate-900">Рубрики</h2>
+        <p className="mt-3 text-lg text-slate-600">Выберите направление и переходите к материалам по теме.</p>
+        <div className="mt-7 flex flex-wrap gap-3">
           {Object.entries(CATEGORY_LABELS).map(([slug, label]) => (
             <Link
               key={slug}
               href={`/category/${slug}`}
-              className="mag-hover group rounded-2xl border border-slate-200 bg-gradient-to-br from-white via-white to-brand-soft/60 p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900"
+              className="rounded-2xl bg-[#efefef] px-7 py-3 text-[2rem] leading-none text-slate-500 transition hover:bg-white hover:text-slate-800"
             >
-              <p className="mb-2 text-xs uppercase tracking-[0.16em] text-brand">Раздел</p>
-              <h3 className="text-3xl font-bold tracking-tight">{label}</h3>
-              <p className="mt-2 text-sm text-slate-500 transition group-hover:text-slate-700 dark:group-hover:text-slate-200">
-                Перейти в раздел {label.toLowerCase()}
-              </p>
+              {label}
             </Link>
           ))}
         </div>
