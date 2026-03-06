@@ -1,7 +1,7 @@
 ﻿import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { LocalPostsFeed } from "@/components/local-posts-feed";
-import { CATEGORY_LABELS } from "@/lib/constants";
+import { CATEGORY_LABELS, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { getFeaturedArticles, getLatestArticles } from "@/lib/content";
 
 export default function HomePage(): JSX.Element {
@@ -34,10 +34,15 @@ export default function HomePage(): JSX.Element {
                 Смотреть статьи
               </Link>
               <Link
-                href="https://t.me/ScrumBaza"
-                className="rounded-xl border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 hover:border-cyan-500 dark:border-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300"
+                href={TELEGRAM_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:-translate-y-px hover:border-cyan-500 dark:border-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300"
               >
-                Подписаться на ScrumBaza
+                Подписаться на Telegram-канал «Scrum База»
+                <span className="mt-1 block text-xs font-medium tracking-wide text-cyan-600/90 dark:text-cyan-300/80">
+                  t.me/scrum_baza
+                </span>
               </Link>
             </div>
           </div>

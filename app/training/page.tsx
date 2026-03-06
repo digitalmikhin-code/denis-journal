@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { mdxComponents } from "@/components/mdx-components";
+import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { getPageContent } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -33,13 +34,14 @@ export default function TrainingPage(): JSX.Element {
           Напиши в Telegram, разберем вашу задачу и подберем формат обучения.
         </p>
         <Link
-          href="https://t.me/ScrumBaza"
+          href={TELEGRAM_CHANNEL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           className="mt-4 inline-flex rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-dark"
         >
-          Написать в ScrumBaza
+          Написать в Telegram-канал «Scrum База»
         </Link>
       </section>
     </div>
   );
 }
-

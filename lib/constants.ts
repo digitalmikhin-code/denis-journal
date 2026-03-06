@@ -4,6 +4,7 @@ export const SITE_DESCRIPTION =
 export const DEFAULT_AUTHOR = "Денис Михин";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 
 export const CATEGORY_LABELS = {
   career: "Карьера",
