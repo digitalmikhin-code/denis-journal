@@ -11,29 +11,30 @@ export default function HomePage(): JSX.Element {
 
   return (
     <div className="space-y-12">
-      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-gradient-to-br from-slate-100 via-white to-slate-100 p-8 shadow-soft dark:border-slate-800 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 md:p-10">
-        <div className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full bg-slate-300/35 blur-3xl dark:bg-slate-700/30" />
-        <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-cyan-200/20 blur-3xl dark:bg-cyan-900/20" />
+      <section className="relative overflow-hidden rounded-[2rem] border border-[#efb8d2] bg-[#f6c6dd] p-8 shadow-soft md:p-10">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[12px] border-slate-900/15" />
+        <div className="pointer-events-none absolute -bottom-28 right-10 h-72 w-72 rounded-full border-[8px] border-slate-900/15" />
+        <div className="pointer-events-none absolute left-[50%] top-[58%] text-6xl text-slate-900/25">✧</div>
 
         <div className="relative grid gap-6 md:grid-cols-[1.25fr_0.75fr]">
           <div className="fade-in space-y-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-              Экспертный журнал
+            <p className="text-sm font-semibold tracking-tight text-slate-900/90">
+              Авторский медиа-портал
             </p>
-            <h1 className="max-w-[13ch] text-5xl font-extrabold leading-[1.02] tracking-tight text-slate-900 dark:text-slate-100 md:text-6xl">
-              Практика управления, карьеры и системного мышления
+            <h1 className="max-w-[12ch] text-5xl font-extrabold leading-[0.96] tracking-tight text-slate-900 md:text-7xl">
+              Идеи, кейсы и практика роста
             </h1>
-            <p className="max-w-reading text-2xl leading-tight text-slate-800 dark:text-slate-200 md:text-[1.75rem]">
-              Разборы, которые помогают принимать решения и усиливать результат в работе
+            <p className="max-w-reading text-[1.95rem] leading-tight text-slate-900/90 md:text-[2.15rem]">
+              Чтобы быстрее расти в карьере, управлении и работе с ИИ
             </p>
-            <p className="max-w-reading text-lg text-slate-700 dark:text-slate-300">
-              Здесь вы найдете прикладные статьи о менеджменте, развитии карьеры, AI-инструментах и
-              рабочих кейсах без инфошума и поверхностных советов.
+            <p className="max-w-reading text-lg text-slate-800/90">
+              Профессиональный блог о карьере, управлении, мышлении и практическом ИИ. Редакционный
+              формат: сильные разборы, кейсы и прикладные идеи, которые можно использовать сразу.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/articles"
-                className="rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+                className="rounded-2xl bg-white px-6 py-3 text-lg font-bold text-slate-900 transition hover:bg-slate-100"
               >
                 Смотреть статьи
               </Link>
@@ -41,17 +42,17 @@ export default function HomePage(): JSX.Element {
                 href={TELEGRAM_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                className="rounded-2xl border-2 border-slate-900/20 bg-white/50 px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-white/70"
               >
                 Подписаться на Telegram-канал ScrumBaza
               </Link>
             </div>
           </div>
 
-          <aside className="fade-in rounded-3xl border border-slate-200 bg-white/95 p-6 shadow-[0_16px_30px_rgba(15,23,42,0.08)] dark:border-slate-700 dark:bg-slate-900/85">
-            <h2 className="serif-display text-3xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">Новая статья</h2>
+          <aside className="fade-in rounded-3xl border-2 border-slate-900/10 bg-white/90 p-6 shadow-[0_20px_40px_rgba(24,20,32,0.12)]">
+            <h2 className="serif-display text-3xl font-semibold tracking-tight text-slate-900">Новая статья</h2>
             {newest ? (
-              <article className="mt-5 rounded-xl border border-slate-200/90 bg-white p-4 dark:border-slate-700 dark:bg-slate-900/70">
+              <article className="mt-5 rounded-xl border border-slate-200/90 bg-white p-4">
                 <p className="text-xs uppercase tracking-wide text-brand">
                   {CATEGORY_LABELS[newest.frontmatter.category]}
                 </p>
@@ -72,7 +73,7 @@ export default function HomePage(): JSX.Element {
               {featured.map((item) => (
                 <article
                   key={item.slug}
-                  className="rounded-xl border border-slate-200/90 bg-white p-3 dark:border-slate-700 dark:bg-slate-900/70"
+                  className="rounded-xl border border-slate-200/90 bg-white p-3"
                 >
                   <p className="text-xs uppercase tracking-wide text-brand">
                     {CATEGORY_LABELS[item.frontmatter.category]}
