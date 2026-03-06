@@ -20,7 +20,7 @@ export default function HomePage(): JSX.Element {
           <div className="fade-in space-y-6">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Медиа-портал</p>
             <h1 className="serif-display max-w-[16ch] text-5xl font-bold leading-[0.95] tracking-tight md:text-7xl">
-              Журнал Дениса Михина
+              Идеи, кейсы и практика роста
             </h1>
             <p className="max-w-reading text-lg text-slate-700 dark:text-slate-300">
               Профессиональный блог о карьере, управлении, мышлении и практическом ИИ. Редакционный
