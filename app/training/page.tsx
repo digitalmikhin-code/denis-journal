@@ -15,31 +15,39 @@ export default function TrainingPage(): JSX.Element {
 
   return (
     <div className="space-y-10">
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-white via-cyan-50 to-rose-50 p-8 shadow-soft dark:border-slate-800 dark:from-slate-900 dark:via-cyan-950/30 dark:to-rose-950/20 md:p-10">
-        <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-cyan-300/25 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-brand/20 blur-3xl" />
-        <div className="relative space-y-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">Обучение и развитие</p>
-          <h1 className="serif-display max-w-[16ch] text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-            {page.title}
-          </h1>
-          <p className="max-w-reading text-lg text-slate-700 dark:text-slate-300">
-            Здесь вы найдете практические курсы и возможность личного разбора вашей ситуации, чтобы
-            быстрее выйти на следующий уровень в карьере и управлении.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="#courses"
-              className="rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-dark"
-            >
-              Смотреть обучение
-            </Link>
-            <Link
-              href="#session"
-              className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-            >
-              Перейти к разбору 1:1
-            </Link>
+      <section className="relative overflow-hidden rounded-3xl bg-[#6863d8] p-8 text-white shadow-soft md:p-10">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[14px] border-white/90" />
+        <div className="pointer-events-none absolute -bottom-36 right-24 h-72 w-72 rounded-full border-[10px] border-white/70" />
+        <div className="relative grid gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+          <div className="space-y-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/75">Обучение и развитие</p>
+            <h1 className="max-w-[14ch] text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">
+              {page.title} с реальным результатом
+            </h1>
+            <p className="max-w-[24ch] text-2xl leading-snug text-white/95">
+              Практические курсы и разбор вашей ситуации 1:1 для карьерного и управленческого роста.
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Link
+                href="#courses"
+                className="rounded-2xl bg-white px-6 py-3 text-lg font-bold text-[#5f59cf] transition hover:bg-slate-100"
+              >
+                Смотреть обучение
+              </Link>
+            </div>
+          </div>
+          <div className="relative hidden h-full min-h-[260px] md:block">
+            <div className="absolute right-0 top-4 w-[88%] rounded-3xl border-4 border-[#2f2b86] bg-[#8c87ea] p-6 shadow-[0_18px_0_0_rgba(25,22,91,0.35)]">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-white/80">Формат</p>
+              <p className="mt-2 text-2xl font-extrabold">Stepik + сессия 1:1</p>
+              <p className="mt-3 text-base text-white/90">Курсы дают систему, консультация дает фокус под вашу задачу.</p>
+              <Link
+                href="#session"
+                className="mt-5 inline-flex rounded-xl border-2 border-white/80 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+              >
+                Перейти к разбору 1:1
+              </Link>
+            </div>
           </div>
         </div>
       </section>
