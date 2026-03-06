@@ -40,9 +40,6 @@ export default function HomePage(): JSX.Element {
                 className="rounded-xl border border-cyan-300 bg-cyan-50 px-5 py-3 text-sm font-semibold text-cyan-700 transition hover:-translate-y-px hover:border-cyan-500 dark:border-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-300"
               >
                 Подписаться на Telegram-канал «Scrum База»
-                <span className="mt-1 block text-xs font-medium tracking-wide text-cyan-600/90 dark:text-cyan-300/80">
-                  t.me/scrum_baza
-                </span>
               </Link>
             </div>
           </div>
