@@ -25,10 +25,56 @@ export function calculateReadingTime(text: string): number {
 
 export function slugFromFilename(fileName: string): string {
   const withoutExt = fileName.replace(/\.mdx?$/, "");
-  return withoutExt.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  const raw = withoutExt.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+
+  const cyrillicMap: Record<string, string> = {
+    а: "a",
+    б: "b",
+    в: "v",
+    г: "g",
+    д: "d",
+    е: "e",
+    ё: "e",
+    ж: "zh",
+    з: "z",
+    и: "i",
+    й: "y",
+    к: "k",
+    л: "l",
+    м: "m",
+    н: "n",
+    о: "o",
+    п: "p",
+    р: "r",
+    с: "s",
+    т: "t",
+    у: "u",
+    ф: "f",
+    х: "h",
+    ц: "ts",
+    ч: "ch",
+    ш: "sh",
+    щ: "sch",
+    ъ: "",
+    ы: "y",
+    ь: "",
+    э: "e",
+    ю: "yu",
+    я: "ya"
+  };
+
+  const transliterated = raw
+    .toLowerCase()
+    .split("")
+    .map((char) => cyrillicMap[char] ?? char)
+    .join("");
+
+  return transliterated
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
 }
 
 export function normalizeTag(tag: string): string {
   return tag.trim().toLowerCase().replace(/\s+/g, "-");
 }
-
