@@ -1,0 +1,68 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+site_url: https://blog.yourdomain.com
+display_url: https://blog.yourdomain.com
+logo_url: /images/logo.svg
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+locale: "ru"
+
+collections:
+  - name: "articles"
+    label: "Articles"
+    folder: "content/articles"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    summary: "{{title}} — {{date}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["career", "management", "thinking", "ai", "projects", "cases"]
+      - { label: "Tags", name: "tags", widget: "list", allow_add: true }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "До 200 символов" }
+      - { label: "Cover", name: "cover", widget: "image", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - { label: "Featured", name: "featured", widget: "boolean", required: false, default: false }
+      - { label: "Author", name: "author", widget: "string", default: "Денис Михин", required: false }
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Шаблон: Вступление → 3 тезиса → Вывод и CTA"
+        default: |
+          ## Вступление
+          Краткий контекст и зачем это важно.
+
+          ## Тезис 1
+          Основная мысль и пример.
+
+          ## Тезис 2
+          Практический инструмент.
+
+          ## Тезис 3
+          Ошибки и как их избежать.
+
+          ## Вывод
+          Короткий итог + следующий шаг для читателя.
+
+  - name: "pages"
+    label: "Pages"
+    folder: "content/pages"
+    create: false
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

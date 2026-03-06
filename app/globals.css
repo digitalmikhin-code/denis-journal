@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans), sans-serif;
+  @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  background-image:
+    radial-gradient(circle at 8% 0%, rgba(255, 90, 54, 0.22), transparent 28%),
+    radial-gradient(circle at 92% 8%, rgba(14, 165, 233, 0.2), transparent 30%),
+    radial-gradient(circle at 22% 92%, rgba(16, 185, 129, 0.18), transparent 30%),
+    radial-gradient(circle at 84% 88%, rgba(251, 191, 36, 0.16), transparent 30%);
+}
+
+.container-shell {
+  @apply mx-auto w-[min(1160px,92vw)];
+}
+
+.serif-display {
+  font-family: var(--font-serif), serif;
+}
+
+.ambient-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.rainbow-line {
+  position: relative;
+}
+
+.rainbow-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: linear-gradient(90deg, #ff5a36, #22d3ee, #22c55e, #f59e0b, #ec4899);
+  opacity: 0.85;
+}
+
+.glass {
+  @apply border border-white/60 bg-white/75 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/70;
+}
+
+.color-card {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.72)),
+    radial-gradient(circle at 90% 10%, rgba(255, 90, 54, 0.22), transparent 40%);
+}
+
+.mag-hover {
+  @apply transition duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl;
+}
+
+@keyframes soft-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: soft-rise 0.6s ease both;
+}
+
+.prose-journal {
+  @apply mx-auto max-w-reading text-[1.05rem] leading-8 text-slate-800 dark:text-slate-200;
+}
+
+.prose-journal h2 {
+  @apply mt-12 text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100;
+}
+
+.prose-journal h3 {
+  @apply mt-10 text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100;
+}
+
+.prose-journal p {
+  @apply my-5;
+}
+
+.prose-journal a {
+  @apply text-brand underline decoration-brand/40 underline-offset-4 hover:decoration-brand;
+}
+
+.prose-journal ul {
+  @apply my-5 list-disc space-y-2 pl-6;
+}
+
+.prose-journal ol {
+  @apply my-5 list-decimal space-y-2 pl-6;
+}
+
+.prose-journal blockquote {
+  @apply my-6 border-l-4 border-brand pl-4 italic text-slate-700 dark:text-slate-300;
+}
+
+.prose-journal code {
+  @apply rounded bg-slate-100 px-1.5 py-0.5 text-[0.9em] dark:bg-slate-800;
+}
+
+.prose-journal pre {
+  @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-slate-100;
+}
