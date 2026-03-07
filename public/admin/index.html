@@ -6,18 +6,32 @@
     <title>CMS Admin</title>
   </head>
   <body>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function (user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function () {
-              document.location.href = "/admin/";
-            });
+      (function () {
+        function applyGithubToken(token) {
+          if (!token) return;
+          var user = JSON.stringify({ backendName: "github", token: token });
+          localStorage.setItem("netlify-cms-user", user);
+          localStorage.setItem("decap-cms-user", user);
+          if (!location.hash || location.hash === "#/") {
+            location.hash = "#/collections/articles";
+          }
+          location.reload();
+        }
+
+        window.addEventListener("message", function (event) {
+          if (event.origin !== "https://functions.yandexcloud.net") return;
+          if (typeof event.data !== "string") return;
+          if (!event.data.startsWith("authorization:github:success:")) return;
+          try {
+            var payload = JSON.parse(event.data.split("authorization:github:success:")[1]);
+            applyGithubToken(payload.token);
+          } catch (e) {
+            console.error("OAuth message parse error:", e);
           }
         });
-      }
+      })();
     </script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>

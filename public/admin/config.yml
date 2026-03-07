@@ -1,11 +1,12 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: digitalmikhin-code/denis-journal
   branch: main
+  base_url: https://functions.yandexcloud.net
+  auth_endpoint: d4euglff056il9brlmrf
 
-local_backend: true
-
-site_url: https://blog.yourdomain.com
-display_url: https://blog.yourdomain.com
+site_url: https://dmikhin-ru-media.website.yandexcloud.net
+display_url: https://dmikhin-ru-media.website.yandexcloud.net
 logo_url: /images/logo.svg
 
 media_folder: "public/images/uploads"
@@ -21,7 +22,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "mdx"
     format: "frontmatter"
-    summary: "{{title}} — {{date}}"
+    summary: "{{title}} вЂ” {{date}}"
     editor:
       preview: false
     fields:
@@ -32,30 +33,30 @@ collections:
         widget: "select"
         options: ["career", "management", "thinking", "ai", "projects", "cases"]
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
-      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "До 200 символов" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Р”Рѕ 200 СЃРёРјРІРѕР»РѕРІ" }
       - { label: "Cover", name: "cover", widget: "image", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: true }
       - { label: "Featured", name: "featured", widget: "boolean", required: false, default: false }
-      - { label: "Author", name: "author", widget: "string", default: "Денис Михин", required: false }
+      - { label: "Author", name: "author", widget: "string", default: "Р”РµРЅРёСЃ РњРёС…РёРЅ", required: false }
       - label: "Body"
         name: "body"
         widget: "markdown"
-        hint: "Шаблон: Вступление → 3 тезиса → Вывод и CTA"
+        hint: "РЁР°Р±Р»РѕРЅ: Р’СЃС‚СѓРїР»РµРЅРёРµ в†’ 3 С‚РµР·РёСЃР° в†’ Р’С‹РІРѕРґ Рё CTA"
         default: |
-          ## Вступление
-          Краткий контекст и зачем это важно.
+          ## Р’СЃС‚СѓРїР»РµРЅРёРµ
+          РљСЂР°С‚РєРёР№ РєРѕРЅС‚РµРєСЃС‚ Рё Р·Р°С‡РµРј СЌС‚Рѕ РІР°Р¶РЅРѕ.
 
-          ## Тезис 1
-          Основная мысль и пример.
+          ## РўРµР·РёСЃ 1
+          РћСЃРЅРѕРІРЅР°СЏ РјС‹СЃР»СЊ Рё РїСЂРёРјРµСЂ.
 
-          ## Тезис 2
-          Практический инструмент.
+          ## РўРµР·РёСЃ 2
+          РџСЂР°РєС‚РёС‡РµСЃРєРёР№ РёРЅСЃС‚СЂСѓРјРµРЅС‚.
 
-          ## Тезис 3
-          Ошибки и как их избежать.
+          ## РўРµР·РёСЃ 3
+          РћС€РёР±РєРё Рё РєР°Рє РёС… РёР·Р±РµР¶Р°С‚СЊ.
 
-          ## Вывод
-          Короткий итог + следующий шаг для читателя.
+          ## Р’С‹РІРѕРґ
+          РљРѕСЂРѕС‚РєРёР№ РёС‚РѕРі + СЃР»РµРґСѓСЋС‰РёР№ С€Р°Рі РґР»СЏ С‡РёС‚Р°С‚РµР»СЏ.
 
   - name: "pages"
     label: "Pages"

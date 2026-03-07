@@ -1,8 +1,10 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { LocalPostsFeed } from "@/components/local-posts-feed";
 import { CATEGORY_LABELS, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { getFeaturedArticles, getLatestArticles } from "@/lib/content";
+import { formatDate } from "@/lib/utils";
 
 export default function HomePage(): JSX.Element {
   const latest = getLatestArticles(10);
@@ -98,9 +100,69 @@ export default function HomePage(): JSX.Element {
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {latest.map((article) => (
-            <ArticleCard key={article.slug} article={article} />
-          ))}
+          {latest.map((article, index) => {
+            const isWide = index > 0 && index % 4 === 0;
+            if (!isWide) {
+              return <ArticleCard key={article.slug} article={article} />;
+            }
+            const wideCardNumber = Math.floor(index / 4);
+            const isImageRight = wideCardNumber % 2 === 0;
+
+            return (
+              <article
+                key={article.slug}
+                className="fade-in overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-soft md:col-span-2 md:h-[280px] xl:col-span-3"
+              >
+                <Link
+                  href={`/article/${article.slug}`}
+                  className="grid h-full gap-4 p-4 md:grid-cols-[0.34fr_0.66fr] md:items-center md:p-5"
+                >
+                  <div
+                    className={`relative aspect-[16/9] overflow-hidden rounded-2xl ${
+                      isImageRight ? "md:order-2" : "md:order-1"
+                    } md:h-full md:aspect-auto`}
+                  >
+                    <Image
+                      src={article.frontmatter.cover}
+                      alt={article.frontmatter.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className={`space-y-3 overflow-hidden ${isImageRight ? "md:order-1" : "md:order-2"}`}>
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-brand">
+                      {CATEGORY_LABELS[article.frontmatter.category]} · {formatDate(article.frontmatter.date)}
+                    </p>
+                    <h3
+                      className="text-2xl font-extrabold leading-tight tracking-tight text-slate-900 md:text-3xl"
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {article.frontmatter.title}
+                    </h3>
+                    <p
+                      className="text-base text-slate-700"
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden"
+                      }}
+                    >
+                      {article.frontmatter.excerpt}
+                    </p>
+                    <span className="inline-flex rounded-xl bg-[#f6f7fb] px-4 py-2 text-sm font-semibold text-slate-700">
+                      Читать статью
+                    </span>
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
         </div>
       </section>
 

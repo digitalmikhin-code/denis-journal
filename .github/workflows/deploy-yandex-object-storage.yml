@@ -1,0 +1,57 @@
+name: Deploy to Yandex Object Storage
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-yandex-main
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    env:
+      NODE_VERSION: "20"
+      YC_ENDPOINT_URL: https://storage.yandexcloud.net
+      YC_BUCKET_NAME: dmikhin-ru-media
+      NEXT_PUBLIC_SITE_URL: https://dmikhin-ru-media.website.yandexcloud.net
+      AWS_ACCESS_KEY_ID: ${{ secrets.YC_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: us-east-1
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build:prod
+
+      - name: Upload to Yandex Object Storage
+        run: |
+          aws s3 sync ./out s3://${YC_BUCKET_NAME} \
+            --endpoint-url ${YC_ENDPOINT_URL} \
+            --delete
+
+      - name: Set Content-Type for Decap config
+        run: |
+          aws s3 cp ./out/admin/config.yml s3://${YC_BUCKET_NAME}/admin/config.yml \
+            --endpoint-url ${YC_ENDPOINT_URL} \
+            --content-type text/yaml
+
+      - name: Verify root objects
+        run: |
+          aws s3 ls s3://${YC_BUCKET_NAME} --endpoint-url ${YC_ENDPOINT_URL}

@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
+import { TelegramScrollBanner } from "@/components/telegram-scroll-banner";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/constants";
 
 const sans = Manrope({
@@ -54,6 +55,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="container-shell py-8">{children}</main>
         <SiteFooter />
+        <TelegramScrollBanner />
       </body>
     </html>
   );
