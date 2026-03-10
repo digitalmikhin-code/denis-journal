@@ -20,9 +20,9 @@ jobs:
       YC_ENDPOINT_URL: https://storage.yandexcloud.net
       YC_BUCKET_NAME: dmikhin-ru-media
       NEXT_PUBLIC_SITE_URL: https://dmikhin-ru-media.website.yandexcloud.net
-      AWS_ACCESS_KEY_ID: ${{ secrets.YC_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: us-east-1
+      YC_ACCESS_KEY_ID_RAW: ${{ secrets.YC_ACCESS_KEY_ID }}
+      YC_SECRET_ACCESS_KEY_RAW: ${{ secrets.YC_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ru-central1
 
     steps:
       - name: Checkout
@@ -39,6 +39,29 @@ jobs:
 
       - name: Build static site
         run: npm run build:prod
+
+      - name: Prepare AWS credentials
+        shell: bash
+        run: |
+          ACCESS_KEY_ID="$(printf '%s' "${YC_ACCESS_KEY_ID_RAW}" | tr -d '\r\n[:space:]')"
+          SECRET_ACCESS_KEY="$(printf '%s' "${YC_SECRET_ACCESS_KEY_RAW}" | tr -d '\r\n[:space:]')"
+
+          if [ -z "${ACCESS_KEY_ID}" ] || [ -z "${SECRET_ACCESS_KEY}" ]; then
+            echo "Yandex Object Storage secrets are empty after trimming."
+            exit 1
+          fi
+
+          mkdir -p ~/.aws
+          cat > ~/.aws/credentials <<EOF
+          [default]
+          aws_access_key_id = ${ACCESS_KEY_ID}
+          aws_secret_access_key = ${SECRET_ACCESS_KEY}
+          EOF
+
+          cat > ~/.aws/config <<EOF
+          [default]
+          region = ${AWS_DEFAULT_REGION}
+          EOF
 
       - name: Upload to Yandex Object Storage
         run: |
