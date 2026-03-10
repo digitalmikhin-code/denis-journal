@@ -6,8 +6,9 @@ const categoryCoverMap = {
   career: "/images/covers/category-career.svg",
   management: "/images/covers/category-management.svg",
   thinking: "/images/covers/category-thinking.svg",
+  agile: "/images/covers/category-agile.svg",
+  architecture: "/images/covers/category-architecture.svg",
   ai: "/images/covers/category-ai.svg",
-  projects: "/images/covers/category-projects.svg",
   cases: "/images/covers/category-cases.svg"
 };
 

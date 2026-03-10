@@ -9,21 +9,23 @@ type ArticleCardProps = {
 
 export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
   const tone: Record<string, string> = {
-    career: "from-cyan-400 to-blue-500",
-    management: "from-emerald-400 to-green-500",
-    thinking: "from-violet-400 to-purple-500",
-    ai: "from-indigo-400 to-sky-500",
-    projects: "from-amber-400 to-orange-500",
-    cases: "from-rose-400 to-pink-500"
+    career: "from-yellow-300 to-amber-500",
+    management: "from-violet-400 to-purple-600",
+    thinking: "from-lime-400 to-emerald-500",
+    agile: "from-sky-400 to-blue-600",
+    architecture: "from-rose-500 to-red-600",
+    cases: "from-slate-700 to-black",
+    ai: "from-orange-400 to-amber-500"
   };
 
   const icon: Record<string, string> = {
-    career: "◆",
-    management: "●",
+    career: "◐",
+    management: "◆",
     thinking: "✦",
-    ai: "◉",
-    projects: "▲",
-    cases: "⬢"
+    agile: "◉",
+    architecture: "▲",
+    cases: "■",
+    ai: "⬢"
   };
 
   return (

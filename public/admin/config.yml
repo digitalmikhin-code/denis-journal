@@ -31,7 +31,7 @@ collections:
       - label: "Category"
         name: "category"
         widget: "select"
-        options: ["career", "management", "thinking", "ai", "projects", "cases"]
+        options: ["career", "management", "thinking", "agile", "architecture", "cases", "ai"]
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
       - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Р”Рѕ 200 СЃРёРјРІРѕР»РѕРІ" }
       - { label: "Cover", name: "cover", widget: "image", required: false }
