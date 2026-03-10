@@ -54,7 +54,7 @@ export function getAllArticles(includeDraft = false): Article[] {
         ? parsed.data.tags.map((tag: string) => normalizeTag(tag))
         : [],
       excerpt: parsed.data.excerpt || "",
-      cover: parsed.data.cover || CATEGORY_COVER_MAP[category] || "/images/covers/default-cover.svg",
+      cover: CATEGORY_COVER_MAP[category] || "/images/covers/default-cover.svg",
       draft: Boolean(parsed.data.draft),
       author: parsed.data.author || DEFAULT_AUTHOR,
       featured: Boolean(parsed.data.featured),

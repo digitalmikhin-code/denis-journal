@@ -64,7 +64,7 @@ function main() {
         tags: Array.isArray(parsed.data.tags) ? parsed.data.tags.map((tag) => String(tag).toLowerCase()) : [],
         excerpt: parsed.data.excerpt || "",
         date: normalizedDate,
-        cover: parsed.data.cover || categoryCoverMap[parsed.data.category] || "/images/covers/default-cover.svg",
+        cover: categoryCoverMap[parsed.data.category] || "/images/covers/default-cover.svg",
         readingTime: parsed.data.readingTime ? Number(parsed.data.readingTime) : readingTime(parsed.content),
         content
       };
