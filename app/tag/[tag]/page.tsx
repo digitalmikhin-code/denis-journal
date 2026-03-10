@@ -8,6 +8,8 @@ type Props = {
   };
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams(): Array<{ tag: string }> {
   return getAllTags().map((tag) => ({ tag }));
 }
@@ -39,4 +41,3 @@ export default function TagPage({ params }: Props): JSX.Element {
     </div>
   );
 }
-
