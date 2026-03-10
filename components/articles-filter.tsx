@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { CATEGORY_LABELS, type Category } from "@/lib/constants";
 import { ArticleCard } from "@/components/article-card";
 import type { ArticleSummary } from "@/lib/content";
@@ -13,12 +14,20 @@ type Props = {
 };
 
 export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"all" | Category>("all");
   const [tag, setTag] = useState<string>("all");
 
+  useEffect(() => {
+    const tagFromUrl = normalizeTag(searchParams.get("tag") || "");
+    if (tagFromUrl && allTags.includes(tagFromUrl)) {
+      setTag(tagFromUrl);
+    }
+  }, [allTags, searchParams]);
+
   const filtered = useMemo(() => {
-      const q = query.toLowerCase().trim();
+    const q = query.toLowerCase().trim();
     return items.filter((item) => {
       const byCategory = category === "all" || item.frontmatter.category === category;
       const byTag = tag === "all" || item.frontmatter.tags.includes(tag);

@@ -72,7 +72,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             {article.frontmatter.tags.map((tag) => (
               <Link
                 key={tag}
-                href={`/tag/${tag}`}
+                href={`/articles?tag=${encodeURIComponent(tag)}`}
                 className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold hover:bg-brand-soft hover:text-brand dark:bg-slate-800"
               >
                 #{tag}
@@ -111,4 +111,3 @@ export default function ArticlePage({ params }: Props): JSX.Element {
     </div>
   );
 }
-
