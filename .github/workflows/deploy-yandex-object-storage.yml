@@ -81,6 +81,12 @@ jobs:
             --endpoint-url ${YC_ENDPOINT_URL} \
             --delete
 
+      - name: Upload category covers
+        run: |
+          aws s3 sync ./public/images/covers s3://${YC_BUCKET_NAME}/images/covers \
+            --endpoint-url ${YC_ENDPOINT_URL} \
+            --delete
+
       - name: Set Content-Type for Decap config
         run: |
           aws s3 cp ./out/admin/config.yml s3://${YC_BUCKET_NAME}/admin/config.yml \
