@@ -34,8 +34,7 @@ export default function VideosPage(): JSX.Element {
           Видео Дениса Михина
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-700">
-          Здесь все видео в одном месте. Ты добавляешь только ссылку в админке, а плеер
-          встраивается автоматически.
+          Здесь собраны видео о карьере, управлении и практических инструментах для роста.
         </p>
       </section>
 
@@ -101,4 +100,3 @@ export default function VideosPage(): JSX.Element {
     </div>
   );
 }
-
