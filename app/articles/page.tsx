@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ArticlesFilter } from "@/components/articles-filter";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
@@ -29,8 +30,9 @@ export default function ArticlesPage(): JSX.Element {
           Фильтруйте публикации по рубрикам, тегам и поисковому запросу.
         </p>
       </header>
-      <ArticlesFilter items={items} allTags={allTags} />
+      <Suspense fallback={null}>
+        <ArticlesFilter items={items} allTags={allTags} />
+      </Suspense>
     </div>
   );
 }
-
