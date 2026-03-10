@@ -18,8 +18,8 @@ jobs:
     env:
       NODE_VERSION: "20"
       YC_ENDPOINT_URL: https://storage.yandexcloud.net
-      YC_BUCKET_NAME: dmikhin-ru-media
-      NEXT_PUBLIC_SITE_URL: https://dmikhin-ru-media.website.yandexcloud.net
+      YC_BUCKET_NAME: media.dmikhin.ru
+      NEXT_PUBLIC_SITE_URL: https://media.dmikhin.ru
       YC_ACCESS_KEY_ID_RAW: ${{ secrets.YC_ACCESS_KEY_ID }}
       YC_SECRET_ACCESS_KEY_RAW: ${{ secrets.YC_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ru-central1

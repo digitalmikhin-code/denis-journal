@@ -5,8 +5,8 @@ backend:
   base_url: https://functions.yandexcloud.net
   auth_endpoint: d4euglff056il9brlmrf
 
-site_url: https://dmikhin-ru-media.website.yandexcloud.net
-display_url: https://dmikhin-ru-media.website.yandexcloud.net
+site_url: https://media.dmikhin.ru
+display_url: https://media.dmikhin.ru
 logo_url: /images/logo.svg
 
 media_folder: "public/images/uploads"
