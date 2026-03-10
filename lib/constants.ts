@@ -1,7 +1,7 @@
-export const SITE_NAME = "Журнал Дениса Михина";
+export const SITE_NAME = "\u0416\u0443\u0440\u043d\u0430\u043b \u0414\u0435\u043d\u0438\u0441\u0430 \u041c\u0438\u0445\u0438\u043d\u0430";
 export const SITE_DESCRIPTION =
-  "Профессиональный журнал о карьере, управлении, мышлении и ИИ.";
-export const DEFAULT_AUTHOR = "Денис Михин";
+  "\u041f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0436\u0443\u0440\u043d\u0430\u043b \u043e \u043a\u0430\u0440\u044c\u0435\u0440\u0435, \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0438, \u043c\u044b\u0448\u043b\u0435\u043d\u0438\u0438 \u0438 \u0418\u0418.";
+export const DEFAULT_AUTHOR = "\u0414\u0435\u043d\u0438\u0441 \u041c\u0438\u0445\u0438\u043d";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
@@ -9,13 +9,13 @@ export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
 export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
 
 export const CATEGORY_LABELS = {
-  career: "Карьера",
-  management: "Управление и проекты",
-  thinking: "Системное мышление",
-  agile: "Agile и трансформации",
-  architecture: "Архитектура решений",
-  cases: "Реальные кейсы",
-  ai: "ИИ в управлении"
+  career: "\u041a\u0430\u0440\u044c\u0435\u0440\u0430",
+  management: "\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u044b",
+  thinking: "\u0421\u0438\u0441\u0442\u0435\u043c\u043d\u043e\u0435 \u043c\u044b\u0448\u043b\u0435\u043d\u0438\u0435",
+  agile: "Agile \u0438 \u0442\u0440\u0430\u043d\u0441\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438",
+  architecture: "\u0410\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430 \u0440\u0435\u0448\u0435\u043d\u0438\u0439",
+  cases: "\u0420\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u043a\u0435\u0439\u0441\u044b",
+  ai: "\u0418\u0418 \u0432 \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0438"
 } as const;
 
 export type Category = keyof typeof CATEGORY_LABELS;
@@ -31,18 +31,21 @@ export const CATEGORY_COVER_MAP: Record<Category, string> = {
 };
 
 export const FIRST_MENU: Array<{ label: string; href: string }> = [
-  { label: "Карьера", href: "/category/career" },
-  { label: "Управление и проекты", href: "/category/management" },
-  { label: "Системное мышление", href: "/category/thinking" }
+  { label: "\u041a\u0430\u0440\u044c\u0435\u0440\u0430", href: "/category/career" },
+  {
+    label: "\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0438 \u043f\u0440\u043e\u0435\u043a\u0442\u044b",
+    href: "/category/management"
+  },
+  { label: "\u0421\u0438\u0441\u0442\u0435\u043c\u043d\u043e\u0435 \u043c\u044b\u0448\u043b\u0435\u043d\u0438\u0435", href: "/category/thinking" }
 ];
 
 export const SECOND_MENU: Array<{ label: string; href: string }> = [
-  { label: "Статьи", href: "/articles" },
-  { label: "Видео", href: "/videos" },
+  { label: "\u0421\u0442\u0430\u0442\u044c\u0438", href: "/articles" },
+  { label: "\u0412\u0438\u0434\u0435\u043e", href: "/videos" },
   { label: "Agile", href: "/category/agile" },
-  { label: "Архитектура", href: "/category/architecture" },
-  { label: "Кейсы", href: "/category/cases" },
-  { label: "ИИ", href: "/category/ai" },
-  { label: "Обучение", href: "/training" },
-  { label: "Обо мне", href: "/about" }
+  { label: "\u0410\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430", href: "/category/architecture" },
+  { label: "\u041a\u0435\u0439\u0441\u044b", href: "/category/cases" },
+  { label: "\u0418\u0418", href: "/category/ai" },
+  { label: "\u041e\u0431\u0443\u0447\u0435\u043d\u0438\u0435", href: "/training" },
+  { label: "\u041e\u0431\u043e \u043c\u043d\u0435", href: "/about" }
 ];
