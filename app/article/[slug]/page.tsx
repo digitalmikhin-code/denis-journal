@@ -6,7 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
 import { mdxComponents } from "@/components/mdx-components";
-import { CATEGORY_LABELS, SITE_NAME } from "@/lib/constants";
+import { CATEGORY_LABELS, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { getAllArticles, getArticleBySlug, getRelatedArticles } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
@@ -27,16 +27,20 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: article.frontmatter.title,
     description: article.frontmatter.excerpt,
+    robots: {
+      index: true,
+      follow: true
+    },
     alternates: {
       canonical: `/article/${article.slug}`
     },
     openGraph: {
       title: article.frontmatter.title,
       description: article.frontmatter.excerpt,
-      url: `/article/${article.slug}`,
+      url: `${SITE_URL}/article/${article.slug}`,
       siteName: SITE_NAME,
       type: "article",
-      images: [{ url: article.frontmatter.cover }]
+      images: [{ url: `${SITE_URL}${article.frontmatter.cover}` }]
     }
   };
 }
@@ -47,9 +51,61 @@ export default function ArticlePage({ params }: Props): JSX.Element {
     notFound();
   }
   const related = getRelatedArticles(article.slug, 3);
+  const articleUrl = `${SITE_URL}/article/${article.slug}`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: article.frontmatter.title,
+    description: article.frontmatter.excerpt,
+    datePublished: article.frontmatter.date,
+    dateModified: article.frontmatter.date,
+    inLanguage: "ru-RU",
+    mainEntityOfPage: articleUrl,
+    image: [`${SITE_URL}${article.frontmatter.cover}`],
+    author: {
+      "@type": "Person",
+      name: article.frontmatter.author
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME
+    }
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: SITE_URL
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Статьи",
+        item: `${SITE_URL}/articles`
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.frontmatter.title,
+        item: articleUrl
+      }
+    ]
+  };
 
   return (
     <div className="space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <article className="space-y-6">
         <header className="space-y-5">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">

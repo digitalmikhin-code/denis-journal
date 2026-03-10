@@ -1,10 +1,25 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { LocalPostsFeed } from "@/components/local-posts-feed";
-import { CATEGORY_LABELS, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { CATEGORY_LABELS, SITE_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { getFeaturedArticles, getLatestArticles } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
+export const metadata: Metadata = {
+  title: "Журнал Дениса Михина",
+  description:
+    "Экспертный журнал Дениса Михина о карьере, управлении, системном мышлении, Agile, архитектуре решений и ИИ в управлении.",
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    title: "Журнал Дениса Михина",
+    description:
+      "Экспертный журнал Дениса Михина о карьере, управлении, системном мышлении, Agile, архитектуре решений и ИИ в управлении.",
+    url: SITE_URL
+  }
+};
 
 export default function HomePage(): JSX.Element {
   const latest = getLatestArticles(10);
@@ -16,7 +31,7 @@ export default function HomePage(): JSX.Element {
       <section className="relative overflow-hidden rounded-[2rem] border border-[#efb8d2] bg-[#f6c6dd] p-8 shadow-soft md:p-10">
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border-[12px] border-slate-900/15" />
         <div className="pointer-events-none absolute -bottom-28 right-10 h-72 w-72 rounded-full border-[8px] border-slate-900/15" />
-        <div className="pointer-events-none absolute left-[50%] top-[58%] text-6xl text-slate-900/25">✧</div>
+        <div className="pointer-events-none absolute left-[50%] top-[58%] text-6xl text-slate-900/25">?</div>
 
         <div className="relative grid gap-6 md:grid-cols-[1.25fr_0.75fr]">
           <div className="fade-in space-y-6">
@@ -96,7 +111,7 @@ export default function HomePage(): JSX.Element {
         <div className="flex items-center justify-between">
           <h2 className="serif-display text-4xl font-semibold tracking-tight">Последние публикации</h2>
           <Link href="/articles" className="text-sm font-semibold text-brand hover:underline">
-            Все статьи →
+            Все статьи >
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -217,3 +232,6 @@ export default function HomePage(): JSX.Element {
     </div>
   );
 }
+
+
+
