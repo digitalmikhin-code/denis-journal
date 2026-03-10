@@ -58,6 +58,39 @@ collections:
           ## Р’С‹РІРѕРґ
           РљРѕСЂРѕС‚РєРёР№ РёС‚РѕРі + СЃР»РµРґСѓСЋС‰РёР№ С€Р°Рі РґР»СЏ С‡РёС‚Р°С‚РµР»СЏ.
 
+  - name: "videos"
+    label: "Videos"
+    folder: "content/videos"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    summary: "{{title}} — {{date}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Date",
+          name: "date",
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          format: "YYYY-MM-DD"
+        }
+      - label: "Platform"
+        name: "platform"
+        widget: "select"
+        options: ["youtube", "rutube", "vk"]
+      - {
+          label: "Video URL",
+          name: "url",
+          widget: "string",
+          hint: "Полная ссылка на видео YouTube / RuTube / VK Video"
+        }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+
   - name: "pages"
     label: "Pages"
     folder: "content/pages"

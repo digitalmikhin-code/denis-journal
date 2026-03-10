@@ -31,6 +31,12 @@ export function SiteFooter(): JSX.Element {
                 Все статьи
               </Link>
               <Link
+                href="/videos"
+                className="rounded-xl border border-slate-900/15 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-slate-900/30 hover:bg-white"
+              >
+                Видео
+              </Link>
+              <Link
                 href="/training"
                 className="rounded-xl border border-slate-900/15 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:border-slate-900/30 hover:bg-white"
               >
