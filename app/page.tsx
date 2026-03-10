@@ -111,7 +111,7 @@ export default function HomePage(): JSX.Element {
         <div className="flex items-center justify-between">
           <h2 className="serif-display text-4xl font-semibold tracking-tight">Последние публикации</h2>
           <Link href="/articles" className="text-sm font-semibold text-brand hover:underline">
-            Все статьи >
+            Все статьи →
           </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -232,6 +232,7 @@ export default function HomePage(): JSX.Element {
     </div>
   );
 }
+
 
 
 
