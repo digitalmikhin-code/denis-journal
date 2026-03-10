@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" rx="40" fill="#F7FAFF"/>
+  <rect x="54" y="54" width="1092" height="567" rx="36" fill="#FFFFFF" stroke="#D8E4FF" stroke-width="2"/>
+  <rect x="86" y="86" width="1028" height="503" rx="28" fill="#EEF4FF"/>
+  <circle cx="980" cy="166" r="174" fill="#C6D6FF"/>
+  <circle cx="236" cy="602" r="178" fill="#E0E9FF"/>
+  <rect x="132" y="136" width="124" height="48" rx="24" fill="#E0E7FF"/>
+  <text x="170" y="167" fill="#4338CA" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">AI</text>
+  <rect x="132" y="230" width="528" height="34" rx="17" fill="#D4DEFF"/>
+  <rect x="132" y="282" width="470" height="34" rx="17" fill="#BCCBFF"/>
+  <rect x="132" y="334" width="510" height="34" rx="17" fill="#E8EEFF"/>
+  <rect x="744" y="210" width="248" height="248" rx="36" fill="#F8FAFF" stroke="#C7D2FE" stroke-width="3"/>
+  <circle cx="868" cy="334" r="78" fill="#4F46E5" fill-opacity="0.12" stroke="#4338CA" stroke-width="6"/>
+  <circle cx="868" cy="334" r="30" fill="#4338CA"/>
+  <path d="M868 226V176" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M868 492V442" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M760 334H710" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1026 334H976" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M794 260L758 224" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M942 408L978 444" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M942 260L978 224" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <path d="M794 408L758 444" stroke="#4338CA" stroke-width="8" stroke-linecap="round"/>
+  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
+</svg>

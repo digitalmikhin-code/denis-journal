@@ -2,6 +2,15 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
+const categoryCoverMap = {
+  career: "/images/covers/category-career.svg",
+  management: "/images/covers/category-management.svg",
+  thinking: "/images/covers/category-thinking.svg",
+  ai: "/images/covers/category-ai.svg",
+  projects: "/images/covers/category-projects.svg",
+  cases: "/images/covers/category-cases.svg"
+};
+
 const root = process.cwd();
 const articlesDir = path.join(root, "content", "articles");
 const publicDir = path.join(root, "public");
@@ -55,7 +64,7 @@ function main() {
         tags: Array.isArray(parsed.data.tags) ? parsed.data.tags.map((tag) => String(tag).toLowerCase()) : [],
         excerpt: parsed.data.excerpt || "",
         date: normalizedDate,
-        cover: parsed.data.cover || "",
+        cover: parsed.data.cover || categoryCoverMap[parsed.data.category] || "/images/covers/default-cover.svg",
         readingTime: parsed.data.readingTime ? Number(parsed.data.readingTime) : readingTime(parsed.content),
         content
       };

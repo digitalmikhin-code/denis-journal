@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { CATEGORY_LABELS, DEFAULT_AUTHOR, type Category } from "@/lib/constants";
+import { CATEGORY_COVER_MAP, CATEGORY_LABELS, DEFAULT_AUTHOR, type Category } from "@/lib/constants";
 import { calculateReadingTime, normalizeTag, slugFromFilename } from "@/lib/utils";
 
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
@@ -54,7 +54,7 @@ export function getAllArticles(includeDraft = false): Article[] {
         ? parsed.data.tags.map((tag: string) => normalizeTag(tag))
         : [],
       excerpt: parsed.data.excerpt || "",
-      cover: parsed.data.cover || "/images/covers/default-cover.svg",
+      cover: parsed.data.cover || CATEGORY_COVER_MAP[category] || "/images/covers/default-cover.svg",
       draft: Boolean(parsed.data.draft),
       author: parsed.data.author || DEFAULT_AUTHOR,
       featured: Boolean(parsed.data.featured),

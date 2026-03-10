@@ -19,6 +19,15 @@ export const CATEGORY_LABELS = {
 
 export type Category = keyof typeof CATEGORY_LABELS;
 
+export const CATEGORY_COVER_MAP: Record<Category, string> = {
+  career: "/images/covers/category-career.svg",
+  management: "/images/covers/category-management.svg",
+  thinking: "/images/covers/category-thinking.svg",
+  ai: "/images/covers/category-ai.svg",
+  projects: "/images/covers/category-projects.svg",
+  cases: "/images/covers/category-cases.svg"
+};
+
 export const FIRST_MENU: Array<{ label: string; href: string }> = [
   { label: "Карьера", href: "/category/career" },
   { label: "Управление", href: "/category/management" },
