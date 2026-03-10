@@ -46,6 +46,16 @@ jobs:
           ACCESS_KEY_ID="$(printf '%s' "${YC_ACCESS_KEY_ID_RAW}" | tr -d '\r\n[:space:]')"
           SECRET_ACCESS_KEY="$(printf '%s' "${YC_SECRET_ACCESS_KEY_RAW}" | tr -d '\r\n[:space:]')"
 
+          ACCESS_KEY_ID="${ACCESS_KEY_ID%\"}"
+          ACCESS_KEY_ID="${ACCESS_KEY_ID#\"}"
+          ACCESS_KEY_ID="${ACCESS_KEY_ID%\'}"
+          ACCESS_KEY_ID="${ACCESS_KEY_ID#\'}"
+
+          SECRET_ACCESS_KEY="${SECRET_ACCESS_KEY%\"}"
+          SECRET_ACCESS_KEY="${SECRET_ACCESS_KEY#\"}"
+          SECRET_ACCESS_KEY="${SECRET_ACCESS_KEY%\'}"
+          SECRET_ACCESS_KEY="${SECRET_ACCESS_KEY#\'}"
+
           if [ -z "${ACCESS_KEY_ID}" ] || [ -z "${SECRET_ACCESS_KEY}" ]; then
             echo "Yandex Object Storage secrets are empty after trimming."
             exit 1
