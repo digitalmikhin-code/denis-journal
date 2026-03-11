@@ -38,56 +38,80 @@ export const CATEGORY_THEME: Record<
     line: string;
     glow: string;
     icon: string;
+    badgeBg: string;
+    badgeText: string;
+    badgeBorder: string;
   }
 > = {
   career: {
-    chip: "border-[#e5c14f] bg-[#fff3b8] text-[#8b5a00]",
+    chip: "border-[#dfbf45] bg-[#f5d45d] text-[#5c3b00]",
     chipSoft: "bg-[#fff6d6] text-[#8b5a00]",
     line: "from-[#f5d45d] to-[#f59e0b]",
     glow: "rgba(245, 212, 93, 0.22)",
-    icon: "\u25d0"
+    icon: "\u25d0",
+    badgeBg: "#f5d45d",
+    badgeText: "#5c3b00",
+    badgeBorder: "#dfbf45"
   },
   management: {
-    chip: "border-[#c79bff] bg-[#efe0ff] text-[#6d28d9]",
+    chip: "border-[#b98cf2] bg-[#cba4ff] text-[#4e1eb3]",
     chipSoft: "bg-[#f4e9ff] text-[#6d28d9]",
     line: "from-[#b78cf7] to-[#7c3aed]",
     glow: "rgba(183, 140, 247, 0.2)",
-    icon: "\u25c6"
+    icon: "\u25c6",
+    badgeBg: "#cba4ff",
+    badgeText: "#4e1eb3",
+    badgeBorder: "#b98cf2"
   },
   thinking: {
-    chip: "border-[#96d66c] bg-[#e5f9d6] text-[#2f6a22]",
+    chip: "border-[#8fc95d] bg-[#a9e070] text-[#224f18]",
     chipSoft: "bg-[#edfbe3] text-[#2f6a22]",
     line: "from-[#a5e06f] to-[#22c55e]",
     glow: "rgba(165, 224, 111, 0.22)",
-    icon: "\u2726"
+    icon: "\u2726",
+    badgeBg: "#a9e070",
+    badgeText: "#224f18",
+    badgeBorder: "#8fc95d"
   },
   agile: {
-    chip: "border-[#79c8ff] bg-[#dff3ff] text-[#0f5f93]",
+    chip: "border-[#63bceb] bg-[#7ccfff] text-[#0a4f7b]",
     chipSoft: "bg-[#e9f7ff] text-[#0f5f93]",
     line: "from-[#79c8ff] to-[#0284c7]",
     glow: "rgba(121, 200, 255, 0.24)",
-    icon: "\u25c9"
+    icon: "\u25c9",
+    badgeBg: "#7ccfff",
+    badgeText: "#0a4f7b",
+    badgeBorder: "#63bceb"
   },
   architecture: {
-    chip: "border-[#ff9aa2] bg-[#ffe1e4] text-[#b42318]",
+    chip: "border-[#ef7d86] bg-[#ff9aa2] text-[#7f1610]",
     chipSoft: "bg-[#ffebee] text-[#b42318]",
     line: "from-[#ff8d95] to-[#ef4444]",
     glow: "rgba(255, 141, 149, 0.24)",
-    icon: "\u25b2"
+    icon: "\u25b2",
+    badgeBg: "#ff9aa2",
+    badgeText: "#7f1610",
+    badgeBorder: "#ef7d86"
   },
   cases: {
-    chip: "border-[#9ba3b3] bg-[#eceff4] text-[#263142]",
+    chip: "border-[#8790a1] bg-[#9ba3b3] text-[#17202c]",
     chipSoft: "bg-[#f2f4f7] text-[#263142]",
     line: "from-[#6b7280] to-[#111827]",
     glow: "rgba(107, 114, 128, 0.18)",
-    icon: "\u25a0"
+    icon: "\u25a0",
+    badgeBg: "#9ba3b3",
+    badgeText: "#17202c",
+    badgeBorder: "#8790a1"
   },
   ai: {
-    chip: "border-[#ffb267] bg-[#ffe7cf] text-[#9a4d00]",
+    chip: "border-[#ec9a48] bg-[#ffb267] text-[#7a3a00]",
     chipSoft: "bg-[#fff0df] text-[#9a4d00]",
     line: "from-[#ffb267] to-[#f97316]",
     glow: "rgba(255, 178, 103, 0.24)",
-    icon: "\u2b22"
+    icon: "\u2b22",
+    badgeBg: "#ffb267",
+    badgeText: "#7a3a00",
+    badgeBorder: "#ec9a48"
   }
 };
 
