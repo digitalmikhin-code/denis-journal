@@ -197,7 +197,7 @@ export default function HomePage(): JSX.Element {
                       </span>
                     </div>
                     <span
-                      className={`inline-flex rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chipSoft}`}
+                      className={`inline-flex rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chip}`}
                     >
                       {CATEGORY_SHORT_LABELS[category]}
                     </span>
