@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import Link from "next/link";
 import { ARTICLE_REACTIONS } from "@/lib/reactions";
 import { useArticleReactionData } from "@/components/use-article-reaction-data";
 
@@ -18,7 +17,9 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
     submitting,
     error,
     isConfigured,
-    vote
+    canVote,
+    vote,
+    resetLocalReaction
   } = useArticleReactionData(slug);
 
   return (
@@ -62,7 +63,7 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
                 <p className="mt-3 text-4xl font-black tracking-tight text-slate-900">{totalVotes}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
                   {selectedReaction
-                    ? "Ваш отклик уже сохранён. С одного браузера можно оставить одну реакцию на статью."
+                    ? "Ваш отклик уже сохранён. Для этой статьи в текущем браузере доступна одна реакция."
                     : loading
                       ? "Загружаю текущее распределение реакций."
                       : "Чем больше откликов, тем яснее видно, что реально резонирует у читателей."}
@@ -102,21 +103,13 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
         </div>
 
         <div className="p-6 md:p-8">
-          <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Выберите один отклик
-              </p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                После выбора реакция закрепляется за этой статьёй в текущем браузере.
-              </p>
-            </div>
-            <Link
-              href="/reactions"
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
-            >
-              Сводка реакций
-            </Link>
+          <div className="mb-5">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Выберите один отклик
+            </p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              После выбора реакция закрепляется за этой статьёй в текущем браузере.
+            </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -128,7 +121,7 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
                 <button
                   key={reaction.key}
                   type="button"
-                  disabled={!isConfigured || Boolean(selectedReaction) || Boolean(submitting)}
+                  disabled={!isConfigured || !canVote}
                   onClick={() => void vote(reaction.key)}
                   className="rounded-[1.5rem] border bg-white p-4 text-left shadow-[0_12px_24px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_30px_rgba(15,23,42,0.08)] disabled:cursor-default disabled:opacity-100"
                   style={{
@@ -168,6 +161,22 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
               );
             })}
           </div>
+
+          {selectedReaction ? (
+            <div className="mt-5 rounded-[1.5rem] border border-slate-200 bg-white/80 p-4">
+              <p className="text-sm font-semibold text-slate-900">Реакция уже сохранена в этом браузере.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Если это была тестовая реакция и нужно проверить блок ещё раз, можно очистить только локальную отметку для этой статьи.
+              </p>
+              <button
+                type="button"
+                onClick={resetLocalReaction}
+                className="mt-3 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
+              >
+                Сбросить локальную отметку
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
 

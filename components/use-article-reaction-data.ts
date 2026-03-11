@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { REACTIONS_API_URL } from "@/lib/constants";
@@ -27,7 +27,9 @@ export type ArticleReactionData = {
   submitting: ReactionKey | null;
   error: string | null;
   isConfigured: boolean;
+  canVote: boolean;
   vote: (reaction: ReactionKey) => Promise<void>;
+  resetLocalReaction: () => void;
 };
 
 export function useArticleReactionData(slug: string): ArticleReactionData {
@@ -75,7 +77,19 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
 
         const payload = (await response.json()) as ReactionsApiResponse;
         if (isMounted) {
-          setCounts({ ...createEmptyReactionCounts(), ...payload.counts });
+          const nextCounts = { ...createEmptyReactionCounts(), ...payload.counts };
+          setCounts(nextCounts);
+
+          // Если локально записана реакция, но на сервере у статьи еще нет ни одного голоса,
+          // значит браузер сохранил старое состояние после неудачной попытки. Сбрасываем его.
+          if (selectedReaction && getTotalReactionCount(nextCounts) === 0) {
+            try {
+              window.localStorage.removeItem(`${STORAGE_PREFIX}${slug}`);
+            } catch {
+              // ignore
+            }
+            setSelectedReaction(null);
+          }
         }
       } catch {
         if (isMounted) {
@@ -93,13 +107,14 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [selectedReaction, slug]);
 
   const totalVotes = useMemo(() => getTotalReactionCount(counts), [counts]);
   const topReaction = useMemo(() => getTopReaction(counts), [counts]);
+  const canVote = Boolean(REACTIONS_API_URL) && !selectedReaction && !submitting;
 
   async function vote(reaction: ReactionKey): Promise<void> {
-    if (!REACTIONS_API_URL || selectedReaction || submitting) {
+    if (!REACTIONS_API_URL || !canVote) {
       return;
     }
 
@@ -136,6 +151,16 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     }
   }
 
+  function resetLocalReaction(): void {
+    try {
+      window.localStorage.removeItem(`${STORAGE_PREFIX}${slug}`);
+    } catch {
+      // ignore
+    }
+    setSelectedReaction(null);
+    setError(null);
+  }
+
   return {
     counts,
     totalVotes,
@@ -145,6 +170,8 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     submitting,
     error,
     isConfigured: Boolean(REACTIONS_API_URL),
-    vote
+    canVote,
+    vote,
+    resetLocalReaction
   };
 }
