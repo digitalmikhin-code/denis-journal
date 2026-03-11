@@ -21,13 +21,13 @@ export const CATEGORY_LABELS = {
 export type Category = keyof typeof CATEGORY_LABELS;
 
 export const CATEGORY_COVER_MAP: Record<Category, string> = {
-  career: "/images/covers/category-career.svg",
-  management: "/images/covers/category-management.svg",
-  thinking: "/images/covers/category-thinking.svg",
-  agile: "/images/covers/category-agile.svg",
-  architecture: "/images/covers/category-architecture.svg",
-  ai: "/images/covers/category-ai.svg",
-  cases: "/images/covers/category-cases.svg"
+  career: "/images/covers/category-career-v2.svg",
+  management: "/images/covers/category-management-v2.svg",
+  thinking: "/images/covers/category-thinking-v2.svg",
+  agile: "/images/covers/category-agile-v2.svg",
+  architecture: "/images/covers/category-architecture-v2.svg",
+  ai: "/images/covers/category-ai-v2.svg",
+  cases: "/images/covers/category-cases-v2.svg"
 };
 
 export const FIRST_MENU: Array<{ label: string; href: string }> = [
