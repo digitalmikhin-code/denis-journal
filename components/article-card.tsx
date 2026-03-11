@@ -38,7 +38,12 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
 
           <div className="space-y-3">
             <span
-              className={`inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chip}`}
+              className="inline-flex shrink-0 items-center rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm"
+              style={{
+                backgroundColor: theme.badgeBg,
+                color: theme.badgeText,
+                borderColor: theme.badgeBorder
+              }}
             >
               {categoryLabel}
             </span>

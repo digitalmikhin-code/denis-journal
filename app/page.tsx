@@ -197,7 +197,12 @@ export default function HomePage(): JSX.Element {
                       </span>
                     </div>
                     <span
-                      className={`inline-flex rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chip}`}
+                      className="inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm"
+                      style={{
+                        backgroundColor: theme.badgeBg,
+                        color: theme.badgeText,
+                        borderColor: theme.badgeBorder
+                      }}
                     >
                       {CATEGORY_SHORT_LABELS[category]}
                     </span>
