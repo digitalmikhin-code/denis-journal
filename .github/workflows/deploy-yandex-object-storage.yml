@@ -22,6 +22,7 @@ jobs:
       YC_ENDPOINT_URL: https://storage.yandexcloud.net
       YC_BUCKET_NAME: media.dmikhin.ru
       NEXT_PUBLIC_SITE_URL: https://media.dmikhin.ru
+      NEXT_PUBLIC_REACTIONS_API_URL: https://functions.yandexcloud.net/d4elvqt2bon45f1r7i6k
       YC_ACCESS_KEY_ID_RAW: ${{ secrets.YC_ACCESS_KEY_ID }}
       YC_SECRET_ACCESS_KEY_RAW: ${{ secrets.YC_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: ru-central1
