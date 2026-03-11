@@ -192,15 +192,15 @@ export default function HomePage(): JSX.Element {
                   </div>
                   <div className={`space-y-4 ${isImageRight ? "md:order-1" : "md:order-2"}`}>
                     <div className="flex flex-wrap items-center gap-3">
-                      <span
-                        className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] ${theme.chip}`}
-                      >
-                        {CATEGORY_SHORT_LABELS[category]}
-                      </span>
                       <span className="text-sm font-medium text-slate-500">
                         {formatDate(article.frontmatter.date)} · {article.frontmatter.readingTime} мин
                       </span>
                     </div>
+                    <span
+                      className={`inline-flex rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chipSoft}`}
+                    >
+                      {CATEGORY_SHORT_LABELS[category]}
+                    </span>
                     <h3 className="max-w-[18ch] text-3xl font-black leading-[1.02] tracking-tight text-slate-900 md:text-[2.2rem]">
                       {article.frontmatter.title}
                     </h3>

@@ -36,13 +36,13 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
             <span>{article.frontmatter.readingTime} мин</span>
           </div>
 
-          <div className="flex flex-wrap items-start gap-3">
+          <div className="space-y-3">
             <span
-              className={`inline-flex shrink-0 items-center rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] ${theme.chip}`}
+              className={`inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm ${theme.chipSoft}`}
             >
               {categoryLabel}
             </span>
-            <h3 className="max-w-[20ch] flex-1 text-[1.7rem] font-black leading-[1.03] tracking-tight text-slate-900">
+            <h3 className="max-w-[20ch] text-[1.7rem] font-black leading-[1.03] tracking-tight text-slate-900">
               {article.frontmatter.title}
             </h3>
           </div>
