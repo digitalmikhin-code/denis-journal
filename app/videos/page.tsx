@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { formatDate } from "@/lib/utils";
-import { getAllVideos, resolveEmbedUrl } from "@/lib/videos";
+import { getAllVideos } from "@/lib/videos";
 
 export const metadata: Metadata = {
   title: "Видео",
@@ -27,25 +27,42 @@ const PLATFORM_LABEL: Record<string, string> = {
 
 const PLATFORM_THEME: Record<
   string,
-  { chip: string; surface: string; accent: string; button: string }
+  {
+    chip: string;
+    surface: string;
+    accent: string;
+    button: string;
+    poster: string;
+    posterGlow: string;
+    posterAccent: string;
+  }
 > = {
   youtube: {
     chip: "bg-[#ffe2e2] text-[#991b1b] border-[#f6b3b3]",
     surface: "from-[#fff4f4] via-white to-[#ffe8e8]",
     accent: "text-[#991b1b]",
-    button: "border-[#f2b5b5] bg-white text-[#991b1b]"
+    button: "border-[#f2b5b5] bg-white text-[#991b1b]",
+    poster: "from-[#ffb8b8] via-[#ff7d7d] to-[#ef4444]",
+    posterGlow: "bg-white/20",
+    posterAccent: "bg-[#991b1b]"
   },
   rutube: {
     chip: "bg-[#e7e4ff] text-[#4338ca] border-[#c5bcff]",
     surface: "from-[#f4f2ff] via-white to-[#ebe7ff]",
     accent: "text-[#4338ca]",
-    button: "border-[#cfc6ff] bg-white text-[#4338ca]"
+    button: "border-[#cfc6ff] bg-white text-[#4338ca]",
+    poster: "from-[#b8b2ff] via-[#8b87eb] to-[#5b4fd6]",
+    posterGlow: "bg-white/16",
+    posterAccent: "bg-[#312e81]"
   },
   vk: {
     chip: "bg-[#ddf4ff] text-[#0c4a6e] border-[#a8dfff]",
     surface: "from-[#eef9ff] via-white to-[#def4ff]",
     accent: "text-[#0c4a6e]",
-    button: "border-[#b8e6ff] bg-white text-[#0c4a6e]"
+    button: "border-[#b8e6ff] bg-white text-[#0c4a6e]",
+    poster: "from-[#9edcff] via-[#58b8ef] to-[#0ea5e9]",
+    posterGlow: "bg-white/18",
+    posterAccent: "bg-[#0c4a6e]"
   }
 };
 
@@ -224,7 +241,6 @@ export default function VideosPage(): JSX.Element {
 
           <div className="grid gap-6 xl:grid-cols-2">
             {videos.map((item, index) => {
-              const embedUrl = resolveEmbedUrl(item.frontmatter.platform, item.frontmatter.url);
               const theme =
                 PLATFORM_THEME[item.frontmatter.platform] || PLATFORM_THEME.rutube;
 
@@ -233,23 +249,48 @@ export default function VideosPage(): JSX.Element {
                   key={item.slug}
                   className={`overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br ${theme.surface} shadow-[0_22px_48px_rgba(15,23,42,0.08)]`}
                 >
-                  <div className="grid gap-0 lg:grid-cols-[1.04fr_0.96fr]">
-                    <div className="aspect-video bg-slate-100 lg:h-full lg:aspect-auto">
-                      {embedUrl ? (
-                        <iframe
-                          src={embedUrl}
-                          title={item.frontmatter.title}
-                          className="h-full w-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center p-6 text-center text-sm text-slate-600">
-                          Не удалось встроить плеер по этой ссылке.
+                  <div className="overflow-hidden">
+                    <Link
+                      href={item.frontmatter.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group relative block aspect-video overflow-hidden bg-gradient-to-br ${theme.poster}`}
+                    >
+                      <div className="absolute left-6 top-6 flex items-center gap-3">
+                        <span className="rounded-full border border-white/45 bg-white/18 px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
+                          {PLATFORM_LABEL[item.frontmatter.platform] ||
+                            item.frontmatter.platform}
+                        </span>
+                        <span className="text-sm font-medium text-white/88">
+                          {formatDate(item.frontmatter.date)}
+                        </span>
+                      </div>
+
+                      <div className={`absolute -right-10 -top-12 h-48 w-48 rounded-full ${theme.posterGlow}`} />
+                      <div className={`absolute -bottom-16 left-8 h-36 w-36 rounded-full ${theme.posterGlow}`} />
+                      <div className="absolute inset-x-6 bottom-8">
+                        <div className="max-w-[28ch] rounded-[1.6rem] border border-white/30 bg-white/14 p-5 backdrop-blur">
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/75">
+                            Видеоразбор
+                          </p>
+                          <p className="mt-2 text-2xl font-black leading-[1.05] tracking-tight text-white">
+                            {item.frontmatter.title}
+                          </p>
                         </div>
-                      )}
-                    </div>
+                      </div>
+
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/88 text-3xl text-slate-900 shadow-[0_16px_30px_rgba(15,23,42,0.22)] transition group-hover:scale-105">
+                          ▶
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-6 right-6">
+                        <span className={`rounded-full px-4 py-2 text-sm font-semibold text-white ${theme.posterAccent}`}>
+                          Смотреть выпуск
+                        </span>
+                      </div>
+                    </Link>
 
                     <div className="flex flex-col justify-between gap-6 p-6">
                       <div className="space-y-4">
