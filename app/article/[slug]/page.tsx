@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
+import { ArticleReactions } from "@/components/article-reactions";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -262,6 +263,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             </div>
           </aside>
         </div>
+
+        <ArticleReactions slug={article.slug} />
 
         <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#fff8e5_0%,#fff1f7_100%)] p-6 md:p-8">
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">

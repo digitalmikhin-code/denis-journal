@@ -7,6 +7,8 @@ export const SITE_URL =
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
 export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
+export const REACTIONS_API_URL =
+  process.env.NEXT_PUBLIC_REACTIONS_API_URL?.replace(/\/$/, "") || "";
 
 export const CATEGORY_LABELS = {
   career: "\u041a\u0430\u0440\u044c\u0435\u0440\u0430",
