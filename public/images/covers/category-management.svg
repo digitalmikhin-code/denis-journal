@@ -4,8 +4,8 @@
   <rect x="86" y="86" width="1028" height="503" rx="28" fill="#EEF9F0"/>
   <circle cx="980" cy="164" r="170" fill="#B6F0C2"/>
   <circle cx="240" cy="600" r="170" fill="#DFF9E5"/>
-  <rect x="132" y="136" width="276" height="48" rx="24" fill="#DCFCE7"/>
-  <text x="164" y="167" fill="#15803D" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">MANAGEMENT</text>
+  <rect x="132" y="136" width="332" height="48" rx="24" fill="#DCFCE7"/>
+  <text x="164" y="167" fill="#15803D" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2">УПРАВЛЕНИЕ</text>
   <rect x="132" y="230" width="564" height="34" rx="17" fill="#C7F3D0"/>
   <rect x="132" y="282" width="490" height="34" rx="17" fill="#A8E8B8"/>
   <rect x="132" y="334" width="526" height="34" rx="17" fill="#D9F8DF"/>
@@ -18,5 +18,4 @@
   <circle cx="736" cy="277" r="16" fill="#22C55E"/>
   <circle cx="736" cy="339" r="16" fill="#16A34A"/>
   <circle cx="736" cy="401" r="16" fill="#15803D"/>
-  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
 </svg>

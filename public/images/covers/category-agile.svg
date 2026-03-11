@@ -4,8 +4,8 @@
   <rect x="86" y="86" width="1028" height="503" rx="28" fill="#EAF6FF"/>
   <circle cx="988" cy="172" r="170" fill="#B8E4FF"/>
   <circle cx="210" cy="594" r="184" fill="#D7EEFF"/>
-  <rect x="132" y="136" width="298" height="48" rx="24" fill="#E0F2FE"/>
-  <text x="164" y="167" fill="#0369A1" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">AGILE</text>
+  <rect x="132" y="136" width="430" height="48" rx="24" fill="#E0F2FE"/>
+  <text x="164" y="167" fill="#0369A1" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">ГИБКИЕ ТРАНСФОРМАЦИИ</text>
   <rect x="132" y="232" width="536" height="34" rx="17" fill="#D5EEFF"/>
   <rect x="132" y="284" width="472" height="34" rx="17" fill="#B4E0FF"/>
   <rect x="132" y="336" width="512" height="34" rx="17" fill="#E4F4FF"/>
@@ -13,5 +13,4 @@
   <path d="M892 370L938 416L892 462L846 416L892 370Z" fill="#38BDF8"/>
   <path d="M980 308L1032 360L980 412" stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M804 308L752 360L804 412" stroke="#0F172A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
 </svg>

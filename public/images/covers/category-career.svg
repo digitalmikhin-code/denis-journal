@@ -16,6 +16,5 @@
   <path d="M902 326V374" stroke="#0F172A" stroke-width="14" stroke-linecap="round"/>
   <circle cx="826" cy="404" r="58" fill="#38BDF8" fill-opacity="0.18"/>
   <rect x="132" y="136" width="198" height="48" rx="24" fill="#E0F2FE"/>
-  <text x="165" y="167" fill="#0369A1" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">CAREER</text>
-  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
+  <text x="168" y="167" fill="#0369A1" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2">КАРЬЕРА</text>
 </svg>

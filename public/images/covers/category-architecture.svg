@@ -4,8 +4,8 @@
   <rect x="86" y="86" width="1028" height="503" rx="28" fill="#FFF0F0"/>
   <circle cx="986" cy="166" r="174" fill="#FFC9C9"/>
   <circle cx="222" cy="600" r="176" fill="#FFE4E4"/>
-  <rect x="132" y="136" width="362" height="48" rx="24" fill="#FFE0E0"/>
-  <text x="164" y="167" fill="#C81E1E" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">ARCHITECTURE</text>
+  <rect x="132" y="136" width="432" height="48" rx="24" fill="#FFE0E0"/>
+  <text x="164" y="167" fill="#C81E1E" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">АРХИТЕКТУРА РЕШЕНИЙ</text>
   <rect x="132" y="232" width="536" height="34" rx="17" fill="#FFD6D6"/>
   <rect x="132" y="284" width="476" height="34" rx="17" fill="#FFC0C0"/>
   <rect x="132" y="336" width="518" height="34" rx="17" fill="#FFE4E4"/>
@@ -16,5 +16,4 @@
   <path d="M742 446H964" stroke="#0F172A" stroke-width="14" stroke-linecap="round"/>
   <path d="M1014 214L1048 180" stroke="#C81E1E" stroke-width="12" stroke-linecap="round"/>
   <path d="M1048 214L1014 180" stroke="#C81E1E" stroke-width="12" stroke-linecap="round"/>
-  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
 </svg>

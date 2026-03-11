@@ -28,10 +28,17 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
-      - label: "Category"
+      - label: "Категория"
         name: "category"
         widget: "select"
-        options: ["career", "management", "thinking", "agile", "architecture", "cases", "ai"]
+        options:
+          - { label: "Карьера", value: "career" }
+          - { label: "Управление и проекты", value: "management" }
+          - { label: "Системное мышление", value: "thinking" }
+          - { label: "Гибкие трансформации", value: "agile" }
+          - { label: "Архитектура решений", value: "architecture" }
+          - { label: "Реальные кейсы", value: "cases" }
+          - { label: "ИИ в управлении", value: "ai" }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
       - { label: "Excerpt", name: "excerpt", widget: "text", hint: "Р”Рѕ 200 СЃРёРјРІРѕР»РѕРІ" }
       - { label: "Cover", name: "cover", widget: "image", required: false }

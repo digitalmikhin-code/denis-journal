@@ -4,8 +4,8 @@
   <rect x="86" y="86" width="1028" height="503" rx="28" fill="#FFF0F4"/>
   <circle cx="986" cy="164" r="170" fill="#FFC6D6"/>
   <circle cx="226" cy="598" r="178" fill="#FFE0EA"/>
-  <rect x="132" y="136" width="170" height="48" rx="24" fill="#FFE3EC"/>
-  <text x="165" y="167" fill="#BE185D" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">CASES</text>
+  <rect x="132" y="136" width="276" height="48" rx="24" fill="#FFE3EC"/>
+  <text x="164" y="167" fill="#BE185D" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2">РЕАЛЬНЫЕ КЕЙСЫ</text>
   <rect x="132" y="230" width="526" height="34" rx="17" fill="#FFD3E0"/>
   <rect x="132" y="282" width="446" height="34" rx="17" fill="#FFB4CA"/>
   <rect x="132" y="334" width="492" height="34" rx="17" fill="#FFE4EC"/>
@@ -14,5 +14,4 @@
   <circle cx="788" cy="334" r="72" fill="#F43F5E" fill-opacity="0.12"/>
   <rect x="132" y="424" width="364" height="18" rx="9" fill="#F43F5E"/>
   <rect x="132" y="466" width="308" height="18" rx="9" fill="#FB7185"/>
-  <text x="132" y="565" fill="#0F172A" font-family="Georgia, serif" font-size="56" font-weight="700">Journal DM</text>
 </svg>
