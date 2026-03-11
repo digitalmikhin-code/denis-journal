@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { formatDate } from "@/lib/utils";
-import { resolveEmbedUrl, type VideoItem } from "@/lib/videos";
+import { resolveEmbedUrl, type VideoItem } from "@/lib/video-shared";
 
 const PLATFORM_LABEL: Record<string, string> = {
   youtube: "YouTube",
