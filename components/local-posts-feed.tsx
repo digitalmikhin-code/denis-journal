@@ -8,7 +8,15 @@ export function LocalPostsFeed(): JSX.Element | null {
   const [posts, setPosts] = useState<LocalPost[]>([]);
 
   useEffect(() => {
-    const raw = localStorage.getItem(LOCAL_POSTS_KEY);
+    let raw: string | null = null;
+
+    try {
+      raw = window.localStorage.getItem(LOCAL_POSTS_KEY);
+    } catch {
+      setPosts([]);
+      return;
+    }
+
     if (!raw) {
       return;
     }

@@ -10,8 +10,15 @@ export function SiteHeader(): JSX.Element {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const initialDark = saved === "dark";
+    let initialDark = false;
+
+    try {
+      const saved = window.localStorage.getItem("theme");
+      initialDark = saved === "dark";
+    } catch {
+      initialDark = false;
+    }
+
     setDark(initialDark);
     document.documentElement.classList.toggle("dark", initialDark);
   }, []);
@@ -50,7 +57,11 @@ export function SiteHeader(): JSX.Element {
     const next = !dark;
     setDark(next);
     document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
+    try {
+      window.localStorage.setItem("theme", next ? "dark" : "light");
+    } catch {
+      // Ignore storage failures and keep theme only for the current session.
+    }
   }
 
   return (

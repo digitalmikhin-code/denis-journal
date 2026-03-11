@@ -38,11 +38,14 @@ export function CookieConsentBanner(): JSX.Element | null {
         <p className="max-w-[62ch] text-sm leading-7 text-slate-700 sm:text-[0.95rem]">
           Мы используем cookies, чтобы сайт работал стабильно, запоминал ваши действия и
           помогал анализировать посещаемость. Подробнее:{" "}
-          <Link href="/privacy" className="font-semibold text-[#2563eb] hover:underline">
+          <Link href="/privacy#cookies" className="font-semibold text-[#2563eb] underline underline-offset-4 hover:no-underline">
             политика cookies
           </Link>{" "}
           и{" "}
-          <Link href="/privacy" className="font-semibold text-[#2563eb] hover:underline">
+          <Link
+            href="/privacy#personal-data"
+            className="font-semibold text-[#2563eb] underline underline-offset-4 hover:no-underline"
+          >
             обработка данных
           </Link>
           .
