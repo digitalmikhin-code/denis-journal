@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 export function SiteFooter(): JSX.Element {
@@ -31,9 +31,9 @@ export function SiteFooter(): JSX.Element {
                   Разработка сайта
                 </p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Концепция, структура и реализация сайта разработаны Денисом Михиным. Если вам
-                  нужен похожий экспертный журнал, медиа-портал или персональный сайт под задачи
-                  бренда, это можно обсудить отдельно.
+                  Концепция, структура и реализация сайта разработаны Денисом Михиным. Если вам нужен
+                  похожий экспертный журнал, медиа-портал или персональный сайт под задачи бренда,
+                  это можно обсудить отдельно.
                 </p>
                 <Link
                   href={TELEGRAM_CONSULT_URL}
@@ -94,6 +94,12 @@ export function SiteFooter(): JSX.Element {
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
                 >
                   Cookies и данные
+                </Link>
+                <Link
+                  href="/reactions"
+                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+                >
+                  Аналитика реакций
                 </Link>
               </div>
               <div className="mt-5 rounded-[1.5rem] bg-[#6964d9] p-5 text-white shadow-[0_16px_0_0_rgba(46,42,130,0.28)]">
