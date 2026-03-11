@@ -89,6 +89,12 @@ export function SiteFooter(): JSX.Element {
                 >
                   RSS
                 </Link>
+                <Link
+                  href="/privacy"
+                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+                >
+                  Cookies и данные
+                </Link>
               </div>
               <div className="mt-5 rounded-[1.5rem] bg-[#6964d9] p-5 text-white shadow-[0_16px_0_0_rgba(46,42,130,0.28)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
