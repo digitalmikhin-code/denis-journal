@@ -62,7 +62,9 @@ export default function TrainingPage(): JSX.Element {
             </div>
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
-                href="#programs"
+                href={STEPIK_TEACH_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-2xl bg-white px-6 py-3 text-base font-bold text-[#5e58ce] transition hover:bg-slate-100"
               >
                 Смотреть форматы
@@ -277,3 +279,4 @@ export default function TrainingPage(): JSX.Element {
     </div>
   );
 }
+
