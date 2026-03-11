@@ -12,6 +12,7 @@ export function LocalPostsFeed(): JSX.Element | null {
     if (!raw) {
       return;
     }
+
     try {
       const parsed = JSON.parse(raw) as LocalPost[];
       setPosts(parsed.slice(0, 4));
@@ -27,7 +28,9 @@ export function LocalPostsFeed(): JSX.Element | null {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="serif-display text-4xl font-semibold tracking-tight">Посты из тест-админки</h2>
+        <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">
+          Посты из тестовой админки
+        </h2>
         <a href="/studio" className="text-sm font-semibold text-brand hover:underline">
           Открыть студию →
         </a>
@@ -49,4 +52,3 @@ export function LocalPostsFeed(): JSX.Element | null {
     </section>
   );
 }
-

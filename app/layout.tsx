@@ -70,7 +70,7 @@ const websiteSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Journal DM",
+  name: SITE_NAME,
   url: SITE_URL,
   founder: {
     "@type": "Person",

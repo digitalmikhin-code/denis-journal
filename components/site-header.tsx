@@ -64,10 +64,13 @@ export function SiteHeader(): JSX.Element {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <Link href="/" className="group leading-none">
             <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 transition group-hover:text-brand">
-              Журнал
+              Авторский журнал
             </span>
             <span className="serif-display mt-1 block text-[1.8rem] font-bold tracking-tight text-slate-900 transition group-hover:text-brand dark:text-slate-100 md:text-[2.05rem]">
               Дениса Михина
+            </span>
+            <span className="mt-1 block text-xs font-medium tracking-[0.02em] text-slate-500">
+              Системное мышление, управление, карьера, ИИ
             </span>
           </Link>
           <div className="flex items-center gap-2 pt-1">

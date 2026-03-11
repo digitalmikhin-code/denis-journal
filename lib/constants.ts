@@ -20,6 +20,77 @@ export const CATEGORY_LABELS = {
 
 export type Category = keyof typeof CATEGORY_LABELS;
 
+export const CATEGORY_SHORT_LABELS: Record<Category, string> = {
+  career: "\u041a\u0430\u0440\u044c\u0435\u0440\u0430",
+  management: "\u0423\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435",
+  thinking: "\u041c\u044b\u0448\u043b\u0435\u043d\u0438\u0435",
+  agile: "\u0422\u0440\u0430\u043d\u0441\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u044f",
+  architecture: "\u0410\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430",
+  cases: "\u041a\u0435\u0439\u0441\u044b",
+  ai: "\u0418\u0418"
+};
+
+export const CATEGORY_THEME: Record<
+  Category,
+  {
+    chip: string;
+    chipSoft: string;
+    line: string;
+    glow: string;
+    icon: string;
+  }
+> = {
+  career: {
+    chip: "border-[#e5c14f] bg-[#fff3b8] text-[#8b5a00]",
+    chipSoft: "bg-[#fff6d6] text-[#8b5a00]",
+    line: "from-[#f5d45d] to-[#f59e0b]",
+    glow: "rgba(245, 212, 93, 0.22)",
+    icon: "\u25d0"
+  },
+  management: {
+    chip: "border-[#c79bff] bg-[#efe0ff] text-[#6d28d9]",
+    chipSoft: "bg-[#f4e9ff] text-[#6d28d9]",
+    line: "from-[#b78cf7] to-[#7c3aed]",
+    glow: "rgba(183, 140, 247, 0.2)",
+    icon: "\u25c6"
+  },
+  thinking: {
+    chip: "border-[#96d66c] bg-[#e5f9d6] text-[#2f6a22]",
+    chipSoft: "bg-[#edfbe3] text-[#2f6a22]",
+    line: "from-[#a5e06f] to-[#22c55e]",
+    glow: "rgba(165, 224, 111, 0.22)",
+    icon: "\u2726"
+  },
+  agile: {
+    chip: "border-[#79c8ff] bg-[#dff3ff] text-[#0f5f93]",
+    chipSoft: "bg-[#e9f7ff] text-[#0f5f93]",
+    line: "from-[#79c8ff] to-[#0284c7]",
+    glow: "rgba(121, 200, 255, 0.24)",
+    icon: "\u25c9"
+  },
+  architecture: {
+    chip: "border-[#ff9aa2] bg-[#ffe1e4] text-[#b42318]",
+    chipSoft: "bg-[#ffebee] text-[#b42318]",
+    line: "from-[#ff8d95] to-[#ef4444]",
+    glow: "rgba(255, 141, 149, 0.24)",
+    icon: "\u25b2"
+  },
+  cases: {
+    chip: "border-[#9ba3b3] bg-[#eceff4] text-[#263142]",
+    chipSoft: "bg-[#f2f4f7] text-[#263142]",
+    line: "from-[#6b7280] to-[#111827]",
+    glow: "rgba(107, 114, 128, 0.18)",
+    icon: "\u25a0"
+  },
+  ai: {
+    chip: "border-[#ffb267] bg-[#ffe7cf] text-[#9a4d00]",
+    chipSoft: "bg-[#fff0df] text-[#9a4d00]",
+    line: "from-[#ffb267] to-[#f97316]",
+    glow: "rgba(255, 178, 103, 0.24)",
+    icon: "\u2b22"
+  }
+};
+
 export const CATEGORY_COVER_MAP: Record<Category, string> = {
   career: "/images/covers/category-career-v2.svg",
   management: "/images/covers/category-management-v2.svg",
