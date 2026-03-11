@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
 import { ArticleReactions } from "@/components/article-reactions";
+import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -148,6 +149,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               <p className="max-w-[38ch] text-[1.15rem] leading-8 text-slate-600 md:text-[1.22rem]">
                 {article.frontmatter.excerpt}
               </p>
+
+              <ArticleReactionSummary slug={article.slug} />
 
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf7ff] p-5">

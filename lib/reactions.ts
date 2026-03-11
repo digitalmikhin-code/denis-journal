@@ -54,3 +54,26 @@ export function createEmptyReactionCounts(): ReactionCountMap {
     return acc;
   }, {} as ReactionCountMap);
 }
+
+export function getReactionDefinition(key: ReactionKey): ReactionDefinition {
+  return ARTICLE_REACTIONS.find((reaction) => reaction.key === key) ?? ARTICLE_REACTIONS[0];
+}
+
+export function getTotalReactionCount(counts: ReactionCountMap): number {
+  return Object.values(counts).reduce((sum, value) => sum + value, 0);
+}
+
+export function getTopReaction(
+  counts: ReactionCountMap
+): { reaction: ReactionDefinition; count: number } | null {
+  const sorted = ARTICLE_REACTIONS.map((reaction) => ({
+    reaction,
+    count: counts[reaction.key] ?? 0
+  })).sort((left, right) => right.count - left.count);
+
+  if (!sorted[0] || sorted[0].count <= 0) {
+    return null;
+  }
+
+  return sorted[0];
+}
