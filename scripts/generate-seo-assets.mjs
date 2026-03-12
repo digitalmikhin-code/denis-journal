@@ -83,6 +83,7 @@ function writeFeed(articles) {
     siteUrl
   )}</link><description>RSS-лента публикаций</description>${items}</channel></rss>`;
   fs.writeFileSync(path.join(publicDir, "feed.xml"), feed);
+  fs.writeFileSync(path.join(publicDir, "rss"), feed);
 }
 
 function main() {

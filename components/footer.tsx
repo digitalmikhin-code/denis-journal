@@ -84,7 +84,7 @@ export function SiteFooter(): JSX.Element {
                   Telegram-канал
                 </Link>
                 <Link
-                  href="/feed.xml"
+                  href="/rss"
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
                 >
                   RSS

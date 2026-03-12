@@ -94,6 +94,15 @@ jobs:
             --endpoint-url ${YC_ENDPOINT_URL} \
             --content-type text/yaml
 
+      - name: Set Content-Type for RSS endpoints
+        run: |
+          aws s3 cp ./out/feed.xml s3://${YC_BUCKET_NAME}/feed.xml \
+            --endpoint-url ${YC_ENDPOINT_URL} \
+            --content-type application/rss+xml
+          aws s3 cp ./out/rss s3://${YC_BUCKET_NAME}/rss \
+            --endpoint-url ${YC_ENDPOINT_URL} \
+            --content-type application/rss+xml
+
       - name: Verify root objects
         run: |
           aws s3 ls s3://${YC_BUCKET_NAME} --endpoint-url ${YC_ENDPOINT_URL}
