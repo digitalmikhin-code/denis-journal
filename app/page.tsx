@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage(): JSX.Element {
-  const latest = getLatestArticles(10);
+  const latest = selectHomepageArticles(getLatestArticles(18));
 
   const newest = latest[0];
   const articleBlocks = buildHomepageArticleBlocks(latest);
@@ -306,4 +306,27 @@ function buildHomepageArticleBlocks(articles: ArticleSummary[]): HomepageArticle
   }
 
   return blocks;
+}
+
+function selectHomepageArticles(articles: ArticleSummary[]): ArticleSummary[] {
+  if (articles.length <= 3) {
+    return articles;
+  }
+
+  const preferredCounts = [15, 12, 10, 9, 8, 6, 5, 4];
+  const supportedRemainders = new Set([0, 3]);
+
+  for (const count of preferredCounts) {
+    if (articles.length >= count && supportedRemainders.has(count % 4)) {
+      return articles.slice(0, count);
+    }
+  }
+
+  for (let count = articles.length; count >= 4; count -= 1) {
+    if (supportedRemainders.has(count % 4)) {
+      return articles.slice(0, count);
+    }
+  }
+
+  return articles.slice(0, 3);
 }
