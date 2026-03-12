@@ -11,7 +11,7 @@ import {
   TELEGRAM_CHANNEL_URL,
   type Category
 } from "@/lib/constants";
-import { getLatestArticles } from "@/lib/content";
+import { getLatestArticles, type ArticleSummary } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -33,6 +33,7 @@ export default function HomePage(): JSX.Element {
   const latest = getLatestArticles(10);
 
   const newest = latest[0];
+  const articleBlocks = buildHomepageArticleBlocks(latest);
 
   return (
     <div className="space-y-14">
@@ -146,36 +147,40 @@ export default function HomePage(): JSX.Element {
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Подборка</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">????????????????</p>
             <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">
-              Последние публикации
+              ?????????????????? ????????????????????
             </h2>
           </div>
           <Link href="/articles" className="text-sm font-semibold text-slate-700 hover:text-slate-900">
-            Смотреть весь архив →
+            ???????????????? ???????? ?????????? ???
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {latest.map((article, index) => {
-            const isWide = index > 0 && index % 4 === 0;
-            if (!isWide) {
-              return <ArticleCard key={article.slug} article={article} />;
+        <div className="space-y-6">
+          {articleBlocks.map((block, index) => {
+            if (block.type === "grid") {
+              return (
+                <div key={`grid-${index}`} className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {block.articles.map((article) => (
+                    <ArticleCard key={article.slug} article={article} />
+                  ))}
+                </div>
+              );
             }
 
-            const category = article.frontmatter.category as Category;
+            const category = block.article.frontmatter.category as Category;
             const theme = CATEGORY_THEME[category];
-            const wideCardNumber = Math.floor(index / 4);
-            const isImageRight = wideCardNumber % 2 === 0;
+            const isImageRight = block.wideIndex % 2 === 0;
 
             return (
               <article
-                key={article.slug}
-                className="fade-in overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_24px_54px_rgba(15,23,42,0.08)] md:col-span-2 xl:col-span-3"
+                key={block.article.slug}
+                className="fade-in overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_24px_54px_rgba(15,23,42,0.08)]"
                 style={{ boxShadow: `0 24px 54px -30px ${theme.glow}` }}
               >
                 <Link
-                  href={`/article/${article.slug}`}
+                  href={`/article/${block.article.slug}`}
                   className="grid gap-5 p-5 md:min-h-[295px] md:grid-cols-[0.38fr_0.62fr] md:items-center md:p-6"
                 >
                   <div
@@ -184,8 +189,8 @@ export default function HomePage(): JSX.Element {
                     } md:h-full md:aspect-auto`}
                   >
                     <Image
-                      src={article.frontmatter.cover}
-                      alt={article.frontmatter.title}
+                      src={block.article.frontmatter.cover}
+                      alt={block.article.frontmatter.title}
                       fill
                       className="object-cover"
                     />
@@ -193,7 +198,7 @@ export default function HomePage(): JSX.Element {
                   <div className={`space-y-4 ${isImageRight ? "md:order-1" : "md:order-2"}`}>
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-sm font-medium text-slate-500">
-                        {formatDate(article.frontmatter.date)} · {article.frontmatter.readingTime} мин
+                        {formatDate(block.article.frontmatter.date)} ? {block.article.frontmatter.readingTime} ???
                       </span>
                     </div>
                     <span
@@ -207,14 +212,14 @@ export default function HomePage(): JSX.Element {
                       {CATEGORY_SHORT_LABELS[category]}
                     </span>
                     <h3 className="max-w-[18ch] text-3xl font-black leading-[1.02] tracking-tight text-slate-900 md:text-[2.2rem]">
-                      {article.frontmatter.title}
+                      {block.article.frontmatter.title}
                     </h3>
                     <p className="max-w-[54ch] text-lg leading-8 text-slate-600">
-                      {article.frontmatter.excerpt}
+                      {block.article.frontmatter.excerpt}
                     </p>
                     <div className="flex items-center gap-4 pt-1">
                       <span className={`h-2 w-28 rounded-full bg-gradient-to-r ${theme.line}`} />
-                      <span className="text-sm font-semibold text-slate-700">Открыть материал</span>
+                      <span className="text-sm font-semibold text-slate-700">??????? ????????</span>
                     </div>
                   </div>
                 </Link>
@@ -274,4 +279,31 @@ export default function HomePage(): JSX.Element {
       </section>
     </div>
   );
+}
+
+
+type HomepageArticleBlock =
+  | { type: "grid"; articles: ArticleSummary[] }
+  | { type: "wide"; article: ArticleSummary; wideIndex: number };
+
+function buildHomepageArticleBlocks(articles: ArticleSummary[]): HomepageArticleBlock[] {
+  const blocks: HomepageArticleBlock[] = [];
+  let wideIndex = 0;
+
+  for (let index = 0; index < articles.length; index += 4) {
+    const chunk = articles.slice(index, index + 4);
+
+    if (chunk.length === 4) {
+      blocks.push({ type: "grid", articles: chunk.slice(0, 3) });
+      blocks.push({ type: "wide", article: chunk[3], wideIndex });
+      wideIndex += 1;
+      continue;
+    }
+
+    if (chunk.length > 0) {
+      blocks.push({ type: "grid", articles: chunk });
+    }
+  }
+
+  return blocks;
 }
