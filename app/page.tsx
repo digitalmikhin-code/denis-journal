@@ -147,13 +147,13 @@ export default function HomePage(): JSX.Element {
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">????????????????</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Подборка</p>
             <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">
-              ?????????????????? ????????????????????
+              Последние публикации
             </h2>
           </div>
           <Link href="/articles" className="text-sm font-semibold text-slate-700 hover:text-slate-900">
-            ???????????????? ???????? ?????????? ???
+            Смотреть весь архив →
           </Link>
         </div>
 
@@ -198,7 +198,7 @@ export default function HomePage(): JSX.Element {
                   <div className={`space-y-4 ${isImageRight ? "md:order-1" : "md:order-2"}`}>
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-sm font-medium text-slate-500">
-                        {formatDate(block.article.frontmatter.date)} ? {block.article.frontmatter.readingTime} ???
+                        {formatDate(block.article.frontmatter.date)} · {block.article.frontmatter.readingTime} мин
                       </span>
                     </div>
                     <span
@@ -219,7 +219,7 @@ export default function HomePage(): JSX.Element {
                     </p>
                     <div className="flex items-center gap-4 pt-1">
                       <span className={`h-2 w-28 rounded-full bg-gradient-to-r ${theme.line}`} />
-                      <span className="text-sm font-semibold text-slate-700">??????? ????????</span>
+                      <span className="text-sm font-semibold text-slate-700">Открыть материал</span>
                     </div>
                   </div>
                 </Link>
