@@ -99,7 +99,7 @@ jobs:
           aws s3 cp ./out/feed.xml s3://${YC_BUCKET_NAME}/feed.xml \
             --endpoint-url ${YC_ENDPOINT_URL} \
             --content-type application/rss+xml
-          aws s3 cp ./out/rss s3://${YC_BUCKET_NAME}/rss \
+          aws s3 cp ./public/rss s3://${YC_BUCKET_NAME}/rss \
             --endpoint-url ${YC_ENDPOINT_URL} \
             --content-type application/rss+xml
 
