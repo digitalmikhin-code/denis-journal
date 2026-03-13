@@ -10,6 +10,15 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL } from "@/l
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   applicationName: SITE_NAME,
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/images/logo.svg", type: "image/svg+xml" }
+    ],
+    shortcut: ["/favicon.svg"],
+    apple: [{ url: "/images/logo.svg", type: "image/svg+xml" }]
+  },
+  manifest: "/site.webmanifest",
   title: {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`

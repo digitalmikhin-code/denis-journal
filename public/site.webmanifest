@@ -1,0 +1,15 @@
+{
+  "name": "Denis Mikhin Journal",
+  "short_name": "D. Mikhin",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef4fa",
+  "theme_color": "#6d67e4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
