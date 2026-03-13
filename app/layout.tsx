@@ -4,7 +4,6 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 import { TelegramScrollBanner } from "@/components/telegram-scroll-banner";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
-import { YandexMetrika } from "@/components/yandex-metrika";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -98,7 +97,11 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <YandexMetrika />
+        <noscript>
+          <div>
+            <img src="https://mc.yandex.ru/watch/107246735" style={{ position: "absolute", left: "-9999px" }} alt="" />
+          </div>
+        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
