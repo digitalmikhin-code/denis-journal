@@ -47,7 +47,11 @@ export function TelegramScrollBanner(): JSX.Element | null {
     };
   }, [isDismissed]);
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/studio")) {
+  if (
+    pathname.startsWith("/_dmk-admin") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/studio")
+  ) {
     return null;
   }
 

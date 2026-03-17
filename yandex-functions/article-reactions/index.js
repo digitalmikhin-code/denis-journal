@@ -43,10 +43,16 @@ function resolveAllowedOrigin(requestOrigin) {
   if (!requestOrigin) {
     return ALLOWED_ORIGIN[0] || "*";
   }
-  if (ALLOWED_ORIGIN.includes("*")) {
-    return "*";
+  if (ALLOWED_ORIGIN.length === 0 || ALLOWED_ORIGIN.includes("*")) {
+    return requestOrigin;
   }
-  return ALLOWED_ORIGIN.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGIN[0] || "*";
+  if (ALLOWED_ORIGIN.includes(requestOrigin)) {
+    return requestOrigin;
+  }
+  if (requestOrigin.endsWith(".dmikhin.ru")) {
+    return requestOrigin;
+  }
+  return ALLOWED_ORIGIN[0] || requestOrigin;
 }
 
 function response(statusCode, payload, requestOrigin) {

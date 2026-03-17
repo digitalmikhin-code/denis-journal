@@ -91,12 +91,6 @@ export function SiteHeader(): JSX.Element {
             >
               Поиск
             </Link>
-            <Link
-              href="/admin/"
-              className="rounded-xl border border-slate-300/70 bg-white/75 px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-slate-500/60 hover:bg-white"
-            >
-              /admin
-            </Link>
             <button
               type="button"
               onClick={toggleTheme}
