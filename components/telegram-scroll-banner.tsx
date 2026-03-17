@@ -1,16 +1,15 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
 const DISMISSED_KEY = "telegram-scroll-banner-dismissed";
 
 export function TelegramScrollBanner(): JSX.Element | null {
-  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [pathname, setPathname] = useState("/");
 
   useEffect(() => {
     try {
@@ -18,6 +17,8 @@ export function TelegramScrollBanner(): JSX.Element | null {
     } catch {
       setIsDismissed(false);
     }
+
+    setPathname(window.location.pathname || "/");
   }, []);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export function TelegramScrollBanner(): JSX.Element | null {
     };
   }, [isDismissed]);
 
-  if (pathname?.startsWith("/admin") || pathname?.startsWith("/studio")) {
+  if (pathname.startsWith("/admin") || pathname.startsWith("/studio")) {
     return null;
   }
 

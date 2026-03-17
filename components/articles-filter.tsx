@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { CATEGORY_LABELS, type Category } from "@/lib/constants";
 import { ArticleCard } from "@/components/article-card";
 import type { ArticleSummary } from "@/lib/content";
@@ -14,17 +13,21 @@ type Props = {
 };
 
 export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
-  const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<"all" | Category>("all");
   const [tag, setTag] = useState<string>("all");
 
   useEffect(() => {
-    const tagFromUrl = normalizeTag(searchParams.get("tag") || "");
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const tagFromUrl = normalizeTag(params.get("tag") || "");
     if (tagFromUrl && allTags.includes(tagFromUrl)) {
       setTag(tagFromUrl);
     }
-  }, [allTags, searchParams]);
+  }, [allTags]);
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();

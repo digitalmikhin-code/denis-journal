@@ -1,8 +1,7 @@
-"use client";
+﻿"use client";
 
 import Script from "next/script";
 import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
 import { SITE_URL, YANDEX_METRIKA_ID } from "@/lib/constants";
 
 declare global {
@@ -12,21 +11,20 @@ declare global {
 }
 
 export function YandexMetrika(): JSX.Element {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.ym !== "function") {
       return;
     }
 
-    const query = searchParams?.toString();
-    const url = `${SITE_URL}${pathname || "/"}${query ? `?${query}` : ""}`;
+    const pathname = window.location.pathname || "/";
+    const query = window.location.search || "";
+    const url = `${SITE_URL}${pathname}${query}`;
+
     window.ym(YANDEX_METRIKA_ID, "hit", url, {
       title: document.title,
       referer: document.referrer
     });
-  }, [pathname, searchParams]);
+  }, []);
 
   return (
     <>
