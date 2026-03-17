@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
-import { LocalPostsFeed } from "@/components/local-posts-feed";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -228,7 +227,6 @@ export default function HomePage(): JSX.Element {
         </div>
       </section>
 
-      <LocalPostsFeed />
 
       <section className="relative overflow-hidden rounded-[2rem] bg-[#6964d9] p-8 text-white shadow-[0_28px_60px_rgba(67,56,202,0.28)] md:p-10">
         <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full border-[10px] border-white/70" />

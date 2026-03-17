@@ -47,7 +47,9 @@ function getPublishedArticles() {
 }
 
 function writeRobots() {
-  const robots = `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
+  const disallow = ["/_dmk-admin", "/admin", "/studio", "/studio/reactions", "/reactions"];
+  const disallowLines = disallow.map((path) => `Disallow: ${path}`).join("\n");
+  const robots = `User-agent: *\nAllow: /\n${disallowLines}\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
   fs.writeFileSync(path.join(publicDir, "robots.txt"), robots);
 }
 
