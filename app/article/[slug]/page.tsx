@@ -117,13 +117,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       {
         "@type": "ListItem",
         position: 1,
-        name: "Р“Р»Р°РІРЅР°СЏ",
+        name: "Главная",
         item: SITE_URL
       },
       {
         "@type": "ListItem",
         position: 2,
-        name: "РЎС‚Р°С‚СЊРё",
+        name: "Статьи",
         item: `${SITE_URL}/articles`
       },
       {
@@ -164,7 +164,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   {CATEGORY_SHORT_LABELS[category]}
                 </span>
                 <span className="text-sm font-medium text-slate-500">
-                  {formatDate(article.frontmatter.date)} В· {article.frontmatter.readingTime} РјРёРЅ С‡С‚РµРЅРёСЏ
+                  {formatDate(article.frontmatter.date)} В· {article.frontmatter.readingTime} мин чтения
                 </span>
               </div>
 
@@ -181,25 +181,25 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf7ff] p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    РђРІС‚РѕСЂ
+                    Автор
                   </p>
                   <p className="mt-3 text-2xl font-black leading-tight text-slate-900">
-                    Р”РµРЅРёСЃ РњРёС…РёРЅ
+                    Денис Михин
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
-                    РџРёС€Сѓ Рѕ РєР°СЂСЊРµСЂРµ, СѓРїСЂР°РІР»РµРЅРёРё, СЃРёСЃС‚РµРјРЅРѕРј РјС‹С€Р»РµРЅРёРё Рё РР С‚Р°Рє, С‡С‚РѕР±С‹ СЌС‚Рѕ РјРѕР¶РЅРѕ Р±С‹Р»Рѕ
-                    РїСЂРёРјРµРЅРёС‚СЊ РІ СЂРµР°Р»СЊРЅРѕР№ СЂР°Р±РѕС‚Рµ, Р° РЅРµ РїСЂРѕСЃС‚Рѕ РїСЂРѕС‡РёС‚Р°С‚СЊ.
+                    Пишу о карьере, управлении, системном мышлении и ИИ так, чтобы это можно было
+                    применить в реальной работе, а не просто прочитать.
                   </p>
                 </div>
 
                 <div className="rounded-[1.5rem] border border-slate-200 bg-[#fff8e3] p-5">
                   <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                    Р§С‚Рѕ РІРЅСѓС‚СЂРё
+                    Что внутри
                   </p>
                   <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
-                    <li>РљРѕРЅРєСЂРµС‚РЅР°СЏ РїРѕР·РёС†РёСЏ, Р° РЅРµ РЅРµР№С‚СЂР°Р»СЊРЅС‹Р№ РїРµСЂРµСЃРєР°Р·</li>
-                    <li>РџСЂР°РєС‚РёС‡РµСЃРєРёРµ РІС‹РІРѕРґС‹ Рё СЂР°Р±РѕС‡РёРµ РѕСЂРёРµРЅС‚РёСЂС‹</li>
-                    <li>РЎРІСЏР·РєР° СЃС‚СЂР°С‚РµРіРёРё, СѓРїСЂР°РІР»РµРЅРёСЏ Рё РµР¶РµРґРЅРµРІРЅРѕР№ РїСЂР°РєС‚РёРєРё</li>
+                    <li>Конкретная позиция, а не нейтральный пересказ</li>
+                    <li>Практические выводы и рабочие ориентиры</li>
+                    <li>Связка стратегии, управления и ежедневной практики</li>
                   </ul>
                 </div>
               </div>
@@ -217,11 +217,11 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
               <div className="rounded-[1.5rem] border border-slate-200 bg-slate-900 p-5 text-white">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/55">
-                  Р РµРґР°РєС†РёРѕРЅРЅР°СЏ РїРѕРјРµС‚РєР°
+                  Редакционная пометка
                 </p>
                 <p className="mt-3 text-lg font-semibold leading-8">
-                  Р­С‚РѕС‚ С‚РµРєСЃС‚ СЃС‚РѕРёС‚ С‡РёС‚Р°С‚СЊ РЅРµ РєР°Рє В«РјРЅРµРЅРёРµ СЂР°РґРё РјРЅРµРЅРёСЏВ», Р° РєР°Рє СЂР°Р±РѕС‡СѓСЋ СЂР°РјРєСѓ РґР»СЏ
-                  СЂРµС€РµРЅРёР№, РєРѕС‚РѕСЂС‹Рµ РІР»РёСЏСЋС‚ РЅР° СЂРѕСЃС‚, СѓРїСЂР°РІР»РµРЅРёРµ Рё РєР°С‡РµСЃС‚РІРѕ РІР°С€РёС… РґРµР№СЃС‚РІРёР№.
+                  Этот текст стоит читать не как «мнение ради мнения», а как рабочую рамку для
+                  решений, которые влияют на рост, управление и качество ваших действий.
                 </p>
               </div>
             </div>
@@ -242,34 +242,34 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                РќР°РІРёРіР°С†РёСЏ
+                Навигация
               </p>
               <div className="mt-4 space-y-3 text-sm font-semibold text-slate-700">
                 <Link href="/articles" className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100">
-                  Р’СЃРµ СЃС‚Р°С‚СЊРё
+                  Все статьи
                 </Link>
                 <Link
                   href={`/category/${category}`}
                   className={`block rounded-xl px-4 py-3 ${theme.chipSoft}`}
                 >
-                  Р•С‰Рµ РїРѕ С‚РµРјРµ: {CATEGORY_LABELS[category]}
+                  Еще по теме: {CATEGORY_LABELS[category]}
                 </Link>
                 <Link
                   href="/about"
                   className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100"
                 >
-                  РћР± Р°РІС‚РѕСЂРµ
+                  Об авторе
                 </Link>
               </div>
             </div>
 
             <div className="rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff0f7_0%,#eef9ff_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                Р•СЃР»Рё РѕС‚РєР»РёРєРЅСѓР»РѕСЃСЊ
+                Если откликнулось
               </p>
               <p className="mt-3 text-base leading-7 text-slate-700">
-                РџРѕРґРїРёС€РёС‚РµСЃСЊ РЅР° Telegram, С‡С‚РѕР±С‹ РЅРµ С‚РµСЂСЏС‚СЊ РЅРѕРІС‹Рµ СЂР°Р·Р±РѕСЂС‹, РёР»Рё РЅР°РїРёС€РёС‚Рµ РјРЅРµ, РµСЃР»Рё
-                РЅСѓР¶РµРЅ РІР·РіР»СЏРґ РЅР° РІР°С€Сѓ СЃРёС‚СѓР°С†РёСЋ РІ СѓРїСЂР°РІР»РµРЅРёРё, СЂРѕСЃС‚Рµ РёР»Рё СЃРёСЃС‚РµРјРµ СЂР°Р±РѕС‚С‹ РєРѕРјР°РЅРґС‹.
+                Подпишитесь на Telegram, чтобы не терять новые разборы, или напишите мне, если
+                нужен взгляд на вашу ситуацию в управлении, росте или системе работы команды.
               </p>
               <div className="mt-4 flex flex-col gap-3">
                 <Link
@@ -278,7 +278,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   rel="noopener noreferrer"
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-800"
                 >
-                  РќР°РїРёСЃР°С‚СЊ Р”РµРЅРёСЃСѓ
+                  Написать Денису
                 </Link>
               </div>
             </div>
@@ -293,14 +293,14 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                РђРІС‚РѕСЂСЃРєР°СЏ СЂРµРјР°СЂРєР°
+                Авторская ремарка
               </p>
               <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
-                Р•СЃР»Рё РІР°Рј РЅСѓР¶РµРЅ РЅРµ РїСЂРѕСЃС‚Рѕ РєРѕРЅС‚РµРЅС‚, Р° С‚РѕС‡РєР° РѕРїРѕСЂС‹ РґР»СЏ СЂРµС€РµРЅРёР№
+                Если вам нужен не просто контент, а точка опоры для решений
               </h2>
               <p className="mt-3 max-w-[54ch] text-base leading-8 text-slate-700">
-                Р’ Р¶СѓСЂРЅР°Р»Рµ СЏ РїСѓР±Р»РёРєСѓСЋ РјР°С‚РµСЂРёР°Р»С‹ РІ РѕС‚РєСЂС‹С‚РѕРј С„РѕСЂРјР°С‚Рµ. Р•СЃР»Рё РЅСѓР¶РµРЅ Р±РѕР»РµРµ РіР»СѓР±РѕРєРёР№ СЂР°Р·Р±РѕСЂ
-                РІР°С€РµР№ Р·Р°РґР°С‡Рё, РєРѕРјР°РЅРґС‹ РёР»Рё СѓРїСЂР°РІР»РµРЅС‡РµСЃРєРѕР№ СЃРёС‚СѓР°С†РёРё, СЌС‚Рѕ РјРѕР¶РЅРѕ РѕР±СЃСѓРґРёС‚СЊ РѕС‚РґРµР»СЊРЅРѕ.
+                В журнале я публикую материалы в открытом формате. Если нужен более глубокий разбор
+                вашей задачи, команды или управленческой ситуации, это можно обсудить отдельно.
               </p>
             </div>
             <Link
@@ -309,7 +309,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               rel="noopener noreferrer"
               className="inline-flex rounded-2xl bg-slate-900 px-6 py-3 text-base font-bold text-white transition hover:bg-slate-800"
             >
-              РћР±СЃСѓРґРёС‚СЊ Р·Р°РґР°С‡Сѓ
+              Обсудить задачу
             </Link>
           </div>
         </section>
@@ -318,9 +318,9 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       {related.length > 0 && (
         <section className="space-y-5 border-t border-slate-200 pt-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Р”Р°Р»СЊС€Рµ РїРѕ С‚РµРјРµ</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Дальше по теме</p>
             <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">
-              РџРѕС…РѕР¶РёРµ РјР°С‚РµСЂРёР°Р»С‹
+              Похожие материалы
             </h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
