@@ -198,8 +198,7 @@ export default function HomePage(): JSX.Element {
                   <div className={`space-y-4 ${isImageRight ? "md:order-1" : "md:order-2"}`}>
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-sm font-medium text-slate-500">
-                        {formatDate(block.article.frontmatter.date)} · {block.article.frontmatter.readingTime} мин
-                      </span>
+                        {formatDate(block.article.frontmatter.date)}</span>
                     </div>
                     <span
                       className="inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm"
@@ -330,3 +329,4 @@ function selectHomepageArticles(articles: ArticleSummary[]): ArticleSummary[] {
 
   return articles.slice(0, 3);
 }
+

@@ -4,15 +4,27 @@ const ALLOWED_REACTIONS = ["helpful", "strong", "accurate", "practical", "save",
 const BUCKET = process.env.REACTIONS_BUCKET || "media.dmikhin.ru";
 const REGION = process.env.AWS_REGION || "ru-central1";
 const ENDPOINT = process.env.YC_ENDPOINT_URL || "https://storage.yandexcloud.net";
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "https://media.dmikhin.ru";
+const ALLOWED_ORIGIN = (process.env.ALLOWED_ORIGIN || "*")
+  .split(",")
+  .map((item) => item.trim())
+  .filter(Boolean);
+
+const ACCESS_KEY =
+  process.env.YC_ACCESS_KEY_ID ||
+  process.env.AWS_ACCESS_KEY_ID ||
+  process.env.ACCESS_KEY_ID;
+const SECRET_KEY =
+  process.env.YC_SECRET_ACCESS_KEY ||
+  process.env.AWS_SECRET_ACCESS_KEY ||
+  process.env.SECRET_ACCESS_KEY;
 
 const s3 = new S3Client({
   region: REGION,
   endpoint: ENDPOINT,
   forcePathStyle: false,
   credentials: {
-    accessKeyId: process.env.YC_ACCESS_KEY_ID,
-    secretAccessKey: process.env.YC_SECRET_ACCESS_KEY
+    accessKeyId: ACCESS_KEY,
+    secretAccessKey: SECRET_KEY
   }
 });
 
@@ -27,15 +39,26 @@ function baseCounts() {
   };
 }
 
-function response(statusCode, payload) {
+function resolveAllowedOrigin(requestOrigin) {
+  if (!requestOrigin) {
+    return ALLOWED_ORIGIN[0] || "*";
+  }
+  if (ALLOWED_ORIGIN.includes("*")) {
+    return "*";
+  }
+  return ALLOWED_ORIGIN.includes(requestOrigin) ? requestOrigin : ALLOWED_ORIGIN[0] || "*";
+}
+
+function response(statusCode, payload, requestOrigin) {
   return {
     statusCode,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+      "Access-Control-Allow-Origin": resolveAllowedOrigin(requestOrigin),
       "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
-      "Cache-Control": "no-store"
+      "Cache-Control": "no-store",
+      Vary: "Origin"
     },
     body: JSON.stringify(payload)
   };
@@ -100,9 +123,10 @@ async function writeCounts(key, slug, counts) {
 module.exports.handler = async function handler(event) {
   try {
     const method = event.httpMethod || event.requestContext?.http?.method || "GET";
+    const requestOrigin = event.headers?.origin || event.headers?.Origin;
 
     if (method === "OPTIONS") {
-      return response(200, { ok: true });
+      return response(200, { ok: true }, requestOrigin);
     }
 
     const querySlug = event.queryStringParameters?.slug;
@@ -110,34 +134,49 @@ module.exports.handler = async function handler(event) {
     const slug = sanitizeSlug(querySlug || body.slug);
 
     if (!slug) {
-      return response(400, { error: "slug is required" });
+      return response(400, { error: "slug is required" }, requestOrigin);
+    }
+
+    if (!ACCESS_KEY || !SECRET_KEY) {
+      return response(
+        500,
+        {
+          error: "credentials_missing",
+          message: "Storage credentials are not configured."
+        },
+        requestOrigin
+      );
     }
 
     const key = `reactions/${slug}.json`;
 
     if (method === "GET") {
       const counts = await readCounts(key);
-      return response(200, { slug, counts });
+      return response(200, { slug, counts }, requestOrigin);
     }
 
     if (method === "POST") {
       const reaction = String(body.reaction || "");
       if (!ALLOWED_REACTIONS.includes(reaction)) {
-        return response(400, { error: "reaction is invalid" });
+        return response(400, { error: "reaction is invalid" }, requestOrigin);
       }
 
       const counts = await readCounts(key);
       counts[reaction] = Number(counts[reaction] || 0) + 1;
       await writeCounts(key, slug, counts);
 
-      return response(200, { slug, counts });
+      return response(200, { slug, counts }, requestOrigin);
     }
 
-    return response(405, { error: "method not allowed" });
+    return response(405, { error: "method not allowed" }, requestOrigin);
   } catch (error) {
-    return response(500, {
-      error: "internal_error",
-      message: error instanceof Error ? error.message : "Unknown error"
-    });
+    return response(
+      500,
+      {
+        error: "internal_error",
+        message: error instanceof Error ? error.message : "Unknown error"
+      },
+      event?.headers?.origin || event?.headers?.Origin
+    );
   }
 };

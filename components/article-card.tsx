@@ -32,8 +32,6 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
         <div className="space-y-4 bg-white p-5 md:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
             <span>{formatDate(article.frontmatter.date)}</span>
-            <span className="text-slate-300">•</span>
-            <span>{article.frontmatter.readingTime} мин</span>
           </div>
 
           <div className="space-y-3">
