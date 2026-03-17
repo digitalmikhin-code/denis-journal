@@ -90,7 +90,7 @@ jobs:
 
       - name: Set Content-Type for Decap config
         run: |
-          aws s3 cp ./out/admin/config.yml s3://${YC_BUCKET_NAME}/admin/config.yml \
+          aws s3 cp ./out/_dmk-admin/config.yml s3://${YC_BUCKET_NAME}/_dmk-admin/config.yml \
             --endpoint-url ${YC_ENDPOINT_URL} \
             --content-type text/yaml
 
