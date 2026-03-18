@@ -18,8 +18,7 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
     error,
     isConfigured,
     canVote,
-    vote,
-    resetLocalReaction
+    vote
   } = useArticleReactionData(slug);
 
   return (
@@ -62,11 +61,9 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
                 </p>
                 <p className="mt-3 text-4xl font-black tracking-tight text-slate-900">{totalVotes}</p>
                 <p className="mt-2 text-sm leading-6 text-slate-600">
-                  {selectedReaction
-                    ? "Ваш отклик уже сохранён. Для этой статьи в текущем браузере доступна одна реакция."
-                    : loading
-                      ? "Загружаю текущее распределение реакций."
-                      : "Чем больше откликов, тем яснее видно, что реально резонирует у читателей."}
+                  {loading
+                    ? "Загружаю текущее распределение реакций."
+                    : "Чем больше откликов, тем яснее видно, что реально резонирует у читателей."}
                 </p>
               </div>
 
@@ -108,7 +105,7 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
               Выберите один отклик
             </p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              После выбора реакция закрепляется за этой статьёй в текущем браузере.
+              Вы можете отметить отклик по статье. Счётчик обновляется сразу после выбора.
             </p>
           </div>
 
@@ -162,21 +159,6 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
             })}
           </div>
 
-          {selectedReaction ? (
-            <div className="mt-5 rounded-[1.5rem] border border-slate-200 bg-white/80 p-4">
-              <p className="text-sm font-semibold text-slate-900">Реакция уже сохранена в этом браузере.</p>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
-                Если это была тестовая реакция и нужно проверить блок ещё раз, можно очистить только локальную отметку для этой статьи.
-              </p>
-              <button
-                type="button"
-                onClick={resetLocalReaction}
-                className="mt-3 rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50"
-              >
-                Сбросить локальную отметку
-              </button>
-            </div>
-          ) : null}
         </div>
       </div>
 

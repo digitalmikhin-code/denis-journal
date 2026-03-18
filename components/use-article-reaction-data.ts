@@ -29,7 +29,6 @@ export type ArticleReactionData = {
   isConfigured: boolean;
   canVote: boolean;
   vote: (reaction: ReactionKey) => Promise<void>;
-  resetLocalReaction: () => void;
 };
 
 export function useArticleReactionData(slug: string): ArticleReactionData {
@@ -64,7 +63,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}`, {
+        const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}&t=${Date.now()}`, {
           method: "GET",
           headers: {
             Accept: "application/json"
@@ -101,7 +100,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
 
   const totalVotes = useMemo(() => getTotalReactionCount(counts), [counts]);
   const topReaction = useMemo(() => getTopReaction(counts), [counts]);
-  const canVote = Boolean(apiUrl) && !selectedReaction && !submitting;
+  const canVote = Boolean(apiUrl) && !submitting;
 
   async function vote(reaction: ReactionKey): Promise<void> {
     if (!apiUrl || !canVote) {
@@ -141,16 +140,6 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     }
   }
 
-  function resetLocalReaction(): void {
-    try {
-      window.localStorage.removeItem(`${STORAGE_PREFIX}${slug}`);
-    } catch {
-      // ignore
-    }
-    setSelectedReaction(null);
-    setError(null);
-  }
-
   return {
     counts,
     totalVotes,
@@ -161,7 +150,6 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     error,
     isConfigured: Boolean(apiUrl),
     canVote,
-    vote,
-    resetLocalReaction
+    vote
   };
 }
