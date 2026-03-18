@@ -8,8 +8,20 @@ export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
 export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
 const DEFAULT_REACTIONS_API_URL = "https://functions.yandexcloud.net/d4elvqt2bon45f1r7i6k";
+
+function normalizeHttpUrl(value: string | undefined): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value.trim());
+    if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+    return value.replace(/\/+$/, "");
+  } catch {
+    return null;
+  }
+}
+
 export const REACTIONS_API_URL =
-  process.env.NEXT_PUBLIC_REACTIONS_API_URL?.replace(/\/$/, "") || DEFAULT_REACTIONS_API_URL;
+  normalizeHttpUrl(process.env.NEXT_PUBLIC_REACTIONS_API_URL) ?? DEFAULT_REACTIONS_API_URL;
 export const YANDEX_METRIKA_ID = 107246735;
 
 export const CATEGORY_LABELS = {

@@ -1,4 +1,4 @@
-export const ARTICLE_REACTIONS = [
+﻿export const ARTICLE_REACTIONS = [
   {
     key: "helpful",
     emoji: "💡",

@@ -33,6 +33,7 @@ export type ArticleReactionData = {
 };
 
 export function useArticleReactionData(slug: string): ArticleReactionData {
+  const apiUrl = REACTIONS_API_URL;
   const [counts, setCounts] = useState<ReactionCountMap>(createEmptyReactionCounts);
   const [selectedReaction, setSelectedReaction] = useState<ReactionKey | null>(null);
   const [loading, setLoading] = useState(true);
@@ -54,7 +55,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     let isMounted = true;
 
     async function loadCounts(): Promise<void> {
-      if (!REACTIONS_API_URL) {
+      if (!apiUrl) {
         setLoading(false);
         setError("Секция реакций появится после подключения серверной части.");
         return;
@@ -63,7 +64,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${REACTIONS_API_URL}?slug=${encodeURIComponent(slug)}`, {
+        const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}`, {
           method: "GET",
           headers: {
             Accept: "application/json"
@@ -79,17 +80,6 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
         if (isMounted) {
           const nextCounts = { ...createEmptyReactionCounts(), ...payload.counts };
           setCounts(nextCounts);
-
-          // Если локально записана реакция, но на сервере у статьи еще нет ни одного голоса,
-          // значит браузер сохранил старое состояние после неудачной попытки. Сбрасываем его.
-          if (selectedReaction && getTotalReactionCount(nextCounts) === 0) {
-            try {
-              window.localStorage.removeItem(`${STORAGE_PREFIX}${slug}`);
-            } catch {
-              // ignore
-            }
-            setSelectedReaction(null);
-          }
         }
       } catch {
         if (isMounted) {
@@ -107,14 +97,14 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     return () => {
       isMounted = false;
     };
-  }, [selectedReaction, slug]);
+  }, [apiUrl, slug]);
 
   const totalVotes = useMemo(() => getTotalReactionCount(counts), [counts]);
   const topReaction = useMemo(() => getTopReaction(counts), [counts]);
-  const canVote = Boolean(REACTIONS_API_URL) && !selectedReaction && !submitting;
+  const canVote = Boolean(apiUrl) && !selectedReaction && !submitting;
 
   async function vote(reaction: ReactionKey): Promise<void> {
-    if (!REACTIONS_API_URL || !canVote) {
+    if (!apiUrl || !canVote) {
       return;
     }
 
@@ -122,7 +112,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
       setSubmitting(reaction);
       setError(null);
 
-      const response = await fetch(REACTIONS_API_URL, {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -169,7 +159,7 @@ export function useArticleReactionData(slug: string): ArticleReactionData {
     loading,
     submitting,
     error,
-    isConfigured: Boolean(REACTIONS_API_URL),
+    isConfigured: Boolean(apiUrl),
     canVote,
     vote,
     resetLocalReaction
