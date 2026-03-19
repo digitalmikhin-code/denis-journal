@@ -68,4 +68,3 @@ export function SearchClient(): JSX.Element {
     </section>
   );
 }
-

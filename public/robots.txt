@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
 
 Sitemap: https://media.dmikhin.ru/sitemap.xml

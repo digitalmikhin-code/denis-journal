@@ -8,7 +8,54 @@ const publicDir = path.join(root, "public");
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://example.com").replace(/\/$/, "");
 
 function slugFromFilename(fileName) {
-  return fileName.replace(/\.mdx?$/, "").replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  const withoutExt = fileName.replace(/\.mdx?$/, "");
+  const raw = withoutExt.replace(/^\d{4}-\d{2}-\d{2}-/, "");
+  const cyrillicMap = {
+    "\u0430": "a",
+    "\u0431": "b",
+    "\u0432": "v",
+    "\u0433": "g",
+    "\u0434": "d",
+    "\u0435": "e",
+    "\u0451": "e",
+    "\u0436": "zh",
+    "\u0437": "z",
+    "\u0438": "i",
+    "\u0439": "y",
+    "\u043a": "k",
+    "\u043b": "l",
+    "\u043c": "m",
+    "\u043d": "n",
+    "\u043e": "o",
+    "\u043f": "p",
+    "\u0440": "r",
+    "\u0441": "s",
+    "\u0442": "t",
+    "\u0443": "u",
+    "\u0444": "f",
+    "\u0445": "h",
+    "\u0446": "ts",
+    "\u0447": "ch",
+    "\u0448": "sh",
+    "\u0449": "sch",
+    "\u044a": "",
+    "\u044b": "y",
+    "\u044c": "",
+    "\u044d": "e",
+    "\u044e": "yu",
+    "\u044f": "ya"
+  };
+
+  const transliterated = raw
+    .toLowerCase()
+    .split("")
+    .map((char) => cyrillicMap[char] ?? char)
+    .join("");
+
+  return transliterated
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-{2,}/g, "-");
 }
 
 function xmlEscape(input) {
@@ -16,7 +63,7 @@ function xmlEscape(input) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 
@@ -48,7 +95,7 @@ function getPublishedArticles() {
 
 function writeRobots() {
   const disallow = ["/_dmk-admin", "/admin", "/studio", "/studio/reactions", "/reactions"];
-  const disallowLines = disallow.map((path) => `Disallow: ${path}`).join("\n");
+  const disallowLines = disallow.map((blockedPath) => `Disallow: ${blockedPath}`).join("\n");
   const robots = `User-agent: *\nAllow: /\n${disallowLines}\n\nSitemap: ${siteUrl}/sitemap.xml\n`;
   fs.writeFileSync(path.join(publicDir, "robots.txt"), robots);
 }
