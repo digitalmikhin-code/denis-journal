@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/footer";
 import { TelegramScrollBanner } from "@/components/telegram-scroll-banner";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
+import { ScrollEffects } from "@/components/scroll-effects";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -112,6 +113,7 @@ export default function RootLayout({
         />
         <SiteHeader />
         <main className="container-shell py-8">{children}</main>
+        <ScrollEffects />
         <SiteFooter />
         <CookieConsentBanner />
         <TelegramScrollBanner />
