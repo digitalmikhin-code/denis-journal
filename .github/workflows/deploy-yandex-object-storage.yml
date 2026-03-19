@@ -80,6 +80,7 @@ jobs:
         run: |
           aws s3 sync ./out s3://${YC_BUCKET_NAME} \
             --endpoint-url ${YC_ENDPOINT_URL} \
+            --exclude "reactions/*" \
             --delete
 
       - name: Upload category covers
