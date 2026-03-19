@@ -3,6 +3,14 @@
 import { useEffect } from "react";
 
 const TARGET_SELECTOR = "main > *, main article, [data-reveal]";
+const TONE_SELECTOR = "main > *";
+const BRAND_TONES = [
+  "rgba(251, 113, 133, 0.2)",
+  "rgba(167, 139, 250, 0.2)",
+  "rgba(56, 189, 248, 0.2)",
+  "rgba(52, 211, 153, 0.18)",
+  "rgba(250, 204, 21, 0.16)"
+];
 
 export function ScrollEffects(): null {
   useEffect(() => {
@@ -41,7 +49,68 @@ export function ScrollEffects(): null {
 
     targets.forEach((node) => observer.observe(node));
 
-    return () => observer.disconnect();
+    const toneTargets = Array.from(document.querySelectorAll<HTMLElement>(TONE_SELECTOR)).filter(
+      (node) => node.offsetHeight > 180
+    );
+
+    const root = document.documentElement;
+    const defaultTone = BRAND_TONES[0];
+
+    const getTone = (node: HTMLElement, index: number) =>
+      node.dataset.scrollTone?.trim() || BRAND_TONES[index % BRAND_TONES.length] || defaultTone;
+
+    let rafId = 0;
+    const updateTone = () => {
+      if (!toneTargets.length) {
+        root.style.setProperty("--scroll-tone", defaultTone);
+        return;
+      }
+
+      const focusY = window.innerHeight * 0.42;
+      let bestIndex = 0;
+      let bestDistance = Number.POSITIVE_INFINITY;
+
+      for (let index = 0; index < toneTargets.length; index += 1) {
+        const rect = toneTargets[index].getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          continue;
+        }
+
+        const center = (rect.top + rect.bottom) / 2;
+        const distance = Math.abs(center - focusY);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      }
+
+      root.style.setProperty("--scroll-tone", getTone(toneTargets[bestIndex], bestIndex));
+    };
+
+    const onScroll = () => {
+      if (rafId) {
+        return;
+      }
+
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0;
+        updateTone();
+      });
+    };
+
+    updateTone();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
   }, []);
 
   return null;

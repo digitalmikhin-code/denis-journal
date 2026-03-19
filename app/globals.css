@@ -6,6 +6,7 @@
   color-scheme: light;
   --font-sans: "Segoe UI", "Inter", "Arial", sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
+  --scroll-tone: rgba(251, 113, 133, 0.2);
 }
 
 html {
@@ -19,11 +20,28 @@ html.dark {
 body {
   font-family: var(--font-sans), sans-serif;
   @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+  position: relative;
+  isolation: isolate;
   background-image:
     radial-gradient(circle at 8% 0%, rgba(255, 90, 54, 0.22), transparent 28%),
     radial-gradient(circle at 92% 8%, rgba(14, 165, 233, 0.2), transparent 30%),
     radial-gradient(circle at 22% 92%, rgba(16, 185, 129, 0.18), transparent 30%),
     radial-gradient(circle at 84% 88%, rgba(251, 191, 36, 0.16), transparent 30%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 12% 18%, var(--scroll-tone), transparent 52%),
+    radial-gradient(circle at 88% 82%, var(--scroll-tone), transparent 50%);
+  opacity: 0.24;
+  transition:
+    background-image 620ms ease,
+    opacity 620ms ease;
 }
 
 .container-shell {
@@ -119,6 +137,11 @@ body {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  body::before {
+    transition: none;
+    opacity: 0.18;
   }
 }
 
