@@ -32,8 +32,9 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim();
     return items.filter((item) => {
+      const itemTags = Array.isArray(item.frontmatter.tags) ? item.frontmatter.tags : [];
       const byCategory = category === "all" || item.frontmatter.category === category;
-      const byTag = tag === "all" || item.frontmatter.tags.includes(tag);
+      const byTag = tag === "all" || itemTags.includes(tag);
       if (!byCategory || !byTag) {
         return false;
       }
@@ -41,7 +42,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
         return true;
       }
       const haystack =
-        `${item.frontmatter.title} ${item.frontmatter.excerpt} ${item.frontmatter.tags.join(" ")}`.toLowerCase();
+        `${item.frontmatter.title} ${item.frontmatter.excerpt} ${itemTags.join(" ")}`.toLowerCase();
       return haystack.includes(q);
     });
   }, [items, query, category, tag]);
