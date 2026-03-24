@@ -104,8 +104,8 @@ body::before {
 }
 
 .reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(14px);
+  opacity: 1;
+  transform: translateY(0);
   filter: saturate(0.95);
   transition:
     opacity 0.55s ease,
@@ -113,10 +113,25 @@ body::before {
     filter 0.55s ease;
 }
 
+.reveal-on-scroll.reveal-pending {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
 .reveal-on-scroll.is-visible {
   opacity: 1;
   transform: translateY(0);
   filter: saturate(1);
+}
+
+@media (max-width: 1024px), (pointer: coarse) {
+  .reveal-on-scroll,
+  .reveal-on-scroll.reveal-pending,
+  .reveal-on-scroll.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -19,7 +19,15 @@ export function ScrollEffects(): null {
     }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
+    const isMobileViewport = window.matchMedia("(max-width: 1024px)").matches;
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    if (reduceMotion || isMobileViewport || isCoarsePointer) {
+      const visibleTargets = Array.from(document.querySelectorAll<HTMLElement>(TARGET_SELECTOR));
+      visibleTargets.forEach((node) => {
+        node.classList.remove("reveal-pending");
+        node.classList.remove("reveal-on-scroll");
+        node.classList.remove("is-visible");
+      });
       return;
     }
 
@@ -30,6 +38,7 @@ export function ScrollEffects(): null {
 
     targets.forEach((node) => {
       node.classList.add("reveal-on-scroll");
+      node.classList.add("reveal-pending");
     });
 
     const observer = new IntersectionObserver(
@@ -37,6 +46,7 @@ export function ScrollEffects(): null {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
+            entry.target.classList.remove("reveal-pending");
             observer.unobserve(entry.target);
           }
         }
