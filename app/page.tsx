@@ -32,6 +32,7 @@ export default function HomePage(): JSX.Element {
   const latest = selectHomepageArticles(getLatestArticles(18));
 
   const newest = latest[0];
+  const spotlight = latest.slice(1, 3);
   const articleBlocks = buildHomepageArticleBlocks(latest);
 
   return (
@@ -82,9 +83,9 @@ export default function HomePage(): JSX.Element {
             </div>
           </div>
 
-          <div className="grid gap-4">
+          <div className="grid gap-4 content-start">
             {newest ? (
-              <article className="rounded-[2rem] border border-slate-900/10 bg-slate-900 p-6 text-white shadow-[0_20px_45px_rgba(15,23,42,0.18)]">
+              <article className="rounded-[2rem] border border-slate-900/10 bg-slate-900 p-6 text-white shadow-[0_20px_45px_rgba(15,23,42,0.18)] self-start">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
                   В центре внимания
                 </p>
@@ -104,6 +105,27 @@ export default function HomePage(): JSX.Element {
                   </Link>
                 </h2>
                 <p className="mt-3 text-base leading-7 text-white/78">{newest.frontmatter.excerpt}</p>
+                {spotlight.length > 0 ? (
+                  <div className="mt-6 space-y-3 border-t border-white/15 pt-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
+                      Еще в фокусе
+                    </p>
+                    {spotlight.map((item) => (
+                      <Link
+                        key={item.slug}
+                        href={`/article/${item.slug}`}
+                        className="block rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 transition hover:border-white/25 hover:bg-white/[0.08]"
+                      >
+                        <p className="text-[0.72rem] font-bold uppercase tracking-[0.14em] text-white/60">
+                          {CATEGORY_SHORT_LABELS[item.frontmatter.category as Category]}
+                        </p>
+                        <p className="mt-1 text-base font-semibold leading-6 text-white/95">
+                          {item.frontmatter.title}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
               </article>
             ) : null}
           </div>
