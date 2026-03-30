@@ -50,27 +50,21 @@ export default function HomePage(): JSX.Element {
               Сильные решения для руководителей и специалистов
             </h1>
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
-              Практические разборы для тех, кто хочет принимать точные решения, расти быстрее и видеть систему целиком в управлении, карьере и работе с ИИ.
+              Практические разборы, которые помогают принимать точные решения, расти быстрее и видеть систему целиком.
             </p>
             <div className="grid max-w-3xl gap-3 md:grid-cols-3">
-              {[
-                "Чтобы принимать сильные решения в сложных управленческих ситуациях",
-                "Чтобы расти в роли и карьере быстрее, а не годами на инерции",
-                "Чтобы видеть систему целиком и устранять причины, а не симптомы"
-              ].map((item, index) => (
-                <div
-                  key={item}
-                  className={`rounded-[1.5rem] border p-4 text-sm font-medium leading-6 text-slate-800 shadow-sm ${
-                    index === 0
-                      ? "border-[#f2cf63] bg-[#fff4ce]"
-                      : index === 1
-                        ? "border-[#9fdcff] bg-[#eaf8ff]"
-                        : "border-[#efb8d2] bg-[#fff0f7]"
-                  }`}
-                >
-                  {item}
-                </div>
-              ))}
+              <div className="rounded-[1.5rem] border border-[#f2cf63] bg-[#fff4ce] p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Кто</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Денис Михин, автор экспертного журнала.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-[#9fdcff] bg-[#eaf8ff] p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Для кого</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Для руководителей и сильных специалистов.</p>
+              </div>
+              <div className="rounded-[1.5rem] border border-[#efb8d2] bg-[#fff0f7] p-4 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что получите</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Рабочие решения по управлению, карьере, мышлению и ИИ.</p>
+              </div>
             </div>
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
@@ -89,33 +83,6 @@ export default function HomePage(): JSX.Element {
           </div>
 
           <div className="grid gap-4">
-            <div className="rounded-[2rem] border border-slate-900/10 bg-white/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.08)] backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Позиция автора
-              </p>
-              <p className="mt-4 text-[1.65rem] font-black leading-[1.06] tracking-tight text-slate-900">
-                Этот журнал для тех, кто не хочет управлять вслепую: здесь тексты, которые усиливают мышление, ускоряют рост и повышают качество решений.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-2xl bg-[#f7f5ff] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6d28d9]">
-                    Фокус
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-700">
-                    Руководители и сильные специалисты, которые отвечают за результат и хотят расти быстрее.
-                  </p>
-                </div>
-                <div className="rounded-2xl bg-[#eef9ff] p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0f5f93]">
-                    Формат
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-700">
-                    Авторские статьи, кейсы и рабочие инструменты по управлению, карьере, системному мышлению и ИИ.
-                  </p>
-                </div>
-              </div>
-            </div>
-
             {newest ? (
               <article className="rounded-[2rem] border border-slate-900/10 bg-slate-900 p-6 text-white shadow-[0_20px_45px_rgba(15,23,42,0.18)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
