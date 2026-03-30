@@ -5,6 +5,7 @@ const BUCKET = process.env.SUBSCRIBERS_BUCKET || process.env.REACTIONS_BUCKET ||
 const STORE_KEY = process.env.SUBSCRIBERS_STORE_KEY || "crm/subscribers.json";
 const REGION = process.env.AWS_REGION || "ru-central1";
 const ENDPOINT = process.env.YC_ENDPOINT_URL || "https://storage.yandexcloud.net";
+const ADMIN_TOKEN = String(process.env.SUBSCRIBERS_ADMIN_TOKEN || "").trim();
 const ALLOWED_ORIGIN = (process.env.ALLOWED_ORIGIN || "*")
   .split(",")
   .map((item) => item.trim())
@@ -61,7 +62,7 @@ function response(statusCode, payload, requestOrigin, contentType) {
       "Content-Type": contentType || "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": resolveAllowedOrigin(requestOrigin),
       "Access-Control-Allow-Methods": "GET,POST,PUT,OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type,Authorization",
       "Cache-Control": "no-store",
       Vary: "Origin"
     },
@@ -103,6 +104,25 @@ function escapeCsv(value) {
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function resolveAuthToken(event) {
+  const header = event.headers?.authorization || event.headers?.Authorization || "";
+  const raw = String(header).trim();
+  if (!raw) return "";
+  const match = raw.match(/^Bearer\s+(.+)$/i);
+  return (match ? match[1] : raw).trim();
+}
+
+function ensureAdminAccess(event) {
+  if (!ADMIN_TOKEN) {
+    return { ok: false, statusCode: 500, error: "SUBSCRIBERS_ADMIN_TOKEN is not configured." };
+  }
+  const token = resolveAuthToken(event);
+  if (!token || token !== ADMIN_TOKEN) {
+    return { ok: false, statusCode: 401, error: "Unauthorized." };
+  }
+  return { ok: true };
 }
 
 async function readContacts() {
@@ -216,6 +236,11 @@ module.exports.handler = async function handler(event) {
     const body = event.body ? JSON.parse(event.body) : {};
 
     if (method === "GET") {
+      const auth = ensureAdminAccess(event);
+      if (!auth.ok) {
+        return response(auth.statusCode, { error: auth.error }, requestOrigin);
+      }
+
       const items = await readContacts();
       const action = String(query.action || "").toLowerCase();
       const filtered = filterContacts(items, query);
@@ -287,6 +312,11 @@ module.exports.handler = async function handler(event) {
     }
 
     if (method === "PUT") {
+      const auth = ensureAdminAccess(event);
+      if (!auth.ok) {
+        return response(auth.statusCode, { error: auth.error }, requestOrigin);
+      }
+
       const id = String(query.id || body.id || "").trim();
       if (!id) {
         return response(400, { error: "id обязателен для обновления." }, requestOrigin);
@@ -346,4 +376,3 @@ module.exports.handler = async function handler(event) {
     );
   }
 };
-

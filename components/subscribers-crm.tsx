@@ -11,6 +11,8 @@ type SubscribersResponse = {
   error?: string;
 };
 
+const STORAGE_KEY = "dmk-crm-admin-token";
+
 const STATUS_LABEL: Record<ContactStatus, string> = {
   new: "Новый",
   qualified: "Квалифицирован",
@@ -20,9 +22,19 @@ const STATUS_LABEL: Record<ContactStatus, string> = {
   archived: "Архив"
 };
 
+function authHeaders(token: string): Record<string, string> {
+  return {
+    Authorization: `Bearer ${token}`
+  };
+}
+
 export function SubscribersCrm(): JSX.Element {
+  const [token, setToken] = useState("");
+  const [tokenInput, setTokenInput] = useState("");
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const [items, setItems] = useState<SubscriberContact[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [query, setQuery] = useState("");
@@ -49,10 +61,14 @@ export function SubscribersCrm(): JSX.Element {
   });
 
   useEffect(() => {
-    if (!editing) {
-      return;
+    const saved = window.sessionStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      setToken(saved);
     }
+  }, []);
 
+  useEffect(() => {
+    if (!editing) return;
     setForm({
       fullName: editing.fullName,
       email: editing.email,
@@ -64,16 +80,16 @@ export function SubscribersCrm(): JSX.Element {
   }, [editing]);
 
   useEffect(() => {
+    if (!token) return;
+    if (!SUBSCRIBERS_API_URL) {
+      setError("CRM API не подключён. Укажите NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
+      return;
+    }
+
     let active = true;
     const controller = new AbortController();
 
     async function load(): Promise<void> {
-      if (!SUBSCRIBERS_API_URL) {
-        setLoading(false);
-        setError("CRM API не подключён. Укажите NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
-        return;
-      }
-
       try {
         setLoading(true);
         setError(null);
@@ -86,10 +102,14 @@ export function SubscribersCrm(): JSX.Element {
 
         const response = await fetch(`${SUBSCRIBERS_API_URL}?${params.toString()}`, {
           cache: "no-store",
-          signal: controller.signal
+          signal: controller.signal,
+          headers: authHeaders(token)
         });
 
         const payload = (await response.json()) as SubscribersResponse;
+        if (response.status === 401 || response.status === 403) {
+          throw new Error("Неверный токен доступа CRM.");
+        }
         if (!response.ok) {
           throw new Error(payload.error ?? "Не удалось загрузить контакты.");
         }
@@ -98,14 +118,8 @@ export function SubscribersCrm(): JSX.Element {
           setItems(payload.items);
         }
       } catch (loadError) {
-        if (!active) {
-          return;
-        }
-        setError(
-          loadError instanceof Error
-            ? loadError.message
-            : "Не удалось загрузить список."
-        );
+        if (!active) return;
+        setError(loadError instanceof Error ? loadError.message : "Не удалось загрузить список.");
       } finally {
         if (active) {
           setLoading(false);
@@ -118,16 +132,29 @@ export function SubscribersCrm(): JSX.Element {
       active = false;
       controller.abort();
     };
-  }, [query, source, status, tag]);
+  }, [query, source, status, tag, token]);
+
+  function handleLogin(): void {
+    setAuthError(null);
+    const normalized = tokenInput.trim();
+    if (!normalized) {
+      setAuthError("Введите токен доступа CRM.");
+      return;
+    }
+    window.sessionStorage.setItem(STORAGE_KEY, normalized);
+    setToken(normalized);
+    setTokenInput("");
+  }
+
+  function handleLogout(): void {
+    window.sessionStorage.removeItem(STORAGE_KEY);
+    setToken("");
+    setItems([]);
+    setEditingId(null);
+  }
 
   async function handleSave(): Promise<void> {
-    if (!editingId) {
-      return;
-    }
-    if (!SUBSCRIBERS_API_URL) {
-      setSaveError("CRM API не подключён. Укажите NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
-      return;
-    }
+    if (!editingId || !SUBSCRIBERS_API_URL || !token) return;
 
     setSaving(true);
     setSaveError(null);
@@ -135,7 +162,10 @@ export function SubscribersCrm(): JSX.Element {
     try {
       const response = await fetch(`${SUBSCRIBERS_API_URL}?id=${encodeURIComponent(editingId)}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...authHeaders(token)
+        },
         body: JSON.stringify({
           fullName: form.fullName,
           email: form.email,
@@ -147,6 +177,9 @@ export function SubscribersCrm(): JSX.Element {
       });
 
       const payload = (await response.json()) as { item?: SubscriberContact; error?: string };
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Нет доступа. Проверьте токен CRM.");
+      }
       if (!response.ok || !payload.item) {
         throw new Error(payload.error ?? "Не удалось сохранить контакт.");
       }
@@ -160,9 +193,73 @@ export function SubscribersCrm(): JSX.Element {
     }
   }
 
+  async function handleExport(format: "csv" | "json"): Promise<void> {
+    if (!SUBSCRIBERS_API_URL || !token) return;
+    const response = await fetch(`${SUBSCRIBERS_API_URL}?action=export&format=${format}`, {
+      headers: authHeaders(token)
+    });
+    if (!response.ok) {
+      setError("Экспорт не удался. Проверьте токен CRM.");
+      return;
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = format === "csv" ? "subscribers.csv" : "subscribers.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  if (!token) {
+    return (
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Доступ к CRM</p>
+        <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+          Закрытый раздел
+        </h2>
+        <p className="mt-3 max-w-[58ch] text-base leading-7 text-slate-600">
+          Введите админ-токен CRM. Без токена список контактов, экспорт и редактирование недоступны.
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-3">
+          <input
+            type="password"
+            value={tokenInput}
+            onChange={(event) => setTokenInput(event.target.value)}
+            placeholder="CRM admin token"
+            className="min-w-[300px] rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
+          />
+          <button
+            type="button"
+            onClick={handleLogin}
+            className="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+          >
+            Войти в CRM
+          </button>
+        </div>
+        {authError ? <p className="mt-3 text-sm font-medium text-[#b42318]">{authError}</p> : null}
+      </section>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-6">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <p className="text-sm text-slate-600">CRM доступ активен.</p>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:border-slate-300"
+          >
+            Выйти
+          </button>
+        </div>
+
         <div className="grid gap-4 lg:grid-cols-4">
           <label className="block lg:col-span-2">
             <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Поиск</span>
@@ -173,7 +270,6 @@ export function SubscribersCrm(): JSX.Element {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
             />
           </label>
-
           <label className="block">
             <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Статус</span>
             <select
@@ -189,7 +285,6 @@ export function SubscribersCrm(): JSX.Element {
               ))}
             </select>
           </label>
-
           <label className="block">
             <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Источник</span>
             <input
@@ -211,20 +306,21 @@ export function SubscribersCrm(): JSX.Element {
               className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
             />
           </label>
-
           <div className="flex flex-wrap gap-2">
-            <a
-              href={SUBSCRIBERS_API_URL ? `${SUBSCRIBERS_API_URL}?action=export&format=csv` : "#"}
+            <button
+              type="button"
+              onClick={() => void handleExport("csv")}
               className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
             >
               Экспорт CSV
-            </a>
-            <a
-              href={SUBSCRIBERS_API_URL ? `${SUBSCRIBERS_API_URL}?action=export&format=json` : "#"}
+            </button>
+            <button
+              type="button"
+              onClick={() => void handleExport("json")}
               className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
             >
               Экспорт JSON
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -232,12 +328,9 @@ export function SubscribersCrm(): JSX.Element {
       {error ? <p className="text-sm font-medium text-[#b42318]">{error}</p> : null}
 
       <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-6">
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <p className="text-sm text-slate-600">
-            Контактов: <span className="font-semibold text-slate-900">{loading ? "…" : items.length}</span>
-          </p>
-        </div>
-
+        <p className="mb-4 text-sm text-slate-600">
+          Контактов: <span className="font-semibold text-slate-900">{loading ? "…" : items.length}</span>
+        </p>
         <div className="overflow-x-auto">
           <table className="min-w-full border-separate border-spacing-y-2">
             <thead>
@@ -265,18 +358,11 @@ export function SubscribersCrm(): JSX.Element {
                   <td className="px-3 py-3 text-xs">{item.source}</td>
                   <td className="px-3 py-3">
                     <div className="flex flex-wrap gap-1">
-                      {item.tags.length > 0 ? (
-                        item.tags.map((tagValue) => (
-                          <span
-                            key={`${item.id}-${tagValue}`}
-                            className="rounded-full bg-slate-900 px-2 py-1 text-[11px] font-semibold text-white"
-                          >
-                            {tagValue}
-                          </span>
-                        ))
-                      ) : (
-                        <span className="text-xs text-slate-400">—</span>
-                      )}
+                      {item.tags.length > 0 ? item.tags.map((tagValue) => (
+                        <span key={`${item.id}-${tagValue}`} className="rounded-full bg-slate-900 px-2 py-1 text-[11px] font-semibold text-white">
+                          {tagValue}
+                        </span>
+                      )) : <span className="text-xs text-slate-400">—</span>}
                     </div>
                   </td>
                   <td className="px-3 py-3 text-xs text-slate-500">{formatDate(item.subscribedAt)}</td>
@@ -298,85 +384,44 @@ export function SubscribersCrm(): JSX.Element {
 
       {editing ? (
         <section className="rounded-[2rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-2xl font-black tracking-tight text-slate-900">Редактирование контакта</h2>
-            <button
-              type="button"
-              onClick={() => setEditingId(null)}
-              className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:border-slate-300"
-            >
-              Закрыть
-            </button>
-          </div>
-
+          <h2 className="text-2xl font-black tracking-tight text-slate-900">Редактирование контакта</h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">ФИО</span>
-              <input
-                value={form.fullName}
-                onChange={(event) => setForm((prev) => ({ ...prev, fullName: event.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              />
+              <input value={form.fullName} onChange={(event) => setForm((prev) => ({ ...prev, fullName: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white" />
             </label>
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Email</span>
-              <input
-                value={form.email}
-                onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              />
+              <input value={form.email} onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white" />
             </label>
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Статус</span>
-              <select
-                value={form.status}
-                onChange={(event) => setForm((prev) => ({ ...prev, status: event.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              >
+              <select value={form.status} onChange={(event) => setForm((prev) => ({ ...prev, status: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white">
                 {CONTACT_STATUSES.map((item) => (
-                  <option key={item} value={item}>
-                    {STATUS_LABEL[item]}
-                  </option>
+                  <option key={item} value={item}>{STATUS_LABEL[item]}</option>
                 ))}
               </select>
             </label>
             <label className="block">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Источник</span>
-              <input
-                value={form.source}
-                onChange={(event) => setForm((prev) => ({ ...prev, source: event.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              />
+              <input value={form.source} onChange={(event) => setForm((prev) => ({ ...prev, source: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white" />
             </label>
             <label className="block md:col-span-2">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Теги (через запятую)</span>
-              <input
-                value={form.tags}
-                onChange={(event) => setForm((prev) => ({ ...prev, tags: event.target.value }))}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              />
+              <input value={form.tags} onChange={(event) => setForm((prev) => ({ ...prev, tags: event.target.value }))} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white" />
             </label>
             <label className="block md:col-span-2">
               <span className="mb-2 block text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Заметки</span>
-              <textarea
-                value={form.notes}
-                onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))}
-                rows={4}
-                className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white"
-              />
+              <textarea value={form.notes} onChange={(event) => setForm((prev) => ({ ...prev, notes: event.target.value }))} rows={4} className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-[#6964d9] focus:bg-white" />
             </label>
           </div>
-
           {saveError ? <p className="mt-3 text-sm font-medium text-[#b42318]">{saveError}</p> : null}
-
           <div className="mt-4 flex flex-wrap gap-2">
-            <button
-              type="button"
-              disabled={saving}
-              onClick={() => void handleSave()}
-              className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
-            >
+            <button type="button" disabled={saving} onClick={() => void handleSave()} className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60">
               {saving ? "Сохраняю..." : "Сохранить изменения"}
+            </button>
+            <button type="button" onClick={() => setEditingId(null)} className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300">
+              Отмена
             </button>
           </div>
         </section>
@@ -384,3 +429,4 @@ export function SubscribersCrm(): JSX.Element {
     </div>
   );
 }
+

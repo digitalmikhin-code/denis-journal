@@ -1,9 +1,14 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { SubscribersCrm } from "@/components/subscribers-crm";
 import { SUBSCRIBERS_API_URL } from "@/lib/constants";
 
 export const metadata = {
-  title: "CRM подписчиков"
+  title: "CRM подписчиков",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true
+  }
 };
 
 export default function SubscribersAdminPage(): JSX.Element {
@@ -15,8 +20,8 @@ export default function SubscribersAdminPage(): JSX.Element {
           CRM-база email-подписчиков
         </h1>
         <p className="mt-4 max-w-[62ch] text-base leading-8 text-slate-700">
-          Здесь хранится собственная база контактов сайта: статус лида, источник подписки, теги,
-          заметки и дата. Используйте раздел для сегментации рассылок, прогрева и продвижения продуктов.
+          Закрытый раздел для вашей собственной базы контактов: статус лида, источник подписки, теги,
+          заметки и дата. Используйте CRM для сегментации рассылок, прогрева и продвижения продуктов.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
@@ -40,4 +45,3 @@ export default function SubscribersAdminPage(): JSX.Element {
     </div>
   );
 }
-
