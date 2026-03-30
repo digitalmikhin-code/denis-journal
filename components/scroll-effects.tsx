@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const TARGET_SELECTOR = "main > *, main article, [data-reveal]";
+const TARGET_SELECTOR = "main > *, [data-reveal]";
 const TONE_SELECTOR = "main > *";
 const BRAND_TONES = [
   "rgba(251, 113, 133, 0.2)",
@@ -59,6 +59,15 @@ export function ScrollEffects(): null {
 
     targets.forEach((node) => observer.observe(node));
 
+    // Safety net: even if observer callbacks are delayed or dropped,
+    // never keep content hidden indefinitely.
+    const fallbackRevealTimer = window.setTimeout(() => {
+      targets.forEach((node) => {
+        node.classList.add("is-visible");
+        node.classList.remove("reveal-pending");
+      });
+    }, 1200);
+
     const toneTargets = Array.from(document.querySelectorAll<HTMLElement>(TONE_SELECTOR)).filter(
       (node) => node.offsetHeight > 180
     );
@@ -114,6 +123,7 @@ export function ScrollEffects(): null {
 
     return () => {
       observer.disconnect();
+      window.clearTimeout(fallbackRevealTimer);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
 
