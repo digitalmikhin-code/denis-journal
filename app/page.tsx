@@ -46,10 +46,10 @@ export default function HomePage(): JSX.Element {
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-slate-500">
               Экспертный авторский журнал
             </p>
-            <h1 className="max-w-[11ch] text-5xl font-black leading-[0.92] tracking-tight text-slate-900 md:text-7xl">
-              Для руководителей и специалистов, которым нужны сильные решения
+            <h1 className="max-w-[17ch] text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-6xl xl:text-[4.1rem]">
+              Сильные решения для руководителей и специалистов
             </h1>
-            <p className="max-w-[34ch] text-[1.45rem] leading-tight text-slate-800 md:text-[1.8rem]">
+            <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
               Практические разборы для тех, кто хочет принимать точные решения, расти быстрее и видеть систему целиком в управлении, карьере и работе с ИИ.
             </p>
             <div className="grid max-w-3xl gap-3 md:grid-cols-3">
