@@ -40,18 +40,10 @@ const s3 = new S3Client({
 });
 
 function resolveAllowedOrigin(requestOrigin) {
-  if (!requestOrigin) {
-    return ALLOWED_ORIGIN[0] || "*";
-  }
-  if (ALLOWED_ORIGIN.length === 0 || ALLOWED_ORIGIN.includes("*")) {
-    return requestOrigin;
-  }
-  if (ALLOWED_ORIGIN.includes(requestOrigin)) {
-    return requestOrigin;
-  }
-  if (requestOrigin.endsWith(".dmikhin.ru")) {
-    return requestOrigin;
-  }
+  if (!requestOrigin) return ALLOWED_ORIGIN[0] || "*";
+  if (ALLOWED_ORIGIN.length === 0 || ALLOWED_ORIGIN.includes("*")) return requestOrigin;
+  if (ALLOWED_ORIGIN.includes(requestOrigin)) return requestOrigin;
+  if (requestOrigin.endsWith(".dmikhin.ru")) return requestOrigin;
   return ALLOWED_ORIGIN[0] || requestOrigin;
 }
 
@@ -66,19 +58,8 @@ function response(statusCode, payload, requestOrigin, contentType) {
       "Cache-Control": "no-store",
       Vary: "Origin"
     },
-    body:
-      typeof payload === "string"
-        ? payload
-        : JSON.stringify(payload)
+    body: typeof payload === "string" ? payload : JSON.stringify(payload)
   };
-}
-
-async function streamToString(stream) {
-  const chunks = [];
-  for await (const chunk of stream) {
-    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
-  }
-  return Buffer.concat(chunks).toString("utf8");
 }
 
 function normalizeEmail(value) {
@@ -92,18 +73,16 @@ function normalizeName(value) {
 function parseTags(value) {
   if (!value) return [];
   const source = Array.isArray(value) ? value : String(value).split(",");
-  const tags = source
-    .map((item) => String(item).trim().toLowerCase())
-    .filter(Boolean);
+  const tags = source.map((item) => String(item).trim().toLowerCase()).filter(Boolean);
   return Array.from(new Set(tags));
-}
-
-function escapeCsv(value) {
-  return `"${String(value || "").replace(/"/g, '""')}"`;
 }
 
 function validateEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function escapeCsv(value) {
+  return `"${String(value || "").replace(/"/g, '""')}"`;
 }
 
 function resolveAuthToken(event) {
@@ -125,21 +104,22 @@ function ensureAdminAccess(event) {
   return { ok: true };
 }
 
+async function streamToString(stream) {
+  const chunks = [];
+  for await (const chunk of stream) {
+    chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  }
+  return Buffer.concat(chunks).toString("utf8");
+}
+
 async function readContacts() {
   try {
-    const object = await s3.send(
-      new GetObjectCommand({
-        Bucket: BUCKET,
-        Key: STORE_KEY
-      })
-    );
+    const object = await s3.send(new GetObjectCommand({ Bucket: BUCKET, Key: STORE_KEY }));
     const text = await streamToString(object.Body);
     const parsed = JSON.parse(text);
     return Array.isArray(parsed) ? parsed : [];
   } catch (error) {
-    if (error?.$metadata?.httpStatusCode === 404 || error?.name === "NoSuchKey") {
-      return [];
-    }
+    if (error?.$metadata?.httpStatusCode === 404 || error?.name === "NoSuchKey") return [];
     throw error;
   }
 }
@@ -168,7 +148,6 @@ function filterContacts(items, query) {
       if (source && !String(item.source || "").toLowerCase().includes(source)) return false;
       if (tag && !(item.tags || []).some((value) => String(value).toLowerCase().includes(tag))) return false;
       if (!q) return true;
-
       return (
         String(item.fullName || "").toLowerCase().includes(q) ||
         String(item.email || "").toLowerCase().includes(q) ||
@@ -217,17 +196,12 @@ module.exports.handler = async function handler(event) {
   const requestOrigin = event.headers?.origin || event.headers?.Origin;
 
   try {
-    if (method === "OPTIONS") {
-      return response(200, { ok: true }, requestOrigin);
-    }
+    if (method === "OPTIONS") return response(200, { ok: true }, requestOrigin);
 
     if (!ACCESS_KEY || !SECRET_KEY) {
       return response(
         500,
-        {
-          error: "credentials_missing",
-          message: "Storage credentials are not configured."
-        },
+        { error: "credentials_missing", message: "Storage credentials are not configured." },
         requestOrigin
       );
     }
@@ -237,9 +211,7 @@ module.exports.handler = async function handler(event) {
 
     if (method === "GET") {
       const auth = ensureAdminAccess(event);
-      if (!auth.ok) {
-        return response(auth.statusCode, { error: auth.error }, requestOrigin);
-      }
+      if (!auth.ok) return response(auth.statusCode, { error: auth.error }, requestOrigin);
 
       const items = await readContacts();
       const action = String(query.action || "").toLowerCase();
@@ -247,9 +219,7 @@ module.exports.handler = async function handler(event) {
 
       if (action === "export") {
         const format = String(query.format || "csv").toLowerCase();
-        if (format === "json") {
-          return response(200, { items: filtered, total: filtered.length }, requestOrigin);
-        }
+        if (format === "json") return response(200, { items: filtered, total: filtered.length }, requestOrigin);
         return response(200, toCsv(filtered), requestOrigin, "text/csv; charset=utf-8");
       }
 
@@ -263,15 +233,9 @@ module.exports.handler = async function handler(event) {
       const tags = parseTags(body.tags);
       const notes = String(body.notes || "").trim();
 
-      if (fullName.length < 3) {
-        return response(400, { error: "Укажите ФИО (минимум 3 символа)." }, requestOrigin);
-      }
-      if (!validateEmail(email)) {
-        return response(400, { error: "Укажите корректный email." }, requestOrigin);
-      }
-      if (!source) {
-        return response(400, { error: "Источник подписки обязателен." }, requestOrigin);
-      }
+      if (fullName.length < 3) return response(400, { error: "Укажите ФИО (минимум 3 символа)." }, requestOrigin);
+      if (!validateEmail(email)) return response(400, { error: "Укажите корректный email." }, requestOrigin);
+      if (!source) return response(400, { error: "Источник подписки обязателен." }, requestOrigin);
 
       const items = await readContacts();
       const now = new Date().toISOString();
@@ -313,33 +277,21 @@ module.exports.handler = async function handler(event) {
 
     if (method === "PUT") {
       const auth = ensureAdminAccess(event);
-      if (!auth.ok) {
-        return response(auth.statusCode, { error: auth.error }, requestOrigin);
-      }
+      if (!auth.ok) return response(auth.statusCode, { error: auth.error }, requestOrigin);
 
       const id = String(query.id || body.id || "").trim();
-      if (!id) {
-        return response(400, { error: "id обязателен для обновления." }, requestOrigin);
-      }
+      if (!id) return response(400, { error: "id обязателен для обновления." }, requestOrigin);
 
       const items = await readContacts();
       const index = items.findIndex((item) => item.id === id);
-      if (index < 0) {
-        return response(404, { error: "Контакт не найден." }, requestOrigin);
-      }
+      if (index < 0) return response(404, { error: "Контакт не найден." }, requestOrigin);
 
       const current = items[index];
       const nextEmail = body.email ? normalizeEmail(body.email) : current.email;
-      if (!validateEmail(nextEmail)) {
-        return response(400, { error: "Некорректный email." }, requestOrigin);
-      }
+      if (!validateEmail(nextEmail)) return response(400, { error: "Некорректный email." }, requestOrigin);
 
-      const duplicate = items.find(
-        (item) => item.id !== id && normalizeEmail(item.email) === nextEmail
-      );
-      if (duplicate) {
-        return response(400, { error: "Контакт с таким email уже существует." }, requestOrigin);
-      }
+      const duplicate = items.find((item) => item.id !== id && normalizeEmail(item.email) === nextEmail);
+      if (duplicate) return response(400, { error: "Контакт с таким email уже существует." }, requestOrigin);
 
       const nextStatus = String(body.status || current.status);
       if (!CONTACT_STATUSES.has(nextStatus)) {
@@ -368,11 +320,9 @@ module.exports.handler = async function handler(event) {
   } catch (error) {
     return response(
       500,
-      {
-        error: "internal_error",
-        message: error instanceof Error ? error.message : "Unknown error"
-      },
+      { error: "internal_error", message: error instanceof Error ? error.message : "Unknown error" },
       requestOrigin
     );
   }
 };
+
