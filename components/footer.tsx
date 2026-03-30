@@ -84,6 +84,12 @@ export function SiteFooter(): JSX.Element {
                   Telegram-канал
                 </Link>
                 <Link
+                  href="/newsletter"
+                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
+                >
+                  Email-рассылка
+                </Link>
+                <Link
                   href="/rss"
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
                 >
@@ -101,16 +107,24 @@ export function SiteFooter(): JSX.Element {
                   Поддерживать контакт
                 </p>
                 <p className="mt-2 text-2xl font-black leading-tight">
-                  Подпишитесь на Telegram, чтобы не пропускать новые материалы.
+                  Подпишитесь на email или Telegram, чтобы не пропускать новые материалы.
                 </p>
-                <Link
-                  href={TELEGRAM_CHANNEL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#2e2a82]"
-                >
-                  Подписаться на канал
-                </Link>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href="/newsletter"
+                    className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#2e2a82]"
+                  >
+                    Подписаться на email
+                  </Link>
+                  <Link
+                    href={TELEGRAM_CHANNEL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex rounded-xl border border-white/35 bg-transparent px-5 py-3 text-sm font-semibold text-white"
+                  >
+                    Telegram-канал
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

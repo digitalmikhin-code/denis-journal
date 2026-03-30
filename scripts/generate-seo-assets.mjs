@@ -101,7 +101,7 @@ function writeRobots() {
 }
 
 function writeSitemap(articles) {
-  const staticRoutes = ["/", "/articles", "/videos", "/search", "/about", "/training"];
+  const staticRoutes = ["/", "/articles", "/videos", "/search", "/about", "/training", "/newsletter"];
   const categoryRoutes = [...new Set(articles.map((item) => `/category/${item.category}`))];
   const articleRoutes = articles.map((item) => `/article/${item.slug}`);
   const allRoutes = [...staticRoutes, ...categoryRoutes, ...articleRoutes];

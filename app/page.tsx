@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
+import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -183,6 +184,13 @@ export default function HomePage(): JSX.Element {
           </div>
         </section>
       ) : null}
+
+      <NewsletterSignupForm
+        source="homepage"
+        tags={["homepage", "newsletter"]}
+        title="Получать новые материалы по email"
+        subtitle="Подпишитесь, если хотите получать лучшие разборы и обновления журнала в почту. Это отдельная база сайта для рассылок, прогрева и анонсов продуктов."
+      />
 
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">

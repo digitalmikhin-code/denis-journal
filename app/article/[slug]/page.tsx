@@ -8,6 +8,7 @@ import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
+import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -286,6 +287,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         </div>
 
         <ArticleReactions slug={article.slug} />
+
+        <NewsletterSignupForm
+          source={`article:${article.slug}`}
+          tags={["article", category]}
+          title="Если статья была полезна — подпишитесь на email"
+          subtitle="Оставьте ФИО и email, чтобы получать новые материалы, разборы и практические инструменты по этой теме."
+        />
 
         <ArticleBackButtons centered />
 
