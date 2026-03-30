@@ -33,6 +33,7 @@ export default function HomePage(): JSX.Element {
 
   const newest = latest[0];
   const spotlight = latest.slice(1, 3);
+  const gettingStarted = selectGettingStartedArticles(latest, 4, newest?.slug);
   const articleBlocks = buildHomepageArticleBlocks(latest);
 
   return (
@@ -131,6 +132,57 @@ export default function HomePage(): JSX.Element {
           </div>
         </div>
       </section>
+
+      {gettingStarted.length > 0 ? (
+        <section className="rounded-[2rem] border border-slate-200 bg-white/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                С чего начать
+              </p>
+              <h2 className="serif-display mt-2 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+                Если вы здесь впервые — начните с этого
+              </h2>
+              <p className="mt-3 max-w-[58ch] text-base leading-7 text-slate-600">
+                Подборка материалов, которые быстро объясняют подход журнала и дают рабочую опору
+                для решений в управлении, карьере и системном мышлении.
+              </p>
+            </div>
+            <Link
+              href="/articles"
+              className="text-sm font-semibold text-slate-700 transition hover:text-slate-900"
+            >
+              Весь архив →
+            </Link>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {gettingStarted.map((item, index) => {
+              const category = item.frontmatter.category as Category;
+              return (
+                <Link
+                  key={item.slug}
+                  href={`/article/${item.slug}`}
+                  className="group rounded-[1.4rem] border border-slate-200 bg-slate-50/70 p-5 transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-slate-900 px-2 text-xs font-bold text-white">
+                      {index + 1}
+                    </span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+                      {CATEGORY_SHORT_LABELS[category]}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-black leading-tight tracking-tight text-slate-900 group-hover:text-slate-950">
+                    {item.frontmatter.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{item.frontmatter.excerpt}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
@@ -315,5 +367,42 @@ function selectHomepageArticles(articles: ArticleSummary[]): ArticleSummary[] {
   }
 
   return articles.slice(0, 3);
+}
+
+function selectGettingStartedArticles(
+  articles: ArticleSummary[],
+  limit: number,
+  excludeSlug?: string
+): ArticleSummary[] {
+  const filtered = excludeSlug ? articles.filter((article) => article.slug !== excludeSlug) : articles;
+  const byCategory = new Set<string>();
+  const selected: ArticleSummary[] = [];
+
+  for (const article of filtered) {
+    const category = article.frontmatter.category;
+    if (byCategory.has(category)) {
+      continue;
+    }
+
+    selected.push(article);
+    byCategory.add(category);
+
+    if (selected.length === limit) {
+      return selected;
+    }
+  }
+
+  for (const article of filtered) {
+    if (selected.some((item) => item.slug === article.slug)) {
+      continue;
+    }
+
+    selected.push(article);
+    if (selected.length === limit) {
+      break;
+    }
+  }
+
+  return selected;
 }
 
