@@ -1,4 +1,4 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -9,6 +9,7 @@ import ArticleBackFab from "@/components/article-back-fab";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+import { AuthorQuote } from "@/components/author-quote";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -178,6 +179,12 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               </p>
 
               <ArticleReactionSummary slug={article.slug} />
+
+              <AuthorQuote
+                compact
+                className="max-w-[44ch] border-[#e8ddff] bg-[#faf7ff]"
+                quote="Система начинается там, где решения становятся повторяемыми и понятными команде."
+              />
 
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf7ff] p-5">

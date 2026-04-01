@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
+import { AuthorQuote } from "@/components/author-quote";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import {
   CATEGORY_LABELS,
@@ -55,6 +56,11 @@ export default function HomePage(): JSX.Element {
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
               Практические разборы, которые помогают принимать точные решения, расти быстрее и видеть систему целиком.
             </p>
+            <AuthorQuote
+              compact
+              className="max-w-[40ch] border-[#ecd9b6] bg-[#fff8ea]"
+              quote="Сильный руководитель отличается не громкостью, а качеством решений в сложном контексте."
+            />
             <div className="grid max-w-3xl gap-3 md:grid-cols-3">
               <div className="rounded-[1.5rem] border border-[#f2cf63] bg-[#fff4ce] p-4 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Кто</p>

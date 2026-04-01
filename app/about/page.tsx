@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AuthorQuote } from "@/components/author-quote";
 import { SITE_URL, STEPIK_TEACH_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -82,6 +83,10 @@ export default function AboutPage(): JSX.Element {
         </div>
       </section>
 
+      <AuthorQuote
+        className="border-[#d6dcff] bg-[#f7f8ff]"
+        quote="Позиция автора важна только тогда, когда она помогает команде действовать точнее и сильнее."
+      />
       <section className="grid gap-5 md:grid-cols-2">
         <article className="rounded-3xl border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Чем полезен</p>
