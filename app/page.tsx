@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { AuthorQuote } from "@/components/author-quote";
+import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 import {
   CATEGORY_LABELS,
@@ -13,6 +14,7 @@ import {
   type Category
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
+import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -199,6 +201,12 @@ export default function HomePage(): JSX.Element {
           </div>
         </section>
       ) : null}
+
+      <CoursePromoBanner
+        {...SECTION_COURSE_PROMOS.home}
+        label="Курс на главной"
+        ctaLabel="Перейти на Stepik"
+      />
 
       <NewsletterSignupForm
         source="homepage"

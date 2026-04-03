@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { ArticlesFilter } from "@/components/articles-filter";
+import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/constants";
+import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 import { getAllArticles, getAllTags } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -30,6 +32,11 @@ export default function ArticlesPage(): JSX.Element {
           Фильтруйте публикации по рубрикам, тегам и поисковому запросу.
         </p>
       </header>
+      <CoursePromoBanner
+        {...SECTION_COURSE_PROMOS.articles}
+        label="Курс для читателей статей"
+        ctaLabel="Изучить курс"
+      />
       <Suspense fallback={null}>
         <ArticlesFilter items={items} allTags={allTags} />
       </Suspense>

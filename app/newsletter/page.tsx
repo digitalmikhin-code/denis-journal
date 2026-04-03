@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 
 export const metadata: Metadata = {
   title: "Email-рассылка",
@@ -42,7 +44,11 @@ export default function NewsletterPage(): JSX.Element {
         title="Подписка на рассылку"
         subtitle="Оставьте ФИО и email. Мы добавим вас в базу и начнем присылать лучшие материалы журнала."
       />
+      <CoursePromoBanner
+        {...SECTION_COURSE_PROMOS.newsletter}
+        label="Курс из раздела рассылки"
+        ctaLabel="Смотреть курс"
+      />
     </div>
   );
 }
-

@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
+import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
@@ -21,6 +22,7 @@ import {
   TELEGRAM_CONSULT_URL,
   type Category
 } from "@/lib/constants";
+import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
 import { getAllArticles, getArticleBySlug, getRelatedArticles } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
 
@@ -91,6 +93,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const articleUrl = `${SITE_URL}/article/${article.slug}`;
   const category = article.frontmatter.category as Category;
   const theme = CATEGORY_THEME[category];
+  const articleCoursePromo = ARTICLE_CATEGORY_COURSE_PROMOS[category];
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -294,6 +297,12 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         </div>
 
         <ArticleReactions slug={article.slug} />
+
+        <CoursePromoBanner
+          {...articleCoursePromo}
+          label={`Продолжение по теме: ${CATEGORY_LABELS[category]}`}
+          ctaLabel="Пройти курс"
+        />
 
         <NewsletterSignupForm
           source={`article:${article.slug}`}

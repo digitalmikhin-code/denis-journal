@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthorQuote } from "@/components/author-quote";
+import { CoursePromoBanner } from "@/components/course-promo-banner";
+import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 import { SITE_URL, STEPIK_TEACH_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
@@ -82,6 +84,12 @@ export default function AboutPage(): JSX.Element {
           </div>
         </div>
       </section>
+
+      <CoursePromoBanner
+        {...SECTION_COURSE_PROMOS.about}
+        label="Курсы автора"
+        ctaLabel="Открыть каталог курсов"
+      />
 
       <AuthorQuote
         className="border-[#d6dcff] bg-[#f7f8ff]"
