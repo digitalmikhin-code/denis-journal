@@ -30,6 +30,13 @@ export const metadata: Metadata = {
   }
 };
 
+const STARTER_CARD_STYLES = [
+  "border-[#edc65a] bg-[#fff7d4]",
+  "border-[#8fd3fb] bg-[#e8f7ff]",
+  "border-[#e8aac9] bg-[#ffedf6]",
+  "border-[#aebcff] bg-[#eef2ff]"
+] as const;
+
 export default function HomePage(): JSX.Element {
   const latest = selectHomepageArticles(getLatestArticles(18));
 
@@ -141,7 +148,7 @@ export default function HomePage(): JSX.Element {
       </section>
 
       {gettingStarted.length > 0 ? (
-        <section className="rounded-[2rem] border border-slate-200 bg-white/80 p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+        <section className="relative overflow-hidden rounded-[2rem] border border-[#e4c6d8] bg-[radial-gradient(circle_at_14%_16%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_88%_20%,rgba(244,197,226,0.34)_0%,rgba(244,197,226,0)_42%),linear-gradient(135deg,#fff7df_0%,#ffeef7_58%,#fff9ef_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.75)] md:p-8">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -170,7 +177,9 @@ export default function HomePage(): JSX.Element {
                 <Link
                   key={item.slug}
                   href={`/article/${item.slug}`}
-                  className="group rounded-[1.4rem] border border-slate-200 bg-slate-50/70 p-5 transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white"
+                  className={`group rounded-[1.4rem] border p-5 shadow-[0_8px_18px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white/85 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)] ${
+                    STARTER_CARD_STYLES[index % STARTER_CARD_STYLES.length]
+                  }`}
                 >
                   <div className="flex items-center justify-between gap-3">
                     <span className="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-slate-900 px-2 text-xs font-bold text-white">
@@ -196,6 +205,7 @@ export default function HomePage(): JSX.Element {
         tags={["homepage", "newsletter"]}
         title="Получать новые материалы по email"
         subtitle="Подпишитесь, если хотите получать лучшие разборы и обновления журнала в почту. Это отдельная база сайта для рассылок, прогрева и анонсов продуктов."
+        className="relative overflow-hidden rounded-[2rem] border border-[#b8d8ee] bg-[radial-gradient(circle_at_10%_18%,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_82%_14%,rgba(167,214,245,0.28)_0%,rgba(167,214,245,0)_40%),linear-gradient(135deg,#eef8ff_0%,#f4f0ff_54%,#fff5e8_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8"
       />
 
       <section className="space-y-5">
