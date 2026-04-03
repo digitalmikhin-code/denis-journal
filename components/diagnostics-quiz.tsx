@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { YANDEX_METRIKA_ID } from "@/lib/constants";
 
 type OptionKey = "A" | "B" | "C" | "D";
 
@@ -308,11 +309,19 @@ export function DiagnosticsQuiz(): JSX.Element {
 
   const result = useMemo(() => resolveLevel(totalScore), [totalScore]);
 
+  function trackGoal(goal: string, params?: Record<string, string | number>): void {
+    if (typeof window === "undefined") return;
+    const ym = (window as Window & { ym?: (...args: unknown[]) => void }).ym;
+    if (typeof ym !== "function") return;
+    ym(YANDEX_METRIKA_ID, "reachGoal", goal, params ?? {});
+  }
+
   function startQuiz(): void {
     setStarted(true);
     setFinished(false);
     setIndex(0);
     setAnswers({});
+    trackGoal("diagnostics_quiz_start", { questions_total: QUESTIONS.length });
   }
 
   function chooseAnswer(key: OptionKey): void {
@@ -327,7 +336,21 @@ export function DiagnosticsQuiz(): JSX.Element {
 
   function goNext(): void {
     if (!selected) return;
+    trackGoal("diagnostics_quiz_step_next", {
+      question_id: question.id,
+      answer_option: selected,
+      answer_score: OPTION_SCORES[selected]
+    });
     if (index === QUESTIONS.length - 1) {
+      const finalScore = QUESTIONS.reduce((sum, item) => {
+        const key = item.id === question.id ? selected : answers[item.id];
+        return sum + (key ? OPTION_SCORES[key] : 0);
+      }, 0);
+      const finalLevel = resolveLevel(finalScore);
+      trackGoal("diagnostics_quiz_complete", {
+        score_total: finalScore,
+        level: finalLevel.key
+      });
       setFinished(true);
       return;
     }
@@ -397,6 +420,12 @@ export function DiagnosticsQuiz(): JSX.Element {
             href={result.ctaHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackGoal("diagnostics_quiz_cta_click", {
+                level: result.key,
+                score_total: totalScore
+              })
+            }
             className="inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
             {result.ctaLabel}
