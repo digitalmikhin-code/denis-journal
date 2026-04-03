@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DiagnosticsQuiz } from "@/components/diagnostics-quiz";
 
 export const metadata: Metadata = {
   title: "Диагностика",
@@ -12,10 +13,12 @@ export default function DiagnosticsPage(): JSX.Element {
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Новый раздел</p>
         <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">Диагностика</h1>
         <p className="mt-4 max-w-[64ch] text-base leading-8 text-slate-700 md:text-lg">
-          Здесь можно публиковать материалы по диагностике команд, процессов и управленческих систем.
-          Раздел уже добавлен в шапку сайта и готов к наполнению.
+          Диагностика помогает быстро понять текущий уровень управленческого мышления и увидеть точку роста.
+          Ниже вы можете пройти тест и получить персональные рекомендации.
         </p>
       </header>
+
+      <DiagnosticsQuiz />
     </div>
   );
 }
