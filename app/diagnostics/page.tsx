@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DiagnosticsQuiz } from "@/components/diagnostics-quiz";
+import { DiagnosticsHub } from "@/components/diagnostics-hub";
 
 export const metadata: Metadata = {
   title: "Диагностика",
@@ -18,7 +18,7 @@ export default function DiagnosticsPage(): JSX.Element {
         </p>
       </header>
 
-      <DiagnosticsQuiz />
+      <DiagnosticsHub />
     </div>
   );
 }
