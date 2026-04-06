@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { AgileAiTransformationQuiz } from "@/components/agile-ai-transformation-quiz";
 import { DiagnosticsQuiz } from "@/components/diagnostics-quiz";
 import { ProductCreationQuiz } from "@/components/product-creation-quiz";
 
-type QuizKey = "project-management" | "product-creation";
+type QuizKey = "project-management" | "product-creation" | "agile-ai-transformation";
 
 export function DiagnosticsHub(): JSX.Element {
-  const [activeQuiz, setActiveQuiz] = useState<QuizKey>("product-creation");
+  const [activeQuiz, setActiveQuiz] = useState<QuizKey>("agile-ai-transformation");
 
   return (
     <section className="space-y-4">
@@ -27,6 +28,17 @@ export function DiagnosticsHub(): JSX.Element {
           </button>
           <button
             type="button"
+            onClick={() => setActiveQuiz("agile-ai-transformation")}
+            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
+              activeQuiz === "agile-ai-transformation"
+                ? "border-slate-900 bg-slate-900 text-white"
+                : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
+            }`}
+          >
+            Agile / AI трансформация
+          </button>
+          <button
+            type="button"
             onClick={() => setActiveQuiz("project-management")}
             className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
               activeQuiz === "project-management"
@@ -39,7 +51,9 @@ export function DiagnosticsHub(): JSX.Element {
         </div>
       </div>
 
-      {activeQuiz === "product-creation" ? <ProductCreationQuiz /> : <DiagnosticsQuiz />}
+      {activeQuiz === "agile-ai-transformation" ? <AgileAiTransformationQuiz /> : null}
+      {activeQuiz === "product-creation" ? <ProductCreationQuiz /> : null}
+      {activeQuiz === "project-management" ? <DiagnosticsQuiz /> : null}
     </section>
   );
 }
