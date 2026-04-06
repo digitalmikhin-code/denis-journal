@@ -23,7 +23,7 @@ export function DiagnosticsHub(): JSX.Element {
                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
             }`}
           >
-            Создание продуктов (40 вопросов)
+            Создание продуктов
           </button>
           <button
             type="button"
@@ -34,7 +34,7 @@ export function DiagnosticsHub(): JSX.Element {
                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
             }`}
           >
-            Управление проектами (16 вопросов)
+            Управление проектами
           </button>
         </div>
       </div>

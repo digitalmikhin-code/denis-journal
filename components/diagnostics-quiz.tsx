@@ -368,8 +368,8 @@ export function DiagnosticsQuiz(): JSX.Element {
           2 минуты → честный разбор → рекомендации по росту
         </p>
         <div className="mt-5 grid gap-2 text-sm text-slate-600 md:grid-cols-3">
-          <p>16 вопросов</p>
           <p>Подсчёт зрелости мышления</p>
+          <p>Понимание текущего уровня</p>
           <p>Персональная рекомендация</p>
         </div>
         <button
