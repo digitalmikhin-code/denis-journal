@@ -1,6 +1,5 @@
 ﻿import Link from "next/link";
 import { SubscribersCrm } from "@/components/subscribers-crm";
-import { SUBSCRIBERS_API_URL } from "@/lib/constants";
 
 export const metadata = {
   title: "CRM подписчиков",
@@ -23,6 +22,10 @@ export default function SubscribersAdminPage(): JSX.Element {
           Закрытый раздел для вашей собственной базы контактов: статус лида, источник подписки, теги,
           заметки и дата. Используйте CRM для сегментации рассылок, прогрева и продвижения продуктов.
         </p>
+        <p className="mt-2 max-w-[62ch] text-sm leading-7 text-slate-600">
+          Безопасность: вход в страницу защищён Basic Auth, а операции с данными дополнительно защищены CRM
+          токеном.
+        </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
             href="/newsletter"
@@ -30,14 +33,6 @@ export default function SubscribersAdminPage(): JSX.Element {
           >
             Открыть страницу рассылки
           </Link>
-          {SUBSCRIBERS_API_URL ? (
-            <a
-              href={`${SUBSCRIBERS_API_URL}?action=export&format=csv`}
-              className="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
-            >
-              Скачать базу CSV
-            </a>
-          ) : null}
         </div>
       </section>
 

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { SUBSCRIBERS_API_URL } from "@/lib/constants";
@@ -20,7 +20,6 @@ const INITIAL_FORM: FormState = {
   fullName: "",
   email: ""
 };
-const SUBSCRIBERS_IN_DEVELOPMENT = true;
 
 export function NewsletterSignupForm({
   source,
@@ -39,19 +38,12 @@ export function NewsletterSignupForm({
     setError(null);
     setSuccess(null);
 
-    if (SUBSCRIBERS_IN_DEVELOPMENT) {
-      setSuccess("Сервис подписки сейчас в разработке. Скоро появится возможность подписаться.");
-      return;
-    }
-
     if (!SUBSCRIBERS_API_URL) {
-      setError("API подписчиков не подключен. Укажите NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
+      setError("Сервис подписки временно недоступен. Скоро вернём работу формы.");
       return;
     }
 
     setSubmitting(true);
-    setError(null);
-    setSuccess(null);
 
     try {
       const response = await fetch(SUBSCRIBERS_API_URL, {
@@ -136,9 +128,9 @@ export function NewsletterSignupForm({
       </form>
 
       {error ? <p className="mt-4 text-sm font-medium text-[#b42318]">{error}</p> : null}
-      {!SUBSCRIBERS_IN_DEVELOPMENT && !SUBSCRIBERS_API_URL ? (
+      {!SUBSCRIBERS_API_URL ? (
         <p className="mt-4 text-sm font-medium text-amber-700">
-          CRM API не настроен. Добавьте NEXT_PUBLIC_SUBSCRIBERS_API_URL в переменные окружения сайта.
+          Подписка отключена в конфигурации сайта: не задан NEXT_PUBLIC_SUBSCRIBERS_API_URL.
         </p>
       ) : null}
       {success ? <p className="mt-4 text-sm font-medium text-emerald-700">{success}</p> : null}
