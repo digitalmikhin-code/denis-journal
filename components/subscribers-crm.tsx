@@ -24,7 +24,7 @@ const STATUS_LABEL: Record<ContactStatus, string> = {
 
 function authHeaders(token: string): Record<string, string> {
   return {
-    Authorization: `Bearer ${token}`
+    "X-CRM-Token": token
   };
 }
 

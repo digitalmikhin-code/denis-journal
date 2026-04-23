@@ -23,6 +23,9 @@ Yandex Cloud Function for collecting and managing email subscribers in Object St
 - `GET /?action=export&format=csv|json|emails` - export contacts (requires admin token)
   - `emails` returns newline-separated email list for quick import to mailing services
 
+Recommended auth header for browser/admin panel: `X-CRM-Token: <SUBSCRIBERS_ADMIN_TOKEN>`.
+(`Authorization` may be intercepted by cloud gateway policies in some setups.)
+
 ## Frontend config
 
 Set env var in site:

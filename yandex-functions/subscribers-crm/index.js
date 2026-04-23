@@ -54,7 +54,7 @@ function response(statusCode, payload, requestOrigin, contentType) {
       "Content-Type": contentType || "application/json; charset=utf-8",
       "Access-Control-Allow-Origin": resolveAllowedOrigin(requestOrigin),
       "Access-Control-Allow-Methods": "GET,POST,PUT,OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type,Authorization",
+      "Access-Control-Allow-Headers": "Content-Type,Authorization,X-CRM-Token",
       "Cache-Control": "no-store",
       Vary: "Origin"
     },
@@ -86,6 +86,13 @@ function escapeCsv(value) {
 }
 
 function resolveAuthToken(event) {
+  const crmTokenHeader =
+    event.headers?.["x-crm-token"] ||
+    event.headers?.["X-CRM-Token"] ||
+    event.headers?.["x-CRM-token"];
+  const crmToken = String(crmTokenHeader || "").trim();
+  if (crmToken) return crmToken;
+
   const header = event.headers?.authorization || event.headers?.Authorization || "";
   const raw = String(header).trim();
   if (!raw) return "";
