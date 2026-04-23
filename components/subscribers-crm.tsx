@@ -45,6 +45,7 @@ export function SubscribersCrm(): JSX.Element {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [copyInfo, setCopyInfo] = useState<string | null>(null);
 
   const editing = useMemo(
     () => items.find((item) => item.id === editingId) ?? null,
@@ -193,7 +194,7 @@ export function SubscribersCrm(): JSX.Element {
     }
   }
 
-  async function handleExport(format: "csv" | "json"): Promise<void> {
+  async function handleExport(format: "csv" | "json" | "emails"): Promise<void> {
     if (!SUBSCRIBERS_API_URL || !token) return;
     const response = await fetch(`${SUBSCRIBERS_API_URL}?action=export&format=${format}`, {
       headers: authHeaders(token)
@@ -207,11 +208,35 @@ export function SubscribersCrm(): JSX.Element {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = format === "csv" ? "subscribers.csv" : "subscribers.json";
+    link.download =
+      format === "csv" ? "subscribers.csv" : format === "json" ? "subscribers.json" : "subscribers-emails.txt";
     document.body.appendChild(link);
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
+  }
+
+  function buildFilteredEmailList(): string {
+    const normalized = items
+      .map((item) => item.email.trim().toLowerCase())
+      .filter((value) => value.length > 0);
+    return Array.from(new Set(normalized)).join("\n");
+  }
+
+  async function handleCopyEmails(): Promise<void> {
+    setCopyInfo(null);
+    const emailList = buildFilteredEmailList();
+    if (!emailList) {
+      setCopyInfo("Нет контактов для копирования.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(emailList);
+      setCopyInfo(`Скопировано email: ${emailList.split("\n").length}`);
+    } catch {
+      setCopyInfo("Не удалось скопировать. Используйте экспорт в TXT.");
+    }
   }
 
   if (!token) {
@@ -321,8 +346,23 @@ export function SubscribersCrm(): JSX.Element {
             >
               Экспорт JSON
             </button>
+            <button
+              type="button"
+              onClick={() => void handleExport("emails")}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
+            >
+              Экспорт email TXT
+            </button>
+            <button
+              type="button"
+              onClick={() => void handleCopyEmails()}
+              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-300"
+            >
+              Скопировать email
+            </button>
           </div>
         </div>
+        {copyInfo ? <p className="mt-3 text-xs font-medium text-slate-600">{copyInfo}</p> : null}
       </section>
 
       {error ? <p className="text-sm font-medium text-[#b42318]">{error}</p> : null}
@@ -429,4 +469,3 @@ export function SubscribersCrm(): JSX.Element {
     </div>
   );
 }
-

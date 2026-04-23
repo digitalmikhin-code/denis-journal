@@ -20,7 +20,8 @@ Yandex Cloud Function for collecting and managing email subscribers in Object St
   - query: `q`, `status`, `source`, `tag`
 - `PUT /?id=<contactId>` - update contact (requires admin token)
   - body: `{ fullName?, email?, status?, source?, tags?, notes? }`
-- `GET /?action=export&format=csv|json` - export contacts (requires admin token)
+- `GET /?action=export&format=csv|json|emails` - export contacts (requires admin token)
+  - `emails` returns newline-separated email list for quick import to mailing services
 
 ## Frontend config
 

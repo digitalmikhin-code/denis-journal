@@ -191,6 +191,17 @@ function toCsv(items) {
   return [header.join(","), ...lines].join("\n");
 }
 
+function toEmailsList(items) {
+  const uniqueEmails = Array.from(
+    new Set(
+      items
+        .map((item) => normalizeEmail(item.email))
+        .filter((email) => validateEmail(email))
+    )
+  );
+  return uniqueEmails.join("\n");
+}
+
 module.exports.handler = async function handler(event) {
   const method = event.httpMethod || event.requestContext?.http?.method || "GET";
   const requestOrigin = event.headers?.origin || event.headers?.Origin;
@@ -220,6 +231,9 @@ module.exports.handler = async function handler(event) {
       if (action === "export") {
         const format = String(query.format || "csv").toLowerCase();
         if (format === "json") return response(200, { items: filtered, total: filtered.length }, requestOrigin);
+        if (format === "emails" || format === "txt") {
+          return response(200, toEmailsList(filtered), requestOrigin, "text/plain; charset=utf-8");
+        }
         return response(200, toCsv(filtered), requestOrigin, "text/csv; charset=utf-8");
       }
 
@@ -325,4 +339,3 @@ module.exports.handler = async function handler(event) {
     );
   }
 };
-
