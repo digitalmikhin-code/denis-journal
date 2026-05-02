@@ -1,5 +1,6 @@
 ﻿import Link from "next/link";
 import { SubscribersCrm } from "@/components/subscribers-crm";
+import { MAX_CHANNEL_URL } from "@/lib/constants";
 
 export const metadata = {
   title: "CRM подписчиков",
@@ -28,10 +29,12 @@ export default function SubscribersAdminPage(): JSX.Element {
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
-            href="/newsletter"
+            href={MAX_CHANNEL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-2xl border border-slate-900/15 bg-white px-5 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-50"
           >
-            Открыть страницу рассылки
+            Открыть канал в Max
           </Link>
         </div>
       </section>

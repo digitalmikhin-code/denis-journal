@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { AuthorQuote } from "@/components/author-quote";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
-import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+import { MaxChannelBanner } from "@/components/max-channel-banner";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -208,13 +208,7 @@ export default function HomePage(): JSX.Element {
         ctaLabel="Перейти на Stepik"
       />
 
-      <NewsletterSignupForm
-        source="homepage"
-        tags={["homepage", "newsletter"]}
-        title="Получать новые материалы по email"
-        subtitle="Подпишитесь, если хотите получать лучшие разборы и обновления журнала в почту. Это отдельная база сайта для рассылок, прогрева и анонсов продуктов."
-        className="relative overflow-hidden rounded-[2rem] border border-[#b8d8ee] bg-[radial-gradient(circle_at_10%_18%,rgba(255,255,255,0.75)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_82%_14%,rgba(167,214,245,0.28)_0%,rgba(167,214,245,0)_40%),linear-gradient(135deg,#eef8ff_0%,#f4f0ff_54%,#fff5e8_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.78)] md:p-8"
-      />
+      <MaxChannelBanner />
 
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">

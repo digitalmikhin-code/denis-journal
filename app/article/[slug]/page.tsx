@@ -9,7 +9,7 @@ import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
-import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -304,11 +304,9 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           ctaLabel="Пройти курс"
         />
 
-        <NewsletterSignupForm
-          source={`article:${article.slug}`}
-          tags={["article", category]}
-          title="Если статья была полезна — подпишитесь на email"
-          subtitle="Оставьте ФИО и email, чтобы получать новые материалы, разборы и практические инструменты по этой теме."
+        <MaxChannelBanner
+          title="Если статья была полезна — подпишитесь на мой канал в Max"
+          subtitle="Там выходят новые материалы, короткие наблюдения и практические разборы по этой теме без форм и лишних шагов."
         />
 
         <ArticleBackButtons centered />

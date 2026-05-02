@@ -119,6 +119,8 @@ export function SiteHeader(): JSX.Element {
             <Link
               key={item.href}
               href={item.href}
+              target={item.href.startsWith("http") ? "_blank" : undefined}
+              rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
               className="rounded-full border border-slate-200 bg-white/75 px-4 py-1.5 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:bg-white"
             >
               {item.label}

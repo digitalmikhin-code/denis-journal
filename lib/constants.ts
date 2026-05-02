@@ -6,6 +6,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
+export const MAX_CHANNEL_URL = "https://max.ru/join/6nJj0ylh1KaJhZ4d0rjOY8uiCRv3nKAW9-KrBDQC6I0";
 export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
 const DEFAULT_REACTIONS_API_URL = "https://functions.yandexcloud.net/d4elvqt2bon45f1r7i6k";
 
@@ -156,7 +157,7 @@ export const FIRST_MENU: Array<{ label: string; href: string }> = [
 
 export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u0421\u0442\u0430\u0442\u044c\u0438", href: "/articles" },
-  { label: "Email \u0440\u0430\u0441\u0441\u044b\u043b\u043a\u0430", href: "/newsletter" },
+  { label: "\u041a\u0430\u043d\u0430\u043b \u0432 Max", href: MAX_CHANNEL_URL },
   { label: "\u0412\u0438\u0434\u0435\u043e", href: "/videos" },
   { label: "\u0414\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0430", href: "/diagnostics" },
   { label: "\u0413\u0438\u0431\u043a\u0438\u0435 \u0442\u0440\u0430\u043d\u0441\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438", href: "/category/agile" },

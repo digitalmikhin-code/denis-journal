@@ -1,5 +1,5 @@
 ﻿import Link from "next/link";
-import { TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import { MAX_CHANNEL_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 export function SiteFooter(): JSX.Element {
   return (
@@ -84,10 +84,12 @@ export function SiteFooter(): JSX.Element {
                   Telegram-канал
                 </Link>
                 <Link
-                  href="/newsletter"
+                  href={MAX_CHANNEL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
                 >
-                  Email-рассылка
+                  Канал в Max
                 </Link>
                 <Link
                   href="/rss"
@@ -107,14 +109,16 @@ export function SiteFooter(): JSX.Element {
                   Поддерживать контакт
                 </p>
                 <p className="mt-2 text-2xl font-black leading-tight">
-                  Подпишитесь на email или Telegram, чтобы не пропускать новые материалы.
+                  Подпишитесь на Max или Telegram, чтобы не пропускать новые материалы.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
-                    href="/newsletter"
+                    href={MAX_CHANNEL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#2e2a82]"
                   >
-                    Подписаться на email
+                    Подписаться в Max
                   </Link>
                   <Link
                     href={TELEGRAM_CHANNEL_URL}
