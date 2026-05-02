@@ -65,7 +65,7 @@ function ArticleBackButtons({ centered = false }: { centered?: boolean }): JSX.E
     <div className={`flex flex-wrap items-center gap-3 ${centered ? "justify-center" : ""}`}>
       <Link
         href="/articles"
-        className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
       >
         <span aria-hidden="true">←</span>
         <span>Ко всем статьям</span>
@@ -73,7 +73,7 @@ function ArticleBackButtons({ centered = false }: { centered?: boolean }): JSX.E
 
       <Link
         href="/"
-        className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+        className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
       >
         <span aria-hidden="true">⌂</span>
         <span>На главную</span>
@@ -155,7 +155,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       <ArticleBackButtons />
 
       <article className="space-y-10">
-        <header className="relative overflow-hidden rounded-[2.25rem] border border-slate-200/80 bg-white p-6 shadow-[0_28px_60px_rgba(15,23,42,0.08)] md:p-8">
+        <header className="relative overflow-hidden rounded-[2.25rem] border border-slate-200/80 bg-white p-6 shadow-[0_28px_60px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_60px_rgba(0,0,0,0.28)] md:p-8">
           <div
             className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full opacity-80"
             style={{ backgroundColor: theme.glow }}
@@ -168,16 +168,16 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                 >
                   {CATEGORY_SHORT_LABELS[category]}
                 </span>
-                <span className="text-sm font-medium text-slate-500">
+                <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {formatDate(article.frontmatter.date)} В· {article.frontmatter.readingTime} мин чтения
                 </span>
               </div>
 
-              <h1 className="max-w-[14ch] text-4xl font-black leading-[0.94] tracking-tight text-slate-900 md:text-6xl">
+              <h1 className="max-w-[14ch] text-4xl font-black leading-[0.94] tracking-tight text-slate-900 dark:text-slate-50 md:text-6xl">
                 {article.frontmatter.title}
               </h1>
 
-              <p className="max-w-[38ch] text-[1.15rem] leading-8 text-slate-600 md:text-[1.22rem]">
+              <p className="max-w-[38ch] text-[1.15rem] leading-8 text-slate-600 dark:text-slate-300 md:text-[1.22rem]">
                 {article.frontmatter.excerpt}
               </p>
 
@@ -185,29 +185,29 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
               <AuthorQuote
                 compact
-                className="max-w-[44ch] border-[#e8ddff] bg-[#faf7ff]"
+                className="max-w-[44ch] border-[#e8ddff] bg-[#faf7ff] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
                 quote="Система начинается там, где решения становятся повторяемыми и понятными команде."
               />
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf7ff] p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <div className="rounded-[1.5rem] border border-slate-200 bg-[#faf7ff] p-5 dark:border-slate-700 dark:bg-slate-800">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                     Автор
                   </p>
-                  <p className="mt-3 text-2xl font-black leading-tight text-slate-900">
+                  <p className="mt-3 text-2xl font-black leading-tight text-slate-900 dark:text-slate-50">
                     Денис Михин
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                  <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
                     Пишу о карьере, управлении, системном мышлении и ИИ так, чтобы это можно было
                     применить в реальной работе, а не просто прочитать.
                   </p>
                 </div>
 
-                <div className="rounded-[1.5rem] border border-slate-200 bg-[#fff8e3] p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                <div className="rounded-[1.5rem] border border-slate-200 bg-[#fff8e3] p-5 dark:border-slate-700 dark:bg-slate-800">
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                     Что внутри
                   </p>
-                  <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
+                  <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
                     <li>Конкретная позиция, а не нейтральный пересказ</li>
                     <li>Практические выводы и рабочие ориентиры</li>
                     <li>Связка стратегии, управления и ежедневной практики</li>
@@ -217,7 +217,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             </div>
 
             <div className="space-y-4">
-              <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-100">
+              <div className="relative aspect-[16/11] overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-100 dark:border-slate-700 dark:bg-slate-800">
                 <Image
                   src={article.frontmatter.cover}
                   alt={article.frontmatter.title}
@@ -240,7 +240,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         </header>
 
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
-          <div className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] md:px-10">
+          <div className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10">
             <div className="prose-journal">
               <MDXRemote
                 source={article.content}
@@ -251,12 +251,12 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
 
           <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Навигация
               </p>
-              <div className="mt-4 space-y-3 text-sm font-semibold text-slate-700">
-                <Link href="/articles" className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100">
+              <div className="mt-4 space-y-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <Link href="/articles" className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700">
                   Все статьи
                 </Link>
                 <Link
@@ -267,18 +267,18 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                 </Link>
                 <Link
                   href="/about"
-                  className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100"
+                  className="block rounded-xl bg-slate-50 px-4 py-3 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700"
                 >
                   Об авторе
                 </Link>
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff0f7_0%,#eef9ff_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+            <div className="rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff0f7_0%,#eef9ff_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:bg-none dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Если откликнулось
               </p>
-              <p className="mt-3 text-base leading-7 text-slate-700">
+              <p className="mt-3 text-base leading-7 text-slate-700 dark:text-slate-300">
                 Подпишитесь на Telegram, чтобы не терять новые разборы, или напишите мне, если
                 нужен взгляд на вашу ситуацию в управлении, росте или системе работы команды.
               </p>
@@ -287,7 +287,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   href={TELEGRAM_CHANNEL_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-800"
+                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
                 >
                   Написать Денису
                 </Link>
@@ -311,16 +311,16 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
         <ArticleBackButtons centered />
 
-        <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#fff8e5_0%,#fff1f7_100%)] p-6 md:p-8">
+        <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#fff8e5_0%,#fff1f7_100%)] p-6 dark:border-slate-800 dark:bg-slate-900 dark:bg-none md:p-8">
           <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Авторская ремарка
               </p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">
                 Если вам нужен не просто контент, а точка опоры для решений
               </h2>
-              <p className="mt-3 max-w-[54ch] text-base leading-8 text-slate-700">
+              <p className="mt-3 max-w-[54ch] text-base leading-8 text-slate-700 dark:text-slate-300">
                 В журнале я публикую материалы в открытом формате. Если нужен более глубокий разбор
                 вашей задачи, команды или управленческой ситуации, это можно обсудить отдельно.
               </p>
