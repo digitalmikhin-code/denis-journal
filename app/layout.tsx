@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/footer";
 import { TelegramScrollBanner } from "@/components/telegram-scroll-banner";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { ScrollEffects } from "@/components/scroll-effects";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL, VK_PROFILE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`
   },
   description: SITE_DESCRIPTION,
+  authors: [{ name: "Денис Михин", url: SITE_URL }],
+  creator: "Денис Михин",
+  publisher: "Денис Михин",
   keywords: [
     "журнал дениса михина",
     "денис михин",
@@ -87,7 +90,18 @@ const organizationSchema = {
     "@type": "Person",
     name: "Денис Михин"
   },
-  sameAs: [TELEGRAM_CHANNEL_URL]
+  sameAs: [TELEGRAM_CHANNEL_URL, VK_PROFILE_URL]
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/#denis-mikhin`,
+  name: "Денис Михин",
+  alternateName: ["Михин Денис", "Denis Mikhin"],
+  url: SITE_URL,
+  sameAs: [VK_PROFILE_URL, TELEGRAM_CHANNEL_URL],
+  jobTitle: "Автор экспертного журнала"
 };
 
 export default function RootLayout({
@@ -110,6 +124,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <SiteHeader />
         <main className="container-shell py-8">{children}</main>

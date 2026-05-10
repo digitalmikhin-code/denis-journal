@@ -3,7 +3,7 @@ export const SITE_DESCRIPTION =
   "\u041f\u0440\u043e\u0444\u0435\u0441\u0441\u0438\u043e\u043d\u0430\u043b\u044c\u043d\u044b\u0439 \u0436\u0443\u0440\u043d\u0430\u043b \u043e \u043a\u0430\u0440\u044c\u0435\u0440\u0435, \u0443\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0438, \u043c\u044b\u0448\u043b\u0435\u043d\u0438\u0438 \u0438 \u0418\u0418.";
 export const DEFAULT_AUTHOR = "\u0414\u0435\u043d\u0438\u0441 \u041c\u0438\u0445\u0438\u043d";
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://media.dmikhin.ru";
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
 export const VK_PROFILE_URL = "https://vk.com/mikhin_denis";

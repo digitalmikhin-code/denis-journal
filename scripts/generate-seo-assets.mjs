@@ -5,7 +5,7 @@ import matter from "gray-matter";
 const root = process.cwd();
 const articlesDir = path.join(root, "content", "articles");
 const publicDir = path.join(root, "public");
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://example.com").replace(/\/$/, "");
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://media.dmikhin.ru").replace(/\/$/, "");
 
 function slugFromFilename(fileName) {
   const withoutExt = fileName.replace(/\.mdx?$/, "");
