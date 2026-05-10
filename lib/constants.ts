@@ -6,6 +6,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://example.com";
 export const TELEGRAM_CHANNEL_URL = "https://t.me/scrum_baza";
 export const TELEGRAM_CONSULT_URL = "https://t.me/mikhin89";
+export const VK_PROFILE_URL = "https://vk.com/mikhin_denis";
 export const MAX_CHANNEL_URL = "https://max.ru/join/6nJj0ylh1KaJhZ4d0rjOY8uiCRv3nKAW9-KrBDQC6I0";
 export const STEPIK_TEACH_URL = "https://stepik.org/users/861642656/teach";
 const DEFAULT_REACTIONS_API_URL = "https://functions.yandexcloud.net/d4elvqt2bon45f1r7i6k";

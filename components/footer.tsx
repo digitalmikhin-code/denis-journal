@@ -1,5 +1,10 @@
 ﻿import Link from "next/link";
-import { MAX_CHANNEL_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import {
+  MAX_CHANNEL_URL,
+  TELEGRAM_CHANNEL_URL,
+  TELEGRAM_CONSULT_URL,
+  VK_PROFILE_URL
+} from "@/lib/constants";
 
 export function SiteFooter(): JSX.Element {
   return (
@@ -127,6 +132,27 @@ export function SiteFooter(): JSX.Element {
                     className="inline-flex rounded-xl border border-white/35 bg-transparent px-5 py-3 text-sm font-semibold text-white"
                   >
                     Telegram-канал
+                  </Link>
+                </div>
+              </div>
+              <div className="mt-4 rounded-[1.5rem] border border-[#1c57d8] bg-[linear-gradient(135deg,#2787f5_0%,#1f6fe0_55%,#185cc2_100%)] p-5 text-white shadow-[0_16px_0_0_rgba(14,62,143,0.32)]">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
+                  VK
+                </p>
+                <p className="mt-2 text-2xl font-black leading-tight">
+                  Подписывайтесь в VK
+                </p>
+                <p className="mt-2 text-sm text-white/90">
+                  Короткие мысли, обновления и прямой контакт в узнаваемом формате VK.
+                </p>
+                <div className="mt-4">
+                  <Link
+                    href={VK_PROFILE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#1861d2] shadow-[0_4px_0_0_rgba(6,48,115,0.24)] transition hover:bg-[#f4f8ff]"
+                  >
+                    Подписаться во VK
                   </Link>
                 </div>
               </div>

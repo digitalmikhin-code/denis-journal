@@ -11,6 +11,7 @@ import {
   CATEGORY_THEME,
   SITE_URL,
   TELEGRAM_CHANNEL_URL,
+  VK_PROFILE_URL,
   type Category
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
@@ -209,6 +210,30 @@ export default function HomePage(): JSX.Element {
       />
 
       <MaxChannelBanner />
+
+      <section className="relative overflow-hidden rounded-[2rem] border border-[#1c57d8] bg-[linear-gradient(135deg,#eaf4ff_0%,#cfe5ff_38%,#a9d0ff_100%)] p-7 shadow-[0_22px_50px_rgba(24,97,210,0.22)] md:p-9">
+        <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full border-[12px] border-white/70" />
+        <div className="pointer-events-none absolute -bottom-14 left-8 h-36 w-36 rounded-full border-[10px] border-[#1f6fe0]/35" />
+        <div className="relative flex flex-wrap items-end justify-between gap-5">
+          <div className="max-w-[52ch]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1b4eae]">VK</p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-[#10367a] md:text-4xl">
+              Подписывайтесь на меня во VK
+            </h2>
+            <p className="mt-3 text-base leading-7 text-[#184791] md:text-lg">
+              Отдельная лента с обновлениями и полезными материалами. Всё в привычном стиле VK и с быстрым доступом.
+            </p>
+          </div>
+          <Link
+            href={VK_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex rounded-2xl bg-[#2787f5] px-6 py-3 text-base font-bold text-white shadow-[0_6px_0_0_rgba(13,61,138,0.35)] transition hover:bg-[#1f79e3]"
+          >
+            Подписаться во VK
+          </Link>
+        </div>
+      </section>
 
       <section className="space-y-5">
         <div className="flex flex-wrap items-end justify-between gap-3">
