@@ -363,7 +363,7 @@ export function BusinessRescueGame(): JSX.Element {
   }
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f5f0e8] text-[#15130f]">
+    <main className="relative left-1/2 min-h-screen w-screen -translate-x-1/2 overflow-hidden bg-[#f5f0e8] text-[#15130f]">
       <section className="relative isolate px-4 pb-10 pt-8 sm:px-6 lg:px-8">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_5%,rgba(199,150,82,0.28),transparent_28%),radial-gradient(circle_at_90%_0%,rgba(30,64,175,0.22),transparent_24%),linear-gradient(135deg,#f8f2e8_0%,#eef2f5_52%,#f7efe5_100%)]" />
         <div className="mx-auto max-w-[1440px]">
@@ -420,110 +420,127 @@ function Dashboard({
   const last = history[history.length - 1];
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[0.78fr_1.22fr_0.78fr]">
-      <aside className="space-y-6">
-        <Panel eyebrow={`День ${round.day}`} title="Ситуация">
-          <h2 className="text-2xl font-black tracking-[-0.03em]">{round.title}</h2>
-          <p className="mt-4 text-base leading-7 text-[#5d5548]">{round.signal}</p>
-          <div className="mt-5 rounded-2xl border border-[#ead8b9] bg-[#fffaf1] p-4">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a66f1f]">Давление системы</p>
-            <p className="mt-2 text-sm leading-6 text-[#5d5548]">{round.pressure}</p>
-          </div>
-        </Panel>
-        <Panel eyebrow="скрытый слой" title="Системные риски">
-          <div className="space-y-4">
-            {(Object.keys(SYSTEM_LABELS) as SystemMetric[]).map((key) => (
-              <MiniMetric key={key} label={SYSTEM_LABELS[key]} value={metrics[key]} inverse={["chaos", "dependency", "debt"].includes(key)} />
-            ))}
-          </div>
-        </Panel>
-      </aside>
-
-      <section className="rounded-[2rem] border border-[#e1cfad] bg-[#fffaf1]/90 p-4 shadow-[0_24px_70px_rgba(96,68,28,0.14)] backdrop-blur sm:p-6">
-        <div className="flex flex-wrap items-start justify-between gap-4 border-b border-[#ead8b9] pb-5">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.25em] text-[#a66f1f]">Раунд {roundIndex + 1} из {ROUNDS.length}</p>
-            <h2 className="mt-2 text-3xl font-black tracking-[-0.04em]">Штаб решений</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-[#6c6253]">Фокус: {round.focus}. Выберите инициативу и способ управления.</p>
-          </div>
-          <div className="rounded-2xl bg-[#15130f] px-4 py-3 text-right text-[#fbf3e5]">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#d8b46a]">портфель</p>
-            <p className="text-xl font-black">{round.initiatives.length} инициативы</p>
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-4 lg:grid-cols-3">
-          {round.initiatives.map((initiativeItem) => (
-            <button
-              key={initiativeItem.id}
-              type="button"
-              onClick={() => onSelect(initiativeItem.id)}
-              className={`group rounded-3xl border p-5 text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(67,46,17,0.16)] ${
-                selectedId === initiativeItem.id ? "border-[#15130f] bg-[#15130f] text-[#fbf3e5]" : "border-[#ead8b9] bg-white text-[#15130f]"
-              }`}
-            >
-              <span className={`rounded-full px-3 py-1 text-[11px] font-black uppercase tracking-[0.18em] ${selectedId === initiativeItem.id ? "bg-[#d8b46a] text-[#15130f]" : "bg-[#f2e6d0] text-[#8a5f20]"}`}>
-                {initiativeItem.area}
-              </span>
-              <h3 className="mt-5 text-xl font-black tracking-[-0.03em]">{initiativeItem.title}</h3>
-              <p className={`mt-3 text-sm leading-6 ${selectedId === initiativeItem.id ? "text-[#e8dcc9]" : "text-[#6c6253]"}`}>{initiativeItem.description}</p>
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-6 rounded-[1.75rem] border border-[#ead8b9] bg-white p-5 sm:p-6">
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a66f1f]">выбрано</p>
-              <h3 className="mt-2 text-2xl font-black tracking-[-0.03em]">{selected.title}</h3>
-              <Insight label="Потенциал" text={selected.upside} />
-              <Insight label="Риск" text={selected.risk} />
+    <div className="mx-auto max-w-[1320px] space-y-6">
+      <section className="overflow-hidden rounded-[2rem] border border-[#ddc69f] bg-white shadow-[0_24px_70px_rgba(91,65,26,0.14)]">
+        <div className="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
+          <div className="bg-[#fffaf1] p-6 sm:p-8">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full bg-[#15130f] px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#f3c16b]">Шаг 1</span>
+              <span className="text-sm font-black uppercase tracking-[0.18em] text-[#9c6a24]">День {round.day}. Раунд {roundIndex + 1} из {ROUNDS.length}</span>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {(Object.keys(ZONES) as ZoneId[]).map((zone) => (
-                <button
-                  key={zone}
-                  type="button"
-                  onClick={() => onDecision(zone)}
-                  className="group overflow-hidden rounded-3xl border border-[#ead8b9] bg-[#fffaf1] text-left transition duration-300 hover:-translate-y-1 hover:border-[#15130f] hover:shadow-[0_18px_36px_rgba(67,46,17,0.14)]"
-                >
-                  <div className={`h-2 bg-gradient-to-r ${ZONES[zone].tone}`} />
-                  <div className="p-4">
-                    <p className="text-lg font-black">{ZONES[zone].title}</p>
-                    <p className="mt-2 min-h-[44px] text-sm leading-6 text-[#6c6253]">{ZONES[zone].description}</p>
-                    <EffectPreview effects={selected.effects[zone]} />
-                  </div>
-                </button>
+            <h2 className="mt-5 max-w-3xl text-4xl font-black tracking-[-0.05em] text-[#15130f] sm:text-5xl">{round.title}</h2>
+            <p className="mt-5 max-w-3xl text-xl leading-9 text-[#5d5548]">{round.signal}</p>
+            <div className="mt-6 rounded-3xl border border-[#ead8b9] bg-white p-5">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a66f1f]">Что давит на систему</p>
+              <p className="mt-2 text-base leading-7 text-[#5d5548]">{round.pressure}</p>
+            </div>
+          </div>
+
+          <div className="border-t border-[#ead8b9] bg-[#15130f] p-6 text-[#fbf3e5] sm:p-8 lg:border-l lg:border-t-0">
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#d8b46a]">Пульс бизнеса</p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <BusinessCellDark label="Продажи" value={metrics.clients} />
+              <BusinessCellDark label="Финансы" value={metrics.profit} />
+              <BusinessCellDark label="Команда" value={metrics.team} />
+              <BusinessCellDark label="Процессы" value={metrics.control} />
+            </div>
+            <div className="mt-5 grid gap-3">
+              {(Object.keys(SYSTEM_LABELS) as SystemMetric[]).map((key) => (
+                <MiniMetricDark key={key} label={SYSTEM_LABELS[key]} value={metrics[key]} inverse={["chaos", "dependency", "debt"].includes(key)} />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <aside className="space-y-6">
-        <Panel eyebrow="живой контур" title="Карта бизнеса">
-          <div className="grid grid-cols-2 gap-3">
-            <BusinessCell label="Продажи" value={metrics.clients} />
-            <BusinessCell label="Финансы" value={metrics.profit} />
-            <BusinessCell label="Команда" value={metrics.team} />
-            <BusinessCell label="Процессы" value={metrics.control} />
-            <BusinessCell label="Скорость" value={100 - metrics.debt} />
-            <BusinessCell label="Автономность" value={100 - metrics.dependency} />
+      <section className="rounded-[2rem] border border-[#ddc69f] bg-[#fffaf1] p-5 shadow-[0_24px_70px_rgba(91,65,26,0.12)] sm:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <span className="rounded-full bg-[#ead8b9] px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#8a5f20]">Шаг 2</span>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.05em] text-[#15130f]">Выберите управленческую инициативу</h2>
+            <p className="mt-3 max-w-3xl text-lg leading-8 text-[#6c6253]">Фокус раунда: {round.focus}. Сначала выберите, с каким рычагом бизнеса вы работаете.</p>
           </div>
-        </Panel>
-        <Panel eyebrow="после решения" title="Последний эффект">
+          <div className="rounded-3xl bg-white px-5 py-4 text-sm font-black text-[#15130f] shadow-[0_12px_30px_rgba(91,65,26,0.08)]">
+            {round.initiatives.length} варианта на столе
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-3">
+          {round.initiatives.map((initiativeItem, index) => (
+            <button
+              key={initiativeItem.id}
+              type="button"
+              onClick={() => onSelect(initiativeItem.id)}
+              className={`group min-h-[250px] rounded-[1.75rem] border p-6 text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_44px_rgba(67,46,17,0.16)] ${
+                selectedId === initiativeItem.id ? "border-[#15130f] bg-[#15130f] text-[#fbf3e5]" : "border-[#ead8b9] bg-white text-[#15130f]"
+              }`}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-[0.18em] ${selectedId === initiativeItem.id ? "bg-[#d8b46a] text-[#15130f]" : "bg-[#f2e6d0] text-[#8a5f20]"}`}>
+                  {initiativeItem.area}
+                </span>
+                <span className="text-4xl font-black opacity-20">0{index + 1}</span>
+              </div>
+              <h3 className="mt-6 text-3xl font-black tracking-[-0.04em]">{initiativeItem.title}</h3>
+              <p className={`mt-4 text-base leading-7 ${selectedId === initiativeItem.id ? "text-[#e8dcc9]" : "text-[#6c6253]"}`}>{initiativeItem.description}</p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-[#ddc69f] bg-white p-5 shadow-[0_24px_70px_rgba(91,65,26,0.12)] sm:p-8">
+        <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+          <div>
+            <span className="rounded-full bg-[#15130f] px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#f3c16b]">Шаг 3</span>
+            <h2 className="mt-5 text-4xl font-black tracking-[-0.05em] text-[#15130f]">Что делаем с инициативой?</h2>
+            <div className="mt-6 rounded-[1.75rem] border border-[#ead8b9] bg-[#fffaf1] p-6">
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a66f1f]">Выбрано</p>
+              <h3 className="mt-3 text-3xl font-black tracking-[-0.04em] text-[#15130f]">{selected.title}</h3>
+              <Insight label="Потенциал" text={selected.upside} />
+              <Insight label="Риск" text={selected.risk} />
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {(Object.keys(ZONES) as ZoneId[]).map((zone) => (
+              <button
+                key={zone}
+                type="button"
+                onClick={() => onDecision(zone)}
+                className="group overflow-hidden rounded-[1.75rem] border border-[#ead8b9] bg-[#fffaf1] text-left transition duration-300 hover:-translate-y-1 hover:border-[#15130f] hover:shadow-[0_18px_36px_rgba(67,46,17,0.14)]"
+              >
+                <div className={`h-3 bg-gradient-to-r ${ZONES[zone].tone}`} />
+                <div className="p-6">
+                  <p className="text-2xl font-black tracking-[-0.03em] text-[#15130f]">{ZONES[zone].title}</p>
+                  <p className="mt-3 text-base leading-7 text-[#6c6253]">{ZONES[zone].description}</p>
+                  <EffectPreview effects={selected.effects[zone]} spacious />
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-[#ddc69f] bg-[#15130f] p-6 text-[#fbf3e5] shadow-[0_24px_70px_rgba(21,19,15,0.18)] sm:p-8">
+        <div className="grid gap-6 lg:grid-cols-[0.35fr_0.65fr]">
+          <div>
+            <span className="rounded-full bg-[#d8b46a] px-4 py-2 text-sm font-black uppercase tracking-[0.18em] text-[#15130f]">Шаг 4</span>
+            <h2 className="mt-5 text-3xl font-black tracking-[-0.04em]">Последний эффект</h2>
+          </div>
           {last ? (
-            <div>
-              <p className="text-sm font-black">{last.initiative.title}</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-[#a66f1f]">{ZONES[last.zone].title}</p>
-              <p className="mt-3 text-sm leading-6 text-[#6c6253]">{last.feedback}</p>
+            <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#d8b46a]">{ZONES[last.zone].title}</p>
+              <h3 className="mt-3 text-2xl font-black tracking-[-0.03em]">{last.initiative.title}</h3>
+              <p className="mt-4 text-lg leading-8 text-[#e8dcc9]">{last.feedback}</p>
               <EffectPreview effects={last.effects} spacious />
             </div>
           ) : (
-            <p className="text-sm leading-6 text-[#6c6253]">Здесь появится управленческое последствие первого решения. Важны не только действия, но и способ управления.</p>
+            <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.06] p-6">
+              <p className="text-lg leading-8 text-[#e8dcc9]">После первого решения здесь появится объяснение: что изменилось в бизнесе и почему. Так игрок видит причинно-следственную связь, а не просто набор цифр.</p>
+            </div>
           )}
-        </Panel>
-      </aside>
+        </div>
+      </section>
     </div>
   );
 }
@@ -724,6 +741,32 @@ function BusinessCell({ label, value }: { label: string; value: number }): JSX.E
     <div className="rounded-3xl border border-[#ead8b9] bg-white p-4">
       <p className="text-xs font-black uppercase tracking-[0.16em] text-[#a66f1f]">{label}</p>
       <p className="mt-3 text-3xl font-black tracking-[-0.04em]">{value}</p>
+    </div>
+  );
+}
+
+function BusinessCellDark({ label, value }: { label: string; value: number }): JSX.Element {
+  return (
+    <div className="rounded-3xl border border-white/10 bg-white/[0.07] p-4">
+      <p className="text-[11px] font-black uppercase tracking-[0.18em] text-[#d8b46a]">{label}</p>
+      <p className="mt-3 text-4xl font-black tracking-[-0.05em] text-white">{value}</p>
+    </div>
+  );
+}
+
+function MiniMetricDark({ label, value, inverse }: { label: string; value: number; inverse?: boolean }): JSX.Element {
+  const score = inverse ? 100 - value : value;
+  const color = score >= 70 ? "bg-[#43d39e]" : score >= 45 ? "bg-[#d8b46a]" : "bg-[#fb7185]";
+
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.05] p-3">
+      <div className="flex items-center justify-between gap-3 text-sm">
+        <span className="font-bold text-[#e8dcc9]">{label}</span>
+        <span className="text-lg font-black text-white">{value}</span>
+      </div>
+      <div className="mt-2 h-2.5 rounded-full bg-white/10">
+        <div className={`h-2.5 rounded-full ${color}`} style={{ width: `${value}%` }} />
+      </div>
     </div>
   );
 }
