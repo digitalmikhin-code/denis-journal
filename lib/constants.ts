@@ -28,6 +28,7 @@ const DEFAULT_SUBSCRIBERS_API_URL =
   "https://functions.yandexcloud.net/d4efmjusqpajbpmg5ckl";
 export const SUBSCRIBERS_API_URL =
   normalizeHttpUrl(process.env.NEXT_PUBLIC_SUBSCRIBERS_API_URL) ?? DEFAULT_SUBSCRIBERS_API_URL;
+export const LEADS_API_URL = normalizeHttpUrl(process.env.NEXT_PUBLIC_LEADS_API_URL);
 export const YANDEX_METRIKA_ID = 107246735;
 
 export const CATEGORY_LABELS = {

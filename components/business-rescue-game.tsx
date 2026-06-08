@@ -2,7 +2,7 @@
 
 import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
-import { SUBSCRIBERS_API_URL } from "@/lib/constants";
+import { LEADS_API_URL } from "@/lib/constants";
 
 type VisibleMetric = "profit" | "team" | "clients" | "control";
 type HiddenMetric = "chaos" | "resilience" | "trust" | "growth";
@@ -557,8 +557,8 @@ export function BusinessRescueGame(): JSX.Element {
   async function saveLead(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
 
-    if (!SUBSCRIBERS_API_URL) {
-      setLeadError("CRM API не подключен. Нужно указать NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
+    if (!LEADS_API_URL) {
+      setLeadError("API заявок не подключен. Нужно указать NEXT_PUBLIC_LEADS_API_URL.");
       return;
     }
 
@@ -566,19 +566,8 @@ export function BusinessRescueGame(): JSX.Element {
     setLeadError(null);
     setLeadInfo(null);
 
-    const notes = [
-      `Игра: ${ENDINGS[result.ending].title}`,
-      `Компания: ${lead.company || "не указана"}`,
-      `Должность: ${lead.role || "не указана"}`,
-      `Telegram: ${lead.telegram || "не указан"}`,
-      `Управляемость: ${result.controlLevel}`,
-      `Системное мышление: ${result.systemThinking}`,
-      `Лидерство: ${result.leadership}`,
-      `Готовность к росту: ${result.growthReadiness}`
-    ].join("\n");
-
     try {
-      const response = await fetch(SUBSCRIBERS_API_URL, {
+      const response = await fetch(LEADS_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -586,9 +575,17 @@ export function BusinessRescueGame(): JSX.Element {
         body: JSON.stringify({
           fullName: lead.name,
           email: lead.email,
+          company: lead.company,
+          role: lead.role,
+          telegram: lead.telegram,
           source: "business-game",
-          tags: ["business-game", result.ending],
-          notes
+          result: ENDINGS[result.ending].title,
+          scores: {
+            controlLevel: result.controlLevel,
+            systemThinking: result.systemThinking,
+            leadership: result.leadership,
+            growthReadiness: result.growthReadiness
+          }
         })
       });
 
@@ -604,13 +601,9 @@ export function BusinessRescueGame(): JSX.Element {
 
       setLeadSaved(true);
       if (payload?.telegram?.status === "sent") {
-        setLeadInfo("Telegram-уведомление отправлено.");
-      } else if (payload?.telegram?.status === "disabled") {
-        setLeadInfo("Заявка сохранена в CRM, но Telegram выключен в переменных функции.");
-      } else if (payload?.telegram?.status === "failed") {
-        setLeadInfo(`Заявка сохранена в CRM, но Telegram не отправился: ${payload.telegram.reason || "ошибка функции"}`);
+        setLeadInfo("Заявка отправлена в Telegram.");
       } else {
-        setLeadInfo("Заявка сохранена в CRM. Статус Telegram не вернулся от функции.");
+        setLeadInfo("Заявка отправлена. Статус Telegram не вернулся от функции.");
       }
     } catch (error) {
       setLeadError(error instanceof Error ? error.message : "Не удалось отправить заявку.");
