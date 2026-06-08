@@ -1,4 +1,5 @@
 const { randomUUID } = require("crypto");
+const https = require("https");
 const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
 
 const BUCKET = process.env.SUBSCRIBERS_BUCKET || process.env.REACTIONS_BUCKET || "media.dmikhin.ru";
@@ -233,21 +234,48 @@ async function notifyTelegram(contact, isUpdated) {
     .filter(Boolean)
     .join("\n");
 
-  const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text,
-      parse_mode: "HTML",
-      disable_web_page_preview: true
-    })
+  await postTelegramJson({
+    chat_id: TELEGRAM_CHAT_ID,
+    text,
+    parse_mode: "HTML",
+    disable_web_page_preview: true
   });
+}
 
-  if (!response.ok) {
-    const details = await response.text().catch(() => "");
-    throw new Error(`Telegram notification failed: ${response.status} ${details}`);
-  }
+function postTelegramJson(payload) {
+  const body = JSON.stringify(payload);
+
+  return new Promise((resolve, reject) => {
+    const request = https.request(
+      {
+        hostname: "api.telegram.org",
+        path: `/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(body)
+        }
+      },
+      (response) => {
+        const chunks = [];
+
+        response.on("data", (chunk) => chunks.push(chunk));
+        response.on("end", () => {
+          const responseBody = Buffer.concat(chunks).toString("utf8");
+          if (response.statusCode >= 200 && response.statusCode < 300) {
+            resolve(responseBody);
+            return;
+          }
+
+          reject(new Error(`Telegram notification failed: ${response.statusCode} ${responseBody}`));
+        });
+      }
+    );
+
+    request.on("error", reject);
+    request.write(body);
+    request.end();
+  });
 }
 
 module.exports.handler = async function handler(event) {
