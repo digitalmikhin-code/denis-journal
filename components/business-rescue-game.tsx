@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
+import { SUBSCRIBERS_API_URL } from "@/lib/constants";
 
 type VisibleMetric = "profit" | "team" | "clients" | "control";
 type HiddenMetric = "chaos" | "resilience" | "trust" | "growth";
@@ -463,7 +464,6 @@ const EMPTY_ANALYTICS: Analytics = {
 };
 
 const STORAGE_KEY = "business-rescue-game-analytics";
-const LEADS_KEY = "business-rescue-game-leads";
 
 export function BusinessRescueGame(): JSX.Element {
   const [started, setStarted] = useState(false);
@@ -481,6 +481,8 @@ export function BusinessRescueGame(): JSX.Element {
     telegram: ""
   });
   const [leadSaved, setLeadSaved] = useState(false);
+  const [leadError, setLeadError] = useState<string | null>(null);
+  const [isLeadSubmitting, setIsLeadSubmitting] = useState(false);
 
   const isFinished = roundIndex >= ROUNDS.length;
   const visibleMetrics = useMemo(
@@ -503,6 +505,8 @@ export function BusinessRescueGame(): JSX.Element {
     setLastEvent(null);
     setFinishedAt(null);
     setLeadSaved(false);
+    setLeadError(null);
+    setIsLeadSubmitting(false);
     setStartedAt(Date.now());
     updateAnalytics((current) => ({ ...current, starts: current.starts + 1 }));
   }
@@ -548,20 +552,54 @@ export function BusinessRescueGame(): JSX.Element {
     }
   }
 
-  function saveLead(event: FormEvent<HTMLFormElement>): void {
+  async function saveLead(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    const payload = {
-      ...lead,
-      result: ENDINGS[result.ending].title,
-      createdAt: new Date().toISOString()
-    };
+
+    if (!SUBSCRIBERS_API_URL) {
+      setLeadError("CRM API не подключен. Нужно указать NEXT_PUBLIC_SUBSCRIBERS_API_URL.");
+      return;
+    }
+
+    setIsLeadSubmitting(true);
+    setLeadError(null);
+
+    const notes = [
+      `Игра: ${ENDINGS[result.ending].title}`,
+      `Компания: ${lead.company || "не указана"}`,
+      `Должность: ${lead.role || "не указана"}`,
+      `Telegram: ${lead.telegram || "не указан"}`,
+      `Управляемость: ${result.controlLevel}`,
+      `Системное мышление: ${result.systemThinking}`,
+      `Лидерство: ${result.leadership}`,
+      `Готовность к росту: ${result.growthReadiness}`
+    ].join("\n");
 
     try {
-      const current = JSON.parse(window.localStorage.getItem(LEADS_KEY) ?? "[]") as typeof payload[];
-      window.localStorage.setItem(LEADS_KEY, JSON.stringify([...current, payload]));
+      const response = await fetch(SUBSCRIBERS_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          fullName: lead.name,
+          email: lead.email,
+          source: "business-game",
+          tags: ["business-game", result.ending],
+          notes
+        })
+      });
+
+      const payload = (await response.json().catch(() => null)) as { error?: string; message?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.message || payload?.error || "Не удалось отправить заявку.");
+      }
+
       setLeadSaved(true);
-    } catch {
-      setLeadSaved(true);
+    } catch (error) {
+      setLeadError(error instanceof Error ? error.message : "Не удалось отправить заявку.");
+    } finally {
+      setIsLeadSubmitting(false);
     }
   }
 
@@ -649,6 +687,8 @@ export function BusinessRescueGame(): JSX.Element {
           durationMs={finishedAt && startedAt ? finishedAt - startedAt : 0}
           lead={lead}
           leadSaved={leadSaved}
+          leadError={leadError}
+          isLeadSubmitting={isLeadSubmitting}
           analytics={analytics}
           onLeadChange={setLead}
           onLeadSubmit={saveLead}
@@ -746,6 +786,8 @@ function FinalReport({
   durationMs,
   lead,
   leadSaved,
+  leadError,
+  isLeadSubmitting,
   analytics,
   onLeadChange,
   onLeadSubmit,
@@ -757,9 +799,11 @@ function FinalReport({
   durationMs: number;
   lead: LeadForm;
   leadSaved: boolean;
+  leadError: string | null;
+  isLeadSubmitting: boolean;
   analytics: Analytics;
   onLeadChange: (lead: LeadForm) => void;
-  onLeadSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onLeadSubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>;
   onRestart: () => void;
 }): JSX.Element {
   const ending = ENDINGS[result.ending];
@@ -797,18 +841,24 @@ function FinalReport({
               <LeadInput label="Имя" value={lead.name} onChange={(name) => onLeadChange({ ...lead, name })} required />
               <LeadInput label="Компания" value={lead.company} onChange={(company) => onLeadChange({ ...lead, company })} />
               <LeadInput label="Должность" value={lead.role} onChange={(role) => onLeadChange({ ...lead, role })} />
-              <LeadInput label="Email" value={lead.email} onChange={(email) => onLeadChange({ ...lead, email })} type="email" />
+              <LeadInput label="Email" value={lead.email} onChange={(email) => onLeadChange({ ...lead, email })} type="email" required />
               <LeadInput label="Telegram" value={lead.telegram} onChange={(telegram) => onLeadChange({ ...lead, telegram })} />
             </div>
             <button
               type="submit"
-              className="mt-5 w-full rounded-xl bg-[#2f6bff] px-5 py-3 text-base font-bold text-white transition hover:bg-[#255be0]"
+              disabled={isLeadSubmitting}
+              className="mt-5 w-full rounded-xl bg-[#2f6bff] px-5 py-3 text-base font-bold text-white transition hover:bg-[#255be0] disabled:cursor-not-allowed disabled:bg-slate-400"
             >
-              Получить экспертный разбор
+              {isLeadSubmitting ? "Отправляем..." : "Получить экспертный разбор"}
             </button>
             {leadSaved ? (
               <p className="mt-3 rounded-xl bg-[#effaf3] px-4 py-3 text-sm font-semibold text-[#1f7a3d]">
-                Заявка сохранена в браузере для MVP.
+                Заявка отправлена. Она появится в CRM и, если настроен бот, придет в Telegram.
+              </p>
+            ) : null}
+            {leadError ? (
+              <p className="mt-3 rounded-xl bg-[#fff0f0] px-4 py-3 text-sm font-semibold text-[#b42318]">
+                {leadError}
               </p>
             ) : null}
           </form>

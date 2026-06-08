@@ -6,6 +6,8 @@ const STORE_KEY = process.env.SUBSCRIBERS_STORE_KEY || "crm/subscribers.json";
 const REGION = process.env.AWS_REGION || "ru-central1";
 const ENDPOINT = process.env.YC_ENDPOINT_URL || "https://storage.yandexcloud.net";
 const ADMIN_TOKEN = String(process.env.SUBSCRIBERS_ADMIN_TOKEN || "").trim();
+const TELEGRAM_BOT_TOKEN = String(process.env.TELEGRAM_BOT_TOKEN || "").trim();
+const TELEGRAM_CHAT_ID = String(process.env.TELEGRAM_CHAT_ID || "").trim();
 const ALLOWED_ORIGIN = (process.env.ALLOWED_ORIGIN || "*")
   .split(",")
   .map((item) => item.trim())
@@ -209,6 +211,45 @@ function toEmailsList(items) {
   return uniqueEmails.join("\n");
 }
 
+function escapeTelegramHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+async function notifyTelegram(contact, isUpdated) {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+
+  const text = [
+    isUpdated ? "🔁 <b>Обновлена заявка</b>" : "🆕 <b>Новая заявка</b>",
+    "",
+    `<b>Имя:</b> ${escapeTelegramHtml(contact.fullName)}`,
+    `<b>Email:</b> ${escapeTelegramHtml(contact.email)}`,
+    `<b>Источник:</b> ${escapeTelegramHtml(contact.source)}`,
+    contact.tags?.length ? `<b>Теги:</b> ${escapeTelegramHtml(contact.tags.join(", "))}` : "",
+    contact.notes ? `<b>Заметки:</b>\n${escapeTelegramHtml(contact.notes)}` : ""
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text,
+      parse_mode: "HTML",
+      disable_web_page_preview: true
+    })
+  });
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => "");
+    throw new Error(`Telegram notification failed: ${response.status} ${details}`);
+  }
+}
+
 module.exports.handler = async function handler(event) {
   const method = event.httpMethod || event.requestContext?.http?.method || "GET";
   const requestOrigin = event.headers?.origin || event.headers?.Origin;
@@ -275,6 +316,7 @@ module.exports.handler = async function handler(event) {
         };
         items[existingIndex] = updated;
         await writeContacts(items);
+        await notifyTelegram(updated, true).catch((error) => console.error(error));
         return response(200, { item: updated, updated: true }, requestOrigin);
       }
 
@@ -293,6 +335,7 @@ module.exports.handler = async function handler(event) {
 
       items.push(created);
       await writeContacts(items);
+      await notifyTelegram(created, false).catch((error) => console.error(error));
       return response(201, { item: created }, requestOrigin);
     }
 
