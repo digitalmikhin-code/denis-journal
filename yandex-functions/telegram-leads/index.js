@@ -56,21 +56,21 @@ function buildTelegramMessage(body) {
   const scores = body.scores || {};
 
   return [
-    "🆕 <b>Новая заявка с сайта</b>",
+    "<b>New website lead</b>",
     "",
-    `<b>Источник:</b> ${escapeTelegramHtml(source)}`,
-    result ? `<b>Результат игры:</b> ${escapeTelegramHtml(result)}` : "",
+    `<b>Source:</b> ${escapeTelegramHtml(source)}`,
+    result ? `<b>Game result:</b> ${escapeTelegramHtml(result)}` : "",
     "",
-    `<b>Имя:</b> ${escapeTelegramHtml(name)}`,
+    `<b>Name:</b> ${escapeTelegramHtml(name)}`,
     `<b>Email:</b> ${escapeTelegramHtml(email)}`,
-    company ? `<b>Компания:</b> ${escapeTelegramHtml(company)}` : "",
-    role ? `<b>Должность:</b> ${escapeTelegramHtml(role)}` : "",
+    company ? `<b>Company:</b> ${escapeTelegramHtml(company)}` : "",
+    role ? `<b>Role:</b> ${escapeTelegramHtml(role)}` : "",
     telegram ? `<b>Telegram:</b> ${escapeTelegramHtml(telegram)}` : "",
     "",
-    scores.controlLevel ? `<b>Управляемость:</b> ${escapeTelegramHtml(scores.controlLevel)}` : "",
-    scores.systemThinking ? `<b>Системное мышление:</b> ${escapeTelegramHtml(scores.systemThinking)}` : "",
-    scores.leadership ? `<b>Лидерство:</b> ${escapeTelegramHtml(scores.leadership)}` : "",
-    scores.growthReadiness ? `<b>Готовность к росту:</b> ${escapeTelegramHtml(scores.growthReadiness)}` : ""
+    scores.controlLevel ? `<b>Control:</b> ${escapeTelegramHtml(scores.controlLevel)}` : "",
+    scores.systemThinking ? `<b>System thinking:</b> ${escapeTelegramHtml(scores.systemThinking)}` : "",
+    scores.leadership ? `<b>Leadership:</b> ${escapeTelegramHtml(scores.leadership)}` : "",
+    scores.growthReadiness ? `<b>Growth readiness:</b> ${escapeTelegramHtml(scores.growthReadiness)}` : ""
   ]
     .filter(Boolean)
     .join("\n");
@@ -113,8 +113,12 @@ function postTelegramJson(payload) {
 }
 
 module.exports.handler = async function handler(event) {
-  const method = event.httpMethod || event.requestContext?.http?.method || "GET";
-  const requestOrigin = event.headers?.origin || event.headers?.Origin;
+  const method =
+    event.httpMethod ||
+    (event.requestContext && event.requestContext.http && event.requestContext.http.method) ||
+    "GET";
+  const headers = event.headers || {};
+  const requestOrigin = headers.origin || headers.Origin;
 
   try {
     if (method === "OPTIONS") return response(200, { ok: true }, requestOrigin);
@@ -133,11 +137,11 @@ module.exports.handler = async function handler(event) {
     const email = normalizeText(body.email);
 
     if (name.length < 2) {
-      return response(400, { ok: false, error: "name_required", message: "Укажите имя." }, requestOrigin);
+      return response(400, { ok: false, error: "name_required", message: "Name is required." }, requestOrigin);
     }
 
     if (!validateEmail(email)) {
-      return response(400, { ok: false, error: "email_required", message: "Укажите корректный email." }, requestOrigin);
+      return response(400, { ok: false, error: "email_required", message: "Valid email is required." }, requestOrigin);
     }
 
     await postTelegramJson({
@@ -154,7 +158,7 @@ module.exports.handler = async function handler(event) {
       {
         ok: false,
         error: "telegram_send_failed",
-        message: error instanceof Error ? error.message : "Unknown error."
+        message: error && error.message ? error.message : "Unknown error."
       },
       requestOrigin
     );
