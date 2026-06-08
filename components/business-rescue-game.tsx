@@ -482,6 +482,7 @@ export function BusinessRescueGame(): JSX.Element {
   });
   const [leadSaved, setLeadSaved] = useState(false);
   const [leadError, setLeadError] = useState<string | null>(null);
+  const [leadInfo, setLeadInfo] = useState<string | null>(null);
   const [isLeadSubmitting, setIsLeadSubmitting] = useState(false);
 
   const isFinished = roundIndex >= ROUNDS.length;
@@ -506,6 +507,7 @@ export function BusinessRescueGame(): JSX.Element {
     setFinishedAt(null);
     setLeadSaved(false);
     setLeadError(null);
+    setLeadInfo(null);
     setIsLeadSubmitting(false);
     setStartedAt(Date.now());
     updateAnalytics((current) => ({ ...current, starts: current.starts + 1 }));
@@ -562,6 +564,7 @@ export function BusinessRescueGame(): JSX.Element {
 
     setIsLeadSubmitting(true);
     setLeadError(null);
+    setLeadInfo(null);
 
     const notes = [
       `Игра: ${ENDINGS[result.ending].title}`,
@@ -589,13 +592,26 @@ export function BusinessRescueGame(): JSX.Element {
         })
       });
 
-      const payload = (await response.json().catch(() => null)) as { error?: string; message?: string } | null;
+      const payload = (await response.json().catch(() => null)) as {
+        error?: string;
+        message?: string;
+        telegram?: { status?: string; reason?: string };
+      } | null;
 
       if (!response.ok) {
         throw new Error(payload?.message || payload?.error || "Не удалось отправить заявку.");
       }
 
       setLeadSaved(true);
+      if (payload?.telegram?.status === "sent") {
+        setLeadInfo("Telegram-уведомление отправлено.");
+      } else if (payload?.telegram?.status === "disabled") {
+        setLeadInfo("Заявка сохранена в CRM, но Telegram выключен в переменных функции.");
+      } else if (payload?.telegram?.status === "failed") {
+        setLeadInfo(`Заявка сохранена в CRM, но Telegram не отправился: ${payload.telegram.reason || "ошибка функции"}`);
+      } else {
+        setLeadInfo("Заявка сохранена в CRM. Статус Telegram не вернулся от функции.");
+      }
     } catch (error) {
       setLeadError(error instanceof Error ? error.message : "Не удалось отправить заявку.");
     } finally {
@@ -688,6 +704,7 @@ export function BusinessRescueGame(): JSX.Element {
           lead={lead}
           leadSaved={leadSaved}
           leadError={leadError}
+          leadInfo={leadInfo}
           isLeadSubmitting={isLeadSubmitting}
           analytics={analytics}
           onLeadChange={setLead}
@@ -787,6 +804,7 @@ function FinalReport({
   lead,
   leadSaved,
   leadError,
+  leadInfo,
   isLeadSubmitting,
   analytics,
   onLeadChange,
@@ -800,6 +818,7 @@ function FinalReport({
   lead: LeadForm;
   leadSaved: boolean;
   leadError: string | null;
+  leadInfo: string | null;
   isLeadSubmitting: boolean;
   analytics: Analytics;
   onLeadChange: (lead: LeadForm) => void;
@@ -853,7 +872,12 @@ function FinalReport({
             </button>
             {leadSaved ? (
               <p className="mt-3 rounded-xl bg-[#effaf3] px-4 py-3 text-sm font-semibold text-[#1f7a3d]">
-                Заявка отправлена. Она появится в CRM и, если настроен бот, придет в Telegram.
+                Заявка отправлена.
+              </p>
+            ) : null}
+            {leadInfo ? (
+              <p className="mt-3 rounded-xl bg-[#eef5ff] px-4 py-3 text-sm font-semibold text-[#1d4ed8]">
+                {leadInfo}
               </p>
             ) : null}
             {leadError ? (

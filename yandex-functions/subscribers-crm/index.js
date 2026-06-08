@@ -220,7 +220,9 @@ function escapeTelegramHtml(value) {
 }
 
 async function notifyTelegram(contact, isUpdated) {
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return;
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+    return { status: "disabled", reason: "TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is missing" };
+  }
 
   const text = [
     isUpdated ? "🔁 <b>Обновлена заявка</b>" : "🆕 <b>Новая заявка</b>",
@@ -240,6 +242,18 @@ async function notifyTelegram(contact, isUpdated) {
     parse_mode: "HTML",
     disable_web_page_preview: true
   });
+
+  return { status: "sent" };
+}
+
+async function tryNotifyTelegram(contact, isUpdated) {
+  try {
+    return await notifyTelegram(contact, isUpdated);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown Telegram notification error";
+    console.error(message);
+    return { status: "failed", reason: message };
+  }
 }
 
 function postTelegramJson(payload) {
@@ -344,8 +358,8 @@ module.exports.handler = async function handler(event) {
         };
         items[existingIndex] = updated;
         await writeContacts(items);
-        await notifyTelegram(updated, true).catch((error) => console.error(error));
-        return response(200, { item: updated, updated: true }, requestOrigin);
+        const telegram = await tryNotifyTelegram(updated, true);
+        return response(200, { item: updated, updated: true, telegram }, requestOrigin);
       }
 
       const created = {
@@ -363,8 +377,8 @@ module.exports.handler = async function handler(event) {
 
       items.push(created);
       await writeContacts(items);
-      await notifyTelegram(created, false).catch((error) => console.error(error));
-      return response(201, { item: created }, requestOrigin);
+      const telegram = await tryNotifyTelegram(created, false);
+      return response(201, { item: created, telegram }, requestOrigin);
     }
 
     if (method === "PUT") {
