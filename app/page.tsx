@@ -5,6 +5,7 @@ import { ArticleCard } from "@/components/article-card";
 import { AuthorQuote } from "@/components/author-quote";
 import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
+import { IdeaMap, type IdeaMapConnection, type IdeaMapNode } from "@/components/idea-map";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { PersonalPath, type PersonalPathItem } from "@/components/personal-path";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
@@ -45,6 +46,7 @@ export default function HomePage(): JSX.Element {
   const spotlight = latest.slice(1, 3);
   const articleBlocks = buildHomepageArticleBlocks(latest);
   const personalPaths = buildPersonalPaths(allLatest);
+  const ideaMap = buildIdeaMap(allLatest);
   const smartCollections = buildSmartCollections(allLatest);
   const starterMap = buildStarterMap(allLatest);
 
@@ -156,6 +158,8 @@ export default function HomePage(): JSX.Element {
       <ContinueReadingCard />
 
       <PersonalPath paths={personalPaths} />
+
+      <IdeaMap nodes={ideaMap.nodes} connections={ideaMap.connections} />
 
       <SmartCollections collections={smartCollections} />
 
@@ -461,6 +465,137 @@ function buildPersonalPaths(articles: ArticleSummary[]): PersonalPathItem[] {
       ])
     }
   ];
+}
+
+function buildIdeaMap(articles: ArticleSummary[]): {
+  nodes: IdeaMapNode[];
+  connections: IdeaMapConnection[];
+} {
+  const nodes: IdeaMapNode[] = [
+    {
+      id: "ai",
+      label: "ИИ в управлении",
+      shortLabel: "ИИ",
+      description: "Как использовать ИИ без хайпа: для решений, аналитики, прогнозов и управленческой скорости.",
+      category: "ai",
+      href: "/category/ai",
+      x: 72,
+      y: 22,
+      articles: pickSmartArticles(articles, ["ai", "architecture"], [
+        "ии",
+        "ai",
+        "прогноз",
+        "аналит",
+        "дашборд",
+        "решен"
+      ], 4)
+    },
+    {
+      id: "management",
+      label: "Управление",
+      shortLabel: "Управление",
+      description: "Про управляемость, ответственность, решения, риски и работу с командой в сложной среде.",
+      category: "management",
+      href: "/category/management",
+      x: 48,
+      y: 44,
+      articles: pickSmartArticles(articles, ["management", "cases"], [
+        "управ",
+        "решен",
+        "риск",
+        "команд",
+        "ответствен",
+        "проект"
+      ], 4)
+    },
+    {
+      id: "career",
+      label: "Карьера",
+      shortLabel: "Карьера",
+      description: "Как расти быстрее, становиться заметнее, расширять влияние и превращать работу в карьерный капитал.",
+      category: "career",
+      href: "/category/career",
+      x: 24,
+      y: 30,
+      articles: pickSmartArticles(articles, ["career"], [
+        "карьер",
+        "рост",
+        "замет",
+        "влия",
+        "ответствен",
+        "руковод"
+      ], 4)
+    },
+    {
+      id: "thinking",
+      label: "Системное мышление",
+      shortLabel: "Мышление",
+      description: "Видеть не симптомы, а связи: структуру, причины проблем, ограничения и рычаги изменений.",
+      category: "thinking",
+      href: "/category/thinking",
+      x: 35,
+      y: 72,
+      articles: pickSmartArticles(articles, ["thinking", "architecture"], [
+        "систем",
+        "мышлен",
+        "связ",
+        "структур",
+        "причин",
+        "модел"
+      ], 4)
+    },
+    {
+      id: "corporate",
+      label: "Корпорации",
+      shortLabel: "Корпорации",
+      description: "Как двигаться внутри большой организации: видеть возможности, договариваться и наращивать влияние.",
+      category: "career",
+      href: "/category/career",
+      x: 16,
+      y: 58,
+      articles: pickSmartArticles(articles, ["career", "management"], [
+        "корпорац",
+        "компан",
+        "влия",
+        "рост",
+        "возмож",
+        "замет"
+      ], 4)
+    },
+    {
+      id: "leadership",
+      label: "Лидерство",
+      shortLabel: "Лидерство",
+      description: "Лидерство через решения, смыслы, доверие, зрелость команды и личную управленческую позицию.",
+      category: "management",
+      href: "/category/management",
+      x: 76,
+      y: 70,
+      articles: pickSmartArticles(articles, ["management", "career", "cases"], [
+        "лидер",
+        "смысл",
+        "команд",
+        "довер",
+        "решен",
+        "ответствен"
+      ], 4)
+    }
+  ];
+
+  return {
+    nodes,
+    connections: [
+      { from: "ai", to: "management", label: "решения" },
+      { from: "ai", to: "thinking", label: "модели" },
+      { from: "management", to: "leadership", label: "люди" },
+      { from: "management", to: "thinking", label: "система" },
+      { from: "career", to: "corporate", label: "рост" },
+      { from: "career", to: "leadership", label: "влияние" },
+      { from: "corporate", to: "management", label: "контекст" },
+      { from: "thinking", to: "leadership", label: "зрелость" },
+      { from: "corporate", to: "thinking", label: "структура" }
+    ]
+  };
 }
 
 function buildStarterMap(articles: ArticleSummary[]): StarterMapItem[] {
