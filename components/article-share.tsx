@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type ArticleShareProps = {
   title: string;
@@ -17,27 +17,31 @@ type ShareTarget = {
 
 export function ArticleShare({ title, excerpt, url, compact = false }: ArticleShareProps): JSX.Element {
   const [status, setStatus] = useState<"idle" | "copied" | "shared">("idle");
-  const shareText = `${title}\n\n${excerpt}`;
+  const [currentUrl, setCurrentUrl] = useState(url);
+
+  useEffect(() => {
+    setCurrentUrl(window.location.href);
+  }, []);
 
   const targets = useMemo<ShareTarget[]>(
     () => [
       {
         label: "Telegram",
-        href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+        href: `https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(title)}`,
         tone: "border-[#229ed9]/25 bg-[#eef9ff] text-[#0b5f86] hover:bg-[#ddf3ff]"
       },
       {
         label: "WhatsApp",
-        href: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`,
+        href: `https://wa.me/?text=${encodeURIComponent(`${title} ${currentUrl}`)}`,
         tone: "border-[#25d366]/25 bg-[#effdf5] text-[#0d6b35] hover:bg-[#dcfce7]"
       },
       {
         label: "VK",
-        href: `https://vk.com/share.php?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`,
+        href: `https://vk.com/share.php?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(title)}`,
         tone: "border-[#2787f5]/25 bg-[#eef6ff] text-[#155fa8] hover:bg-[#deefff]"
       }
     ],
-    [title, url]
+    [currentUrl, title]
   );
 
   async function shareArticle(): Promise<void> {
@@ -46,7 +50,7 @@ export function ArticleShare({ title, excerpt, url, compact = false }: ArticleSh
         await navigator.share({
           title,
           text: excerpt,
-          url
+          url: currentUrl
         });
         setStatus("shared");
         return;
@@ -61,7 +65,7 @@ export function ArticleShare({ title, excerpt, url, compact = false }: ArticleSh
   async function copyLink(): Promise<void> {
     try {
       if (typeof navigator !== "undefined" && navigator.clipboard) {
-        await navigator.clipboard.writeText(`${shareText}\n\n${url}`);
+        await navigator.clipboard.writeText(currentUrl);
       }
       setStatus("copied");
     } catch {
