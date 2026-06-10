@@ -6,6 +6,7 @@ import { AuthorQuote } from "@/components/author-quote";
 import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
+import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -42,12 +43,14 @@ const STARTER_CARD_STYLES = [
 ] as const;
 
 export default function HomePage(): JSX.Element {
-  const latest = selectHomepageArticles(getLatestArticles(18));
+  const allLatest = getLatestArticles(80);
+  const latest = selectHomepageArticles(allLatest.slice(0, 18));
 
   const newest = latest[0];
   const spotlight = latest.slice(1, 3);
   const gettingStarted = selectGettingStartedArticles(latest, 4, newest?.slug);
   const articleBlocks = buildHomepageArticleBlocks(latest);
+  const smartCollections = buildSmartCollections(allLatest);
 
   return (
     <div className="space-y-14">
@@ -152,6 +155,8 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <ContinueReadingCard />
+
+      <SmartCollections collections={smartCollections} />
 
       {gettingStarted.length > 0 ? (
         <section className="relative overflow-hidden rounded-[2rem] border border-[#e4c6d8] bg-[radial-gradient(circle_at_14%_16%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_88%_20%,rgba(244,197,226,0.34)_0%,rgba(244,197,226,0)_42%),linear-gradient(135deg,#fff7df_0%,#ffeef7_58%,#fff9ef_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.75)] md:p-8">
@@ -458,5 +463,87 @@ function selectGettingStartedArticles(
   }
 
   return selected;
+}
+
+function buildSmartCollections(articles: ArticleSummary[]): SmartCollection[] {
+  return [
+    {
+      title: "Если вы руководитель",
+      description: "Про управляемость, решения, команду, риски и спокойный контроль без микроменеджмента.",
+      label: "Управление",
+      href: "/category/management",
+      accentClassName: "border-[#b98cf2] bg-[#f4e9ff]",
+      articles: pickSmartArticles(articles, ["management", "architecture"], [
+        "руковод",
+        "управ",
+        "команд",
+        "решен",
+        "проект"
+      ])
+    },
+    {
+      title: "Если вы растете в корпорации",
+      description: "Карьерный капитал, заметность, влияние, переход в руководители и рост внутри системы.",
+      label: "Карьера",
+      href: "/category/career",
+      accentClassName: "border-[#dfbf45] bg-[#fff6d6]",
+      articles: pickSmartArticles(articles, ["career"], [
+        "карьер",
+        "корпорац",
+        "рост",
+        "руковод",
+        "влия"
+      ])
+    },
+    {
+      title: "Если интересует ИИ",
+      description: "Как применять ИИ в управлении, аналитике, портфеле инициатив и ежедневной работе.",
+      label: "ИИ",
+      href: "/category/ai",
+      accentClassName: "border-[#ec9a48] bg-[#fff0df]",
+      articles: pickSmartArticles(articles, ["ai"], ["ии", "ai", "цифров", "дашборд", "аналит"])
+    },
+    {
+      title: "Если нужно видеть систему",
+      description: "Системное мышление, взаимосвязи, причины проблем и архитектура сильных решений.",
+      label: "Мышление",
+      href: "/category/thinking",
+      accentClassName: "border-[#8fc95d] bg-[#edfbe3]",
+      articles: pickSmartArticles(articles, ["thinking", "architecture"], [
+        "систем",
+        "связ",
+        "структур",
+        "архитект",
+        "причин"
+      ])
+    }
+  ];
+}
+
+function pickSmartArticles(
+  articles: ArticleSummary[],
+  categories: Category[],
+  titleSignals: string[],
+  limit = 3
+): ArticleSummary[] {
+  const normalizedSignals = titleSignals.map((signal) => signal.toLowerCase());
+
+  const scored = articles
+    .filter((article) => categories.includes(article.frontmatter.category as Category))
+    .map((article) => {
+      const title = article.frontmatter.title.toLowerCase();
+      const signalScore = normalizedSignals.reduce(
+        (score, signal) => score + (title.includes(signal) ? 2 : 0),
+        0
+      );
+
+      return {
+        article,
+        score: signalScore + (article.frontmatter.featured ? 3 : 0)
+      };
+    })
+    .sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((item) => item.article);
 }
 
