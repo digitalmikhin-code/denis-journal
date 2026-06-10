@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CATEGORY_SHORT_LABELS, CATEGORY_THEME, type Category } from "@/lib/constants";
 import type { ArticleSummary } from "@/lib/content";
+import { getArticlePremiumMeta } from "@/lib/journal-architecture";
 import { formatDate } from "@/lib/utils";
 
 type ArticleCardProps = {
@@ -12,6 +13,7 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
   const category = article.frontmatter.category as Category;
   const theme = CATEGORY_THEME[category];
   const categoryLabel = CATEGORY_SHORT_LABELS[category];
+  const premiumMeta = getArticlePremiumMeta(article);
 
   return (
     <article
@@ -32,6 +34,10 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
         <div className="space-y-4 bg-white p-5 md:p-6">
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
             <span>{formatDate(article.frontmatter.date)}</span>
+            <span>·</span>
+            <span>{article.frontmatter.readingTime} мин</span>
+            <span>·</span>
+            <span>{premiumMeta.format}</span>
           </div>
 
           <div className="space-y-3">

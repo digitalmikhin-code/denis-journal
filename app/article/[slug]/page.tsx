@@ -8,11 +8,13 @@ import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { ArticlePracticePrompts } from "@/components/article-practice-prompts";
+import { ArticlePremiumMeta } from "@/components/article-premium-meta";
 import { ArticleShare } from "@/components/article-share";
 import { ArticleShareQuotes } from "@/components/article-share-quotes";
 import { ArticleSmartSummary } from "@/components/article-smart-summary";
 import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleContinuationRoute } from "@/components/article-continuation-route";
+import { ArticleSeriesRoute } from "@/components/article-series-route";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { AuthorBrandBlock } from "@/components/author-brand-block";
@@ -35,6 +37,7 @@ import {
 } from "@/lib/constants";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
 import { getAllArticles, getArticleBySlug, getContinuationArticles, getRelatedArticles } from "@/lib/content";
+import { getSeriesArticles } from "@/lib/journal-architecture";
 import { getShareQuotes } from "@/lib/share-quotes";
 import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { formatDate } from "@/lib/utils";
@@ -104,6 +107,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
   const related = getRelatedArticles(article.slug, 3);
   const continuation = getContinuationArticles(article.slug, 3);
+  const seriesArticles = getSeriesArticles(article, getAllArticles(false), 4);
   const articleUrl = `${SITE_URL}/article/${article.slug}`;
   const category = article.frontmatter.category as Category;
   const theme = CATEGORY_THEME[category];
@@ -199,6 +203,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   {formatDate(article.frontmatter.date)} В· {article.frontmatter.readingTime} мин чтения
                 </span>
               </div>
+
+              <ArticlePremiumMeta article={article} />
 
               <h1 className="max-w-[14ch] text-4xl font-black leading-[0.94] tracking-tight text-slate-900 dark:text-slate-50 md:text-6xl">
                 {article.frontmatter.title}
@@ -418,6 +424,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               categoryLabel={CATEGORY_LABELS[category]}
               coursePromo={articleCoursePromo}
             />
+
+            <ArticleSeriesRoute current={article} articles={seriesArticles} />
 
             <ArticlePracticePrompts category={category} />
 

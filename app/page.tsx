@@ -2,10 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
+import { AuthorChoiceSection } from "@/components/author-choice-section";
 import { AuthorQuote } from "@/components/author-quote";
 import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { IdeaMap, type IdeaMapConnection, type IdeaMapNode } from "@/components/idea-map";
+import { KnowledgeMapSection } from "@/components/knowledge-map-section";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
+import { MethodologySection } from "@/components/methodology-section";
 import { PersonalPath, type PersonalPathItem } from "@/components/personal-path";
 import { ReadingGuides, type ReadingGuide } from "@/components/reading-guides";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
@@ -166,6 +169,8 @@ export default function HomePage(): JSX.Element {
 
       <ContinueReadingCard />
 
+      <KnowledgeMapSection />
+
       <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
@@ -183,6 +188,8 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <StarterMap items={starterMap} />
+
+      <AuthorChoiceSection articles={allLatest} />
 
       <section className="relative overflow-hidden rounded-[2.25rem] border border-[#1f2937] bg-slate-950 p-6 text-white shadow-[0_30px_72px_rgba(15,23,42,0.2)] md:p-8">
         <div className="pointer-events-none absolute -right-14 -top-20 h-56 w-56 rounded-full border-[14px] border-[#2bd0e2]/40" />
@@ -256,6 +263,8 @@ export default function HomePage(): JSX.Element {
       <PersonalPath paths={personalPaths} />
 
       <IdeaMap nodes={ideaMap.nodes} connections={ideaMap.connections} />
+
+      <MethodologySection />
 
       <SmartCollections collections={smartCollections} />
 
