@@ -7,6 +7,7 @@ import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
+import { StarterMap, type StarterMapItem } from "@/components/starter-map";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -35,22 +36,15 @@ export const metadata: Metadata = {
   }
 };
 
-const STARTER_CARD_STYLES = [
-  "border-[#edc65a] bg-[#fff7d4]",
-  "border-[#8fd3fb] bg-[#e8f7ff]",
-  "border-[#e8aac9] bg-[#ffedf6]",
-  "border-[#aebcff] bg-[#eef2ff]"
-] as const;
-
 export default function HomePage(): JSX.Element {
   const allLatest = getLatestArticles(80);
   const latest = selectHomepageArticles(allLatest.slice(0, 18));
 
   const newest = latest[0];
   const spotlight = latest.slice(1, 3);
-  const gettingStarted = selectGettingStartedArticles(latest, 4, newest?.slug);
   const articleBlocks = buildHomepageArticleBlocks(latest);
   const smartCollections = buildSmartCollections(allLatest);
+  const starterMap = buildStarterMap(allLatest);
 
   return (
     <div className="space-y-14">
@@ -158,58 +152,7 @@ export default function HomePage(): JSX.Element {
 
       <SmartCollections collections={smartCollections} />
 
-      {gettingStarted.length > 0 ? (
-        <section className="relative overflow-hidden rounded-[2rem] border border-[#e4c6d8] bg-[radial-gradient(circle_at_14%_16%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_88%_20%,rgba(244,197,226,0.34)_0%,rgba(244,197,226,0)_42%),linear-gradient(135deg,#fff7df_0%,#ffeef7_58%,#fff9ef_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.75)] md:p-8">
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                С чего начать
-              </p>
-              <h2 className="serif-display mt-2 text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
-                Если вы здесь впервые — начните с этого
-              </h2>
-              <p className="mt-3 max-w-[58ch] text-base leading-7 text-slate-600">
-                Подборка материалов, которые быстро объясняют подход журнала и дают рабочую опору
-                для решений в управлении, карьере и системном мышлении.
-              </p>
-            </div>
-            <Link
-              href="/articles"
-              className="text-sm font-semibold text-slate-700 transition hover:text-slate-900"
-            >
-              Весь архив →
-            </Link>
-          </div>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {gettingStarted.map((item, index) => {
-              const category = item.frontmatter.category as Category;
-              return (
-                <Link
-                  key={item.slug}
-                  href={`/article/${item.slug}`}
-                  className={`group rounded-[1.4rem] border p-5 shadow-[0_8px_18px_rgba(15,23,42,0.05)] transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white/85 hover:shadow-[0_14px_28px_rgba(15,23,42,0.08)] ${
-                    STARTER_CARD_STYLES[index % STARTER_CARD_STYLES.length]
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="inline-flex h-7 min-w-7 items-center justify-center rounded-full bg-slate-900 px-2 text-xs font-bold text-white">
-                      {index + 1}
-                    </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
-                      {CATEGORY_SHORT_LABELS[category]}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 text-xl font-black leading-tight tracking-tight text-slate-900 group-hover:text-slate-950">
-                    {item.frontmatter.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-600">{item.frontmatter.excerpt}</p>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      ) : null}
+      <StarterMap items={starterMap} />
 
       <CoursePromoBanner
         {...SECTION_COURSE_PROMOS.home}
@@ -428,41 +371,75 @@ function selectHomepageArticles(articles: ArticleSummary[]): ArticleSummary[] {
   return articles.slice(0, 3);
 }
 
-function selectGettingStartedArticles(
-  articles: ArticleSummary[],
-  limit: number,
-  excludeSlug?: string
-): ArticleSummary[] {
-  const filtered = excludeSlug ? articles.filter((article) => article.slug !== excludeSlug) : articles;
-  const byCategory = new Set<string>();
-  const selected: ArticleSummary[] = [];
-
-  for (const article of filtered) {
-    const category = article.frontmatter.category;
-    if (byCategory.has(category)) {
-      continue;
+function buildStarterMap(articles: ArticleSummary[]): StarterMapItem[] {
+  const specs: Array<{
+    slug: string;
+    category: Category;
+    signals: string[];
+    scenario: string;
+    reason: string;
+  }> = [
+    {
+      slug: "navyki-buduschego-rukovoditelya-chto-razvivat-uzhe-seychas",
+      category: "career",
+      signals: ["навык", "руковод", "будущ"],
+      scenario: "Карьера",
+      reason: "Хорошая первая точка для сильного специалиста, который хочет понять, какие навыки будут двигать его дальше."
+    },
+    {
+      slug: "upravlenie-riskami-kak-sposob-spokoystviya",
+      category: "management",
+      signals: ["риск", "спокой"],
+      scenario: "Управление",
+      reason: "Помогает увидеть управление не как постоянное тушение пожаров, а как работу с предсказуемостью."
+    },
+    {
+      slug: "kak-ii-uskoryaet-podgotovku-upravlencheskih-resheniy",
+      category: "ai",
+      signals: ["ии", "решен"],
+      scenario: "ИИ",
+      reason: "Практичный вход в тему ИИ для руководителя: не про хайп, а про подготовку решений и работу с информацией."
+    },
+    {
+      slug: "upravlenie-cherez-strukturu-vzaimosvyazey",
+      category: "thinking",
+      signals: ["структур", "взаимосвяз"],
+      scenario: "Системное мышление",
+      reason: "Базовый материал о том, как смотреть на организацию через связи, а не через отдельные симптомы."
+    },
+    {
+      slug: "karera-kak-proekt-upravlenie-svoim-rostom",
+      category: "career",
+      signals: ["карьера", "проект", "рост"],
+      scenario: "Рост внутри компании",
+      reason: "Показывает карьеру как управляемую систему действий, а не как ожидание удачного момента."
+    },
+    {
+      slug: "kak-proektirovat-upravlyaemost",
+      category: "architecture",
+      signals: ["проектировать", "управляем"],
+      scenario: "Архитектура решений",
+      reason: "Для тех, кто хочет перейти от разовых улучшений к проектированию управляемой системы."
     }
+  ];
 
-    selected.push(article);
-    byCategory.add(category);
+  const selected = new Map<string, StarterMapItem>();
 
-    if (selected.length === limit) {
-      return selected;
-    }
-  }
+  specs.forEach((spec) => {
+    const article =
+      articles.find((item) => item.slug === spec.slug) ??
+      pickSmartArticles(articles, [spec.category], spec.signals, 1)[0];
 
-  for (const article of filtered) {
-    if (selected.some((item) => item.slug === article.slug)) {
-      continue;
-    }
+    if (!article || selected.has(article.slug)) return;
 
-    selected.push(article);
-    if (selected.length === limit) {
-      break;
-    }
-  }
+    selected.set(article.slug, {
+      article,
+      scenario: spec.scenario,
+      reason: spec.reason
+    });
+  });
 
-  return selected;
+  return [...selected.values()].slice(0, 6);
 }
 
 function buildSmartCollections(articles: ArticleSummary[]): SmartCollection[] {
