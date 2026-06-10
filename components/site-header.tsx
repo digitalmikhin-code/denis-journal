@@ -67,27 +67,27 @@ export function SiteHeader(): JSX.Element {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b border-[#efb8d2]/80 bg-[#fff7fb]/92 backdrop-blur-xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950/85",
-        isVisible ? "translate-y-0" : "-translate-y-full"
+        "relative z-40 border-b border-[#efb8d2]/80 bg-[#fff7fb]/96 backdrop-blur-xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950/90 md:sticky md:top-0",
+        isVisible ? "md:translate-y-0" : "md:-translate-y-full"
       )}
     >
-      <div className="container-shell py-4">
-        <div className="flex flex-wrap items-start justify-between gap-3">
+      <div className="container-shell py-3 md:py-4">
+        <div className="flex items-center justify-between gap-3 md:items-start">
           <Link href="/" className="group leading-none">
-            <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500 transition group-hover:text-brand">
+            <span className="block text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-500 transition group-hover:text-brand md:text-[10px] md:tracking-[0.22em]">
               Авторский журнал
             </span>
-            <span className="serif-display mt-1 block text-[1.8rem] font-bold tracking-tight text-slate-900 transition group-hover:text-brand dark:text-slate-100 md:text-[2.05rem]">
+            <span className="serif-display mt-0.5 block text-[1.35rem] font-bold tracking-tight text-slate-900 transition group-hover:text-brand dark:text-slate-100 md:mt-1 md:text-[2.05rem]">
               Дениса Михина
             </span>
-            <span className="mt-1 block text-xs font-medium tracking-[0.02em] text-slate-500">
+            <span className="mt-1 hidden text-xs font-medium tracking-[0.02em] text-slate-500 sm:block">
               Системное мышление, управление, карьера, ИИ
             </span>
           </Link>
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex shrink-0 items-center gap-2 md:pt-1">
             <Link
               href="/search"
-              className="rounded-xl border border-slate-300/70 bg-white/75 px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-slate-500/60 hover:bg-white"
+              className="rounded-xl border border-slate-300/70 bg-white/75 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-500/60 hover:bg-white md:text-sm"
             >
               Поиск
             </Link>
@@ -95,7 +95,7 @@ export function SiteHeader(): JSX.Element {
               type="button"
               onClick={toggleTheme}
               className={cn(
-                "rounded-xl border px-3 py-1.5 text-sm font-semibold transition",
+                "rounded-xl border px-3 py-1.5 text-xs font-semibold transition md:text-sm",
                 "border-slate-300/70 bg-white/75 text-slate-700 hover:border-slate-500/60 hover:bg-white"
               )}
             >
@@ -103,18 +103,18 @@ export function SiteHeader(): JSX.Element {
             </button>
           </div>
         </div>
-        <nav className="mt-3 flex flex-wrap gap-2">
+        <nav className="-mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:mt-3 md:flex-wrap md:overflow-visible md:px-0 md:pb-0">
           {FIRST_MENU.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full border border-[#efb8d2] bg-[#ffeefa] px-4 py-1.5 text-sm font-semibold text-[#9f2f73] transition hover:border-[#e78ac2] hover:bg-[#ffe2f4]"
+              className="shrink-0 rounded-full border border-[#efb8d2] bg-[#ffeefa] px-3 py-1.5 text-xs font-semibold text-[#9f2f73] transition hover:border-[#e78ac2] hover:bg-[#ffe2f4] md:px-4 md:text-sm"
             >
               {item.label}
             </Link>
           ))}
         </nav>
-        <nav className="mt-2.5 flex flex-wrap gap-2">
+        <nav className="mt-2.5 hidden flex-wrap gap-2 md:flex">
           {SECOND_MENU.map((item) => (
             <Link
               key={item.href}
