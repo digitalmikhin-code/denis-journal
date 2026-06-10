@@ -17,6 +17,7 @@ import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
 import { ArticleInPageSearch } from "@/components/article-in-page-search";
+import { FocusModeToggle } from "@/components/focus-mode-toggle";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SaveArticleButton } from "@/components/save-article-button";
 import { mdxComponents } from "@/components/mdx-components";
@@ -162,6 +163,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   return (
     <div className="space-y-12">
       <ReadingProgress targetId="article-content" />
+      <FocusModeToggle />
       <ArticleBackFab />
       <script
         type="application/ld+json"
@@ -172,10 +174,12 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <ArticleBackButtons />
+      <div className="focus-noise">
+        <ArticleBackButtons />
+      </div>
 
       <article className="space-y-10">
-        <header className="relative overflow-hidden rounded-[2.25rem] border border-slate-200/80 bg-white p-6 shadow-[0_28px_60px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_60px_rgba(0,0,0,0.28)] md:p-8">
+        <header className="focus-noise relative overflow-hidden rounded-[2.25rem] border border-slate-200/80 bg-white p-6 shadow-[0_28px_60px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_60px_rgba(0,0,0,0.28)] md:p-8">
           <div
             className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full opacity-80"
             style={{ backgroundColor: theme.glow }}
@@ -259,19 +263,21 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
         </header>
 
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
+        <div className="article-reading-layout grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
           <div
             id="article-content"
-            className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10"
+            className="focus-article-card rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10"
           >
-            <ArticleSmartSummary
-              title={article.frontmatter.title}
-              excerpt={article.frontmatter.excerpt}
-              category={category}
-              readingTime={article.frontmatter.readingTime}
-            />
+            <div className="focus-noise">
+              <ArticleSmartSummary
+                title={article.frontmatter.title}
+                excerpt={article.frontmatter.excerpt}
+                category={category}
+                readingTime={article.frontmatter.readingTime}
+              />
+            </div>
 
-            <div className="mb-8 xl:hidden">
+            <div className="focus-noise mb-8 xl:hidden">
               <ArticleInPageSearch targetId="article-content" />
             </div>
 
@@ -289,16 +295,20 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
 
           <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
-            <ArticleShare
-              compact
-              title={article.frontmatter.title}
-              excerpt={article.frontmatter.excerpt}
-              url={articleUrl}
-            />
+            <div className="focus-noise">
+              <ArticleShare
+                compact
+                title={article.frontmatter.title}
+                excerpt={article.frontmatter.excerpt}
+                url={articleUrl}
+              />
+            </div>
 
-            <SaveArticleButton compact article={savedArticle} />
+            <div className="focus-noise">
+              <SaveArticleButton compact article={savedArticle} />
+            </div>
 
-            <div className="hidden xl:block">
+            <div className="focus-noise hidden xl:block">
               <ArticleInPageSearch targetId="article-content" />
             </div>
 
@@ -306,7 +316,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               <ArticleTableOfContents items={articleBody.items} />
             </div>
 
-            <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
+            <div className="focus-noise rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Навигация
               </p>
@@ -329,7 +339,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff0f7_0%,#eef9ff_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:bg-none dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
+            <div className="focus-noise rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff0f7_0%,#eef9ff_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:bg-none dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Если откликнулось
               </p>
@@ -351,18 +361,20 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </aside>
         </div>
 
-        <ArticleShareQuotes
-          articleTitle={article.frontmatter.title}
-          author={article.frontmatter.author || "Денис Михин"}
-          quotes={shareQuotes}
-          url={articleUrl}
-        />
+        <div className="focus-noise">
+          <ArticleShareQuotes
+            articleTitle={article.frontmatter.title}
+            author={article.frontmatter.author || "Денис Михин"}
+            quotes={shareQuotes}
+            url={articleUrl}
+          />
+        </div>
 
-        <div className="mx-auto w-full max-w-[420px] xl:hidden">
+        <div className="focus-noise mx-auto w-full max-w-[420px] xl:hidden">
           <SaveArticleButton article={savedArticle} />
         </div>
 
-        <section className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-white p-5 shadow-[0_28px_70px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_70px_rgba(0,0,0,0.3)] md:p-7">
+        <section className="focus-noise overflow-hidden rounded-[2.25rem] border border-slate-200 bg-white p-5 shadow-[0_28px_70px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_70px_rgba(0,0,0,0.3)] md:p-7">
           <div className="rounded-[1.75rem] bg-[linear-gradient(135deg,#fff8e5_0%,#eef9ff_48%,#fff1f7_100%)] p-5 dark:bg-slate-800 dark:bg-none md:p-7">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
               После статьи
@@ -451,11 +463,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
         </section>
 
-        <ArticleBackButtons centered />
+        <div className="focus-noise">
+          <ArticleBackButtons centered />
+        </div>
       </article>
 
       {related.length > 0 && (
-        <section id="related-articles" className="scroll-mt-28 space-y-5 border-t border-slate-200 pt-10">
+        <section id="related-articles" className="focus-noise scroll-mt-28 space-y-5 border-t border-slate-200 pt-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Дальше по теме</p>
             <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">

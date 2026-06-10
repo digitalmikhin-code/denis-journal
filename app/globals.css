@@ -209,3 +209,56 @@ body::before {
   background-color: rgba(34, 211, 238, 0.55);
   color: inherit;
 }
+
+html.article-focus body {
+  background-image: none;
+}
+
+html.article-focus body::before {
+  opacity: 0;
+}
+
+html.article-focus .site-header,
+html.article-focus .site-footer,
+html.article-focus .focus-noise {
+  display: none !important;
+}
+
+html.article-focus .article-reading-layout {
+  align-items: start;
+}
+
+html.article-focus .focus-article-card {
+  border-color: rgba(226, 232, 240, 0.92) !important;
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.article-focus .prose-journal {
+  max-width: 760px;
+  font-size: 1.12rem;
+  line-height: 2;
+}
+
+@media (min-width: 1280px) {
+  html.article-focus .article-reading-layout {
+    grid-template-columns: minmax(0, 1fr) 280px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html.article-focus main.container-shell {
+    width: min(100% - 1rem, 760px);
+    padding-top: 1rem;
+  }
+
+  html.article-focus .focus-article-card {
+    border-radius: 1.35rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  html.article-focus .prose-journal {
+    font-size: 1.06rem;
+    line-height: 1.85;
+  }
+}

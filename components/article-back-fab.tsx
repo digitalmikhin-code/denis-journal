@@ -18,7 +18,7 @@ export default function ArticleBackFab(): JSX.Element {
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-40 transition duration-300 ${
+      className={`focus-noise fixed bottom-6 right-6 z-40 transition duration-300 ${
         visible ? "opacity-100 translate-y-0" : "pointer-events-none opacity-0 translate-y-2"
       }`}
     >

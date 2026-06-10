@@ -67,7 +67,7 @@ export function SiteHeader(): JSX.Element {
   return (
     <header
       className={cn(
-        "relative z-40 border-b border-[#efb8d2]/80 bg-[#fff7fb]/96 backdrop-blur-xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950/90 md:sticky md:top-0",
+        "site-header relative z-40 border-b border-[#efb8d2]/80 bg-[#fff7fb]/96 backdrop-blur-xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950/90 md:sticky md:top-0",
         isVisible ? "md:translate-y-0" : "md:-translate-y-full"
       )}
     >

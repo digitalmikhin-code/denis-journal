@@ -70,7 +70,7 @@ export function TelegramScrollBanner(): JSX.Element | null {
   };
 
   return (
-    <aside className="fixed inset-x-3 bottom-3 z-50 md:inset-x-6 md:bottom-6">
+    <aside className="focus-noise fixed inset-x-3 bottom-3 z-50 md:inset-x-6 md:bottom-6">
       <div className="mx-auto flex max-w-[1100px] items-center gap-3 rounded-2xl border border-[#4c45b8] bg-[#6964d9] px-4 py-3 text-white shadow-[0_12px_40px_rgba(35,29,97,0.45)] md:px-5">
         <p className="flex-1 text-sm font-semibold leading-tight md:text-base">
           Подпишитесь на Telegram-канал Дениса, чтобы не пропускать важные новости и новые статьи.

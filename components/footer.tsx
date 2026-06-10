@@ -8,7 +8,7 @@ import {
 
 export function SiteFooter(): JSX.Element {
   return (
-    <footer className="mt-14">
+    <footer className="site-footer mt-14">
       <div className="container-shell">
         <div className="rounded-t-[2.2rem] border border-b-0 border-[#efb8d2] bg-[linear-gradient(135deg,#f6c6dd_0%,#ffddeb_34%,#ecf7ff_100%)] p-6 md:p-8">
           <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
