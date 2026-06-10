@@ -1,222 +1,300 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AuthorQuote } from "@/components/author-quote";
-import { CoursePromoBanner } from "@/components/course-promo-banner";
-import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
-import { SITE_URL, STEPIK_TEACH_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import { AuthorBrandBlock } from "@/components/author-brand-block";
+import {
+  SITE_URL,
+  STEPIK_TEACH_URL,
+  TELEGRAM_CHANNEL_URL,
+  TELEGRAM_CONSULT_URL
+} from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Обо мне",
+  title: "Об авторе",
   description:
-    "Денис Михин: консультант по управлению, Agile и системному росту команд. Помогаю руководителям принимать решения в сложных системах.",
+    "Денис Михин: Head of HR PMO, практик управления изменениями, Agile, OKR, проектного управления и ИИ в управлении. Помогаю бизнесу расти через управление, продажи, ИИ и системные изменения.",
   alternates: {
     canonical: "/about"
   },
   openGraph: {
-    title: "Обо мне | Журнал Дениса Михина",
+    title: "Об авторе | Журнал Дениса Михина",
     description:
-      "Консультант по управлению, Agile и системному росту команд. Практика, обучение и форматы сотрудничества для руководителей.",
+      "Страница доверия Дениса Михина: опыт, подход, темы экспертизы, курсы и консалтинг для руководителей, собственников и проектных команд.",
     url: `${SITE_URL}/about`
   }
 };
 
+const BUSINESS_PROBLEMS = [
+  "Компания растет, но управление остается ручным и держится на отдельных людях.",
+  "Проекты идут, но бизнес-результат теряется между задачами, встречами и согласованиями.",
+  "Продажи, процессы и команды работают разрозненно, без общей системы изменений.",
+  "ИИ уже нужен в управлении, но непонятно, где он дает практическую пользу, а где только шум.",
+  "Руководителям не хватает общей рамки: как видеть ограничения, приоритеты и точки роста."
+];
+
+const EXPERTISE_TOPICS = [
+  {
+    title: "Управление изменениями",
+    text: "Как проводить изменения так, чтобы они становились рабочей системой, а не разовой инициативой."
+  },
+  {
+    title: "Проектное управление и HR PMO",
+    text: "Как выстраивать портфель задач, роли, ритмы, прозрачность и ответственность."
+  },
+  {
+    title: "Agile и OKR",
+    text: "Как использовать гибкие подходы и цели без театра процессов и лишней бюрократии."
+  },
+  {
+    title: "ИИ в управлении",
+    text: "Как применять ИИ для анализа, подготовки решений, управления знаниями и повышения скорости."
+  },
+  {
+    title: "Системное мышление",
+    text: "Как видеть причины, связи, ограничения и рычаги влияния вместо борьбы с симптомами."
+  },
+  {
+    title: "Продажи и рост бизнеса",
+    text: "Как связывать управление, процессы, изменения и коммерческий результат в одну систему."
+  }
+];
+
 export default function AboutPage(): JSX.Element {
   return (
-    <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-3xl bg-[#6964d9] p-8 text-white shadow-soft md:p-10">
-        <div className="pointer-events-none absolute -right-24 -top-20 h-64 w-64 rounded-full border-[12px] border-white/80" />
-        <div className="pointer-events-none absolute -bottom-32 right-20 h-72 w-72 rounded-full border-[10px] border-white/60" />
-        <div className="relative grid gap-8 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-          <div className="space-y-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">Профиль</p>
-            <h1 className="max-w-[14ch] text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">Денис Михин</h1>
-            <p className="max-w-[32ch] text-2xl leading-snug text-white/95">
-              Помогаю руководителям и сильным специалистам принимать решения в сложных системах.
+    <div className="space-y-10">
+      <section className="relative overflow-hidden rounded-[2.35rem] border border-[#1f2937] bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
+        <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/35" />
+        <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#f5d45d]/30" />
+        <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+              Об авторе
             </p>
-            <p className="max-w-[58ch] text-base text-white/90">
-              Работаю на стыке управления, процессов и человеческого фактора: помогаю видеть связи,
-              находить ограничения, убирать хаос в операционке и выстраивать практики, которые команда
-              реально применяет каждый день.
+            <h1 className="mt-4 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+              Денис Михин
+            </h1>
+            <p className="mt-5 max-w-[36ch] text-2xl font-semibold leading-tight text-white/92 md:text-3xl">
+              Помогаю бизнесу расти через управление, продажи, ИИ и системные изменения.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <p className="mt-5 max-w-[62ch] text-base leading-8 text-white/72 md:text-lg">
+              Я работаю с руководителями, собственниками, проектными менеджерами и командами, которым
+              нужно не просто больше задач, а более управляемая система: понятные цели, сильные решения,
+              рабочие ритмы, прозрачность ответственности и изменения, которые дают результат.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href={TELEGRAM_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl bg-white px-6 py-3 text-base font-bold text-[#5e58ce] transition hover:bg-slate-100"
+                className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 shadow-[0_7px_0_0_rgba(255,255,255,0.18)] transition hover:-translate-y-0.5 hover:bg-slate-100"
               >
-                Получить консультацию
+                Обсудить консалтинг
               </Link>
               <Link
-                href={TELEGRAM_CHANNEL_URL}
+                href={STEPIK_TEACH_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border-2 border-white/80 bg-white/10 px-5 py-3 text-base font-semibold text-white transition hover:bg-white/20"
+                className="rounded-2xl border border-white/20 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
               >
-                Telegram-канал
+                Смотреть курсы
               </Link>
             </div>
           </div>
 
           <div className="grid gap-3">
-            <div className="rounded-2xl border-4 border-[#2f2b86] bg-[#8a86ea] p-5 shadow-[0_12px_0_0_rgba(25,22,91,0.35)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">Фокус</p>
-              <ul className="mt-2 space-y-1.5 text-sm leading-snug text-white/95">
-                <li>Операционная эффективность команд</li>
-                <li>Система управления и зона ответственности</li>
-                <li>Agile-подходы под задачи бизнеса</li>
-                <li>ИИ в работе руководителя без инфошума</li>
-              </ul>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              <div className="rounded-xl border border-[#efe37a] bg-[#fff7b8] p-3 text-slate-900">
-                <p className="text-[10px] uppercase tracking-[0.15em] text-slate-600">Подход</p>
-                <p className="mt-1 text-sm font-bold">Практика</p>
+            {[
+              ["Роль", "Head of HR PMO"],
+              ["Фокус", "Рост бизнеса через изменения"],
+              ["Практика", "Управление, Agile, OKR, ИИ"],
+              ["Формат", "Курсы, консалтинг, разборы"]
+            ].map(([label, value]) => (
+              <div
+                key={label}
+                className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5 shadow-[0_16px_34px_rgba(0,0,0,0.16)]"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/45">
+                  {label}
+                </p>
+                <p className="mt-2 text-xl font-black leading-tight text-white">{value}</p>
               </div>
-              <div className="rounded-xl border border-[#8be7d1] bg-[#d9fff4] p-3 text-slate-900">
-                <p className="text-[10px] uppercase tracking-[0.15em] text-slate-600">Фокус</p>
-                <p className="mt-1 text-sm font-bold">Результат</p>
-              </div>
-              <div className="rounded-xl border border-[#f3b7d8] bg-[#ffe7f4] p-3 text-slate-900">
-                <p className="text-[10px] uppercase tracking-[0.15em] text-slate-600">Формат</p>
-                <p className="mt-1 text-sm font-bold">Система</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <CoursePromoBanner
-        {...SECTION_COURSE_PROMOS.about}
-        label="Курсы автора"
-        ctaLabel="Открыть каталог курсов"
-      />
-
-      <AuthorQuote
-        className="border-[#d6dcff] bg-[#f7f8ff]"
-        quote="Позиция автора важна только тогда, когда она помогает команде действовать точнее и сильнее."
-      />
-      <section className="grid gap-5 md:grid-cols-2">
-        <article className="rounded-3xl border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Чем полезен</p>
-          <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900">Задачи, с которыми работаю</h2>
-          <ul className="mt-4 space-y-2 text-slate-800">
-            <li>Диагностика команд и процессов, поиск узких мест и скрытых потерь</li>
-            <li>Перезапуск управленческого ритма и системы контроля задач</li>
-            <li>Настройка delivery-процесса под конкретные KPI бизнеса</li>
-            <li>Подготовка руководителей к росту зоны ответственности</li>
-            <li>Внедрение практик без «теории ради теории»</li>
-          </ul>
+      <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Кто я и чем занимаюсь
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+            Практик, который работает с системами, а не только с отдельными задачами
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-700">
+            Моя работа находится на стыке управления, изменений, проектного офиса, Agile, OKR,
+            ИИ и развития руководителей. Я помогаю увидеть, где бизнес теряет скорость, управляемость
+            и результат, а затем собрать практичный контур действий.
+          </p>
+          <p className="mt-4 text-base leading-8 text-slate-700">
+            Этот сайт не про резюме и не про набор регалий. Он про способ мышления: как смотреть на
+            компанию как на систему, находить точки роста и проводить изменения без хаоса.
+          </p>
         </article>
 
-        <article className="rounded-3xl border border-[#efb8d2] bg-[#ffeefa] p-6 shadow-soft">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9f2f73]">Как работаю</p>
-          <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900">Форматы сотрудничества</h2>
-          <div className="mt-4 space-y-3">
-            <div className="rounded-xl border border-white/70 bg-white/70 p-3 text-slate-800">
-              <p className="font-semibold">1:1 сессии для руководителей и специалистов</p>
-              <p className="mt-1 text-sm">Фокус на вашей задаче, приоритеты на 30–90 дней и конкретные действия.</p>
-            </div>
-            <div className="rounded-xl border border-white/70 bg-white/70 p-3 text-slate-800">
-              <p className="font-semibold">Командные стратегические и рабочие сессии</p>
-              <p className="mt-1 text-sm">Синхронизация ролей, договоренности по ритмам и прозрачный контур управления.</p>
-            </div>
-            <div className="rounded-xl border border-white/70 bg-white/70 p-3 text-slate-800">
-              <p className="font-semibold">Консалтинг и менторинг изменений</p>
-              <p className="mt-1 text-sm">Сопровождение внедрения до измеримого эффекта, а не до красивой презентации.</p>
-            </div>
+        <article className="rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">
+            Какие задачи решаю
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+            Бизнес-проблемы, где я могу быть полезен
+          </h2>
+          <div className="mt-5 grid gap-3">
+            {BUSINESS_PROBLEMS.map((problem, index) => (
+              <div key={problem} className="rounded-2xl border border-white/70 bg-white/75 p-4">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6e00]">
+                  0{index + 1}
+                </p>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">{problem}</p>
+              </div>
+            ))}
           </div>
         </article>
       </section>
 
-      <section className="grid gap-5 md:grid-cols-3">
-        <article className="rounded-2xl border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Материалы</p>
-          <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Журнал</h3>
-          <p className="mt-2 text-sm text-slate-700">
-            Разборы для тех, кто принимает решения, растет в ответственности и работает внутри сложных систем.
-          </p>
-          <div className="mt-4 space-y-1 text-sm text-slate-700">
-            <p>Практические статьи без воды</p>
-            <p>Кейсы и прикладные схемы</p>
-            <p>Рабочие шаблоны и чек-листы</p>
-          </div>
-          <Link href="/articles" className="mt-4 inline-flex text-sm font-semibold text-cyan-700 hover:underline">
-            Перейти к статьям
-          </Link>
-        </article>
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+          Мой подход
+        </p>
+        <h2 className="mt-3 max-w-[18ch] text-3xl font-black tracking-tight text-slate-900 md:text-5xl">
+          Сначала система, потом инструменты
+        </h2>
+        <p className="mt-4 max-w-4xl text-base leading-8 text-slate-700 md:text-lg">
+          Я не начинаю с модных практик. Сначала важно понять контекст: где бизнес хочет расти,
+          что мешает результату, как устроены решения, какие ограничения есть в процессах, продажах,
+          людях и управлении. Только после этого выбираются инструменты: Agile, OKR, проектный контур,
+          ИИ, обучение или консалтинг.
+        </p>
+        <div className="mt-6 grid gap-3 md:grid-cols-4">
+          {[
+            ["Диагностика", "Понять текущую систему, ограничения и точки роста."],
+            ["Фокус", "Выбрать несколько действий, которые реально повлияют на результат."],
+            ["Внедрение", "Перенести решения в рабочие ритмы, роли и договоренности."],
+            ["Усиление", "Закрепить изменения через метрики, обучение и корректировку."]
+          ].map(([title, text]) => (
+            <div key={title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-base font-black text-slate-900">{title}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-        <article className="rounded-2xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-violet-50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-700">Обучение</p>
-          <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Курсы и практика</h3>
-          <p className="mt-2 text-sm text-slate-700">
-            Программы для системного роста управленческих навыков и внедрения инструментов в реальную работу команды.
+      <section className="space-y-5">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Темы экспертизы
           </p>
-          <div className="mt-4 space-y-1 text-sm text-slate-700">
-            <p>Курсы Stepik</p>
-            <p>Разборы 1:1</p>
-            <p>Практика на ваших кейсах</p>
-          </div>
+          <h2 className="mt-2 text-4xl font-black tracking-tight text-slate-900">
+            О чем я пишу, обучаю и консультирую
+          </h2>
+        </div>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {EXPERTISE_TOPICS.map((topic) => (
+            <article
+              key={topic.title}
+              className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+            >
+              <h3 className="text-xl font-black tracking-tight text-slate-900">{topic.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{topic.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-5 lg:grid-cols-2">
+        <article className="rounded-[2rem] border border-[#95dff5] bg-[linear-gradient(135deg,#eaf8ff_0%,#f7fbff_100%)] p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#005b75]">
+            Курсы
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+            Когда нужен системный рост в своем темпе
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-700">
+            Курсы помогают собрать базу: управленческое мышление, проектный подход, Agile, ИИ,
+            цифровые продукты и работа с изменениями. Это формат для тех, кто хочет не вдохновение
+            на вечер, а понятную структуру развития.
+          </p>
           <Link
             href={STEPIK_TEACH_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex text-sm font-semibold text-indigo-700 hover:underline"
+            className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Открыть курсы Stepik
+            Смотреть курсы
           </Link>
         </article>
 
-        <article className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-lime-50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">Медиа</p>
-          <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Видео и Telegram</h3>
-          <p className="mt-2 text-sm text-slate-700">Короткие практические видео и ежедневные заметки для руководителей.</p>
-          <div className="mt-4 space-y-1 text-sm text-slate-700">
-            <p>Видеоразборы управленческих решений</p>
-            <p>Обновления по новым материалам</p>
-            <p>Фокус на применении, а не на хайпе</p>
+        <article className="rounded-[2rem] border border-[#efb8d2] bg-[linear-gradient(135deg,#fff0f7_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9f2f73]">
+            Консалтинг
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+            Когда нужна работа с конкретной ситуацией
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-700">
+            Консалтинг полезен, когда есть управленческий узел: рост буксует, проекты теряют
+            результат, изменения не закрепляются, команда перегружена или нужно встроить ИИ в
+            управленческий контур без лишнего шума.
+          </p>
+          <Link
+            href={TELEGRAM_CONSULT_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex rounded-2xl bg-[#ff6a3d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#ef5d31]"
+          >
+            Обсудить консалтинг
+          </Link>
+        </article>
+      </section>
+
+      <AuthorBrandBlock variant="extended" />
+
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Где читать дальше
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+              Выберите удобный следующий шаг
+            </h2>
+            <p className="mt-4 max-w-[64ch] text-base leading-8 text-slate-700">
+              Можно начать со статей и диагностик, смотреть короткие заметки в Telegram, пройти курс
+              или обсудить конкретную ситуацию в компании.
+            </p>
           </div>
-          <div className="mt-4 flex gap-4">
-            <Link href="/videos" className="text-sm font-semibold text-emerald-700 hover:underline">
-              Видео
+          <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[420px]">
+            <Link href="/articles" className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-center text-sm font-bold text-slate-800 transition hover:bg-slate-100">
+              Читать журнал
+            </Link>
+            <Link href="/diagnostics" className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-center text-sm font-bold text-slate-800 transition hover:bg-slate-100">
+              Пройти диагностику
             </Link>
             <Link
               href={TELEGRAM_CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-emerald-700 hover:underline"
+              className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3 text-center text-sm font-bold text-slate-800 transition hover:bg-slate-100"
             >
-              Telegram
+              Читать Telegram
             </Link>
-          </div>
-        </article>
-      </section>
-
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Подход к работе</p>
-        <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-          Строгий, прикладной, ориентированный на результат
-        </h2>
-        <p className="mt-4 max-w-4xl text-lg text-slate-700">
-          Я не продаю универсальные методики. Работа строится от вашей ситуации: цели бизнеса, текущие ограничения, зрелость
-          команды и управленческий контекст. На выходе вы получаете ясную систему действий, приоритеты и измеримый эффект.
-        </p>
-        <div className="mt-6 grid gap-3 md:grid-cols-4">
-          <div className="rounded-xl border border-[#f5d76f] bg-[#fff8c8] p-4">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#896700]">Этап 1</p>
-            <p className="mt-1 font-semibold text-slate-900">Диагностика текущего состояния</p>
-          </div>
-          <div className="rounded-xl border border-[#8edec9] bg-[#ddfff2] p-4">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#0f7758]">Этап 2</p>
-            <p className="mt-1 font-semibold text-slate-900">Проектирование решений и ролей</p>
-          </div>
-          <div className="rounded-xl border border-[#f4b0d2] bg-[#ffe7f4] p-4">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#9f2f73]">Этап 3</p>
-            <p className="mt-1 font-semibold text-slate-900">Внедрение в рабочие ритмы</p>
-          </div>
-          <div className="rounded-xl border border-[#95dff5] bg-[#def6ff] p-4">
-            <p className="text-xs uppercase tracking-[0.14em] text-[#005b75]">Этап 4</p>
-            <p className="mt-1 font-semibold text-slate-900">Контроль метрик и корректировка</p>
+            <Link
+              href={TELEGRAM_CONSULT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-2xl bg-slate-950 px-5 py-3 text-center text-sm font-bold text-white transition hover:bg-slate-800"
+            >
+              Обсудить задачу
+            </Link>
           </div>
         </div>
       </section>
