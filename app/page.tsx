@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { AuthorQuote } from "@/components/author-quote";
 import { ContinueReadingCard } from "@/components/continue-reading-card";
-import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { IdeaMap, type IdeaMapConnection, type IdeaMapNode } from "@/components/idea-map";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { PersonalPath, type PersonalPathItem } from "@/components/personal-path";
@@ -16,12 +15,13 @@ import {
   CATEGORY_SHORT_LABELS,
   CATEGORY_THEME,
   SITE_URL,
+  TELEGRAM_CONSULT_URL,
   TELEGRAM_CHANNEL_URL,
   VK_PROFILE_URL,
   type Category
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
-import { ARTICLE_CATEGORY_COURSE_PROMOS, SECTION_COURSE_PROMOS } from "@/lib/course-promos";
+import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -166,6 +166,24 @@ export default function HomePage(): JSX.Element {
 
       <ContinueReadingCard />
 
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Редакционный вход</p>
+            <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">С чего начать чтение</h2>
+            <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">
+              Если вы попали на журнал впервые, начните не с ленты, а с маршрута: выберите свою роль, тему или управленческую задачу.
+              Это помогает быстрее погрузиться в систему знаний, а не в набор отдельных материалов.
+            </p>
+          </div>
+          <Link href="/start" className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800">
+            Выбрать маршрут
+          </Link>
+        </div>
+      </section>
+
+      <StarterMap items={starterMap} />
+
       <section className="relative overflow-hidden rounded-[2.25rem] border border-[#1f2937] bg-slate-950 p-6 text-white shadow-[0_30px_72px_rgba(15,23,42,0.2)] md:p-8">
         <div className="pointer-events-none absolute -right-14 -top-20 h-56 w-56 rounded-full border-[14px] border-[#2bd0e2]/40" />
         <div className="pointer-events-none absolute -bottom-20 left-10 h-48 w-48 rounded-full border-[12px] border-[#f5d45d]/35" />
@@ -243,13 +261,9 @@ export default function HomePage(): JSX.Element {
 
       <ReadingGuides guides={readingGuides} />
 
-      <StarterMap items={starterMap} />
+      <PracticeChangesTeaser />
 
-      <CoursePromoBanner
-        {...SECTION_COURSE_PROMOS.home}
-        label="Курс на главной"
-        ctaLabel="Перейти на Stepik"
-      />
+      <CourseRoutesBlock />
 
       <MaxChannelBanner />
 
@@ -412,6 +426,94 @@ export default function HomePage(): JSX.Element {
   );
 }
 
+
+function PracticeChangesTeaser(): JSX.Element {
+  return (
+    <section className="rounded-[2rem] border border-slate-200 bg-[#111827] p-7 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] md:p-9">
+      <div className="grid gap-6 md:grid-cols-[1fr_0.82fr] md:items-center">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Практика изменений</p>
+          <h2 className="mt-3 max-w-[14ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">Кейсы без раскрытия конфиденциальности</h2>
+          <p className="mt-4 max-w-[58ch] text-base leading-8 text-white/72">
+            Разборы через управленческую механику: симптомы, системная причина, что изменили и какой эффект получили.
+            Это спокойный способ показать опыт без давления и без раскрытия клиентских деталей.
+          </p>
+        </div>
+        <div className="grid gap-3">
+          {["Проблема", "Системная причина", "Решение", "Эффект"].map((item, index) => (
+            <div key={item} className="rounded-2xl border border-white/10 bg-white/8 p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#f2c14e]">0{index + 1}</p>
+              <p className="mt-1 text-lg font-black">{item}</p>
+            </div>
+          ))}
+          <Link href="/practice" className="rounded-2xl bg-[#f2c14e] px-5 py-3 text-center text-sm font-black text-slate-950 transition hover:bg-[#ffd76a]">
+            Смотреть практику изменений
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CourseRoutesBlock(): JSX.Element {
+  const routes = [
+    {
+      title: "Навести порядок в управлении",
+      text: "Для руководителей, которым нужно меньше ручного контроля и больше предсказуемости.",
+      href: "https://stepik.org/course/271020/promo",
+      label: "Эффективный руководитель"
+    },
+    {
+      title: "Разобраться с проектами и Agile",
+      text: "Для тех, кто работает на стыке целей, команд, Scrum, Kanban и delivery.",
+      href: "https://stepik.org/course/259560/promo",
+      label: "Управление проектами"
+    },
+    {
+      title: "Применять ИИ в работе",
+      text: "Для руководителей и специалистов, которые хотят использовать ИИ как рабочий инструмент.",
+      href: "https://stepik.org/course/243614/promo",
+      label: "Промт-инжиниринг"
+    }
+  ];
+
+  return (
+    <section className="rounded-[2rem] border border-slate-200 bg-[#f7f1e7] p-7 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-9">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Курсы по задачам</p>
+          <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">Не просто Stepik-ссылки, а образовательные маршруты</h2>
+          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-650">
+            Курсы встроены в журнал как продолжение тем: сначала понять проблему, затем изучить подход, затем применить в работе.
+          </p>
+        </div>
+        <Link href="/training" className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800">
+          Все курсы
+        </Link>
+      </div>
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {routes.map((route) => (
+          <article key={route.title} className="rounded-2xl border border-[#e2d0b3] bg-white/85 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6427]">{route.label}</p>
+            <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-950">{route.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-650">{route.text}</p>
+            <Link href={route.href} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex text-sm font-black text-slate-950 underline underline-offset-4">
+              Перейти к курсу
+            </Link>
+          </article>
+        ))}
+      </div>
+      <div className="mt-5 rounded-2xl border border-slate-200 bg-white/70 p-4">
+        <p className="text-sm leading-7 text-slate-700">
+          Если задача шире одного курса, можно обсудить корпоративное обучение или консалтинг: выбрать маршрут и связать образовательную часть с реальными изменениями.
+        </p>
+        <Link href={TELEGRAM_CONSULT_URL} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-900 transition hover:border-slate-500">
+          Обсудить маршрут или консалтинг
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 type HomepageArticleBlock =
   | { type: "grid"; articles: ArticleSummary[] }
