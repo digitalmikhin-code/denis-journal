@@ -107,9 +107,12 @@ export default function HomePage(): JSX.Element {
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
                   <span
-                    className={`inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] ${
-                      CATEGORY_THEME[newest.frontmatter.category as Category].chipSoft
-                    }`}
+                    className="inline-flex rounded-full border px-3 py-1 text-[0.72rem] font-black uppercase tracking-[0.16em] shadow-[0_8px_20px_rgba(0,0,0,0.18)]"
+                    style={{
+                      backgroundColor: CATEGORY_THEME[newest.frontmatter.category as Category].badgeBg,
+                      color: CATEGORY_THEME[newest.frontmatter.category as Category].badgeText,
+                      borderColor: CATEGORY_THEME[newest.frontmatter.category as Category].badgeBorder
+                    }}
                   >
                     {CATEGORY_SHORT_LABELS[newest.frontmatter.category as Category]}
                   </span>
