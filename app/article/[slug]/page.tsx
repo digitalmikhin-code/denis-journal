@@ -386,14 +386,16 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
 
           <div className="mt-6 space-y-6">
-            <ArticleReactions slug={article.slug} />
+            <ArticleReactions slug={article.slug} hasRelatedArticles={related.length > 0} />
 
             <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-              <ArticleShare
-                title={article.frontmatter.title}
-                excerpt={article.frontmatter.excerpt}
-                url={articleUrl}
-              />
+              <div id="article-share" className="scroll-mt-28">
+                <ArticleShare
+                  title={article.frontmatter.title}
+                  excerpt={article.frontmatter.excerpt}
+                  url={articleUrl}
+                />
+              </div>
 
               <MaxChannelBanner
                 title="Подпишитесь, если хотите читать дальше"
@@ -442,7 +444,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       </article>
 
       {related.length > 0 && (
-        <section className="space-y-5 border-t border-slate-200 pt-10">
+        <section id="related-articles" className="scroll-mt-28 space-y-5 border-t border-slate-200 pt-10">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Дальше по теме</p>
             <h2 className="serif-display text-4xl font-semibold tracking-tight text-slate-900">

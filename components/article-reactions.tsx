@@ -5,9 +5,10 @@ import { useArticleReactionData } from "@/components/use-article-reaction-data";
 
 type ArticleReactionsProps = {
   slug: string;
+  hasRelatedArticles?: boolean;
 };
 
-export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element | null {
+export function ArticleReactions({ slug, hasRelatedArticles = false }: ArticleReactionsProps): JSX.Element | null {
   const {
     counts,
     totalVotes,
@@ -158,6 +159,34 @@ export function ArticleReactions({ slug }: ArticleReactionsProps): JSX.Element |
               );
             })}
           </div>
+
+          {selectedReaction ? (
+            <div className="mt-5 rounded-[1.5rem] border border-slate-200 bg-white/85 p-4 shadow-[0_12px_24px_rgba(15,23,42,0.05)]">
+              <p className="text-base font-black leading-tight text-slate-900">
+                Спасибо, ваш отклик учтён
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Если мысль попала в точку, можно отправить материал тому, кому он пригодится, или сразу
+                перейти к похожим статьям.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a
+                  href="#article-share"
+                  className="rounded-2xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
+                >
+                  Поделиться статьёй
+                </a>
+                {hasRelatedArticles ? (
+                  <a
+                    href="#related-articles"
+                    className="rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700 transition hover:-translate-y-0.5 hover:bg-slate-50"
+                  >
+                    Почитать похожее
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
 
         </div>
       </div>
