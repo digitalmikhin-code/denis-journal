@@ -199,3 +199,13 @@ body::before {
 .prose-journal pre {
   @apply my-6 overflow-x-auto rounded-xl bg-slate-900 p-4 text-slate-100;
 }
+
+::highlight(article-search) {
+  background-color: rgba(250, 204, 21, 0.42);
+  color: inherit;
+}
+
+::highlight(article-search-active) {
+  background-color: rgba(34, 211, 238, 0.55);
+  color: inherit;
+}

@@ -14,6 +14,7 @@ import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
+import { ArticleInPageSearch } from "@/components/article-in-page-search";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SaveArticleButton } from "@/components/save-article-button";
 import { mdxComponents } from "@/components/mdx-components";
@@ -262,6 +263,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10"
           >
             <div className="mb-8 xl:hidden">
+              <ArticleInPageSearch targetId="article-content" />
+            </div>
+
+            <div className="mb-8 xl:hidden">
               <ArticleTableOfContents items={articleBody.items} />
             </div>
 
@@ -283,6 +288,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             />
 
             <SaveArticleButton compact article={savedArticle} />
+
+            <div className="hidden xl:block">
+              <ArticleInPageSearch targetId="article-content" />
+            </div>
 
             <div className="hidden xl:block">
               <ArticleTableOfContents items={articleBody.items} />
