@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { AuthorQuote } from "@/components/author-quote";
+import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import {
@@ -149,6 +150,8 @@ export default function HomePage(): JSX.Element {
           </div>
         </div>
       </section>
+
+      <ContinueReadingCard />
 
       {gettingStarted.length > 0 ? (
         <section className="relative overflow-hidden rounded-[2rem] border border-[#e4c6d8] bg-[radial-gradient(circle_at_14%_16%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0)_34%),radial-gradient(circle_at_88%_20%,rgba(244,197,226,0.34)_0%,rgba(244,197,226,0)_42%),linear-gradient(135deg,#fff7df_0%,#ffeef7_58%,#fff9ef_100%)] p-6 shadow-[0_22px_52px_rgba(15,23,42,0.07),inset_0_1px_0_rgba(255,255,255,0.75)] md:p-8">

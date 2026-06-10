@@ -15,6 +15,7 @@ import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
 import { ReadingProgress } from "@/components/reading-progress";
+import { SaveArticleButton } from "@/components/save-article-button";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -102,6 +103,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const articleCoursePromo = ARTICLE_CATEGORY_COURSE_PROMOS[category];
   const articleBody = addTableOfContentsAnchors(article.content);
   const shareQuotes = getShareQuotes(article.content);
+  const savedArticle = {
+    slug: article.slug,
+    title: article.frontmatter.title,
+    excerpt: article.frontmatter.excerpt,
+    categoryLabel: CATEGORY_SHORT_LABELS[category],
+    href: `/article/${article.slug}`
+  };
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -274,6 +282,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               url={articleUrl}
             />
 
+            <SaveArticleButton compact article={savedArticle} />
+
             <div className="hidden xl:block">
               <ArticleTableOfContents items={articleBody.items} />
             </div>
@@ -329,6 +339,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           quotes={shareQuotes}
           url={articleUrl}
         />
+
+        <div className="mx-auto w-full max-w-[420px] xl:hidden">
+          <SaveArticleButton article={savedArticle} />
+        </div>
 
         <section className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-white p-5 shadow-[0_28px_70px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_70px_rgba(0,0,0,0.3)] md:p-7">
           <div className="rounded-[1.75rem] bg-[linear-gradient(135deg,#fff8e5_0%,#eef9ff_48%,#fff1f7_100%)] p-5 dark:bg-slate-800 dark:bg-none md:p-7">
