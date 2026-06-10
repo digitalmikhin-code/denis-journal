@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
+import { ArticlePracticePrompts } from "@/components/article-practice-prompts";
 import { ArticleShare } from "@/components/article-share";
 import { ArticleShareQuotes } from "@/components/article-share-quotes";
 import { ArticleSmartSummary } from "@/components/article-smart-summary";
@@ -395,6 +396,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
           <div className="mt-6 space-y-6">
             <ArticleReactions slug={article.slug} hasRelatedArticles={related.length > 0} />
+
+            <ArticlePracticePrompts category={category} />
 
             <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
               <div id="article-share" className="scroll-mt-28">
