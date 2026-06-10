@@ -15,6 +15,7 @@ import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleContinuationRoute } from "@/components/article-continuation-route";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
+import { AuthorBrandBlock } from "@/components/author-brand-block";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
 import { ArticleInPageSearch } from "@/components/article-in-page-search";
@@ -419,6 +420,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             />
 
             <ArticlePracticePrompts category={category} />
+
+            <AuthorBrandBlock variant="short" />
 
             <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
               <div id="article-share" className="scroll-mt-28">
