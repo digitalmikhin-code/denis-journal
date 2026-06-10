@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
+import { ArticleShare } from "@/components/article-share";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
@@ -251,6 +252,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
 
           <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
+            <ArticleShare
+              compact
+              title={article.frontmatter.title}
+              excerpt={article.frontmatter.excerpt}
+              url={articleUrl}
+            />
+
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
                 Навигация
@@ -295,6 +303,12 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             </div>
           </aside>
         </div>
+
+        <ArticleShare
+          title={article.frontmatter.title}
+          excerpt={article.frontmatter.excerpt}
+          url={articleUrl}
+        />
 
         <ArticleReactions slug={article.slug} />
 
