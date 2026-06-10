@@ -434,10 +434,19 @@ function DiagnosticResult({
         <div className="mt-4 flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => window.print()}
+            onClick={() =>
+              generateDiagnosticPdfReport({
+                answers,
+                form,
+                totalScore,
+                level,
+                areaScores,
+                weakestArea: weakestArea?.area ?? "Не определено"
+              })
+            }
             className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
           >
-            Скачать / сохранить PDF
+            Сформировать PDF-отчет
           </button>
           <button
             type="button"
@@ -501,4 +510,318 @@ function calculateAreaScores(answers: AnswerMap): Array<{ area: string; score: n
     max: value.max,
     percent: value.max ? Math.round((value.score / value.max) * 100) : 0
   }));
+}
+
+function generateDiagnosticPdfReport({
+  answers,
+  form,
+  totalScore,
+  level,
+  areaScores,
+  weakestArea
+}: {
+  answers: AnswerMap;
+  form: LeadForm;
+  totalScore: number;
+  level: (typeof BUSINESS_CONTROL_DIAGNOSTIC.levels)[number];
+  areaScores: Array<{ area: string; score: number; max: number; percent: number }>;
+  weakestArea: string;
+}): void {
+  const reportTitle = "Диагностика управляемости бизнеса";
+  const createdAt = new Intl.DateTimeFormat("ru-RU", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
+  const rows = BUSINESS_CONTROL_DIAGNOSTIC.questions
+    .map((question, index) => {
+      const score = answers[index] ?? 0;
+      const answer = SCORE_OPTIONS.find((option) => option.value === score);
+
+      return `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(question.area)}</td>
+          <td>${escapeHtml(question.text)}</td>
+          <td>
+            <strong>${escapeHtml(answer?.title ?? "Ответ не указан")}</strong>
+            <span>${escapeHtml(answer?.text ?? "")}</span>
+          </td>
+          <td>${score}</td>
+        </tr>
+      `;
+    })
+    .join("");
+  const areaCards = areaScores
+    .map(
+      (item) => `
+        <div class="area-card">
+          <div class="area-title">${escapeHtml(item.area)}</div>
+          <div class="area-score">${item.score} из ${item.max} баллов</div>
+          <div class="bar"><i style="width:${item.percent}%"></i></div>
+        </div>
+      `
+    )
+    .join("");
+  const recommendations = level.recommendations.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  const html = `<!doctype html>
+    <html lang="ru">
+      <head>
+        <meta charset="utf-8" />
+        <title>${reportTitle} - ${escapeHtml(form.company || form.fullName || "отчет")}</title>
+        <style>
+          @page { size: A4; margin: 16mm; }
+          * { box-sizing: border-box; }
+          body {
+            margin: 0;
+            background: #f3f4f6;
+            color: #111827;
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.45;
+          }
+          .page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 18mm;
+          }
+          .eyebrow {
+            margin: 0 0 10px;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+          }
+          h1 {
+            margin: 0;
+            max-width: 720px;
+            font-size: 34px;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+          }
+          h2 {
+            margin: 28px 0 12px;
+            font-size: 21px;
+            letter-spacing: -0.02em;
+          }
+          p { margin: 0; }
+          .lead {
+            margin-top: 14px;
+            max-width: 760px;
+            color: #475569;
+            font-size: 15px;
+          }
+          .meta {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+            margin-top: 22px;
+          }
+          .meta div,
+          .summary,
+          .area-card,
+          .recommendations,
+          .note {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            background: #f8fafc;
+            padding: 12px;
+          }
+          .meta span {
+            display: block;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+          }
+          .meta strong {
+            display: block;
+            margin-top: 3px;
+            font-size: 14px;
+          }
+          .summary-grid {
+            display: grid;
+            grid-template-columns: 0.72fr 1.28fr;
+            gap: 12px;
+            margin-top: 22px;
+          }
+          .score {
+            border-radius: 20px;
+            background: #111827;
+            color: #ffffff;
+            padding: 18px;
+          }
+          .score b {
+            display: block;
+            font-size: 52px;
+            line-height: 1;
+          }
+          .score span {
+            color: rgba(255,255,255,0.66);
+            font-size: 12px;
+            font-weight: 700;
+          }
+          .score h2 {
+            margin: 16px 0 8px;
+            color: #ffffff;
+          }
+          .score p { color: rgba(255,255,255,0.76); font-size: 13px; }
+          .summary p { color: #475569; font-size: 13px; }
+          .areas {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+          }
+          .area-title { font-size: 12px; font-weight: 800; }
+          .area-score { margin-top: 4px; color: #64748b; font-size: 11px; font-weight: 700; }
+          .bar {
+            height: 7px;
+            margin-top: 9px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e5e7eb;
+          }
+          .bar i {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: #111827;
+          }
+          .recommendations ul { margin: 0; padding-left: 18px; }
+          .recommendations li { margin: 7px 0; font-size: 13px; color: #334155; }
+          table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 11px;
+          }
+          th {
+            background: #111827;
+            color: #ffffff;
+            padding: 8px;
+            text-align: left;
+          }
+          td {
+            border: 1px solid #e5e7eb;
+            padding: 8px;
+            vertical-align: top;
+          }
+          td span {
+            display: block;
+            margin-top: 3px;
+            color: #64748b;
+          }
+          .note {
+            margin-top: 18px;
+            color: #475569;
+            font-size: 12px;
+          }
+          @media print {
+            body { background: #ffffff; }
+            .page { width: auto; min-height: auto; margin: 0; padding: 0; }
+            .no-print { display: none; }
+            h2 { break-after: avoid; }
+            tr, .area-card, .summary, .recommendations { break-inside: avoid; }
+          }
+        </style>
+      </head>
+      <body>
+        <main class="page">
+          <p class="eyebrow">Отчет по диагностике</p>
+          <h1>${reportTitle}</h1>
+          <p class="lead">
+            Чистый отчет по результатам прохождения: итоговый уровень, сильные и слабые зоны,
+            рекомендации и все ответы в формате «вопрос - выбранный ответ».
+          </p>
+
+          <section class="meta">
+            <div><span>Дата</span><strong>${escapeHtml(createdAt)}</strong></div>
+            <div><span>Участник</span><strong>${escapeHtml(form.fullName || "информация не указана")}</strong></div>
+            <div><span>Компания</span><strong>${escapeHtml(form.company || "информация не указана")}</strong></div>
+            <div><span>Роль</span><strong>${escapeHtml(form.role || "информация не указана")}</strong></div>
+            <div><span>Email</span><strong>${escapeHtml(form.email || "информация не указана")}</strong></div>
+            <div><span>Telegram</span><strong>${escapeHtml(form.telegram || "информация не указана")}</strong></div>
+          </section>
+
+          <section class="summary-grid">
+            <div class="score">
+              <span>Итоговый балл</span>
+              <b>${totalScore}</b>
+              <span>из 72 баллов</span>
+              <h2>${escapeHtml(level.title)}</h2>
+              <p>${escapeHtml(level.summary)}</p>
+            </div>
+            <div class="summary">
+              <p class="eyebrow">Первая точка роста</p>
+              <h2>${escapeHtml(weakestArea)}</h2>
+              <p>
+                Начните с самого слабого блока: там чаще всего находится ограничение, которое мешает
+                росту, продажам, скорости решений или внедрению изменений.
+              </p>
+              <h2>Результаты по блокам</h2>
+              <div class="areas">${areaCards}</div>
+            </div>
+          </section>
+
+          <section class="recommendations">
+            <p class="eyebrow">Рекомендации</p>
+            <ul>${recommendations}</ul>
+          </section>
+
+          <section>
+            <h2>Ответы на вопросы</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Блок</th>
+                  <th>Вопрос</th>
+                  <th>Выбранный ответ</th>
+                  <th>Балл</th>
+                </tr>
+              </thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </section>
+
+          <p class="note">
+            Отчет сформирован на сайте media.dmikhin.ru. Для разбора результата можно отправить
+            диагностику Денису или обсудить выводы в Telegram.
+          </p>
+        </main>
+        <script>
+          window.addEventListener("load", () => {
+            setTimeout(() => window.print(), 250);
+          });
+        </script>
+      </body>
+    </html>`;
+
+  const reportWindow = window.open("", "_blank", "width=980,height=1200");
+
+  if (!reportWindow) {
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "diagnostika-upravlyaemosti-biznesa.html";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    return;
+  }
+
+  reportWindow.document.open();
+  reportWindow.document.write(html);
+  reportWindow.document.close();
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
