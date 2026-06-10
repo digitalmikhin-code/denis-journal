@@ -32,10 +32,30 @@ function formatJsonBlock(label, value) {
   }
 
   try {
-    return `${label}\n<pre>${escapeHtml(JSON.stringify(value, null, 2))}</pre>`;
+    return `${label}\n${escapeHtml(JSON.stringify(value, null, 2))}`;
   } catch (error) {
     return `${label} ${escapeHtml(value)}`;
   }
+}
+
+function splitText(text, limit) {
+  const chunks = [];
+  let rest = text;
+
+  while (rest.length > limit) {
+    let cutAt = rest.lastIndexOf("\n", limit);
+    if (cutAt < Math.floor(limit * 0.6)) {
+      cutAt = limit;
+    }
+    chunks.push(rest.slice(0, cutAt));
+    rest = rest.slice(cutAt).trimStart();
+  }
+
+  if (rest) {
+    chunks.push(rest);
+  }
+
+  return chunks;
 }
 
 function sendTelegram(text) {
@@ -71,10 +91,12 @@ function sendTelegram(text) {
         });
 
         res.on("end", () => {
-          resolve({
-            statusCode: res.statusCode,
-            body: data
-          });
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(new Error(`Telegram API error ${res.statusCode}: ${data}`));
+            return;
+          }
+
+          resolve({ statusCode: res.statusCode, body: data });
         });
       }
     );
@@ -83,6 +105,18 @@ function sendTelegram(text) {
     req.write(body);
     req.end();
   });
+}
+
+async function sendTelegramLong(text) {
+  const chunks = splitText(text, 3500);
+  const results = [];
+
+  for (let index = 0; index < chunks.length; index += 1) {
+    const prefix = chunks.length > 1 ? `<b>Часть ${index + 1}/${chunks.length}</b>\n\n` : "";
+    results.push(await sendTelegram(`${prefix}${chunks[index]}`));
+  }
+
+  return results;
 }
 
 module.exports.handler = async function handler(event) {
@@ -115,7 +149,7 @@ module.exports.handler = async function handler(event) {
 
     const text = lines.join("\n");
 
-    const tg = await sendTelegram(text);
+    const tg = await sendTelegramLong(text);
 
     return {
       statusCode: 200,
@@ -124,8 +158,7 @@ module.exports.handler = async function handler(event) {
         ok: true,
         telegram: {
           status: "sent",
-          statusCode: tg.statusCode,
-          body: tg.body
+          messages: tg.length
         }
       })
     };

@@ -332,6 +332,17 @@ function DiagnosticResult({
       if (!LEADS_API_URL) {
         throw new Error("Lead API is not configured");
       }
+      const details = BUSINESS_CONTROL_DIAGNOSTIC.questions.map((question, index) => {
+        const score = answers[index] ?? 0;
+        const answer = SCORE_OPTIONS.find((option) => option.value === score);
+
+        return {
+          n: index + 1,
+          area: question.area,
+          score,
+          answer: answer?.title ?? "Ответ не указан"
+        };
+      });
 
       const response = await fetch(LEADS_API_URL, {
         method: "POST",
@@ -353,16 +364,16 @@ function DiagnosticResult({
             weakestArea: weakestArea?.area,
             areas: Object.fromEntries(areaScores.map((item) => [item.area, item.score]))
           },
-          details: BUSINESS_CONTROL_DIAGNOSTIC.questions.map((question, index) => ({
-            question: question.text,
-            area: question.area,
-            score: answers[index] ?? 0
-          }))
+          details
         })
       });
 
       if (!response.ok) {
         throw new Error("Lead API request failed");
+      }
+      const result = await response.json().catch(() => ({ ok: true }));
+      if (result && result.ok === false) {
+        throw new Error(result.error || "Lead API returned error");
       }
 
       setSendStatus("success");
