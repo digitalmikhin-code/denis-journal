@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
 import { AuthorBrandBlock } from "@/components/author-brand-block";
+import { TrackedLink } from "@/components/tracked-link";
 import { getAllArticles } from "@/lib/content";
+import { getHubSeo } from "@/lib/ecosystem";
 import { getAllHubs, getHub, getHubArticles, getHubConsultUrl, type HubSlug } from "@/lib/hubs";
 
 type Props = {
@@ -21,10 +23,11 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!hub) {
     return {};
   }
+  const seo = getHubSeo(params.hub);
 
   return {
-    title: `${hub.title} | Тематический хаб`,
-    description: hub.description,
+    title: seo.seoTitle,
+    description: seo.description,
     alternates: {
       canonical: `/hub/${hub.slug}`
     }
@@ -40,6 +43,7 @@ export default function HubPage({ params }: Props): JSX.Element {
   const articles = getHubArticles(getAllArticles(false), hub, 12);
   const leadArticles = articles.slice(0, 3);
   const restArticles = articles.slice(3);
+  const seo = getHubSeo(params.hub);
 
   return (
     <div className="space-y-10">
@@ -66,14 +70,16 @@ export default function HubPage({ params }: Props): JSX.Element {
               >
                 Читать материалы
               </a>
-              <Link
+              <TrackedLink
                 href={getHubConsultUrl()}
+                goal="hub_consult_click"
+                params={{ hub: hub.slug }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-base font-bold text-slate-800 transition hover:-translate-y-0.5 hover:bg-slate-50"
               >
                 {hub.ctaLabel}
-              </Link>
+              </TrackedLink>
             </div>
           </div>
 
@@ -88,6 +94,51 @@ export default function HubPage({ params }: Props): JSX.Element {
             <p className="mt-3 text-sm leading-7 text-slate-600">{hub.articleFit}</p>
           </div>
         </div>
+      </section>
+
+      <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            SEO-контур хаба
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+            Какие запросы закрывает тема
+          </h2>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {seo.searchQueries.map((query) => (
+              <span key={query} className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700">
+                {query}
+              </span>
+            ))}
+          </div>
+          <p className="mt-5 text-sm leading-7 text-slate-600">
+            {seo.returnMechanic}
+          </p>
+        </article>
+
+        <article className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#f8fafc_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Внутренняя перелинковка
+          </p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+            Куда вести читателя дальше
+          </h2>
+          <div className="mt-5 grid gap-3">
+            {seo.internalLinks.map((link) => (
+              <TrackedLink
+                key={link.href}
+                href={link.href}
+                goal="hub_internal_route_click"
+                params={{ hub: hub.slug, label: link.label }}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="rounded-2xl border border-white/80 bg-white/85 p-4 text-sm font-bold leading-6 text-slate-800 transition hover:-translate-y-0.5 hover:border-slate-300"
+              >
+                {link.label}
+              </TrackedLink>
+            ))}
+          </div>
+        </article>
       </section>
 
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
@@ -171,14 +222,16 @@ export default function HubPage({ params }: Props): JSX.Element {
             {hub.course.title}
           </h2>
           <p className="mt-4 text-base leading-8 text-slate-700">{hub.course.note}</p>
-          <Link
+          <TrackedLink
             href={hub.course.href}
+            goal="hub_course_click"
+            params={{ hub: hub.slug, course: hub.course.title }}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
             Смотреть курс
-          </Link>
+          </TrackedLink>
         </article>
 
         <article className="rounded-[2rem] border border-[#efb8d2] bg-[linear-gradient(135deg,#fff0f7_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
@@ -192,14 +245,16 @@ export default function HubPage({ params }: Props): JSX.Element {
             Можно разобрать контекст, найти ограничения и собрать практичный план изменений под вашу
             компанию, команду или проект.
           </p>
-          <Link
+          <TrackedLink
             href={getHubConsultUrl()}
+            goal="hub_consult_click"
+            params={{ hub: hub.slug, source: "consulting_card" }}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex rounded-2xl bg-[#ff6a3d] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#ef5d31]"
           >
             {hub.ctaLabel}
-          </Link>
+          </TrackedLink>
         </article>
       </section>
 
