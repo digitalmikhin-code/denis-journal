@@ -161,6 +161,7 @@ export const FIRST_MENU: Array<{ label: string; href: string }> = [
 
 export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u0421\u0442\u0430\u0442\u044c\u0438", href: "/articles" },
+  { label: "\u0425\u0430\u0431\u044b", href: "/hubs" },
   { label: "\u0418\u0433\u0440\u0430", href: "/business-game" },
   { label: "\u041a\u0430\u043d\u0430\u043b \u0432 Max", href: MAX_CHANNEL_URL },
   { label: "\u0412\u0438\u0434\u0435\u043e", href: "/videos" },
