@@ -9,6 +9,7 @@ import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { ArticleShare } from "@/components/article-share";
 import { ArticleShareQuotes } from "@/components/article-share-quotes";
+import { ArticleSmartSummary } from "@/components/article-smart-summary";
 import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
@@ -262,6 +263,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             id="article-content"
             className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10"
           >
+            <ArticleSmartSummary
+              title={article.frontmatter.title}
+              excerpt={article.frontmatter.excerpt}
+              category={category}
+              readingTime={article.frontmatter.readingTime}
+            />
+
             <div className="mb-8 xl:hidden">
               <ArticleInPageSearch targetId="article-content" />
             </div>
