@@ -8,6 +8,7 @@ import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { IdeaMap, type IdeaMapConnection, type IdeaMapNode } from "@/components/idea-map";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { PersonalPath, type PersonalPathItem } from "@/components/personal-path";
+import { ReadingGuides, type ReadingGuide } from "@/components/reading-guides";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
 import { StarterMap, type StarterMapItem } from "@/components/starter-map";
 import {
@@ -48,6 +49,7 @@ export default function HomePage(): JSX.Element {
   const personalPaths = buildPersonalPaths(allLatest);
   const ideaMap = buildIdeaMap(allLatest);
   const smartCollections = buildSmartCollections(allLatest);
+  const readingGuides = buildReadingGuides(allLatest);
   const starterMap = buildStarterMap(allLatest);
 
   return (
@@ -162,6 +164,8 @@ export default function HomePage(): JSX.Element {
       <IdeaMap nodes={ideaMap.nodes} connections={ideaMap.connections} />
 
       <SmartCollections collections={smartCollections} />
+
+      <ReadingGuides guides={readingGuides} />
 
       <StarterMap items={starterMap} />
 
@@ -596,6 +600,79 @@ function buildIdeaMap(articles: ArticleSummary[]): {
       { from: "corporate", to: "thinking", label: "структура" }
     ]
   };
+}
+
+function buildReadingGuides(articles: ArticleSummary[]): ReadingGuide[] {
+  return [
+    {
+      title: "7 статей, чтобы прокачать управленческое мышление",
+      description: "Маршрут для тех, кто хочет видеть систему, управляемость, риски и ответственность шире отдельных задач.",
+      outcome: "После маршрута появится более цельная рамка: как читать ситуацию, где искать рычаги и что менять в управлении первым.",
+      label: "Управление",
+      href: "/category/management",
+      accent: {
+        bg: "#cba4ff",
+        border: "#b98cf2",
+        text: "#4e1eb3",
+        shadow: "rgba(203,164,255,0.28)"
+      },
+      articles: pickSmartArticles(articles, ["management", "thinking", "architecture", "cases"], [
+        "управ",
+        "мышлен",
+        "систем",
+        "структур",
+        "ответствен",
+        "риск",
+        "решен",
+        "команд"
+      ], 7)
+    },
+    {
+      title: "5 текстов про ИИ без хайпа",
+      description: "Короткий маршрут для руководителей и специалистов, которым нужен практичный взгляд на ИИ без шума.",
+      outcome: "Поймёте, где ИИ реально помогает: в подготовке решений, аналитике, прогнозировании и повседневной работе.",
+      label: "ИИ",
+      href: "/category/ai",
+      accent: {
+        bg: "#ffb267",
+        border: "#ec9a48",
+        text: "#7a3a00",
+        shadow: "rgba(255,178,103,0.28)"
+      },
+      articles: pickSmartArticles(articles, ["ai", "architecture"], [
+        "ии",
+        "ai",
+        "цифров",
+        "аналит",
+        "прогноз",
+        "дашборд",
+        "решен"
+      ], 5)
+    },
+    {
+      title: "Что прочитать перед карьерным поворотом",
+      description: "Маршрут для момента, когда хочется расти, менять роль, становиться заметнее или заходить в управление.",
+      outcome: "Соберёте карьерную опору: какие результаты показывать, как расширять влияние и как не ждать случайного шанса.",
+      label: "Карьера",
+      href: "/category/career",
+      accent: {
+        bg: "#f5d45d",
+        border: "#dfbf45",
+        text: "#5c3b00",
+        shadow: "rgba(245,212,93,0.26)"
+      },
+      articles: pickSmartArticles(articles, ["career", "management"], [
+        "карьер",
+        "рост",
+        "корпорац",
+        "влия",
+        "замет",
+        "ответствен",
+        "руковод",
+        "поворот"
+      ], 6)
+    }
+  ];
 }
 
 function buildStarterMap(articles: ArticleSummary[]): StarterMapItem[] {
