@@ -30,8 +30,8 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для тех, кому важно видеть бизнес как систему: продажи, управление, процессы, команда и изменения должны работать на общий результат.",
     categories: ["management", "thinking", "architecture", "cases"],
     signals: ["рост", "бизнес", "продаж", "результат", "точк", "систем", "управ"],
-    tool: "Карта точек роста бизнеса",
-    toolHref: "/hub/sales",
+    tool: "Диагностика управляемости бизнеса",
+    toolHref: "/lead/business-control-diagnostic",
     course: {
       title: "Все курсы Дениса Михина",
       href: STEPIK_TEACH_URL
