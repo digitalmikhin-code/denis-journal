@@ -14,6 +14,7 @@ import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { AuthorQuote } from "@/components/author-quote";
+import { ReadingProgress } from "@/components/reading-progress";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -149,6 +150,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
   return (
     <div className="space-y-12">
+      <ReadingProgress targetId="article-content" />
       <ArticleBackFab />
       <script
         type="application/ld+json"
@@ -247,7 +249,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         </header>
 
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
-          <div className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10">
+          <div
+            id="article-content"
+            className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10"
+          >
             <div className="mb-8 xl:hidden">
               <ArticleTableOfContents items={articleBody.items} />
             </div>
