@@ -159,6 +159,75 @@ export default function HomePage(): JSX.Element {
 
       <ContinueReadingCard />
 
+      <section className="relative overflow-hidden rounded-[2.25rem] border border-[#1f2937] bg-slate-950 p-6 text-white shadow-[0_30px_72px_rgba(15,23,42,0.2)] md:p-8">
+        <div className="pointer-events-none absolute -right-14 -top-20 h-56 w-56 rounded-full border-[14px] border-[#2bd0e2]/40" />
+        <div className="pointer-events-none absolute -bottom-20 left-10 h-48 w-48 rounded-full border-[12px] border-[#f5d45d]/35" />
+        <div className="relative grid gap-7 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+              Диагностика
+            </p>
+            <h2 className="mt-3 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
+              Найдите свою точку роста за несколько минут
+            </h2>
+            <p className="mt-4 max-w-[48ch] text-base leading-8 text-white/72 md:text-lg">
+              Ответьте на вопросы по управлению, Agile, Kanban, продуктам или AI-трансформации и
+              получите персональный ориентир: где вы сейчас, что мешает росту и какой следующий шаг
+              даст больше всего эффекта.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/diagnostics"
+                className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 shadow-[0_7px_0_0_rgba(255,255,255,0.22)] transition hover:-translate-y-0.5 hover:bg-slate-100"
+              >
+                Пройти диагностику
+              </Link>
+              <Link
+                href="/articles"
+                className="rounded-2xl border border-white/18 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
+              >
+                Сначала почитать
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              {
+                step: "01",
+                title: "Ответьте на вопросы",
+                text: "Выберите диагностику под вашу задачу: управление, продукт, Agile, Kanban или AI."
+              },
+              {
+                step: "02",
+                title: "Получите профиль",
+                text: "Сайт покажет текущий уровень и объяснит, где находится главный ограничитель."
+              },
+              {
+                step: "03",
+                title: "Перейдите к действию",
+                text: "После результата появятся рекомендации, материалы и подходящий курс."
+              }
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-4 shadow-[0_16px_34px_rgba(0,0,0,0.14)]"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#2bd0e2] text-sm font-black text-[#062c35]">
+                    {item.step}
+                  </span>
+                  <div>
+                    <h3 className="text-base font-black leading-tight text-white">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/68">{item.text}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <PersonalPath paths={personalPaths} />
 
       <IdeaMap nodes={ideaMap.nodes} connections={ideaMap.connections} />
