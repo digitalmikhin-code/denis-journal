@@ -8,14 +8,14 @@ import { SITE_URL, STEPIK_TEACH_URL, TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL 
 export const metadata: Metadata = {
   title: "Обо мне",
   description:
-    "Денис Михин: стратегический консультант по управлению, Agile и системному росту команд. Форматы работы, экспертиза и контакты.",
+    "Денис Михин: консультант по управлению, Agile и системному росту команд. Помогаю руководителям принимать решения в сложных системах.",
   alternates: {
     canonical: "/about"
   },
   openGraph: {
     title: "Обо мне | Журнал Дениса Михина",
     description:
-      "Стратегический консультант по управлению, Agile и системному росту команд. Практика, обучение и форматы сотрудничества.",
+      "Консультант по управлению, Agile и системному росту команд. Практика, обучение и форматы сотрудничества для руководителей.",
     url: `${SITE_URL}/about`
   }
 };
@@ -31,11 +31,12 @@ export default function AboutPage(): JSX.Element {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">Профиль</p>
             <h1 className="max-w-[14ch] text-5xl font-extrabold leading-tight tracking-tight md:text-6xl">Денис Михин</h1>
             <p className="max-w-[32ch] text-2xl leading-snug text-white/95">
-              Помогаю лидерам строить сильные команды и управленческие системы, которые дают стабильный бизнес-результат.
+              Помогаю руководителям и сильным специалистам принимать решения в сложных системах.
             </p>
             <p className="max-w-[58ch] text-base text-white/90">
-              Работаю на стыке управления, процессов и человеческого фактора. Убираю хаос в операционке, выстраиваю рабочие
-              ритмы и внедряю практики, которые команда реально применяет каждый день.
+              Работаю на стыке управления, процессов и человеческого фактора: помогаю видеть связи,
+              находить ограничения, убирать хаос в операционке и выстраивать практики, которые команда
+              реально применяет каждый день.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
@@ -133,7 +134,7 @@ export default function AboutPage(): JSX.Element {
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">Материалы</p>
           <h3 className="mt-2 text-2xl font-extrabold tracking-tight">Журнал</h3>
           <p className="mt-2 text-sm text-slate-700">
-            Разборы по карьере, управлению, системному мышлению, Agile, архитектуре решений и ИИ.
+            Разборы для тех, кто принимает решения, растет в ответственности и работает внутри сложных систем.
           </p>
           <div className="mt-4 space-y-1 text-sm text-slate-700">
             <p>Практические статьи без воды</p>

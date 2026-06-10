@@ -27,14 +27,14 @@ import { formatDate } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Журнал Дениса Михина",
   description:
-    "Экспертный журнал Дениса Михина о карьере, управлении, системном мышлении, Agile, архитектуре решений и ИИ в управлении.",
+    "Журнал Дениса Михина для руководителей и сильных специалистов: как принимать решения, расти и управлять сложными системами.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
     title: "Журнал Дениса Михина",
     description:
-      "Экспертный журнал Дениса Михина о карьере, управлении, системном мышлении, Agile, архитектуре решений и ИИ в управлении.",
+      "Журнал Дениса Михина для руководителей и сильных специалистов: как принимать решения, расти и управлять сложными системами.",
     url: SITE_URL
   }
 };
@@ -62,13 +62,14 @@ export default function HomePage(): JSX.Element {
         <div className="relative grid gap-8 md:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6">
             <p className="text-sm font-semibold uppercase tracking-[0.26em] text-slate-500">
-              Экспертный авторский журнал
+              Авторская оптика Дениса Михина
             </p>
             <h1 className="max-w-[17ch] text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-6xl xl:text-[4.1rem]">
-              Сильные решения для руководителей и специалистов
+              Помогаю принимать сильные решения в сложных системах
             </h1>
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
-              Практические разборы, которые помогают принимать точные решения, расти быстрее и видеть систему целиком.
+              Этот журнал для руководителей и сильных специалистов, которым нужно видеть систему целиком,
+              расти осознанно и действовать точнее в условиях неопределенности.
             </p>
             <AuthorQuote
               compact
@@ -78,15 +79,21 @@ export default function HomePage(): JSX.Element {
             <div className="grid max-w-3xl gap-3 md:grid-cols-3">
               <div className="rounded-[1.5rem] border border-[#f2cf63] bg-[#fff4ce] p-4 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Кто</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Денис Михин, автор экспертного журнала.</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">
+                  Денис Михин, консультант по управлению, Agile и системному росту команд.
+                </p>
               </div>
               <div className="rounded-[1.5rem] border border-[#9fdcff] bg-[#eaf8ff] p-4 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Для кого</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Для руководителей и сильных специалистов.</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">
+                  Для тех, кто отвечает за решения, людей, процессы и собственный рост.
+                </p>
               </div>
               <div className="rounded-[1.5rem] border border-[#efb8d2] bg-[#fff0f7] p-4 shadow-sm">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что получите</p>
-                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">Рабочие решения по управлению, карьере, мышлению и ИИ.</p>
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-800">
+                  Рабочие рамки, диагностики и маршруты для решений в сложном контексте.
+                </p>
               </div>
             </div>
             <div className="flex flex-wrap gap-3 pt-1">

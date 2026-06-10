@@ -224,8 +224,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                     Денис Михин
                   </p>
                   <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    Пишу о карьере, управлении, системном мышлении и ИИ так, чтобы это можно было
-                    применить в реальной работе, а не просто прочитать.
+                    Помогаю руководителям и сильным специалистам принимать решения в сложных системах:
+                    видеть связи, находить ограничения и превращать мысль в действие.
                   </p>
                 </div>
 
@@ -235,8 +235,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   </p>
                   <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-700 dark:text-slate-300">
                     <li>Конкретная позиция, а не нейтральный пересказ</li>
-                    <li>Практические выводы и рабочие ориентиры</li>
-                    <li>Связка стратегии, управления и ежедневной практики</li>
+                    <li>Практические выводы для решений, процессов и роста</li>
+                    <li>Связка системного мышления, управления и ежедневной практики</li>
                   </ul>
                 </div>
               </div>
@@ -257,8 +257,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                   Редакционная пометка
                 </p>
                 <p className="mt-3 text-lg font-semibold leading-8">
-                  Этот текст стоит читать не как «мнение ради мнения», а как рабочую рамку для
-                  решений, которые влияют на рост, управление и качество ваших действий.
+                  Этот текст стоит читать как рабочую рамку: что заметить в системе, где искать
+                  ограничение и какой следующий шаг может усилить решение.
                 </p>
               </div>
             </div>
@@ -351,7 +351,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               </p>
               <div className="mt-4 flex flex-col gap-3">
                 <Link
-                  href={TELEGRAM_CHANNEL_URL}
+                  href={TELEGRAM_CONSULT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-center text-sm font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
