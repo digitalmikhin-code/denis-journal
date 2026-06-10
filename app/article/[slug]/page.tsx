@@ -8,6 +8,8 @@ import { ArticleCard } from "@/components/article-card";
 import ArticleBackFab from "@/components/article-back-fab";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { ArticleShare } from "@/components/article-share";
+import { ArticleShareQuotes } from "@/components/article-share-quotes";
+import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
@@ -25,6 +27,8 @@ import {
 } from "@/lib/constants";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
 import { getAllArticles, getArticleBySlug, getRelatedArticles } from "@/lib/content";
+import { getShareQuotes } from "@/lib/share-quotes";
+import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { formatDate } from "@/lib/utils";
 
 type Props = {
@@ -95,6 +99,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const category = article.frontmatter.category as Category;
   const theme = CATEGORY_THEME[category];
   const articleCoursePromo = ARTICLE_CATEGORY_COURSE_PROMOS[category];
+  const articleBody = addTableOfContentsAnchors(article.content);
+  const shareQuotes = getShareQuotes(article.content);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -242,9 +248,13 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_300px]">
           <div className="rounded-[2rem] border border-slate-200/80 bg-white px-6 py-8 shadow-[0_22px_48px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_22px_48px_rgba(0,0,0,0.28)] md:px-10">
+            <div className="mb-8 xl:hidden">
+              <ArticleTableOfContents items={articleBody.items} />
+            </div>
+
             <div className="prose-journal">
               <MDXRemote
-                source={article.content}
+                source={articleBody.content}
                 components={mdxComponents}
                 options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
               />
@@ -258,6 +268,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
               excerpt={article.frontmatter.excerpt}
               url={articleUrl}
             />
+
+            <div className="hidden xl:block">
+              <ArticleTableOfContents items={articleBody.items} />
+            </div>
 
             <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_16px_36px_rgba(0,0,0,0.22)]">
               <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
@@ -304,51 +318,99 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </aside>
         </div>
 
-        <ArticleShare
-          title={article.frontmatter.title}
-          excerpt={article.frontmatter.excerpt}
+        <ArticleShareQuotes
+          articleTitle={article.frontmatter.title}
+          author={article.frontmatter.author || "Денис Михин"}
+          quotes={shareQuotes}
           url={articleUrl}
         />
 
-        <ArticleReactions slug={article.slug} />
+        <section className="overflow-hidden rounded-[2.25rem] border border-slate-200 bg-white p-5 shadow-[0_28px_70px_rgba(15,23,42,0.08)] dark:border-slate-800 dark:bg-slate-900 dark:shadow-[0_28px_70px_rgba(0,0,0,0.3)] md:p-7">
+          <div className="rounded-[1.75rem] bg-[linear-gradient(135deg,#fff8e5_0%,#eef9ff_48%,#fff1f7_100%)] p-5 dark:bg-slate-800 dark:bg-none md:p-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+              После статьи
+            </p>
+            <div className="mt-3 grid gap-4 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+              <div>
+                <h2 className="max-w-[18ch] text-3xl font-black leading-tight tracking-tight text-slate-900 dark:text-slate-50 md:text-5xl">
+                  Если материал оказался полезным
+                </h2>
+                <p className="mt-4 max-w-[58ch] text-base leading-8 text-slate-700 dark:text-slate-300">
+                  Оставьте отклик, перешлите статью тому, кому она пригодится, и подпишитесь на новые
+                  разборы. Так чтение превращается не в закрытую вкладку, а в следующий полезный шаг.
+                </p>
+              </div>
 
-        <CoursePromoBanner
-          {...articleCoursePromo}
-          label={`Продолжение по теме: ${CATEGORY_LABELS[category]}`}
-          ctaLabel="Пройти курс"
-        />
-
-        <MaxChannelBanner
-          title="Если статья была полезна — подпишитесь на мой канал в Max"
-          subtitle="Там выходят новые материалы, короткие наблюдения и практические разборы по этой теме без форм и лишних шагов."
-        />
-
-        <ArticleBackButtons centered />
-
-        <section className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#fff8e5_0%,#fff1f7_100%)] p-6 dark:border-slate-800 dark:bg-slate-900 dark:bg-none md:p-8">
-          <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                Авторская ремарка
-              </p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">
-                Если вам нужен не просто контент, а точка опоры для решений
-              </h2>
-              <p className="mt-3 max-w-[54ch] text-base leading-8 text-slate-700 dark:text-slate-300">
-                В журнале я публикую материалы в открытом формате. Если нужен более глубокий разбор
-                вашей задачи, команды или управленческой ситуации, это можно обсудить отдельно.
-              </p>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {["Отклик", "Пересылка", "Подписка", "Продолжение"].map((step, index) => (
+                  <div
+                    key={step}
+                    className="rounded-2xl border border-white/70 bg-white/75 p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900/70"
+                  >
+                    <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                      0{index + 1}
+                    </span>
+                    <p className="mt-1 text-sm font-bold text-slate-800 dark:text-slate-100">{step}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-            <Link
-              href={TELEGRAM_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex rounded-2xl bg-slate-900 px-6 py-3 text-base font-bold text-white transition hover:bg-slate-800"
-            >
-              Обсудить задачу
-            </Link>
+          </div>
+
+          <div className="mt-6 space-y-6">
+            <ArticleReactions slug={article.slug} />
+
+            <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
+              <ArticleShare
+                title={article.frontmatter.title}
+                excerpt={article.frontmatter.excerpt}
+                url={articleUrl}
+              />
+
+              <MaxChannelBanner
+                title="Подпишитесь, если хотите читать дальше"
+                subtitle="В Max выходят новые материалы, короткие наблюдения и практические разборы по управлению, карьере, системному мышлению и ИИ."
+                className="relative h-full overflow-hidden rounded-[1.75rem] border border-[#8fd3fb] bg-[radial-gradient(circle_at_10%_18%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0)_34%),linear-gradient(135deg,#eaf8ff_0%,#f4f0ff_56%,#fff7df_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-6"
+              />
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+              <CoursePromoBanner
+                {...articleCoursePromo}
+                label={`Продолжение по теме: ${CATEGORY_LABELS[category]}`}
+                ctaLabel="Пройти курс"
+                className="rounded-[1.75rem] border border-[#c8d8ef] bg-[linear-gradient(135deg,#f4f9ff_0%,#f8f4ff_52%,#fff8ef_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] md:p-6"
+              />
+
+              <section className="rounded-[1.75rem] border border-slate-200 bg-[linear-gradient(135deg,#fff8e5_0%,#fff1f7_100%)] p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 dark:bg-none md:p-6">
+                <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                      Авторская ремарка
+                    </p>
+                    <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+                      Нужна точка опоры для решения?
+                    </h2>
+                    <p className="mt-3 max-w-[54ch] text-sm leading-7 text-slate-700 dark:text-slate-300">
+                      Если нужен более глубокий разбор вашей задачи, команды или управленческой ситуации,
+                      это можно обсудить отдельно.
+                    </p>
+                  </div>
+                  <Link
+                    href={TELEGRAM_CONSULT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex justify-center rounded-2xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                  >
+                    Обсудить задачу
+                  </Link>
+                </div>
+              </section>
+            </div>
           </div>
         </section>
+
+        <ArticleBackButtons centered />
       </article>
 
       {related.length > 0 && (
