@@ -38,6 +38,25 @@ export default function DiagnosticsPage(): JSX.Element {
         </Link>
       </section>
 
+      <section className="rounded-[2rem] border border-[#ec9a48] bg-[#fff0df] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9a4d00]">
+          PDF для руководителя
+        </p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+          50 промтов для руководителя
+        </h2>
+        <p className="mt-3 max-w-[64ch] text-base leading-8 text-slate-700">
+          Готовые промты для анализа ситуаций, подготовки решений, совещаний, проектов, продаж,
+          HR, команды и стратегии.
+        </p>
+        <Link
+          href="/lead/manager-ai-prompts"
+          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+        >
+          Получить PDF
+        </Link>
+      </section>
+
       <DiagnosticsHub />
     </div>
   );

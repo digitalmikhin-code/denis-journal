@@ -120,9 +120,13 @@ export default function HubPage({ params }: Props): JSX.Element {
           <div className="mt-5 grid gap-3">
             {hub.leadMagnets.map((item) => (
               <div key={item} className="rounded-2xl border border-white/80 bg-white/80 p-4">
-                {item === "Диагностика управляемости бизнеса" ? (
+                {item === "Диагностика управляемости бизнеса" || item === "50 промтов для руководителя" ? (
                   <Link
-                    href="/lead/business-control-diagnostic"
+                    href={
+                      item === "Диагностика управляемости бизнеса"
+                        ? "/lead/business-control-diagnostic"
+                        : "/lead/manager-ai-prompts"
+                    }
                     className="text-sm font-bold leading-6 text-slate-800 hover:text-brand"
                   >
                     {item}

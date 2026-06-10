@@ -120,8 +120,8 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для тех, кто хочет использовать ИИ без шума: анализ, подготовка решений, дашборды, прогнозы и рабочие ассистенты.",
     categories: ["ai", "architecture", "management"],
     signals: ["ии", "ai", "аналит", "прогноз", "дашборд", "ассист", "решен", "цифров"],
-    tool: "Матрица сценариев ИИ для руководителя",
-    toolHref: "/hub/ai-management",
+    tool: "50 промтов для руководителя",
+    toolHref: "/lead/manager-ai-prompts",
     course: {
       title: "Промт-инжиниринг с нуля",
       href: "https://stepik.org/course/243614/promo"
