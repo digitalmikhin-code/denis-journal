@@ -6,6 +6,7 @@ import { AuthorQuote } from "@/components/author-quote";
 import { ContinueReadingCard } from "@/components/continue-reading-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
+import { PersonalPath, type PersonalPathItem } from "@/components/personal-path";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
 import { StarterMap, type StarterMapItem } from "@/components/starter-map";
 import {
@@ -18,7 +19,7 @@ import {
   type Category
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
-import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
+import { ARTICLE_CATEGORY_COURSE_PROMOS, SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ export default function HomePage(): JSX.Element {
   const newest = latest[0];
   const spotlight = latest.slice(1, 3);
   const articleBlocks = buildHomepageArticleBlocks(latest);
+  const personalPaths = buildPersonalPaths(allLatest);
   const smartCollections = buildSmartCollections(allLatest);
   const starterMap = buildStarterMap(allLatest);
 
@@ -152,6 +154,8 @@ export default function HomePage(): JSX.Element {
       </section>
 
       <ContinueReadingCard />
+
+      <PersonalPath paths={personalPaths} />
 
       <SmartCollections collections={smartCollections} />
 
@@ -372,6 +376,91 @@ function selectHomepageArticles(articles: ArticleSummary[]): ArticleSummary[] {
   }
 
   return articles.slice(0, 3);
+}
+
+function buildPersonalPaths(articles: ArticleSummary[]): PersonalPathItem[] {
+  return [
+    {
+      id: "leader",
+      buttonLabel: "Я руководитель",
+      title: "Траектория руководителя",
+      description: "Материалы про управляемость, решения, команду, риски и спокойный контроль без микроменеджмента.",
+      promise: "Быстро собрать управленческую оптику: где теряется контроль, какие связи важны и что чинить первым.",
+      accentClassName: "border-[#cba4ff] bg-[#f4e9ff] text-[#4e1eb3]",
+      glowColor: "rgba(203,164,255,0.32)",
+      href: "/category/management",
+      topics: ["управляемость", "команда", "решения"],
+      course: ARTICLE_CATEGORY_COURSE_PROMOS.management,
+      articles: pickSmartArticles(articles, ["management", "architecture", "cases"], [
+        "руковод",
+        "управ",
+        "команд",
+        "решен",
+        "риск",
+        "ответствен"
+      ])
+    },
+    {
+      id: "corporate-growth",
+      buttonLabel: "Я расту в корпорации",
+      title: "Траектория карьерного роста",
+      description: "Подборка про заметность, влияние, карьерный капитал и рост внутри большой системы.",
+      promise: "Понять, как расти не случайно, а через понятный набор действий: результаты, видимость, зона влияния.",
+      accentClassName: "border-[#dfbf45] bg-[#fff6d6] text-[#5c3b00]",
+      glowColor: "rgba(245,212,93,0.28)",
+      href: "/category/career",
+      topics: ["карьера", "влияние", "заметность"],
+      course: ARTICLE_CATEGORY_COURSE_PROMOS.career,
+      articles: pickSmartArticles(articles, ["career", "management"], [
+        "карьер",
+        "корпорац",
+        "рост",
+        "влия",
+        "замет",
+        "ответствен"
+      ])
+    },
+    {
+      id: "ai",
+      buttonLabel: "Я хочу разобраться в ИИ",
+      title: "Траектория ИИ без хайпа",
+      description: "Статьи про ИИ в управлении, аналитике, подготовке решений и повседневной работе руководителя.",
+      promise: "Отделить полезные сценарии от шума и увидеть, где ИИ реально усиливает мышление и скорость работы.",
+      accentClassName: "border-[#ec9a48] bg-[#fff0df] text-[#7a3a00]",
+      glowColor: "rgba(255,178,103,0.3)",
+      href: "/category/ai",
+      topics: ["ИИ", "решения", "аналитика"],
+      course: ARTICLE_CATEGORY_COURSE_PROMOS.ai,
+      articles: pickSmartArticles(articles, ["ai", "architecture"], [
+        "ии",
+        "ai",
+        "цифров",
+        "дашборд",
+        "аналит",
+        "прогноз"
+      ])
+    },
+    {
+      id: "systems",
+      buttonLabel: "Я строю систему мышления",
+      title: "Траектория системного мышления",
+      description: "Материалы о взаимосвязях, причинах проблем, архитектуре решений и зрелом взгляде на сложность.",
+      promise: "Научиться видеть не отдельные симптомы, а структуру: связи, ограничения, рычаги и последствия решений.",
+      accentClassName: "border-[#8fc95d] bg-[#edfbe3] text-[#224f18]",
+      glowColor: "rgba(169,224,112,0.28)",
+      href: "/category/thinking",
+      topics: ["система", "структура", "связи"],
+      course: ARTICLE_CATEGORY_COURSE_PROMOS.thinking,
+      articles: pickSmartArticles(articles, ["thinking", "architecture", "management"], [
+        "систем",
+        "связ",
+        "структур",
+        "причин",
+        "мышлен",
+        "архитект"
+      ])
+    }
+  ];
 }
 
 function buildStarterMap(articles: ArticleSummary[]): StarterMapItem[] {
