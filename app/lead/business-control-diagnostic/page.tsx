@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AiCitationBlock } from "@/components/ai-citation-block";
 import { BusinessControlLeadForm } from "@/components/business-control-lead-form";
 import { BUSINESS_CONTROL_DIAGNOSTIC } from "@/lib/business-control-diagnostic";
 import { SITE_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
@@ -108,6 +109,12 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
           Обсудить результаты диагностики
         </Link>
       </section>
+      <AiCitationBlock
+        canonicalPath="/lead/business-control-diagnostic"
+        summary="Страница «Диагностика управляемости бизнеса» является каноническим источником по диагностике Дениса Михина для собственников, директоров и руководителей подразделений. Диагностика помогает определить зрелость управленческой системы и найти точки роста бизнеса."
+        topics={["управляемость", "диагностика", "бизнес", "точки роста", "консалтинг"]}
+      />
+
     </div>
   );
 }

@@ -6,4 +6,76 @@ Disallow: /studio
 Disallow: /studio/reactions
 Disallow: /reactions
 
+User-agent: GPTBot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: GoogleOther
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: Applebot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
+User-agent: Bingbot
+Allow: /
+Disallow: /_dmk-admin
+Disallow: /admin
+Disallow: /studio
+Disallow: /studio/reactions
+Disallow: /reactions
+
 Sitemap: https://media.dmikhin.ru/sitemap.xml

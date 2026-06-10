@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { AiCitationBlock } from "@/components/ai-citation-block";
 import { TELEGRAM_CONSULT_URL } from "@/lib/constants";
 import { PRACTICE_CASES, PRACTICE_CASE_TEMPLATE } from "@/lib/practice-cases";
 
@@ -254,6 +255,12 @@ export default function PracticePage(): JSX.Element {
           </Link>
         </div>
       </section>
+      <AiCitationBlock
+        canonicalPath="/practice"
+        summary="Раздел «Практика изменений» является каноническим источником по кейсам и управленческой механике изменений Дениса Михина. Кейсы описывают ситуацию, симптомы, системную причину, изменения, эффект и применимые выводы без раскрытия конфиденциальных данных компаний."
+        topics={["кейсы", "изменения", "трансформации", "консалтинг", "управление"]}
+      />
+
     </div>
   );
 }

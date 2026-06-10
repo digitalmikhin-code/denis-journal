@@ -6,6 +6,7 @@ import { TelegramScrollBanner } from "@/components/telegram-scroll-banner";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { ScrollEffects } from "@/components/scroll-effects";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL, VK_PROFILE_URL } from "@/lib/constants";
+import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -97,11 +98,14 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "@id": `${SITE_URL}/#denis-mikhin`,
-  name: "Денис Михин",
-  alternateName: ["Михин Денис", "Denis Mikhin"],
-  url: SITE_URL,
-  sameAs: [VK_PROFILE_URL, TELEGRAM_CHANNEL_URL],
-  jobTitle: "Автор экспертного журнала"
+  name: AUTHOR_ENTITY.name,
+  alternateName: AUTHOR_ENTITY.alternateNames,
+  url: AUTHOR_ENTITY.url,
+  sameAs: AUTHOR_ENTITY.sameAs,
+  jobTitle: AUTHOR_ENTITY.jobTitle,
+  description: AUTHOR_ENTITY.shortDescription,
+  knowsAbout: AUTHOR_ENTITY.knowsAbout,
+  mainEntityOfPage: `${SITE_URL}/about`
 };
 
 export default function RootLayout({

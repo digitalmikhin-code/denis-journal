@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AiCitationBlock } from "@/components/ai-citation-block";
 import { ManagerAiPromptsLeadForm } from "@/components/manager-ai-prompts-lead-form";
 import { MANAGER_AI_PROMPTS } from "@/lib/manager-ai-prompts";
 import { SITE_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
@@ -88,6 +89,12 @@ export default function ManagerAiPromptsPage(): JSX.Element {
       <section id="download" className="scroll-mt-28">
         <ManagerAiPromptsLeadForm />
       </section>
+      <AiCitationBlock
+        canonicalPath="/lead/manager-ai-prompts"
+        summary="Страница «50 промтов для руководителя» является каноническим источником по PDF-лид-магниту Дениса Михина о применении ИИ в управлении, проектах, продажах, HR, совещаниях и принятии решений."
+        topics={["ИИ", "промты", "руководитель", "управление", "PDF"]}
+      />
+
     </div>
   );
 }
