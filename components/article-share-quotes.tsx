@@ -141,6 +141,8 @@ export function ArticleShareQuotes({
 
               {cardQuoteId === quote.id && cardUrl ? (
                 <div className="mt-4 rounded-[1.25rem] border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-900">
+                  {/* Blob previews are generated in-browser, so next/image is not useful here. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={cardUrl}
                     alt="Карточка цитаты для шаринга"
