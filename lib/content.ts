@@ -141,6 +141,55 @@ export function getRelatedArticles(slug: string, limit = 3): ArticleSummary[] {
     .map((item) => item.article);
 }
 
+const CONTINUATION_SIGNALS: Record<Category, string[]> = {
+  career: ["рост", "карьер", "влия", "замет", "руковод", "ответствен"],
+  management: ["управ", "команд", "решен", "проект", "риск", "ответствен"],
+  thinking: ["систем", "мышлен", "связ", "структур", "причин", "модель"],
+  agile: ["agile", "scrum", "kanban", "гибк", "трансформац", "команд"],
+  architecture: ["архитект", "структур", "решен", "систем", "управляем", "контур"],
+  cases: ["кейс", "пример", "разбор", "команд", "проект", "результат"],
+  ai: ["ии", "ai", "аналит", "прогноз", "дашборд", "решен"]
+};
+
+export function getContinuationArticles(slug: string, limit = 3): ArticleSummary[] {
+  const current = getArticleBySlug(slug);
+  if (!current || current.frontmatter.draft) {
+    return [];
+  }
+
+  const currentTags = new Set(current.frontmatter.tags);
+  const signals = CONTINUATION_SIGNALS[current.frontmatter.category];
+
+  return getAllArticles(false)
+    .filter((article) => article.slug !== slug)
+    .map((article) => {
+      const text = `${article.frontmatter.title} ${article.frontmatter.excerpt}`.toLowerCase();
+      const sharedTags = article.frontmatter.tags.filter((tag) => currentTags.has(tag)).length;
+      const signalScore = signals.reduce((score, signal) => score + (text.includes(signal) ? 1 : 0), 0);
+
+      let score = 0;
+      if (article.frontmatter.category === current.frontmatter.category) {
+        score += 6;
+      }
+      score += sharedTags * 3;
+      score += signalScore;
+      if (article.frontmatter.featured) {
+        score += 2;
+      }
+
+      return { article, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return new Date(b.article.frontmatter.date).getTime() - new Date(a.article.frontmatter.date).getTime();
+    })
+    .slice(0, limit)
+    .map((item) => item.article);
+}
+
 export function getPageContent(slug: "about" | "training"): { title: string; content: string } {
   const filePath = path.join(PAGES_DIR, `${slug}.mdx`);
   const raw = fs.readFileSync(filePath, "utf8");

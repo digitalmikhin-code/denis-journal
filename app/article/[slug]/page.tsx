@@ -12,6 +12,7 @@ import { ArticleShare } from "@/components/article-share";
 import { ArticleShareQuotes } from "@/components/article-share-quotes";
 import { ArticleSmartSummary } from "@/components/article-smart-summary";
 import { ArticleTableOfContents } from "@/components/article-table-of-contents";
+import { ArticleContinuationRoute } from "@/components/article-continuation-route";
 import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
@@ -32,7 +33,7 @@ import {
   type Category
 } from "@/lib/constants";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
-import { getAllArticles, getArticleBySlug, getRelatedArticles } from "@/lib/content";
+import { getAllArticles, getArticleBySlug, getContinuationArticles, getRelatedArticles } from "@/lib/content";
 import { getShareQuotes } from "@/lib/share-quotes";
 import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { formatDate } from "@/lib/utils";
@@ -101,6 +102,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   }
 
   const related = getRelatedArticles(article.slug, 3);
+  const continuation = getContinuationArticles(article.slug, 3);
   const articleUrl = `${SITE_URL}/article/${article.slug}`;
   const category = article.frontmatter.category as Category;
   const theme = CATEGORY_THEME[category];
@@ -407,7 +409,14 @@ export default function ArticlePage({ params }: Props): JSX.Element {
           </div>
 
           <div className="mt-6 space-y-6">
-            <ArticleReactions slug={article.slug} hasRelatedArticles={related.length > 0} />
+            <ArticleReactions slug={article.slug} hasRelatedArticles={continuation.length > 0 || related.length > 0} />
+
+            <ArticleContinuationRoute
+              articles={continuation.length > 0 ? continuation : related}
+              category={category}
+              categoryLabel={CATEGORY_LABELS[category]}
+              coursePromo={articleCoursePromo}
+            />
 
             <ArticlePracticePrompts category={category} />
 
