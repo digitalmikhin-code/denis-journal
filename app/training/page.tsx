@@ -296,9 +296,7 @@ function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
   return (
     <article className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
       <div className="grid gap-0 md:grid-cols-[170px_1fr]">
-        <div className="relative min-h-44 bg-slate-100">
-          <img src={course.cover} alt="" className="h-full w-full object-cover" loading="lazy" />
-        </div>
+        <CourseVisual course={course} />
         <div className="p-5">
           <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.12em]">
             <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-600">{course.level}</span>
@@ -340,6 +338,125 @@ function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
         </Link>
       </div>
     </article>
+  );
+}
+
+const courseVisualThemes: Record<
+  StepikCourse["category"],
+  {
+    label: string;
+    background: string;
+    ring: string;
+    chip: string;
+    text: string;
+    accent: string;
+  }
+> = {
+  "project-management": {
+    label: "Projects",
+    background: "bg-[linear-gradient(145deg,#eaf6ff_0%,#d9ecf7_48%,#f7f1df_100%)]",
+    ring: "border-[#7ccfff]/60",
+    chip: "bg-white/70 text-[#24566a]",
+    text: "text-[#153949]",
+    accent: "bg-[#7ccfff]"
+  },
+  "agile-scrum-kanban": {
+    label: "Agile",
+    background: "bg-[linear-gradient(145deg,#eef8ec_0%,#dbeed2_50%,#fff3d0_100%)]",
+    ring: "border-[#a9d978]/70",
+    chip: "bg-white/70 text-[#486b28]",
+    text: "text-[#2f461e]",
+    accent: "bg-[#a9d978]"
+  },
+  "okr-strategy": {
+    label: "OKR",
+    background: "bg-[linear-gradient(145deg,#fff4dc_0%,#f5dec0_48%,#eaf1ff_100%)]",
+    ring: "border-[#e7b85d]/70",
+    chip: "bg-white/70 text-[#7c5414]",
+    text: "text-[#4f360f]",
+    accent: "bg-[#e7b85d]"
+  },
+  management: {
+    label: "Manage",
+    background: "bg-[linear-gradient(145deg,#f3efe6_0%,#e2d5bf_48%,#d9e8e1_100%)]",
+    ring: "border-[#c7aa78]/70",
+    chip: "bg-white/75 text-[#6b532c]",
+    text: "text-[#33281b]",
+    accent: "bg-[#c7aa78]"
+  },
+  "systems-thinking": {
+    label: "Systems",
+    background: "bg-[linear-gradient(145deg,#eef3ff_0%,#d8e0f0_46%,#f4eadf_100%)]",
+    ring: "border-[#9ba8c8]/70",
+    chip: "bg-white/72 text-[#394766]",
+    text: "text-[#263047]",
+    accent: "bg-[#9ba8c8]"
+  },
+  "product-thinking": {
+    label: "Product",
+    background: "bg-[linear-gradient(145deg,#fff0e8_0%,#f8d6c8_48%,#eaf7f1_100%)]",
+    ring: "border-[#ef9b7a]/70",
+    chip: "bg-white/72 text-[#7b3e26]",
+    text: "text-[#4c281b]",
+    accent: "bg-[#ef9b7a]"
+  },
+  "safe-scaling": {
+    label: "SAFe",
+    background: "bg-[linear-gradient(145deg,#edf7ff_0%,#d4e9f0_48%,#f7f0d9_100%)]",
+    ring: "border-[#77b9c7]/70",
+    chip: "bg-white/72 text-[#2c6070]",
+    text: "text-[#173f4a]",
+    accent: "bg-[#77b9c7]"
+  },
+  "ai-prompting": {
+    label: "AI",
+    background: "bg-[linear-gradient(145deg,#f4f0ff_0%,#e8dcff_48%,#fff2d8_100%)]",
+    ring: "border-[#bca7ff]/70",
+    chip: "bg-white/75 text-[#56429a]",
+    text: "text-[#33265f]",
+    accent: "bg-[#bca7ff]"
+  },
+  "personal-brand": {
+    label: "Brand",
+    background: "bg-[linear-gradient(145deg,#fff1f7_0%,#f5d8e8_48%,#eef6ff_100%)]",
+    ring: "border-[#e8a9c9]/70",
+    chip: "bg-white/72 text-[#7b3e62]",
+    text: "text-[#4b243b]",
+    accent: "bg-[#e8a9c9]"
+  }
+};
+
+function CourseVisual({ course }: { course: StepikCourse }): JSX.Element {
+  const theme = courseVisualThemes[course.category];
+  const titleWords = course.title
+    .replace(/[^\p{L}\p{N}\s-]/gu, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 3);
+  const initials = titleWords
+    .map((word) => word[0]?.toUpperCase())
+    .join("")
+    .slice(0, 3);
+
+  return (
+    <div className={`relative min-h-44 overflow-hidden ${theme.background} p-4`}>
+      <div className={`pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full border-[12px] ${theme.ring}`} />
+      <div className="pointer-events-none absolute -bottom-12 -left-8 h-32 w-32 rounded-full border-[14px] border-white/55" />
+      <div className={`pointer-events-none absolute bottom-5 right-5 h-10 w-10 rounded-2xl ${theme.accent} opacity-75 shadow-[0_10px_24px_rgba(15,23,42,0.12)]`} />
+      <div className="relative flex h-full min-h-36 flex-col justify-between">
+        <span className={`w-fit rounded-full px-3 py-1 text-[0.66rem] font-black uppercase tracking-[0.16em] ${theme.chip}`}>
+          {theme.label}
+        </span>
+        <div>
+          <div className={`flex h-16 w-16 items-center justify-center rounded-[1.35rem] border border-white/70 bg-white/55 text-2xl font-black shadow-[0_14px_30px_rgba(15,23,42,0.1)] backdrop-blur ${theme.text}`}>
+            {initials || "DM"}
+          </div>
+          <p className={`mt-4 max-w-[9rem] text-lg font-black leading-[1.02] tracking-tight ${theme.text}`}>
+            {titleWords.join(" ") || "Курс Дениса"}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
 
