@@ -44,7 +44,8 @@ export function ManagerAiPromptsLeadForm(): JSX.Element {
             telegram: form.telegram,
             source: "lead-magnet-50-manager-ai-prompts",
             result: "Запросил лид-магнит: 50 промтов для руководителя",
-            leadMagnet: MANAGER_AI_PROMPTS.fullTitle
+            leadMagnet: MANAGER_AI_PROMPTS.fullTitle,
+            pageUrl: window.location.href
           })
         });
 

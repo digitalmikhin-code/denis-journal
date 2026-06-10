@@ -44,7 +44,8 @@ export function BusinessControlLeadForm(): JSX.Element {
             telegram: form.telegram,
             source: "lead-magnet-business-control-diagnostic",
             result: "Запросил лид-магнит: Диагностика управляемости бизнеса",
-            leadMagnet: BUSINESS_CONTROL_DIAGNOSTIC.title
+            leadMagnet: BUSINESS_CONTROL_DIAGNOSTIC.title,
+            pageUrl: window.location.href
           })
         });
 

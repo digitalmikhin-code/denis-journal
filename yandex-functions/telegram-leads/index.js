@@ -1,9 +1,11 @@
 const https = require("https");
 
 function corsHeaders() {
+  const allowedOrigin = process.env.ALLOWED_ORIGIN || "*";
+
   return {
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Origin": allowedOrigin,
     "Access-Control-Allow-Methods": "POST,OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type"
   };
@@ -16,9 +18,33 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;");
 }
 
+function formatLine(label, value) {
+  if (!value) {
+    return null;
+  }
+
+  return `${label} ${escapeHtml(value)}`;
+}
+
+function formatJsonBlock(label, value) {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    return `${label}\n<pre>${escapeHtml(JSON.stringify(value, null, 2))}</pre>`;
+  } catch (error) {
+    return `${label} ${escapeHtml(value)}`;
+  }
+}
+
 function sendTelegram(text) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    throw new Error("TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID is not configured");
+  }
 
   const body = JSON.stringify({
     chat_id: chatId,
@@ -71,7 +97,7 @@ module.exports.handler = async function handler(event) {
 
     const data = event.body ? JSON.parse(event.body) : {};
 
-    const text = [
+    const lines = [
       "\u{1F4E9} <b>\u041d\u043e\u0432\u0430\u044f \u0437\u0430\u044f\u0432\u043a\u0430 \u0441 \u0441\u0430\u0439\u0442\u0430</b>",
       "",
       `\u{1F464} <b>\u0418\u043c\u044f:</b> ${escapeHtml(data.fullName)}`,
@@ -80,8 +106,14 @@ module.exports.handler = async function handler(event) {
       `\u{1F4BC} <b>\u0414\u043e\u043b\u0436\u043d\u043e\u0441\u0442\u044c:</b> ${escapeHtml(data.role)}`,
       `\u{1F4AC} <b>Telegram:</b> ${escapeHtml(data.telegram)}`,
       `\u{1F517} <b>\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a:</b> ${escapeHtml(data.source)}`,
-      `\u{1F4CA} <b>\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 \u0438\u0433\u0440\u044b:</b> ${escapeHtml(data.result)}`
-    ].join("\n");
+      formatLine("\u{1F4D8} <b>\u041b\u0438\u0434-\u043c\u0430\u0433\u043d\u0438\u0442:</b>", data.leadMagnet),
+      formatLine("\u{1F4CA} <b>\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 / \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442:</b>", data.result),
+      formatLine("\u{1F310} <b>\u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430:</b>", data.pageUrl),
+      formatJsonBlock("\u{1F4C8} <b>\u041c\u0435\u0442\u0440\u0438\u043a\u0438:</b>", data.scores || data.metrics),
+      formatJsonBlock("\u{1F4DD} <b>\u0414\u0435\u0442\u0430\u043b\u0438:</b>", data.decisions || data.details)
+    ].filter(Boolean);
+
+    const text = lines.join("\n");
 
     const tg = await sendTelegram(text);
 

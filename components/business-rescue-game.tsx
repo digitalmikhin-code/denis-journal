@@ -350,6 +350,7 @@ export function BusinessRescueGame(): JSX.Element {
           telegram: leadForm.telegram,
           source: "business-game-premium-dashboard",
           result: `${result.title}. ${result.subtitle}`,
+          pageUrl: window.location.href,
           metrics,
           decisions: history.map((item) => `${item.day}: ${item.initiative.title} - ${ZONES[item.zone].title}`)
         })
