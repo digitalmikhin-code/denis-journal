@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { TrackedLink } from "@/components/tracked-link";
+import { buildStepikUtmUrl, getCourseIdFromUrl, trackMetrikaGoal } from "@/lib/analytics";
 import {
   MANAGEMENT_MATURITY_INDEX,
   MATURITY_BLOCKS,
@@ -85,6 +87,11 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
   function startTest(): void {
     setCurrentIndex(0);
     setAnswers({});
+    trackMetrikaGoal("diagnostic_start", {
+      diagnostic_title: MANAGEMENT_MATURITY_INDEX.title,
+      source: "diagnostic_page",
+      article_url: typeof window !== "undefined" ? window.location.href : undefined
+    });
     setState("testing");
   }
 
@@ -95,6 +102,13 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
   function goNext(): void {
     if (!selected) return;
     if (currentIndex === MATURITY_QUESTIONS.length - 1) {
+      const finalResult = calculateResult(answers);
+      const finalLevel = resolveMaturityLevel(finalResult.totalIndex);
+      trackMetrikaGoal("diagnostic_complete", {
+        diagnostic_title: MANAGEMENT_MATURITY_INDEX.title,
+        total_score: finalResult.totalIndex,
+        maturity_level: finalLevel.title
+      });
       setState("finished");
       return;
     }
@@ -319,6 +333,15 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
   const strongestBlocks = greenBlocks.length > 0 ? greenBlocks.slice(0, 3) : result.blockScores.slice(0, 3);
   const learningBlocks = priorityBlocks.slice(0, 3);
 
+  useEffect(() => {
+    trackMetrikaGoal("diagnostic_result", {
+      diagnostic_title: MANAGEMENT_MATURITY_INDEX.title,
+      result_type: profile.title,
+      user_level: level.title,
+      recommended_courses_count: learningBlocks.length
+    });
+  }, [learningBlocks.length, level.title, profile.title]);
+
   return (
     <section className="space-y-6 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_rgba(15,23,42,0.1)] md:p-8">
       <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
@@ -449,10 +472,43 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {learningBlocks.map((block) => {
             const recommendation = LEARNING_RECOMMENDATIONS[block.key];
+            const courseId = getCourseIdFromUrl(recommendation.href);
+            const courseHref = buildStepikUtmUrl(recommendation.href, {
+              medium: "development_plan",
+              campaign: "recommendation",
+              content: recommendation.title
+            });
             return (
-              <Link
+              <TrackedLink
                 key={block.key}
-                href={recommendation.href}
+                href={courseHref}
+                goal="course_recommendation_click"
+                params={{
+                  course_id: courseId,
+                  course_title: recommendation.title,
+                  recommendation_source: "management_maturity_index",
+                  diagnostic_title: MANAGEMENT_MATURITY_INDEX.title,
+                  deficit_block: block.fullTitle
+                }}
+                extraGoals={[
+                  {
+                    goal: "course_page_view",
+                    params: {
+                      course_id: courseId,
+                      course_title: recommendation.title,
+                      course_url: recommendation.href
+                    }
+                  },
+                  {
+                    goal: "stepik_click",
+                    params: {
+                      course_id: courseId,
+                      course_title: recommendation.title,
+                      course_url: recommendation.href,
+                      source: "development_plan"
+                    }
+                  }
+                ]}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-white/70 bg-white/75 p-4 transition hover:-translate-y-0.5 hover:bg-white"
@@ -462,7 +518,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
                 <p className="mt-2 text-sm leading-6 text-slate-700">
                   Этот курс закрывает дефицит, который диагностика показала в зоне “{block.fullTitle}”.
                 </p>
-              </Link>
+              </TrackedLink>
             );
           })}
         </div>

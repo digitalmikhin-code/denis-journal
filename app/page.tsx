@@ -13,6 +13,7 @@ import { PersonalPath, type PersonalPathItem } from "@/components/personal-path"
 import { ReadingGuides, type ReadingGuide } from "@/components/reading-guides";
 import { SmartCollections, type SmartCollection } from "@/components/smart-collections";
 import { StarterMap, type StarterMapItem } from "@/components/starter-map";
+import { TrackedLink } from "@/components/tracked-link";
 import {
   CATEGORY_LABELS,
   CATEGORY_SHORT_LABELS,
@@ -25,6 +26,7 @@ import {
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
+import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
 import { CONSULTING_PRODUCTS, DEVELOPMENT_PATH, PLATFORM_STATS, PLATFORM_TOOLS } from "@/lib/platform-ecosystem";
 import { formatDate } from "@/lib/utils";
 
@@ -636,9 +638,35 @@ function CourseRoutesBlock(): JSX.Element {
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6427]">{route.label}</p>
             <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-950">{route.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-650">{route.text}</p>
-            <Link href={route.href} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex text-sm font-black text-slate-950 underline underline-offset-4">
+            <TrackedLink
+              href={buildStepikUtmUrl(route.href, {
+                medium: "course_catalog",
+                campaign: "catalog_to_course",
+                content: route.label
+              })}
+              goal="stepik_click"
+              params={{
+                course_id: getCourseIdFromUrl(route.href),
+                course_title: route.label,
+                course_url: route.href,
+                source: "home_course_routes"
+              }}
+              extraGoals={[
+                {
+                  goal: "course_page_view",
+                  params: {
+                    course_id: getCourseIdFromUrl(route.href),
+                    course_title: route.label,
+                    course_url: route.href
+                  }
+                }
+              ]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex text-sm font-black text-slate-950 underline underline-offset-4"
+            >
               Перейти к курсу
-            </Link>
+            </TrackedLink>
           </article>
         ))}
       </div>

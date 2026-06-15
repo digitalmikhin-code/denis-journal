@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { TrackedLink } from "@/components/tracked-link";
+import { buildStepikUtmUrl, getCourseIdFromUrl, type CourseUtmMedium } from "@/lib/analytics";
 
 type CoursePromoBannerProps = {
   title: string;
@@ -11,6 +12,10 @@ type CoursePromoBannerProps = {
   ctaLabel?: string;
   ctaLabelAlt?: string;
   experimentId?: string;
+  utmMedium?: CourseUtmMedium;
+  utmCampaign?: string;
+  utmContent?: string;
+  analyticsSource?: string;
   className?: string;
 };
 
@@ -22,6 +27,10 @@ export function CoursePromoBanner({
   ctaLabel = "Перейти к курсу",
   ctaLabelAlt = "Подробнее о программе",
   experimentId = "course-banner-cta-v1",
+  utmMedium = "article",
+  utmCampaign = "article_to_course",
+  utmContent = title,
+  analyticsSource = "course_banner",
   className
 }: CoursePromoBannerProps): JSX.Element {
   const [variant, setVariant] = useState<"A" | "B">("A");
@@ -40,18 +49,14 @@ export function CoursePromoBanner({
   }, [experimentId]);
 
   const hrefWithUtm = useMemo(() => {
-    try {
-      const url = new URL(href);
-      url.searchParams.set("utm_source", "journal");
-      url.searchParams.set("utm_medium", "course_banner");
-      url.searchParams.set("utm_campaign", experimentId);
-      url.searchParams.set("utm_content", `variant_${variant.toLowerCase()}`);
-      return url.toString();
-    } catch {
-      return href;
-    }
-  }, [experimentId, href, variant]);
+    return buildStepikUtmUrl(href, {
+      medium: utmMedium,
+      campaign: utmCampaign,
+      content: `${utmContent}_variant_${variant.toLowerCase()}`
+    });
+  }, [href, utmCampaign, utmContent, utmMedium, variant]);
 
+  const courseId = getCourseIdFromUrl(href);
   const ctaText = variant === "A" ? ctaLabel : ctaLabelAlt;
   const ctaClassName =
     variant === "A"
@@ -73,14 +78,41 @@ export function CoursePromoBanner({
           <h3 className="text-lg font-extrabold leading-tight tracking-tight text-slate-900 md:text-xl">{title}</h3>
           {note ? <p className="text-sm leading-6 text-slate-600">{note}</p> : null}
         </div>
-        <Link
+        <TrackedLink
           href={hrefWithUtm}
+          goal="stepik_click"
+          params={{
+            course_id: courseId,
+            course_title: title,
+            course_url: href,
+            source: analyticsSource,
+            utm_medium: utmMedium,
+            ab_variant: variant
+          }}
+          extraGoals={[
+            {
+              goal: "course_page_view",
+              params: {
+                course_id: courseId,
+                course_title: title,
+                course_url: href
+              }
+            },
+            {
+              goal: "course_recommendation_click",
+              params: {
+                course_id: courseId,
+                course_title: title,
+                recommendation_source: analyticsSource
+              }
+            }
+          ]}
           target="_blank"
           rel="noopener noreferrer"
           className={ctaClassName}
         >
           {ctaText}
-        </Link>
+        </TrackedLink>
       </div>
     </section>
   );

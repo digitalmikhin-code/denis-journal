@@ -1,42 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import type { MouseEvent, ReactNode } from "react";
-import { YANDEX_METRIKA_ID } from "@/lib/constants";
+import type { ReactNode } from "react";
+import { trackMetrikaGoal, type MetrikaParams } from "@/lib/analytics";
 
 type TrackedLinkProps = {
   href: string;
   goal: string;
-  params?: Record<string, string | number | boolean | undefined>;
+  params?: MetrikaParams;
+  extraGoals?: Array<{ goal: string; params?: MetrikaParams }>;
   children: ReactNode;
   className?: string;
   target?: string;
   rel?: string;
 };
 
-declare global {
-  interface Window {
-    ym?: (...args: unknown[]) => void;
-  }
-}
-
 export function TrackedLink({
   href,
   goal,
   params,
+  extraGoals,
   children,
   className,
   target,
   rel
 }: TrackedLinkProps): JSX.Element {
-  function handleClick(event: MouseEvent<HTMLAnchorElement>): void {
-    if (typeof window === "undefined" || typeof window.ym !== "function") {
-      return;
-    }
-
-    window.ym(YANDEX_METRIKA_ID, "reachGoal", goal, {
+  function handleClick(): void {
+    trackMetrikaGoal(goal, {
       href,
       ...params
+    });
+
+    extraGoals?.forEach((item) => {
+      trackMetrikaGoal(item.goal, {
+        href,
+        ...item.params
+      });
     });
   }
 

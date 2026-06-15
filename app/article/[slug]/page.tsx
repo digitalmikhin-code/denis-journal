@@ -19,11 +19,13 @@ import { ArticleReactions } from "@/components/article-reactions";
 import { ArticleReactionSummary } from "@/components/article-reaction-summary";
 import { AuthorBrandBlock } from "@/components/author-brand-block";
 import { MaxChannelBanner } from "@/components/max-channel-banner";
+import { MetrikaGoal } from "@/components/metrika-goal";
 import { AuthorQuote } from "@/components/author-quote";
 import { ArticleInPageSearch } from "@/components/article-in-page-search";
 import { FocusModeToggle } from "@/components/focus-mode-toggle";
 import { ReadingProgress } from "@/components/reading-progress";
 import { SaveArticleButton } from "@/components/save-article-button";
+import { TrackedLink } from "@/components/tracked-link";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -169,6 +171,14 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
   return (
     <div className="space-y-12">
+      <MetrikaGoal
+        goal="article_view"
+        params={{
+          article_title: article.frontmatter.title,
+          article_url: articleUrl,
+          article_category: category
+        }}
+      />
       <ReadingProgress targetId="article-content" />
       <FocusModeToggle />
       <ArticleBackFab />
@@ -443,12 +453,19 @@ export default function ArticlePage({ params }: Props): JSX.Element {
                     сильные стороны, зоны развития и подходящий следующий шаг в обучении.
                   </p>
                 </div>
-                <Link
+                <TrackedLink
                   href="/diagnostics"
+                  goal="diagnostic_start"
+                  params={{
+                    diagnostic_title: "Каталог диагностик",
+                    source: "article",
+                    article_title: article.frontmatter.title,
+                    article_url: articleUrl
+                  }}
                   className="inline-flex justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
                 >
                   Пройти диагностику
-                </Link>
+                </TrackedLink>
               </div>
             </section>
 

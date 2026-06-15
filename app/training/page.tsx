@@ -1,6 +1,8 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
+import { TrackedLink } from "@/components/tracked-link";
+import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
 import { STEPIK_TEACH_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 import { COURSE_CATEGORIES, STEPIK_COURSES, STEPIK_PROFILE_FACTS, type StepikCourse } from "@/lib/stepik-courses";
 
@@ -300,6 +302,13 @@ function InfoCard({ title, text }: { title: string; text: string }): JSX.Element
 }
 
 function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
+  const courseId = getCourseIdFromUrl(course.url);
+  const courseHref = buildStepikUtmUrl(course.url, {
+    medium: "course_catalog",
+    campaign: "catalog_to_course",
+    content: course.title
+  });
+
   return (
     <article className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
       <div className="grid gap-0 md:grid-cols-[170px_1fr]">
@@ -335,14 +344,31 @@ function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
           <Meta label="Отзывы" value={course.reviews} />
           <Meta label="Статус" value={course.status} />
         </div>
-        <Link
-          href={course.url}
+        <TrackedLink
+          href={courseHref}
+          goal="stepik_click"
+          params={{
+            course_id: courseId,
+            course_title: course.title,
+            course_url: course.url,
+            source: "course_catalog"
+          }}
+          extraGoals={[
+            {
+              goal: "course_page_view",
+              params: {
+                course_id: courseId,
+                course_title: course.title,
+                course_url: course.url
+              }
+            }
+          ]}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
         >
           Перейти к курсу
-        </Link>
+        </TrackedLink>
       </div>
     </article>
   );
