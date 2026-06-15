@@ -19,6 +19,43 @@ export default function DiagnosticsPage(): JSX.Element {
         </p>
       </header>
 
+      <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 p-6 text-white shadow-[0_28px_70px_rgba(15,23,42,0.18)] md:p-8">
+        <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full border-[14px] border-[#f5d45d]/35" />
+        <div className="relative grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+              Премиум-диагностика
+            </p>
+            <h2 className="mt-3 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
+              Индекс управленческой зрелости
+            </h2>
+            <p className="mt-4 max-w-[62ch] text-base leading-8 text-white/72 md:text-lg">
+              Платный профессиональный тест на 180 вопросов: 9 блоков зрелости, индекс до 900 баллов,
+              профиль руководителя и рекомендации для развития на следующий уровень.
+            </p>
+            <Link
+              href="/diagnostics/management-maturity-index"
+              className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+            >
+              Смотреть премиум-тест
+            </Link>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {[
+              ["180", "вопросов"],
+              ["9", "блоков управленческой зрелости"],
+              ["PDF", "персональный отчет после оплаты"]
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4">
+                <p className="text-3xl font-black leading-none">{value}</p>
+                <p className="mt-2 text-sm font-semibold leading-6 text-white/68">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">
           Лид-магнит для бизнеса

@@ -168,6 +168,7 @@ export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u041a\u0430\u043d\u0430\u043b \u0432 Max", href: MAX_CHANNEL_URL },
   { label: "\u0412\u0438\u0434\u0435\u043e", href: "/videos" },
   { label: "\u0414\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0430", href: "/diagnostics" },
+  { label: "ИУЗ Premium", href: "/diagnostics/management-maturity-index" },
   { label: "\u0413\u0438\u0431\u043a\u0438\u0435 \u0442\u0440\u0430\u043d\u0441\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u0438", href: "/category/agile" },
   { label: "\u0410\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430", href: "/category/architecture" },
   { label: "\u041a\u0435\u0439\u0441\u044b", href: "/category/cases" },
