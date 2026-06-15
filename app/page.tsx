@@ -25,6 +25,7 @@ import {
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
+import { CONSULTING_PRODUCTS, PLATFORM_LEVELS, PLATFORM_STATS, PLATFORM_TOOLS } from "@/lib/platform-ecosystem";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -68,11 +69,11 @@ export default function HomePage(): JSX.Element {
               Авторская оптика Дениса Михина
             </p>
             <h1 className="max-w-[17ch] text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-6xl xl:text-[4.1rem]">
-              Помогаю видеть систему там, где другие видят хаос
+              Рост бизнеса через изменения
             </h1>
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
-              Журнал для руководителей и сильных специалистов, которым важно не просто работать больше,
-              а точнее понимать людей, процессы, решения и ограничения роста.
+              Помогаю компаниям находить точки роста, выстраивать системы управления, усиливать продажи
+              и проводить изменения, которые дают результат.
             </p>
             <AuthorQuote
               compact
@@ -101,16 +102,24 @@ export default function HomePage(): JSX.Element {
             </div>
             <div className="flex flex-wrap gap-3 pt-1">
               <Link
-                href="/articles"
+                href="/diagnostics"
                 className="rounded-2xl bg-slate-900 px-6 py-3 text-base font-bold text-white transition hover:bg-slate-800"
+              >
+                Пройти диагностику
+              </Link>
+              <Link
+                href="/articles"
+                className="rounded-2xl border border-slate-900/15 bg-white/70 px-6 py-3 text-base font-semibold text-slate-800 transition hover:bg-white"
               >
                 Читать журнал
               </Link>
               <Link
-                href="/about"
+                href={TELEGRAM_CONSULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-2xl border border-slate-900/15 bg-white/70 px-6 py-3 text-base font-semibold text-slate-800 transition hover:bg-white"
               >
-                Кто такой Денис Михин
+                Получить консультацию
               </Link>
             </div>
           </div>
@@ -166,6 +175,10 @@ export default function HomePage(): JSX.Element {
           </div>
         </div>
       </section>
+
+      <PlatformStatsBlock />
+
+      <PlatformLevelsBlock />
 
       <ContinueReadingCard />
 
@@ -270,6 +283,8 @@ export default function HomePage(): JSX.Element {
       <ReadingGuides guides={readingGuides} />
 
       <PracticeChangesTeaser />
+
+      <ProductsAndToolsBlock />
 
       <CourseRoutesBlock />
 
@@ -458,6 +473,124 @@ function PracticeChangesTeaser(): JSX.Element {
             Смотреть практику изменений
           </Link>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function PlatformStatsBlock(): JSX.Element {
+  return (
+    <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Платформа в цифрах</p>
+          <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+            Экосистема для руководителей, а не просто блог
+          </h2>
+        </div>
+        <p className="max-w-xl text-sm leading-7 text-slate-600">
+          Контент, диагностики, курсы, инструменты и консалтинг соединяются в одну воронку:
+          понять проблему, измерить зрелость, выбрать действие и перейти к внедрению.
+        </p>
+      </div>
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        {PLATFORM_STATS.map(([value, label]) => (
+          <div key={label} className="rounded-[1.4rem] border border-slate-200 bg-slate-50 p-4">
+            <p className="text-3xl font-black leading-none text-slate-950">{value}</p>
+            <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function PlatformLevelsBlock(): JSX.Element {
+  return (
+    <section className="rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] md:p-8">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">5 уровней платформы</p>
+          <h2 className="mt-2 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
+            От чтения к внедрению
+          </h2>
+        </div>
+        <Link
+          href="/start"
+          className="rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+        >
+          Выбрать маршрут
+        </Link>
+      </div>
+      <div className="mt-6 grid gap-3 md:grid-cols-5">
+        {PLATFORM_LEVELS.map((level, index) => (
+          <Link
+            key={level.title}
+            href={level.href}
+            className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4 transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
+          >
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-white/35">0{index + 1}</p>
+            <h3 className="mt-3 text-xl font-black tracking-tight text-white">{level.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-white/68">{level.text}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ProductsAndToolsBlock(): JSX.Element {
+  const consultingPreview = CONSULTING_PRODUCTS.slice(0, 3);
+  const toolsPreview = PLATFORM_TOOLS.slice(0, 3);
+
+  return (
+    <section className="grid gap-5 lg:grid-cols-2">
+      <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Консалтинг</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+          Когда проблема уже стоит денег
+        </h2>
+        <p className="mt-3 text-sm leading-7 text-slate-600">
+          Управленческий контур, PMO, KPI, CRM, продажи, AI-трансформация и стратегические сессии.
+        </p>
+        <div className="mt-5 grid gap-3">
+          {consultingPreview.map((product) => (
+            <div key={product.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p className="text-base font-black text-slate-900">{product.title}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{product.result}</p>
+            </div>
+          ))}
+        </div>
+        <Link
+          href="/consulting"
+          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+        >
+          Смотреть консалтинг
+        </Link>
+      </div>
+
+      <div className="rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Инструменты</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
+          Шаблоны и AI-помощники для управленческой работы
+        </h2>
+        <p className="mt-3 text-sm leading-7 text-slate-700">
+          Следующий слой платформы: калькуляторы, конструкторы, генераторы дорожных карт и библиотека шаблонов.
+        </p>
+        <div className="mt-5 grid gap-3">
+          {toolsPreview.map((tool) => (
+            <div key={tool.title} className="rounded-2xl border border-white/70 bg-white/75 p-4">
+              <p className="text-base font-black text-slate-900">{tool.title}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{tool.text}</p>
+            </div>
+          ))}
+        </div>
+        <Link
+          href="/tools"
+          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+        >
+          Смотреть инструменты
+        </Link>
       </div>
     </section>
   );

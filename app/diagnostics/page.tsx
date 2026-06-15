@@ -8,6 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default function DiagnosticsPage(): JSX.Element {
+  const diagnosticRoadmap = [
+    ["Индекс управленческой зрелости", "180 вопросов, 9 блоков, отчет, карта компетенций и план развития.", "/diagnostics/management-maturity-index"],
+    ["Индекс зрелости руководителя", "Лидерство, делегирование, коммуникация, решения, команда и системное мышление.", "/diagnostics/management-maturity-index"],
+    ["Индекс зрелости команды", "Доверие, ответственность, коммуникация, результативность и клиентоцентричность.", "/diagnostics"],
+    ["Диагностика бизнеса", "Управление, продажи, маркетинг, финансы, команда и процессы.", "/lead/business-control-diagnostic"],
+    ["Диагностика цифровой зрелости", "CRM, автоматизация, ИИ, аналитика и процессы.", "/lead/manager-ai-prompts"]
+  ];
+
   return (
     <div className="space-y-6">
       <header className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#eef8ff_0%,#f7f2ff_52%,#fff6ec_100%)] p-7 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-9">
@@ -53,6 +61,35 @@ export default function DiagnosticsPage(): JSX.Element {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Коммерческая линейка
+            </p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+              Диагностики будут вести от первого среза к развитию
+            </h2>
+          </div>
+          <p className="max-w-xl text-sm leading-7 text-slate-600">
+            Задача раздела - не развлечь тестом, а показать руководителю, команде или бизнесу,
+            где находится ограничитель и какой следующий шаг имеет смысл.
+          </p>
+        </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
+          {diagnosticRoadmap.map(([title, text, href]) => (
+            <Link
+              key={title}
+              href={href}
+              className="rounded-[1.4rem] border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_16px_34px_rgba(15,23,42,0.07)]"
+            >
+              <h3 className="text-base font-black leading-tight text-slate-900">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+            </Link>
+          ))}
         </div>
       </section>
 

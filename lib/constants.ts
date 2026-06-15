@@ -163,6 +163,7 @@ export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u0421 \u0447\u0435\u0433\u043e \u043d\u0430\u0447\u0430\u0442\u044c", href: "/start" },
   { label: "\u0421\u0442\u0430\u0442\u044c\u0438", href: "/articles" },
   { label: "\u0425\u0430\u0431\u044b", href: "/hubs" },
+  { label: "Инструменты", href: "/tools" },
   { label: "Практика изменений", href: "/practice" },
   { label: "\u0418\u0433\u0440\u0430", href: "/business-game" },
   { label: "\u041a\u0430\u043d\u0430\u043b \u0432 Max", href: MAX_CHANNEL_URL },
@@ -174,6 +175,7 @@ export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u041a\u0435\u0439\u0441\u044b", href: "/category/cases" },
   { label: "\u0418\u0418", href: "/category/ai" },
   { label: "Курсы", href: "/training" },
+  { label: "Консалтинг", href: "/consulting" },
   { label: "\u041e\u0431\u043e \u043c\u043d\u0435", href: "/about" }
 ];
 
