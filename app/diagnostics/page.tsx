@@ -24,28 +24,28 @@ export default function DiagnosticsPage(): JSX.Element {
         <div className="relative grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
-              Премиум-диагностика
+              Закрытая диагностика
             </p>
             <h2 className="mt-3 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
               Индекс управленческой зрелости
             </h2>
             <p className="mt-4 max-w-[62ch] text-base leading-8 text-white/72 md:text-lg">
-              Платный профессиональный тест на 180 вопросов: 9 блоков зрелости, индекс до 900 баллов,
-              профиль руководителя и рекомендации для развития на следующий уровень.
+              180 вопросов, которые показывают не “тип личности”, а управленческий масштаб: где вы сильны,
+              где теряете результат и какие зоны нужно развивать в первую очередь.
             </p>
             <Link
               href="/diagnostics/management-maturity-index"
               className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
             >
-              Смотреть премиум-тест
+              Открыть ИУЗ
             </Link>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
             {[
               ["180", "вопросов"],
-              ["9", "блоков управленческой зрелости"],
-              ["PDF", "персональный отчет после оплаты"]
+              ["9", "зон управления"],
+              ["PDF", "отчет и план развития"]
             ].map(([value, label]) => (
               <div key={label} className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4">
                 <p className="text-3xl font-black leading-none">{value}</p>

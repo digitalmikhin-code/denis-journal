@@ -224,7 +224,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
                 href="#access"
                 className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
               >
-                Получить доступ
+                Открыть диагностику
               </a>
               <Link
                 href={TELEGRAM_CONSULT_URL}
@@ -232,7 +232,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-white/20 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
               >
-                Запросить счет
+                Обсудить доступ
               </Link>
             </div>
           </div>
@@ -240,9 +240,9 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
           <div className="grid gap-3 sm:grid-cols-2">
             {[
               ["180", "вопросов"],
-              ["9", "блоков зрелости"],
-              ["900", "максимальный индекс"],
-              ["PDF", "персональный отчет"]
+              ["9", "управленческих зон"],
+              ["900", "баллов индекса"],
+              ["PDF", "отчет с планом"]
             ].map(([value, label]) => (
               <div key={label} className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5">
                 <p className="text-4xl font-black leading-none">{value}</p>
@@ -255,11 +255,11 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
 
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <div id="access" className="scroll-mt-28 rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Платный доступ</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Диагностика открывается после оплаты</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Закрытый доступ</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Вход в диагностику</h2>
           <p className="mt-4 text-base leading-8 text-slate-700">
-            В MVP-версии здесь стоит код доступа. После выбора платежного провайдера этот блок заменяется на оплату,
-            автоматическую проверку платежа и выдачу персональной ссылки.
+            Сейчас доступ открыт по коду, чтобы спокойно проверить продукт до подключения оплаты. Позже здесь появится
+            покупка доступа и персональная ссылка на прохождение.
           </p>
           <div className="mt-5 grid gap-3">
             <input
@@ -273,7 +273,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
               onClick={unlock}
               className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-slate-800"
             >
-              Открыть премиум-тест
+              Войти в диагностику
             </button>
           </div>
           {accessError ? (
@@ -283,21 +283,21 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
           ) : null}
           {state === "ready" ? (
             <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-sm font-bold text-emerald-900">Доступ открыт. Можно проходить полную диагностику.</p>
+              <p className="text-sm font-bold text-emerald-900">Доступ открыт. Можно начинать полный разбор.</p>
               <button
                 type="button"
                 onClick={startTest}
                 className="mt-4 rounded-2xl bg-emerald-700 px-5 py-3 text-sm font-black text-white transition hover:bg-emerald-800"
               >
-                Начать 180 вопросов
+                Начать диагностику
               </button>
             </div>
           ) : null}
         </div>
 
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Что получает клиент</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Не тип личности, а карта управленческой способности</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Что внутри отчета</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Не “тип личности”, а управленческая карта</h2>
           <div className="mt-5 grid gap-3">
             {MANAGEMENT_MATURITY_INDEX.reportSections.map((item, index) => (
               <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
@@ -313,10 +313,11 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Методология</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">9 блоков управленческой зрелости</h2>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Из чего складывается зрелость руководителя</h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-slate-600">
-            Каждый блок нормируется до 100 баллов. Итоговый индекс складывается в шкалу от 0 до 900.
+            Каждый блок переводится в шкалу до 100 баллов. Вместе они показывают не общий “талант к управлению”,
+            а конкретные зоны силы, риска и роста.
           </p>
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3">
@@ -346,7 +347,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
     <section className="space-y-6 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_rgba(15,23,42,0.1)] md:p-8">
       <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="rounded-[1.8rem] border border-slate-800 bg-slate-950 p-6 text-white">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Ваш индекс</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Итоговый индекс</p>
           <p className="mt-4 text-6xl font-black leading-none">{result.totalIndex}</p>
           <p className="mt-2 text-sm font-semibold text-white/60">из 900 баллов</p>
           <h2 className="mt-5 text-3xl font-black leading-tight tracking-tight">{level.title}</h2>
@@ -355,7 +356,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
 
         <div className="space-y-4">
           <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Профиль руководителя</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Ваш управленческий профиль</p>
             <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">{profile.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-700">{profile.summary}</p>
           </div>
@@ -370,8 +371,8 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
       <section className="rounded-[1.8rem] border border-slate-200 bg-slate-50 p-5">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Дашборд компетенций</p>
-            <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">Карта сильных и проблемных зон</h3>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Карта компетенций</p>
+            <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">Где вы сильны, а где теряете масштаб</h3>
           </div>
           <div className="flex flex-wrap gap-2 text-xs font-bold">
             <span className={`rounded-full border px-3 py-1 ${ZONE_STYLES.red.chip}`}>0-44 красная</span>
@@ -388,13 +389,13 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
 
       <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[1.8rem] border border-red-200 bg-red-50 p-5">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-red-800">Индивидуальный план развития</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-red-800">Персональный план</p>
           <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">
-            Что делать с красными зонами
+            С чего начать развитие
           </h3>
           <p className="mt-3 text-sm leading-7 text-slate-700">
-            Приоритет на ближайшие 30 дней - не развивать все сразу, а закрыть ограничения, которые сильнее всего мешают
-            управленческому масштабу. Начните с блоков ниже.
+            Не нужно улучшать все сразу. Сначала закрываем ограничения, которые сильнее всего мешают управленческому
+            масштабу, скорости решений и доведению изменений до результата.
           </p>
           <div className="mt-5 space-y-4">
             {priorityBlocks.map((block, index) => (
@@ -405,8 +406,8 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
 
         <div className="space-y-4">
           <div className="rounded-[1.8rem] border border-emerald-200 bg-emerald-50 p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800">На что опираться</p>
-            <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">Сильные компетенции</h3>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800">Ваш ресурс</p>
+            <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">Что уже работает на вас</h3>
             <div className="mt-4 space-y-3">
               {strongestBlocks.map((block) => (
                 <div key={block.key} className="rounded-2xl border border-emerald-200 bg-white/70 p-4">
@@ -417,7 +418,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-6 text-slate-700">
-                    Используйте этот блок как ресурс для развития слабых зон, а не как повод оставить их без внимания.
+                    Это ваша опора. Через нее проще подтягивать слабые зоны без ощущения, что нужно “начинать с нуля”.
                   </p>
                 </div>
               ))}
@@ -425,14 +426,14 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
           </div>
 
           <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Рекомендация по уровню</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Главный вывод</p>
             <p className="mt-3 text-sm leading-7 text-slate-700">{level.recommendation}</p>
           </div>
         </div>
       </section>
 
       <section className="rounded-[1.8rem] border border-slate-200 bg-white p-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Подробно по компетенциям</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Расшифровка</p>
         <div className="mt-5 grid gap-3 md:grid-cols-3">
         {result.blockScores.map((item) => (
           <div key={item.key} className={`rounded-2xl border p-4 ${ZONE_STYLES[item.zone].card}`}>
@@ -448,12 +449,12 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
       </section>
 
       <section className="rounded-[1.8rem] border border-slate-200 bg-slate-50 p-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">План на 3 месяца</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Маршрут развития</p>
         <div className="mt-5 grid gap-4 md:grid-cols-3">
           {[
-            ["30 дней", "Закрыть красную зону", "Выберите 1-2 самых слабых блока, внедрите действия из плана и каждую неделю фиксируйте изменения в поведении."],
-            ["60 дней", "Закрепить управленческую практику", "Переведите новые действия в регулярные ритуалы: встречи, обратную связь, критерии решений, работу с рисками."],
-            ["90 дней", "Проверить эффект", "Повторно оцените красные блоки, сравните динамику и выберите следующий ограничитель управленческого роста."]
+            ["30 дней", "Убрать главный ограничитель", "Выберите 1-2 самые слабые зоны и каждую неделю проверяйте, что изменилось в конкретном поведении."],
+            ["60 дней", "Сделать практику регулярной", "Переведите новые действия в рабочие ритуалы: встречи, обратную связь, критерии решений и работу с рисками."],
+            ["90 дней", "Проверить рост", "Повторите диагностику по слабым блокам, сравните динамику и выберите следующий ограничитель масштаба."]
           ].map(([period, title, text]) => (
             <div key={period} className="rounded-2xl border border-slate-200 bg-white p-4">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">{period}</p>
@@ -465,10 +466,10 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
       </section>
 
       <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Следующий шаг</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что дальше</p>
         <p className="mt-3 text-sm leading-7 text-slate-700">
-          Этот отчет уже показывает не только уровень, но и управленческие ограничения. Следующий слой премиум-продукта:
-          PDF с расширенной расшифровкой, персональными текстами по каждому блоку и подборкой материалов под слабые зоны.
+          Сохраните отчет и вернитесь к нему через месяц. Если красные зоны повторяются в реальной работе, их лучше
+          разбирать не как “навык”, а как управленческую систему: контекст, люди, решения, ограничения и цена бездействия.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -485,7 +486,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
             }
             className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
           >
-            Сохранить отчет в PDF
+            Скачать отчет
           </button>
           <Link
             href={TELEGRAM_CONSULT_URL}
@@ -493,14 +494,14 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
             rel="noopener noreferrer"
             className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Обсудить результат
+            Разобрать результат
           </Link>
           <button
             type="button"
             onClick={onRestart}
             className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
           >
-            Пройти заново
+            Пройти еще раз
           </button>
         </div>
       </div>
@@ -702,11 +703,11 @@ function printMaturityReport({
       </head>
       <body>
         <main>
-          <p class="eyebrow">Персональный отчет - ${escapeHtml(createdAt)}</p>
+          <p class="eyebrow">Индивидуальный отчет - ${escapeHtml(createdAt)}</p>
           <h1>Индекс управленческой зрелости</h1>
           <p class="lead">
-            Премиум-диагностика показывает не тип личности, а способность руководителя создавать результат через
-            людей, процессы, решения, изменения, бизнес-логику и собственную зрелость.
+            Этот отчет показывает не “тип личности”, а управленческую картину: за счет чего руководитель уже создает
+            результат, где теряет масштаб и какие зоны стоит развивать в первую очередь.
           </p>
 
           <section class="summary-grid">
@@ -718,7 +719,7 @@ function printMaturityReport({
               <p>${escapeHtml(levelSummary)}</p>
             </div>
             <div class="card">
-              <p class="eyebrow">Профиль руководителя</p>
+              <p class="eyebrow">Управленческий профиль</p>
               <h2>${escapeHtml(profileTitle)}</h2>
               <p>${escapeHtml(profileSummary)}</p>
               <div class="dashboard">
@@ -730,14 +731,14 @@ function printMaturityReport({
           </section>
 
           <section>
-            <h2>Дашборд компетенций</h2>
+            <h2>Карта компетенций</h2>
             <table>
               <thead>
                 <tr>
                   <th>Компетенция</th>
                   <th>Балл</th>
                   <th>Зона</th>
-                  <th>Фокус развития</th>
+                  <th>Что усиливать</th>
                 </tr>
               </thead>
               <tbody>${competencyRows}</tbody>
@@ -745,16 +746,16 @@ function printMaturityReport({
           </section>
 
           <section>
-            <h2>Индивидуальный план развития по красным зонам</h2>
+            <h2>План развития по проблемным зонам</h2>
             <div class="plan-grid">${planCards}</div>
           </section>
 
           <section>
-            <h2>План на 3 месяца</h2>
+            <h2>Маршрут на 3 месяца</h2>
             <div class="roadmap">
-              <div class="card"><p class="eyebrow">30 дней</p><h3>Закрыть красную зону</h3><p>Выберите 1-2 слабых блока, внедрите действия из плана и каждую неделю фиксируйте изменения в поведении.</p></div>
-              <div class="card"><p class="eyebrow">60 дней</p><h3>Закрепить практику</h3><p>Переведите новые действия в регулярные ритуалы: встречи, обратную связь, критерии решений, работу с рисками.</p></div>
-              <div class="card"><p class="eyebrow">90 дней</p><h3>Проверить эффект</h3><p>Повторно оцените красные блоки, сравните динамику и выберите следующий ограничитель управленческого роста.</p></div>
+              <div class="card"><p class="eyebrow">30 дней</p><h3>Убрать главный ограничитель</h3><p>Выберите 1-2 слабые зоны и каждую неделю проверяйте, что изменилось в конкретном поведении.</p></div>
+              <div class="card"><p class="eyebrow">60 дней</p><h3>Сделать практику регулярной</h3><p>Переведите новые действия в рабочие ритуалы: встречи, обратную связь, критерии решений и работу с рисками.</p></div>
+              <div class="card"><p class="eyebrow">90 дней</p><h3>Проверить рост</h3><p>Повторите диагностику по слабым блокам, сравните динамику и выберите следующий ограничитель масштаба.</p></div>
             </div>
           </section>
         </main>
