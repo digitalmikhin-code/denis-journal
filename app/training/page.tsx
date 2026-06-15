@@ -31,12 +31,12 @@ const faq = [
   {
     question: "Это отдельные курсы или образовательная система?",
     answer:
-      "Курсы собраны как линейка: управление, Agile, продукт, OKR, ИИ и экспертность дополняют друг друга. Человек может начать с одной боли и постепенно собрать целостную систему управления."
+      "Курсы собраны как маршрут: управление, Agile, продукт, OKR, ИИ и экспертность дополняют друг друга. Можно начать с одной задачи и постепенно собрать целостную управленческую оптику."
   },
   {
     question: "Если я не знаю, какой курс выбрать?",
     answer:
-      "Начните с блока ниже: можно выбрать маршрут по задаче или написать Денису, чтобы быстро подобрать первый курс под вашу ситуацию."
+      "Начните с маршрута по задаче или напишите Денису: иногда один короткий вопрос быстрее подбирает первый курс, чем час просмотра витрины."
   },
   {
     question: "Данные по курсам актуальны?",
@@ -52,17 +52,17 @@ const faq = [
 const routeCards = [
   {
     title: "Нужно навести порядок в управлении",
-    text: "Начните с управления задачами или эффективного руководителя, затем переходите к проектам и OKR.",
+    text: "Начните с управленческой базы, затем переходите к проектам, ответственности и OKR.",
     href: "#management"
   },
   {
     title: "Нужно разобраться с Agile",
-    text: "Выберите базу по Agile, Scrum и Kanban, а затем углубляйтесь в Kanban PRO или Agile Project Manager.",
+    text: "Сначала разберитесь с логикой Agile, Scrum и Kanban, потом углубляйтесь в Kanban PRO или Agile Project Manager.",
     href: "#agile-scrum-kanban"
   },
   {
     title: "Нужно применять ИИ в работе",
-    text: "Начните с промт-инжиниринга или ИИ для менеджеров, затем переходите к AI-трансформации.",
+    text: "Начните с промт-инжиниринга или ИИ для менеджеров, затем переходите к сценариям AI-трансформации.",
     href: "#ai-prompting"
   }
 ];
@@ -91,11 +91,11 @@ export default function TrainingPage(): JSX.Element {
               Витрина курсов
             </p>
             <h1 className="mt-4 max-w-4xl text-5xl font-black leading-[0.95] tracking-tight text-slate-950 md:text-7xl">
-              Курсы как система управленческого роста
+              Курсы для тех, кто хочет управлять сильнее
             </h1>
             <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-700 md:text-2xl md:leading-9">
-              Не случайные ссылки на Stepik, а образовательная карта Дениса Михина: управление,
-              Agile, OKR, продукт, системное мышление, SAFe, ИИ и промт-инжиниринг.
+              Не случайная витрина ссылок, а образовательная карта: управление, Agile, OKR,
+              продукт, системное мышление, SAFe, ИИ и промт-инжиниринг.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
@@ -110,14 +110,14 @@ export default function TrainingPage(): JSX.Element {
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-slate-300 bg-white/80 px-6 py-3 text-base font-semibold text-slate-900 transition hover:border-slate-500"
               >
-                Не знаю, с чего начать
+                Подобрать маршрут
               </Link>
             </div>
           </div>
 
           <div className="rounded-[2rem] border border-white/80 bg-white/75 p-5 shadow-[0_22px_60px_rgba(15,23,42,0.08)] backdrop-blur">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Анализ Stepik
+              Профиль Stepik
             </p>
             <div className="mt-5 grid grid-cols-2 gap-3">
               {[
@@ -133,17 +133,17 @@ export default function TrainingPage(): JSX.Element {
               ))}
             </div>
             <p className="mt-4 rounded-2xl bg-[#e8f4ef] p-4 text-sm leading-6 text-slate-700">
-              В профиле Stepik указано: {STEPIK_PROFILE_FACTS.studentsText} прошли программы и
-              используют подходы в работе. Источник: публичный профиль автора.
+              По данным публичного профиля Stepik: {STEPIK_PROFILE_FACTS.studentsText} уже прошли программы
+              и используют подходы в работе.
             </p>
           </div>
         </div>
       </section>
 
       <section className="grid gap-5 md:grid-cols-3">
-        <InfoCard title="Почему у Дениса" text="Курсы построены вокруг практики изменений: как навести порядок, связать цели с работой, управлять потоком и принимать решения в сложных системах." />
+        <InfoCard title="Зачем эти курсы" text="Чтобы не просто узнать методику, а понять, как она работает в реальной управленческой системе." />
         <InfoCard title="Как устроена линейка" text={`Сейчас в витрине ${STEPIK_COURSES.length} курса: ${paidCourses} платных и ${freeCourses} бесплатных или без указанной цены на Stepik.`} />
-        <InfoCard title="Честность данных" text="Если Stepik не показывает длительность, рейтинг, отзывы или цену, в карточке указано: информация не указана. Без украшательства." />
+        <InfoCard title="Без украшательства" text="Если Stepik не показывает длительность, рейтинг, отзывы или цену, я не додумываю данные за платформу." />
       </section>
 
       <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.05)] md:p-8">
@@ -153,7 +153,7 @@ export default function TrainingPage(): JSX.Element {
               Категории
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-              Образовательная карта
+              Выберите свою задачу
             </h2>
           </div>
           <Link href={STEPIK_TEACH_URL} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-slate-700 underline underline-offset-4">
@@ -215,11 +215,11 @@ export default function TrainingPage(): JSX.Element {
               Не знаете, с чего начать?
             </p>
             <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">
-              Выберите маршрут, а не просто курс
+              Выберите не курс, а следующий шаг
             </h2>
             <p className="mt-4 text-base leading-7 text-white/72">
-              Витрина должна вести человека по логике задачи: сначала понять проблему, затем выбрать
-              базу, потом углубиться или обсудить внедрение.
+              Лучше идти от задачи: сначала понять, что сейчас мешает результату, потом выбрать базу,
+              углубиться или обсудить внедрение в вашей команде.
             </p>
           </div>
           <div className="grid gap-3">
@@ -235,7 +235,7 @@ export default function TrainingPage(): JSX.Element {
               rel="noopener noreferrer"
               className="rounded-2xl bg-[#f2c14e] px-5 py-4 text-center font-bold text-slate-950 transition hover:bg-[#ffd76a]"
             >
-              Подобрать курс с Денисом
+              Подобрать маршрут
             </Link>
           </div>
         </div>
@@ -263,11 +263,11 @@ export default function TrainingPage(): JSX.Element {
               CTA
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight md:text-4xl">
-              Начните с курса, который решает вашу ближайшую управленческую задачу
+              Начните с задачи, которая сейчас сильнее всего мешает результату
             </h2>
             <p className="mt-3 max-w-3xl text-base leading-7 text-slate-700">
-              А если задача сложнее одного курса, переходите к консультации: можно собрать маршрут
-              обучения и внедрения под команду, продукт или бизнес-систему.
+              Если задача шире одного курса, можно собрать маршрут обучения и внедрения под команду,
+              продукт или бизнес-систему.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:flex-col">

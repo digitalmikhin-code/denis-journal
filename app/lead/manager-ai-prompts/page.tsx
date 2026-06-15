@@ -28,13 +28,13 @@ export default function ManagerAiPromptsPage(): JSX.Element {
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
-              PDF-лид-магнит
+              ИИ для управленческой работы
             </p>
             <h1 className="mt-4 max-w-[13ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
               {MANAGER_AI_PROMPTS.title}
             </h1>
             <p className="mt-5 max-w-[58ch] text-xl font-semibold leading-tight text-white/90 md:text-2xl">
-              Как использовать ИИ в управлении, проектах и принятии решений.
+              Не для игры с нейросетью, а для решений, встреч, рисков и управленческой ясности.
             </p>
             <p className="mt-5 max-w-[62ch] text-base leading-8 text-white/72">
               {MANAGER_AI_PROMPTS.promise}
@@ -44,7 +44,7 @@ export default function ManagerAiPromptsPage(): JSX.Element {
                 href="#download"
                 className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
               >
-                Получить PDF
+                Забрать подборку
               </a>
               <Link
                 href={TELEGRAM_CONSULT_URL}
@@ -52,17 +52,17 @@ export default function ManagerAiPromptsPage(): JSX.Element {
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-white/20 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
               >
-                Обсудить внедрение ИИ
+                Разобрать сценарии ИИ
               </Link>
             </div>
           </div>
 
           <div className="grid gap-3">
             {[
-              ["50", "готовых промтов"],
-              ["7", "управленческих разделов"],
-              ["4", "поля для каждого промта"],
-              ["20", "минут на первый результат"]
+              ["50", "рабочих промтов"],
+              ["7", "управленческих задач"],
+              ["4", "подсказки к применению"],
+              ["20", "минут до первого сценария"]
             ].map(([value, label]) => (
               <div key={label} className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5">
                 <p className="text-4xl font-black leading-none text-white">{value}</p>
@@ -76,8 +76,8 @@ export default function ManagerAiPromptsPage(): JSX.Element {
       <section className="grid gap-5 md:grid-cols-3">
         {[
           ["Для кого", "Руководители, project/product/agile-менеджеры, HR и лидеры команд."],
-          ["Что даст", "Быстрые шаблоны для анализа, решений, встреч, проектов, продаж, команды и стратегии."],
-          ["Куда ведет", "К курсам по ИИ, промт-инжинирингу и консультации по внедрению ИИ в процессы."]
+          ["Что внутри", "Промты для анализа, решений, встреч, проектов, продаж, команды и стратегии."],
+          ["Что дальше", "Можно перейти к курсу по ИИ или разобрать сценарии внедрения под вашу работу."]
         ].map(([title, text]) => (
           <article key={title} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
             <h2 className="text-xl font-black tracking-tight text-slate-900">{title}</h2>

@@ -89,14 +89,14 @@ export function BusinessControlLeadForm(): JSX.Element {
     <section className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr]">
       <div className="rounded-[2rem] border border-[#efb8d2] bg-[linear-gradient(135deg,#fff0f7_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9f2f73]">
-          Лид-магнит
+          Доступ к диагностике
         </p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
           {BUSINESS_CONTROL_DIAGNOSTIC.formTitle}
         </h2>
         <p className="mt-4 text-base leading-8 text-slate-700">
-          Оставьте контакты, чтобы открыть интерактивную диагностику. Заявка уйдет Денису в Telegram,
-          а после формы вы пройдете тест вопрос за вопросом и получите итоговый профиль управляемости.
+          Оставьте контакты, чтобы открыть интерактивную диагностику. После формы вы пройдете вопросы
+          один за другим и увидите, где управляемость проседает сильнее всего.
         </p>
 
         <form onSubmit={submitLead} className="mt-6 space-y-3">
@@ -131,17 +131,17 @@ export function BusinessControlLeadForm(): JSX.Element {
 
       <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Как это будет работать
+          Как устроен разбор
         </p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
-          Не PDF-анкета, а живой тест
+          Не анкета в PDF, а короткий управленческий срез
         </h2>
         <div className="mt-5 grid gap-3">
           {[
-            "24 вопроса по 6 блокам управляемости бизнеса.",
-            "Каждый вопрос открывается отдельно: выберите один из 4 вариантов.",
-            "В конце появится уровень зрелости, слабые зоны и рекомендации.",
-            "Результат можно сохранить как PDF, обсудить с Денисом или отправить диагностику в Telegram."
+            "24 вопроса по 6 зонам управляемости бизнеса.",
+            "Каждый вопрос заставляет выбрать, как система работает сейчас, а не как хотелось бы.",
+            "В конце появится уровень зрелости, слабая зона и первые рекомендации.",
+            "Результат можно сохранить, отправить Денису или разобрать отдельно."
           ].map((item, index) => (
             <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">
@@ -398,7 +398,7 @@ function DiagnosticResult({
         <div className="space-y-4">
           <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">
-              Первая точка роста
+              Главный ограничитель
             </p>
             <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
               {weakestArea?.area ?? "Управляемость бизнеса"}
@@ -436,11 +436,11 @@ function DiagnosticResult({
 
       <div className="rounded-[1.75rem] border border-[#efb8d2] bg-[#fff0f7] p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9f2f73]">
-          Что можно сделать дальше
+          Что делать дальше
         </p>
         <p className="mt-3 text-sm leading-7 text-slate-700">
           Сохраните результат, отправьте диагностику Денису или обсудите выводы в Telegram. Если
-          нужно, можно разобрать слабый блок и собрать план изменений на ближайшие 30 дней.
+          слабый блок повторяется в реальной работе, его стоит разложить на причины и план изменений.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <button

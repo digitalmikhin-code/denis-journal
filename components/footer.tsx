@@ -23,7 +23,8 @@ export function SiteFooter(): JSX.Element {
               </div>
 
               <p className="max-w-[58ch] text-base leading-8 text-slate-800">
-                Материалы о карьере, управлении, мышлении, архитектуре решений и практическом ИИ.
+                Журнал о том, как видеть управленческую систему, находить ограничения и принимать решения,
+                которые выдерживают реальную работу.
                 Копирование и использование публикаций без письменного разрешения автора запрещено.
               </p>
 
@@ -36,9 +37,8 @@ export function SiteFooter(): JSX.Element {
                   Разработка сайта
                 </p>
                 <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Концепция, структура и реализация сайта разработаны Денисом Михиным. Если вам нужен
-                  похожий экспертный журнал, медиа-портал или персональный сайт под задачи бренда,
-                  это можно обсудить отдельно.
+                  Концепция, структура и реализация сайта собраны Денисом Михиным. Если вам нужен
+                  экспертный сайт, который не выглядит как шаблонная визитка, это можно обсудить отдельно.
                 </p>
                 <Link
                   href={TELEGRAM_CONSULT_URL}
@@ -46,7 +46,7 @@ export function SiteFooter(): JSX.Element {
                   rel="noopener noreferrer"
                   className="mt-3 inline-flex rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
                 >
-                  Обсудить разработку сайта
+                  Обсудить сайт
                 </Link>
               </div>
             </div>
@@ -111,10 +111,10 @@ export function SiteFooter(): JSX.Element {
               </div>
               <div className="mt-5 rounded-[1.5rem] bg-[#6964d9] p-5 text-white shadow-[0_16px_0_0_rgba(46,42,130,0.28)]">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
-                  Поддерживать контакт
+                  Быть рядом с новыми материалами
                 </p>
                 <p className="mt-2 text-2xl font-black leading-tight">
-                  Подпишитесь на Max или Telegram, чтобы не пропускать новые материалы.
+                  Подписывайтесь там, где удобнее читать короткие мысли и новые разборы.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link
@@ -140,10 +140,10 @@ export function SiteFooter(): JSX.Element {
                   VK
                 </p>
                 <p className="mt-2 text-2xl font-black leading-tight">
-                  Подписывайтесь в VK
+                  Коротко во VK
                 </p>
                 <p className="mt-2 text-sm text-white/90">
-                  Короткие мысли, обновления и прямой контакт в узнаваемом формате VK.
+                  Наблюдения, обновления и короткие заметки без длинного формата статей.
                 </p>
                 <div className="mt-4">
                   <Link

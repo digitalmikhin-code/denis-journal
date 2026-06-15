@@ -7,21 +7,20 @@ export function KnowledgeMapSection(): JSX.Element {
       <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Карта знаний журнала
+            Навигация по смыслу
           </p>
           <h2 className="mt-3 max-w-[13ch] text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-5xl">
-            Не лента статей, а система тем
+            Не лента статей, а карта управленческих задач
           </h2>
           <p className="mt-4 max-w-[48ch] text-base leading-8 text-slate-600">
-            Здесь собраны материалы о том, как руководителям, командам и компаниям выстраивать
-            управление, находить точки роста, внедрять изменения и использовать современные инструменты:
-            от системного мышления до ИИ.
+            Материалы сгруппированы не по красивым рубрикам, а по реальным задачам: управлять командой,
+            видеть систему, доводить проекты, использовать ИИ, проводить изменения и расти в роли.
           </p>
           <Link
             href="/hubs"
             className="mt-6 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-slate-800"
           >
-            Открыть все хабы
+            Выбрать тему
           </Link>
         </div>
 

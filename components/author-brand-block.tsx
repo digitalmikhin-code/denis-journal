@@ -25,22 +25,22 @@ const VARIANT_CONTENT: Record<
     label: "Автор материала",
     title: "Денис Михин",
     text:
-      "Практик трансформаций и Head of HR PMO. Помогаю компаниям находить точки роста, выстраивать системы управления и проводить изменения, которые дают результат.",
-    points: ["Рост бизнеса через изменения", "Управление проектами и Agile", "ИИ, системное мышление и трансформации"]
+      "Практик трансформаций и Head of HR PMO. Помогаю руководителям видеть ограничения системы, принимать точнее решения и доводить изменения до результата.",
+    points: ["Управляемость без ручного героизма", "Проекты, Agile и изменения", "ИИ, системное мышление и рост"]
   },
   extended: {
-    label: "Экспертная рамка",
+    label: "Авторская оптика",
     title: "Денис Михин: рост бизнеса через изменения",
     text:
-      "Работаю на стыке управления, проектов, HR PMO, Agile, ИИ и системного мышления. Помогаю руководителям видеть ограничения, собирать управляемую систему и переводить изменения в измеримый бизнес-результат.",
-    points: ["Диагностика систем управления", "Проектирование изменений", "Развитие руководителей и команд"]
+      "Работаю на стыке управления, проектов, HR PMO, Agile, ИИ и системного мышления. Помогаю разбирать сложные ситуации без шума: где ограничение, что менять первым и как закрепить результат в работе.",
+    points: ["Диагностика управленческой системы", "Проектирование изменений", "Развитие руководителей и команд"]
   },
   "soft-sell": {
     label: "Следующий шаг",
     title: "Можно разобрать вашу ситуацию",
     text:
-      "Если задача уже есть внутри компании, ее можно разобрать отдельно: найти точку роста, увидеть управленческие ограничения и собрать практичный план изменений без лишней теории.",
-    points: ["Консалтинг и стратегические сессии", "Курсы и прикладные программы", "Канал с разбором управленческих решений"]
+      "Если внутри компании уже есть узел, его можно разобрать отдельно: увидеть ограничение, отделить симптомы от причин и собрать план действий без лишней теории.",
+    points: ["Консалтинг и стратегические сессии", "Курсы и практические программы", "Канал с разбором решений"]
   }
 };
 
@@ -96,7 +96,7 @@ export function AuthorBrandBlock({
               rel="noopener noreferrer"
               className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              Читать Telegram
+              Читать канал
             </Link>
             <Link
               href={STEPIK_TEACH_URL}
@@ -104,7 +104,7 @@ export function AuthorBrandBlock({
               rel="noopener noreferrer"
               className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
             >
-              Смотреть курсы
+              Выбрать курс
             </Link>
             <Link
               href={TELEGRAM_CONSULT_URL}
@@ -112,7 +112,7 @@ export function AuthorBrandBlock({
               rel="noopener noreferrer"
               className="rounded-2xl bg-slate-950 px-4 py-3 text-center text-sm font-bold text-white shadow-[0_7px_0_0_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950"
             >
-              Обсудить консалтинг
+              Разобрать задачу
             </Link>
           </div>
         </div>

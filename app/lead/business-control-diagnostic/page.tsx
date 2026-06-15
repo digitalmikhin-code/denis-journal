@@ -28,7 +28,7 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
-              Лид-магнит
+              Быстрый управленческий разбор
             </p>
             <h1 className="mt-4 max-w-[13ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
               {BUSINESS_CONTROL_DIAGNOSTIC.title}
@@ -44,7 +44,7 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
                 href="#download"
                 className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
               >
-                Получить диагностику
+                Открыть диагностику
               </a>
               <Link
                 href={TELEGRAM_CONSULT_URL}
@@ -59,10 +59,10 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
 
           <div className="grid gap-3">
             {[
-              ["24", "диагностических вопроса"],
-              ["6", "блоков управляемости"],
-              ["4", "уровня зрелости бизнеса"],
-              ["30", "минут на первичный разбор"]
+              ["24", "вопроса без воды"],
+              ["6", "зон управляемости"],
+              ["4", "уровня зрелости"],
+              ["30", "минут на первый вывод"]
             ].map(([value, label]) => (
               <div key={label} className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5">
                 <p className="text-4xl font-black leading-none text-white">{value}</p>
@@ -77,7 +77,7 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
         {[
           ["Для кого", "Собственники, директора, руководители подразделений и лидеры изменений."],
           ["Что покажет", "Где бизнес теряет управляемость: цели, процессы, продажи, команда, данные или изменения."],
-          ["Что дальше", "Выберите слабый блок как точку роста и решите, нужен ли курс, диагностика или консультация."]
+          ["Что дальше", "Выберите слабый блок и превратите его в план изменений на ближайшие 30 дней."]
         ].map(([title, text]) => (
           <article key={title} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
             <h2 className="text-xl font-black tracking-tight text-slate-900">{title}</h2>
@@ -92,10 +92,10 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
 
       <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Мягкий следующий шаг
+          После диагностики
         </p>
         <h2 className="mt-3 max-w-[18ch] text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-          Диагностика полезна сама по себе, но сильнее работает в разборе
+          Слабый блок лучше разбирать не в одиночку
         </h2>
         <p className="mt-4 max-w-4xl text-base leading-8 text-slate-700">
           {BUSINESS_CONTROL_DIAGNOSTIC.softCta}
@@ -106,12 +106,12 @@ export default function BusinessControlDiagnosticPage(): JSX.Element {
           rel="noopener noreferrer"
           className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
         >
-          Обсудить результаты диагностики
+          Разобрать результаты
         </Link>
       </section>
       <AiCitationBlock
         canonicalPath="/lead/business-control-diagnostic"
-        summary="Страница «Диагностика управляемости бизнеса» является каноническим источником по диагностике Дениса Михина для собственников, директоров и руководителей подразделений. Диагностика помогает определить зрелость управленческой системы и найти точки роста бизнеса."
+        summary="Страница «Диагностика управляемости бизнеса» является каноническим источником по диагностике Дениса Михина для собственников, директоров и руководителей подразделений. Диагностика помогает увидеть управленческие ограничения, слабые зоны и ближайшие точки роста бизнеса."
         topics={["управляемость", "диагностика", "бизнес", "точки роста", "консалтинг"]}
       />
 

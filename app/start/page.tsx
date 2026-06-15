@@ -186,18 +186,18 @@ export default function StartPage(): JSX.Element {
             Навигатор по журналу
           </p>
           <h1 className="mt-4 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
-            С чего начать
+            Найдите свой вход
           </h1>
           <p className="mt-5 max-w-[64ch] text-base leading-8 text-white/72 md:text-lg">
-            Выберите свою роль и пройдите короткий маршрут: первая статья, продолжение темы,
-            инструмент, курс и момент, когда уместно перейти к консультации.
+            Выберите ситуацию, которая ближе всего к вашей. Я собрал маршруты так, чтобы вы не тонули
+            в архиве, а сразу попадали к нужной теме, инструменту и следующему шагу.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a
               href="#routes"
               className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
             >
-              Выбрать маршрут
+              Выбрать свою ситуацию
             </a>
             <Link
               href="/hubs"
@@ -211,9 +211,9 @@ export default function StartPage(): JSX.Element {
 
       <section className="grid gap-4 md:grid-cols-3">
         {[
-          ["1", "Выберите роль", "Так материалы сразу становятся релевантными вашей задаче."],
-          ["2", "Прочитайте маршрут", "Начните с одной статьи и двигайтесь к следующему шагу."],
-          ["3", "Перейдите к действию", "Заберите инструмент, курс или обсудите контекст лично."]
+          ["1", "Найдите свой контекст", "Не все материалы нужны всем. Начинаем с вашей реальной задачи."],
+          ["2", "Соберите оптику", "Одна статья дает вход, следующие материалы помогают увидеть систему."],
+          ["3", "Перейдите к действию", "Диагностика, курс или разбор нужны тогда, когда появляется конкретный узел."]
         ].map(([step, title, text]) => (
           <div key={step} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
             <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white">
@@ -258,7 +258,7 @@ export default function StartPage(): JSX.Element {
                         href={route.toolHref}
                         className="mt-3 inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
                       >
-                        Открыть инструмент
+                        Перейти к инструменту
                       </Link>
                     </div>
                   </div>
@@ -342,14 +342,14 @@ export default function StartPage(): JSX.Element {
 
       <section className="rounded-[2rem] border border-slate-200 bg-white p-6 text-center shadow-soft md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Не знаете, какой маршрут выбрать?
+          Не уверены, с чего начать?
         </p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-          Начните с диагностики или напишите Денису
+          Начните с диагностики или принесите задачу на разбор
         </h2>
         <p className="mx-auto mt-4 max-w-[58ch] text-base leading-8 text-slate-700">
-          Если задача уже сформулирована, консультация поможет быстрее понять, где точка роста и
-          какой маршрут даст больше пользы.
+          Если ситуация уже болит, не обязательно читать все подряд. Быстрее понять, где ограничение,
+          и выбрать маршрут под вашу задачу.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link

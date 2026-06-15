@@ -8,14 +8,14 @@ export function MethodologySection(): JSX.Element {
         <div className="pointer-events-none absolute -right-14 -top-16 h-52 w-52 rounded-full border-[14px] border-[#2bd0e2]/35" />
         <div className="pointer-events-none absolute -bottom-16 left-8 h-44 w-44 rounded-full border-[12px] border-[#f5d45d]/30" />
         <div className="relative">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Мой подход</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Как я смотрю на управление</p>
           <h2 className="mt-3 max-w-[13ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
             Контур управляемости
           </h2>
           <p className="mt-4 max-w-[58ch] text-base leading-8 text-white/72">
-            Я смотрю на управление как на систему. Если в компании нет прозрачности, владельцев,
-            приоритетов и обратной связи, даже сильные люди начинают буксовать. Поэтому в основе
-            подхода не красивые методологии, а управляемость: ясные цели, роли, процессы и измеримый результат.
+            Управление ломается не потому, что люди “плохо стараются”. Чаще в системе нет ясности:
+            кто принимает решения, что важнее, где узкое место и как понять, что работа дала результат.
+            Поэтому я начинаю не с методологий, а с устройства управляемости.
           </p>
 
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
@@ -34,13 +34,13 @@ export function MethodologySection(): JSX.Element {
               href="/lead/business-control-diagnostic"
               className="rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
             >
-              Пройти диагностику
+              Найти слабое место
             </Link>
             <Link
               href="/about"
               className="rounded-2xl border border-white/18 bg-white/[0.06] px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
             >
-              Подробнее об авторе
+              Как я работаю
             </Link>
           </div>
         </div>
@@ -48,9 +48,9 @@ export function MethodologySection(): JSX.Element {
 
       <div className="rounded-[2.25rem] border border-slate-200 bg-white p-6 shadow-[0_24px_56px_rgba(15,23,42,0.07)] md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-          Управленческие наблюдения
+          Наблюдения из практики
         </p>
-        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Короткие мысли</h2>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">То, что часто решает исход</h2>
         <div className="mt-5 space-y-3">
           {MANAGEMENT_THOUGHTS.map((thought) => (
             <blockquote

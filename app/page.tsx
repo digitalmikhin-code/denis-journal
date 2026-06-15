@@ -68,11 +68,11 @@ export default function HomePage(): JSX.Element {
               Авторская оптика Дениса Михина
             </p>
             <h1 className="max-w-[17ch] text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-6xl xl:text-[4.1rem]">
-              Помогаю принимать сильные решения в сложных системах
+              Помогаю видеть систему там, где другие видят хаос
             </h1>
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
-              Этот журнал для руководителей и сильных специалистов, которым нужно видеть систему целиком,
-              расти осознанно и действовать точнее в условиях неопределенности.
+              Журнал для руководителей и сильных специалистов, которым важно не просто работать больше,
+              а точнее понимать людей, процессы, решения и ограничения роста.
             </p>
             <AuthorQuote
               compact
@@ -93,9 +93,9 @@ export default function HomePage(): JSX.Element {
                 </p>
               </div>
               <div className="rounded-[1.5rem] border border-[#efb8d2] bg-[#fff0f7] p-4 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что получите</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Зачем читать</p>
                 <p className="mt-2 text-sm font-medium leading-6 text-slate-800">
-                  Рабочие рамки, диагностики и маршруты для решений в сложном контексте.
+                  Чтобы быстрее находить причины проблем, точки роста и решения, которые выдерживают реальность.
                 </p>
               </div>
             </div>
@@ -200,12 +200,11 @@ export default function HomePage(): JSX.Element {
               Диагностика
             </p>
             <h2 className="mt-3 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
-              Найдите свою точку роста за несколько минут
+              Проверьте, где сейчас ваш главный ограничитель
             </h2>
             <p className="mt-4 max-w-[48ch] text-base leading-8 text-white/72 md:text-lg">
-              Ответьте на вопросы по управлению, Agile, Kanban, продуктам или AI-трансформации и
-              получите персональный ориентир: где вы сейчас, что мешает росту и какой следующий шаг
-              даст больше всего эффекта.
+              Диагностики помогают увидеть не абстрактный “уровень”, а конкретное место, где теряется
+              управляемость: в решениях, команде, процессах, изменениях или личной зрелости.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -227,18 +226,18 @@ export default function HomePage(): JSX.Element {
             {[
               {
                 step: "01",
-                title: "Ответьте на вопросы",
-                text: "Выберите диагностику под вашу задачу: управление, продукт, Agile, Kanban или AI."
+                title: "Выберите контекст",
+                text: "Управление, продукт, Agile, Kanban, ИИ или личная управленческая зрелость."
               },
               {
                 step: "02",
-                title: "Получите профиль",
-                text: "Сайт покажет текущий уровень и объяснит, где находится главный ограничитель."
+                title: "Увидьте ограничитель",
+                text: "Результат покажет не только балл, но и зону, которая сильнее всего тормозит рост."
               },
               {
                 step: "03",
-                title: "Перейдите к действию",
-                text: "После результата появятся рекомендации, материалы и подходящий курс."
+                title: "Соберите следующий шаг",
+                text: "После результата можно перейти к материалам, курсу, отчету или разбору ситуации."
               }
             ].map((item) => (
               <div
@@ -283,10 +282,10 @@ export default function HomePage(): JSX.Element {
           <div className="max-w-[52ch]">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#1b4eae]">VK</p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-[#10367a] md:text-4xl">
-              Подписывайтесь на меня во VK
+              Читайте короткие заметки во VK
             </h2>
             <p className="mt-3 text-base leading-7 text-[#184791] md:text-lg">
-              Отдельная лента с обновлениями и полезными материалами. Всё в привычном стиле VK и с быстрым доступом.
+              Там выходят короткие мысли, обновления и наблюдения по управлению без длинного формата статей.
             </p>
           </div>
           <Link
