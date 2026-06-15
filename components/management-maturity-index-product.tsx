@@ -14,6 +14,51 @@ import { TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 type AnswerMap = Record<number, number>;
 type AccessState = "locked" | "ready" | "testing" | "finished";
+type CompetencyZone = "red" | "yellow" | "green";
+type BlockScore = {
+  key: MaturityBlockKey;
+  title: string;
+  fullTitle: string;
+  description: string;
+  score: number;
+  zone: CompetencyZone;
+  risk: string;
+  developmentFocus: string;
+  actions: string[];
+};
+
+const ZONE_STYLES: Record<
+  CompetencyZone,
+  {
+    label: string;
+    chip: string;
+    card: string;
+    bar: string;
+    text: string;
+  }
+> = {
+  red: {
+    label: "Красная зона",
+    chip: "border-red-200 bg-red-50 text-red-800",
+    card: "border-red-200 bg-red-50",
+    bar: "bg-red-500",
+    text: "text-red-800"
+  },
+  yellow: {
+    label: "Желтая зона",
+    chip: "border-amber-200 bg-amber-50 text-amber-800",
+    card: "border-amber-200 bg-amber-50",
+    bar: "bg-amber-400",
+    text: "text-amber-800"
+  },
+  green: {
+    label: "Зеленая зона",
+    chip: "border-emerald-200 bg-emerald-50 text-emerald-800",
+    card: "border-emerald-200 bg-emerald-50",
+    bar: "bg-emerald-500",
+    text: "text-emerald-800"
+  }
+};
 
 export function ManagementMaturityIndexProduct(): JSX.Element {
   const [accessCode, setAccessCode] = useState("");
@@ -291,7 +336,11 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
   const result = useMemo(() => calculateResult(answers), [answers]);
   const level = resolveMaturityLevel(result.totalIndex);
   const profile = resolveMaturityProfile(result.blockScores.map((item) => item.key));
-  const weakestBlocks = [...result.blockScores].reverse().slice(0, 2);
+  const redBlocks = result.blockScores.filter((item) => item.zone === "red");
+  const yellowBlocks = result.blockScores.filter((item) => item.zone === "yellow");
+  const greenBlocks = result.blockScores.filter((item) => item.zone === "green");
+  const priorityBlocks = redBlocks.length > 0 ? redBlocks : [...result.blockScores].reverse().slice(0, 3);
+  const strongestBlocks = greenBlocks.length > 0 ? greenBlocks.slice(0, 3) : result.blockScores.slice(0, 3);
 
   return (
     <section className="space-y-6 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_rgba(15,23,42,0.1)] md:p-8">
@@ -310,40 +359,130 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
             <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">{profile.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-700">{profile.summary}</p>
           </div>
-          <div className="rounded-[1.8rem] border border-[#efb8d2] bg-[#fff0f7] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9f2f73]">Главные зоны роста</p>
-            <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">
-              {weakestBlocks.map((item) => item.title).join(" и ")}
-            </h3>
-            <p className="mt-3 text-sm leading-7 text-slate-700">{level.recommendation}</p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <StatusCounter label="Красные" value={redBlocks.length} className="border-red-200 bg-red-50 text-red-800" />
+            <StatusCounter label="Желтые" value={yellowBlocks.length} className="border-amber-200 bg-amber-50 text-amber-800" />
+            <StatusCounter label="Зеленые" value={greenBlocks.length} className="border-emerald-200 bg-emerald-50 text-emerald-800" />
           </div>
         </div>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-3">
-        {result.blockScores.map((item) => (
-          <div key={item.key} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-sm font-black text-slate-900">{item.title}</p>
-              <p className="text-sm font-black text-slate-500">{item.score}</p>
-            </div>
-            <div className="mt-3 h-2 overflow-hidden rounded-full bg-white">
-              <div className="h-full rounded-full bg-slate-950" style={{ width: `${item.score}%` }} />
+      <section className="rounded-[1.8rem] border border-slate-200 bg-slate-50 p-5">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Дашборд компетенций</p>
+            <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">Карта сильных и проблемных зон</h3>
+          </div>
+          <div className="flex flex-wrap gap-2 text-xs font-bold">
+            <span className={`rounded-full border px-3 py-1 ${ZONE_STYLES.red.chip}`}>0-44 красная</span>
+            <span className={`rounded-full border px-3 py-1 ${ZONE_STYLES.yellow.chip}`}>45-69 желтая</span>
+            <span className={`rounded-full border px-3 py-1 ${ZONE_STYLES.green.chip}`}>70-100 зеленая</span>
+          </div>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {result.blockScores.map((item) => (
+            <CompetencyCard key={item.key} item={item} />
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="rounded-[1.8rem] border border-red-200 bg-red-50 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-red-800">Индивидуальный план развития</p>
+          <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">
+            Что делать с красными зонами
+          </h3>
+          <p className="mt-3 text-sm leading-7 text-slate-700">
+            Приоритет на ближайшие 30 дней - не развивать все сразу, а закрыть ограничения, которые сильнее всего мешают
+            управленческому масштабу. Начните с блоков ниже.
+          </p>
+          <div className="mt-5 space-y-4">
+            {priorityBlocks.map((block, index) => (
+              <DevelopmentPlanCard key={block.key} block={block} index={index} />
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="rounded-[1.8rem] border border-emerald-200 bg-emerald-50 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-800">На что опираться</p>
+            <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">Сильные компетенции</h3>
+            <div className="mt-4 space-y-3">
+              {strongestBlocks.map((block) => (
+                <div key={block.key} className="rounded-2xl border border-emerald-200 bg-white/70 p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-sm font-black text-slate-900">{block.fullTitle}</p>
+                    <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-800">
+                      {block.score}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm leading-6 text-slate-700">
+                    Используйте этот блок как ресурс для развития слабых зон, а не как повод оставить их без внимания.
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
+
+          <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Рекомендация по уровню</p>
+            <p className="mt-3 text-sm leading-7 text-slate-700">{level.recommendation}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="rounded-[1.8rem] border border-slate-200 bg-white p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Подробно по компетенциям</p>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+        {result.blockScores.map((item) => (
+          <div key={item.key} className={`rounded-2xl border p-4 ${ZONE_STYLES[item.zone].card}`}>
+            <span className={`rounded-full border px-3 py-1 text-xs font-black ${ZONE_STYLES[item.zone].chip}`}>
+              {ZONE_STYLES[item.zone].label}
+            </span>
+            <h4 className="mt-3 text-lg font-black tracking-tight text-slate-900">{item.fullTitle}</h4>
+            <p className="mt-2 text-sm leading-6 text-slate-700">{item.description}</p>
+            <p className="mt-3 text-sm font-bold text-slate-900">Риск: <span className="font-semibold">{item.risk}</span></p>
+          </div>
         ))}
-      </div>
+        </div>
+      </section>
+
+      <section className="rounded-[1.8rem] border border-slate-200 bg-slate-50 p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">План на 3 месяца</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {[
+            ["30 дней", "Закрыть красную зону", "Выберите 1-2 самых слабых блока, внедрите действия из плана и каждую неделю фиксируйте изменения в поведении."],
+            ["60 дней", "Закрепить управленческую практику", "Переведите новые действия в регулярные ритуалы: встречи, обратную связь, критерии решений, работу с рисками."],
+            ["90 дней", "Проверить эффект", "Повторно оцените красные блоки, сравните динамику и выберите следующий ограничитель управленческого роста."]
+          ].map(([period, title, text]) => (
+            <div key={period} className="rounded-2xl border border-slate-200 bg-white p-4">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">{period}</p>
+              <h4 className="mt-2 text-lg font-black text-slate-900">{title}</h4>
+              <p className="mt-2 text-sm leading-6 text-slate-700">{text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Следующий шаг</p>
         <p className="mt-3 text-sm leading-7 text-slate-700">
-          Это MVP-отчет. Следующий слой премиум-продукта: автоматический PDF с расшифровкой каждого блока,
-          рекомендациями на 3, 6 и 12 месяцев и персональной подборкой материалов.
+          Этот отчет уже показывает не только уровень, но и управленческие ограничения. Следующий слой премиум-продукта:
+          PDF с расширенной расшифровкой, персональными текстами по каждому блоку и подборкой материалов под слабые зоны.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => printMaturityReport(result.totalIndex, level.title, profile.title)}
+            onClick={() =>
+              printMaturityReport({
+                result,
+                levelTitle: level.title,
+                levelSummary: level.summary,
+                profileTitle: profile.title,
+                profileSummary: profile.summary,
+                priorityBlocks
+              })
+            }
             className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
           >
             Сохранить отчет в PDF
@@ -369,9 +508,64 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
   );
 }
 
+function StatusCounter({ label, value, className }: { label: string; value: number; className: string }): JSX.Element {
+  return (
+    <div className={`rounded-2xl border p-4 ${className}`}>
+      <p className="text-3xl font-black leading-none">{value}</p>
+      <p className="mt-2 text-xs font-black uppercase tracking-[0.14em]">{label}</p>
+    </div>
+  );
+}
+
+function CompetencyCard({ item }: { item: BlockScore }): JSX.Element {
+  const styles = ZONE_STYLES[item.zone];
+
+  return (
+    <div className={`rounded-2xl border p-4 ${styles.card}`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-sm font-black text-slate-900">{item.fullTitle}</p>
+          <p className={`mt-1 text-xs font-black uppercase tracking-[0.12em] ${styles.text}`}>{styles.label}</p>
+        </div>
+        <span className={`rounded-full border px-3 py-1 text-sm font-black ${styles.chip}`}>{item.score}</span>
+      </div>
+      <div className="mt-4 h-3 overflow-hidden rounded-full bg-white">
+        <div className={`h-full rounded-full ${styles.bar}`} style={{ width: `${item.score}%` }} />
+      </div>
+      <p className="mt-3 text-xs font-semibold leading-5 text-slate-600">{item.developmentFocus}</p>
+    </div>
+  );
+}
+
+function DevelopmentPlanCard({ block, index }: { block: BlockScore; index: number }): JSX.Element {
+  return (
+    <article className="rounded-[1.5rem] border border-red-200 bg-white p-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-red-700">Приоритет {index + 1}</p>
+          <h4 className="mt-1 text-xl font-black tracking-tight text-slate-900">{block.fullTitle}</h4>
+        </div>
+        <span className="rounded-full border border-red-200 bg-red-50 px-3 py-1 text-sm font-black text-red-800">
+          {block.score}/100
+        </span>
+      </div>
+      <p className="mt-3 text-sm font-bold leading-6 text-slate-900">Фокус: {block.developmentFocus}</p>
+      <p className="mt-2 text-sm leading-6 text-slate-700">Почему важно: {block.risk}</p>
+      <div className="mt-4 grid gap-2">
+        {block.actions.map((action, actionIndex) => (
+          <div key={action} className="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">Шаг {actionIndex + 1}</p>
+            <p className="mt-1 text-sm font-semibold leading-6 text-slate-800">{action}</p>
+          </div>
+        ))}
+      </div>
+    </article>
+  );
+}
+
 function calculateResult(answers: AnswerMap): {
   totalIndex: number;
-  blockScores: Array<{ key: MaturityBlockKey; title: string; score: number }>;
+  blockScores: BlockScore[];
 } {
   const blockScores = MATURITY_BLOCKS.map((block) => {
     const questions = MATURITY_QUESTIONS.filter((question) => question.block === block.key);
@@ -385,7 +579,13 @@ function calculateResult(answers: AnswerMap): {
     return {
       key: block.key,
       title: block.shortTitle,
-      score
+      fullTitle: block.title,
+      description: block.description,
+      score,
+      zone: resolveZone(score),
+      risk: block.risk,
+      developmentFocus: block.developmentFocus,
+      actions: block.actions
     };
   }).sort((left, right) => right.score - left.score);
 
@@ -395,30 +595,168 @@ function calculateResult(answers: AnswerMap): {
   };
 }
 
-function printMaturityReport(totalIndex: number, level: string, profile: string): void {
+function resolveZone(score: number): CompetencyZone {
+  if (score < 45) return "red";
+  if (score < 70) return "yellow";
+  return "green";
+}
+
+function printMaturityReport({
+  result,
+  levelTitle,
+  levelSummary,
+  profileTitle,
+  profileSummary,
+  priorityBlocks
+}: {
+  result: {
+    totalIndex: number;
+    blockScores: BlockScore[];
+  };
+  levelTitle: string;
+  levelSummary: string;
+  profileTitle: string;
+  profileSummary: string;
+  priorityBlocks: BlockScore[];
+}): void {
+  const createdAt = new Intl.DateTimeFormat("ru-RU", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
+  const competencyRows = result.blockScores
+    .map((block) => {
+      const zoneLabel = ZONE_STYLES[block.zone].label;
+      return `
+        <tr class="${block.zone}">
+          <td><strong>${escapeHtml(block.fullTitle)}</strong><span>${escapeHtml(block.description)}</span></td>
+          <td>${block.score}/100</td>
+          <td>${escapeHtml(zoneLabel)}</td>
+          <td>${escapeHtml(block.developmentFocus)}</td>
+        </tr>
+      `;
+    })
+    .join("");
+  const planCards = priorityBlocks
+    .map(
+      (block, index) => `
+        <section class="plan-card">
+          <p class="eyebrow">Приоритет ${index + 1}</p>
+          <h3>${escapeHtml(block.fullTitle)} - ${block.score}/100</h3>
+          <p><strong>Фокус:</strong> ${escapeHtml(block.developmentFocus)}</p>
+          <p><strong>Риск:</strong> ${escapeHtml(block.risk)}</p>
+          <ol>
+            ${block.actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}
+          </ol>
+        </section>
+      `
+    )
+    .join("");
   const html = `<!doctype html>
     <html lang="ru">
       <head>
         <meta charset="utf-8" />
         <title>Индекс управленческой зрелости</title>
         <style>
-          body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: #111827; }
-          main { padding: 36px; }
-          h1 { margin: 0; font-size: 34px; line-height: 1.05; }
-          .score { margin-top: 24px; padding: 22px; border-radius: 22px; background: #111827; color: white; }
+          @page { size: A4; margin: 16mm; }
+          * { box-sizing: border-box; }
+          body { margin: 0; background: #f3f4f6; font-family: "Segoe UI", Arial, sans-serif; color: #111827; line-height: 1.45; }
+          main { width: 210mm; min-height: 297mm; margin: 0 auto; background: #ffffff; padding: 18mm; }
+          h1 { margin: 0; max-width: 720px; font-size: 36px; line-height: 1.05; letter-spacing: -0.04em; }
+          h2 { margin: 26px 0 12px; font-size: 23px; letter-spacing: -0.02em; }
+          h3 { margin: 0 0 10px; font-size: 18px; }
+          p { margin: 0; }
+          .eyebrow { margin: 0 0 8px; color: #64748b; font-size: 10px; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+          .lead { margin-top: 14px; max-width: 760px; color: #475569; font-size: 15px; }
+          .summary-grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 12px; margin-top: 22px; }
+          .score { padding: 22px; border-radius: 22px; background: #111827; color: white; }
           .score b { display: block; font-size: 64px; line-height: 1; }
-          .card { margin-top: 16px; padding: 18px; border: 1px solid #e5e7eb; border-radius: 18px; background: #f8fafc; }
-          p { line-height: 1.6; }
+          .score span { color: rgba(255,255,255,0.65); font-size: 12px; font-weight: 800; }
+          .score h2 { margin: 16px 0 8px; color: #ffffff; }
+          .score p { color: rgba(255,255,255,0.76); font-size: 13px; }
+          .card, .plan-card { padding: 16px; border: 1px solid #e5e7eb; border-radius: 18px; background: #f8fafc; }
+          .card p, .plan-card p, li { color: #334155; font-size: 13px; }
+          .dashboard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+          .metric { border-radius: 16px; padding: 12px; border: 1px solid #e5e7eb; }
+          .metric b { display: block; font-size: 28px; }
+          .red-box { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+          .yellow-box { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+          .green-box { background: #ecfdf5; border-color: #a7f3d0; color: #065f46; }
+          table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 11px; }
+          th { background: #111827; color: #ffffff; padding: 8px; text-align: left; }
+          td { border: 1px solid #e5e7eb; padding: 8px; vertical-align: top; }
+          td span { display: block; margin-top: 4px; color: #64748b; }
+          tr.red td { background: #fef2f2; }
+          tr.yellow td { background: #fffbeb; }
+          tr.green td { background: #ecfdf5; }
+          .plan-grid { display: grid; gap: 10px; margin-top: 12px; }
+          .plan-card { border-color: #fecaca; background: #fff7f7; break-inside: avoid; }
+          .plan-card ol { margin: 10px 0 0; padding-left: 18px; }
+          .roadmap { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+          @media print {
+            body { background: #ffffff; }
+            main { width: auto; min-height: auto; margin: 0; padding: 0; }
+            tr, .card, .plan-card, .metric { break-inside: avoid; }
+          }
         </style>
       </head>
       <body>
         <main>
+          <p class="eyebrow">Персональный отчет - ${escapeHtml(createdAt)}</p>
           <h1>Индекс управленческой зрелости</h1>
-          <p>Премиум-диагностика Дениса Михина: итоговый индекс, уровень зрелости и профиль руководителя.</p>
-          <section class="score"><span>Итоговый индекс</span><b>${totalIndex}</b><span>из 900 баллов</span></section>
-          <section class="card"><h2>${escapeHtml(level)}</h2><p>Уровень управленческой зрелости по итогам прохождения.</p></section>
-          <section class="card"><h2>${escapeHtml(profile)}</h2><p>Профиль руководителя по сочетанию наиболее сильных блоков.</p></section>
-          <section class="card"><h2>Следующий шаг</h2><p>Расширенная версия отчета должна включать радар 9 блоков, сильные стороны, ограничения, риски и рекомендации на 3, 6 и 12 месяцев.</p></section>
+          <p class="lead">
+            Премиум-диагностика показывает не тип личности, а способность руководителя создавать результат через
+            людей, процессы, решения, изменения, бизнес-логику и собственную зрелость.
+          </p>
+
+          <section class="summary-grid">
+            <div class="score">
+              <span>Итоговый индекс</span>
+              <b>${result.totalIndex}</b>
+              <span>из 900 баллов</span>
+              <h2>${escapeHtml(levelTitle)}</h2>
+              <p>${escapeHtml(levelSummary)}</p>
+            </div>
+            <div class="card">
+              <p class="eyebrow">Профиль руководителя</p>
+              <h2>${escapeHtml(profileTitle)}</h2>
+              <p>${escapeHtml(profileSummary)}</p>
+              <div class="dashboard">
+                <div class="metric red-box"><b>${result.blockScores.filter((block) => block.zone === "red").length}</b><span>красные зоны</span></div>
+                <div class="metric yellow-box"><b>${result.blockScores.filter((block) => block.zone === "yellow").length}</b><span>желтые зоны</span></div>
+                <div class="metric green-box"><b>${result.blockScores.filter((block) => block.zone === "green").length}</b><span>зеленые зоны</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Дашборд компетенций</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Компетенция</th>
+                  <th>Балл</th>
+                  <th>Зона</th>
+                  <th>Фокус развития</th>
+                </tr>
+              </thead>
+              <tbody>${competencyRows}</tbody>
+            </table>
+          </section>
+
+          <section>
+            <h2>Индивидуальный план развития по красным зонам</h2>
+            <div class="plan-grid">${planCards}</div>
+          </section>
+
+          <section>
+            <h2>План на 3 месяца</h2>
+            <div class="roadmap">
+              <div class="card"><p class="eyebrow">30 дней</p><h3>Закрыть красную зону</h3><p>Выберите 1-2 слабых блока, внедрите действия из плана и каждую неделю фиксируйте изменения в поведении.</p></div>
+              <div class="card"><p class="eyebrow">60 дней</p><h3>Закрепить практику</h3><p>Переведите новые действия в регулярные ритуалы: встречи, обратную связь, критерии решений, работу с рисками.</p></div>
+              <div class="card"><p class="eyebrow">90 дней</p><h3>Проверить эффект</h3><p>Повторно оцените красные блоки, сравните динамику и выберите следующий ограничитель управленческого роста.</p></div>
+            </div>
+          </section>
         </main>
         <script>window.addEventListener("load", () => setTimeout(() => window.print(), 250));</script>
       </body>
