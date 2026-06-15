@@ -12,8 +12,20 @@ import {
 } from "@/lib/management-maturity-index";
 import { TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
+const LEARNING_RECOMMENDATIONS: Record<MaturityBlockKey, { title: string; href: string }> = {
+  systems: { title: "Системное мышление", href: "https://stepik.org/course/244887/promo" },
+  self: { title: "Эффективный руководитель", href: "https://stepik.org/course/271020/promo" },
+  people: { title: "Эффективный руководитель", href: "https://stepik.org/course/271020/promo" },
+  change: { title: "Agile AI Transformation", href: "https://stepik.org/course/255881/promo" },
+  execution: { title: "Основы управления проектами", href: "https://stepik.org/course/259560/promo" },
+  business: { title: "Продуктовое мышление", href: "https://stepik.org/course/264335/promo" },
+  maturity: { title: "Эффективный руководитель", href: "https://stepik.org/course/271020/promo" },
+  future: { title: "ИИ для руководителей", href: "https://stepik.org/course/243614/promo" },
+  values: { title: "Эффективный руководитель", href: "https://stepik.org/course/271020/promo" }
+};
+
 type AnswerMap = Record<number, number>;
-type AccessState = "locked" | "ready" | "testing" | "finished";
+type AccessState = "intro" | "testing" | "finished";
 type CompetencyZone = "red" | "yellow" | "green";
 type BlockScore = {
   key: MaturityBlockKey;
@@ -61,9 +73,7 @@ const ZONE_STYLES: Record<
 };
 
 export function ManagementMaturityIndexProduct(): JSX.Element {
-  const [accessCode, setAccessCode] = useState("");
-  const [accessError, setAccessError] = useState(false);
-  const [state, setState] = useState<AccessState>("locked");
+  const [state, setState] = useState<AccessState>("intro");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<AnswerMap>({});
 
@@ -71,16 +81,6 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
   const selected = answers[question?.id];
   const answeredCount = Object.keys(answers).length;
   const progress = Math.round((answeredCount / MATURITY_QUESTIONS.length) * 100);
-
-  function unlock(): void {
-    const normalized = accessCode.trim().toUpperCase();
-    if (normalized !== MANAGEMENT_MATURITY_INDEX.accessCode) {
-      setAccessError(true);
-      return;
-    }
-    setAccessError(false);
-    setState("ready");
-  }
 
   function startTest(): void {
     setCurrentIndex(0);
@@ -255,44 +255,19 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
 
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <div id="access" className="scroll-mt-28 rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Закрытый доступ</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Вход в диагностику</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Бесплатная диагностика</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Начните с честного среза</h2>
           <p className="mt-4 text-base leading-8 text-slate-700">
-            Сейчас доступ открыт по коду, чтобы спокойно проверить продукт до подключения оплаты. Позже здесь появится
-            покупка доступа и персональная ссылка на прохождение.
+            Регистрация не нужна. Диагностика сразу покажет общий индекс, сильные стороны, зоны развития
+            и образовательный маршрут, который поможет закрыть выявленные дефициты.
           </p>
-          <div className="mt-5 grid gap-3">
-            <input
-              value={accessCode}
-              onChange={(event) => setAccessCode(event.target.value)}
-              placeholder="Введите код доступа"
-              className="w-full rounded-2xl border border-[#e3c95f] bg-white px-4 py-3 text-sm font-semibold text-slate-900 outline-none transition focus:border-slate-950"
-            />
-            <button
-              type="button"
-              onClick={unlock}
-              className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-slate-800"
-            >
-              Войти в диагностику
-            </button>
-          </div>
-          {accessError ? (
-            <p className="mt-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
-              Код не подошел. Для проверки MVP используйте код {MANAGEMENT_MATURITY_INDEX.accessCode}.
-            </p>
-          ) : null}
-          {state === "ready" ? (
-            <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-sm font-bold text-emerald-900">Доступ открыт. Можно начинать полный разбор.</p>
-              <button
-                type="button"
-                onClick={startTest}
-                className="mt-4 rounded-2xl bg-emerald-700 px-5 py-3 text-sm font-black text-white transition hover:bg-emerald-800"
-              >
-                Начать диагностику
-              </button>
-            </div>
-          ) : null}
+          <button
+            type="button"
+            onClick={startTest}
+            className="mt-5 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-slate-800"
+          >
+            Начать диагностику
+          </button>
         </div>
 
         <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
@@ -342,6 +317,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
   const greenBlocks = result.blockScores.filter((item) => item.zone === "green");
   const priorityBlocks = redBlocks.length > 0 ? redBlocks : [...result.blockScores].reverse().slice(0, 3);
   const strongestBlocks = greenBlocks.length > 0 ? greenBlocks.slice(0, 3) : result.blockScores.slice(0, 3);
+  const learningBlocks = priorityBlocks.slice(0, 3);
 
   return (
     <section className="space-y-6 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_30px_80px_rgba(15,23,42,0.1)] md:p-8">
@@ -462,6 +438,33 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
               <p className="mt-2 text-sm leading-6 text-slate-700">{text}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Рекомендуем изучить</p>
+        <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">
+          Курсы под ваши зоны развития
+        </h3>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {learningBlocks.map((block) => {
+            const recommendation = LEARNING_RECOMMENDATIONS[block.key];
+            return (
+              <Link
+                key={block.key}
+                href={recommendation.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-2xl border border-white/70 bg-white/75 p-4 transition hover:-translate-y-0.5 hover:bg-white"
+              >
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6e00]">{block.fullTitle}</p>
+                <h4 className="mt-2 text-xl font-black leading-tight text-slate-900">{recommendation.title}</h4>
+                <p className="mt-2 text-sm leading-6 text-slate-700">
+                  Этот курс закрывает дефицит, который диагностика показала в зоне “{block.fullTitle}”.
+                </p>
+              </Link>
+            );
+          })}
         </div>
       </section>
 

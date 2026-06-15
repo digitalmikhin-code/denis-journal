@@ -68,15 +68,15 @@ export default function DiagnosticsPage(): JSX.Element {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Коммерческая линейка
+              Центральный элемент платформы
             </p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-              Диагностики будут вести от первого среза к развитию
+              Диагностика связывает проблему с обучением
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-slate-600">
-            Задача раздела - не развлечь тестом, а показать руководителю, команде или бизнесу,
-            где находится ограничитель и какой следующий шаг имеет смысл.
+            Диагностики должны быть бесплатными, без регистрации и лишнего давления. Их задача -
+            показать текущий уровень, зоны развития и курс, который поможет закрыть дефицит компетенций.
           </p>
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-5">

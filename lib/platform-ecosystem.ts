@@ -10,6 +10,12 @@ export type PlatformTool = {
   status: string;
 };
 
+export type DevelopmentStep = {
+  title: string;
+  text: string;
+  href: string;
+};
+
 export type ConsultingProduct = {
   title: string;
   problem: string;
@@ -49,6 +55,34 @@ export const PLATFORM_LEVELS: PlatformLevel[] = [
     title: "Консалтинг",
     text: "Разбор управленческих узлов, стратегические сессии, PMO, KPI, CRM, продажи и AI-трансформация.",
     href: "/consulting"
+  }
+];
+
+export const DEVELOPMENT_PATH: DevelopmentStep[] = [
+  {
+    title: "Статья",
+    text: "Пользователь приходит из поиска и узнает, почему его профессиональная проблема повторяется.",
+    href: "/articles"
+  },
+  {
+    title: "Диагностика",
+    text: "Короткий тест показывает текущий уровень, сильные стороны и зоны развития.",
+    href: "/diagnostics"
+  },
+  {
+    title: "План развития",
+    text: "Результат диагностики превращается в понятный маршрут: что развивать первым и почему.",
+    href: "/diagnostics"
+  },
+  {
+    title: "Обучение",
+    text: "Курс становится следующим шагом под выявленный дефицит компетенций, а не случайной покупкой.",
+    href: "/training"
+  },
+  {
+    title: "Новый уровень",
+    text: "Пользователь возвращается к материалам и диагностике, чтобы видеть прогресс в развитии.",
+    href: "/start"
   }
 ];
 

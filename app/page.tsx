@@ -18,14 +18,14 @@ import {
   CATEGORY_SHORT_LABELS,
   CATEGORY_THEME,
   SITE_URL,
-  TELEGRAM_CONSULT_URL,
   TELEGRAM_CHANNEL_URL,
+  TELEGRAM_CONSULT_URL,
   VK_PROFILE_URL,
   type Category
 } from "@/lib/constants";
 import { getLatestArticles, type ArticleSummary } from "@/lib/content";
 import { ARTICLE_CATEGORY_COURSE_PROMOS } from "@/lib/course-promos";
-import { CONSULTING_PRODUCTS, PLATFORM_LEVELS, PLATFORM_STATS, PLATFORM_TOOLS } from "@/lib/platform-ecosystem";
+import { CONSULTING_PRODUCTS, DEVELOPMENT_PATH, PLATFORM_STATS, PLATFORM_TOOLS } from "@/lib/platform-ecosystem";
 import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -72,8 +72,8 @@ export default function HomePage(): JSX.Element {
               Рост бизнеса через изменения
             </h1>
             <p className="max-w-[44ch] text-[1.18rem] leading-[1.36] text-slate-800 md:text-[1.42rem]">
-              Помогаю компаниям находить точки роста, выстраивать системы управления, усиливать продажи
-              и проводить изменения, которые дают результат.
+              Практические знания, диагностики и образовательные программы для руководителей и специалистов,
+              которым нужно развивать управленческие компетенции без инфобизнесового шума.
             </p>
             <AuthorQuote
               compact
@@ -108,18 +108,16 @@ export default function HomePage(): JSX.Element {
                 Пройти диагностику
               </Link>
               <Link
+                href="/training"
+                className="rounded-2xl border border-slate-900/15 bg-white/70 px-6 py-3 text-base font-semibold text-slate-800 transition hover:bg-white"
+              >
+                Начать обучение
+              </Link>
+              <Link
                 href="/articles"
                 className="rounded-2xl border border-slate-900/15 bg-white/70 px-6 py-3 text-base font-semibold text-slate-800 transition hover:bg-white"
               >
-                Читать журнал
-              </Link>
-              <Link
-                href={TELEGRAM_CONSULT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-2xl border border-slate-900/15 bg-white/70 px-6 py-3 text-base font-semibold text-slate-800 transition hover:bg-white"
-              >
-                Получить консультацию
+                Изучить журнал
               </Link>
             </div>
           </div>
@@ -178,7 +176,7 @@ export default function HomePage(): JSX.Element {
 
       <PlatformStatsBlock />
 
-      <PlatformLevelsBlock />
+      <DevelopmentPathBlock />
 
       <ContinueReadingCard />
 
@@ -505,25 +503,25 @@ function PlatformStatsBlock(): JSX.Element {
   );
 }
 
-function PlatformLevelsBlock(): JSX.Element {
+function DevelopmentPathBlock(): JSX.Element {
   return (
     <section className="rounded-[2rem] border border-slate-200 bg-slate-950 p-6 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] md:p-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">5 уровней платформы</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">Карта развития руководителя</p>
           <h2 className="mt-2 max-w-[15ch] text-4xl font-black leading-[0.96] tracking-tight md:text-5xl">
-            От чтения к внедрению
+            От статьи к новому уровню компетенций
           </h2>
         </div>
         <Link
-          href="/start"
+          href="/diagnostics"
           className="rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
         >
-          Выбрать маршрут
+          Пройти диагностику
         </Link>
       </div>
       <div className="mt-6 grid gap-3 md:grid-cols-5">
-        {PLATFORM_LEVELS.map((level, index) => (
+        {DEVELOPMENT_PATH.map((level, index) => (
           <Link
             key={level.title}
             href={level.href}

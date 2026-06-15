@@ -429,6 +429,29 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
             <ArticlePracticePrompts category={category} />
 
+            <section className="rounded-[1.75rem] border border-[#d7e4ef] bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-6">
+              <div className="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                    Проверьте свой уровень по теме
+                  </p>
+                  <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+                    Пройдите бесплатную диагностику и получите план развития
+                  </h2>
+                  <p className="mt-3 max-w-[58ch] text-sm leading-7 text-slate-700 dark:text-slate-300">
+                    Если статья попала в вашу рабочую ситуацию, диагностика поможет понять текущий уровень,
+                    сильные стороны, зоны развития и подходящий следующий шаг в обучении.
+                  </p>
+                </div>
+                <Link
+                  href="/diagnostics"
+                  className="inline-flex justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                >
+                  Пройти диагностику
+                </Link>
+              </div>
+            </section>
+
             <AuthorBrandBlock variant="short" />
 
             <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
