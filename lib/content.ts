@@ -18,6 +18,11 @@ export type ArticleFrontmatter = {
   author?: string;
   featured?: boolean;
   readingTime?: number;
+  takeaways?: string[];
+  nextStep?: ArticleNextStep;
+  workTasks?: string[];
+  programIds?: number[];
+  relatedSlugs?: string[];
 };
 
 export type Article = {
@@ -28,6 +33,13 @@ export type Article = {
 };
 
 export type ArticleSummary = Omit<Article, "content">;
+
+export type ArticleNextStep = {
+  label: string;
+  href: string;
+  text?: string;
+  type?: "program" | "topic" | "task" | "download";
+};
 
 export function getAllArticles(includeDraft = false): Article[] {
   const files = fs
@@ -60,7 +72,32 @@ export function getAllArticles(includeDraft = false): Article[] {
       featured: Boolean(parsed.data.featured),
       readingTime: parsed.data.readingTime
         ? Number(parsed.data.readingTime)
-        : calculateReadingTime(parsed.content)
+        : calculateReadingTime(parsed.content),
+      takeaways: Array.isArray(parsed.data.takeaways)
+        ? parsed.data.takeaways
+            .map((item: unknown) => String(item).trim())
+            .filter(Boolean)
+            .slice(0, 5)
+        : undefined,
+      nextStep: normalizeNextStep(parsed.data.nextStep),
+      workTasks: Array.isArray(parsed.data.workTasks)
+        ? parsed.data.workTasks
+            .map((item: unknown) => String(item).trim())
+            .filter(Boolean)
+            .slice(0, 4)
+        : undefined,
+      programIds: Array.isArray(parsed.data.programIds)
+        ? parsed.data.programIds
+            .map((item: unknown) => Number(item))
+            .filter((item: number) => Number.isFinite(item))
+            .slice(0, 3)
+        : undefined,
+      relatedSlugs: Array.isArray(parsed.data.relatedSlugs)
+        ? parsed.data.relatedSlugs
+            .map((item: unknown) => String(item).trim())
+            .filter(Boolean)
+            .slice(0, 4)
+        : undefined
     };
 
     return {
@@ -77,6 +114,30 @@ export function getAllArticles(includeDraft = false): Article[] {
     (a, b) =>
       new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
   );
+}
+
+function normalizeNextStep(value: unknown): ArticleNextStep | undefined {
+  if (!value || typeof value !== "object") {
+    return undefined;
+  }
+
+  const source = value as Record<string, unknown>;
+  const label = String(source.label ?? "").trim();
+  const href = String(source.href ?? "").trim();
+
+  if (!label || !href) {
+    return undefined;
+  }
+
+  const type = String(source.type ?? "").trim();
+  const allowedTypes = new Set(["program", "topic", "task", "download"]);
+
+  return {
+    label,
+    href,
+    text: source.text ? String(source.text).trim() : undefined,
+    type: allowedTypes.has(type) ? (type as ArticleNextStep["type"]) : undefined
+  };
 }
 
 export function getArticleBySlug(slug: string): Article | null {

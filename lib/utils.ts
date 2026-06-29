@@ -11,6 +11,11 @@ export function formatDate(date: string): string {
 }
 
 export function calculateReadingTime(text: string): number {
+  const words = calculateWordCount(text);
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+export function calculateWordCount(text: string): number {
   const clean = text
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/`[^`]*`/g, " ")
@@ -19,8 +24,7 @@ export function calculateReadingTime(text: string): number {
     .replace(/[#>*_~\-]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  const words = clean ? clean.split(" ").length : 0;
-  return Math.max(1, Math.ceil(words / 200));
+  return clean ? clean.split(" ").length : 0;
 }
 
 export function slugFromFilename(fileName: string): string {
