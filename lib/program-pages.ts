@@ -1,4 +1,5 @@
 import { STEPIK_COURSES, type StepikCourse, type StepikCourseCategory } from "@/lib/stepik-courses";
+import { getSkillsBySlugs } from "@/lib/skills";
 
 export type ProgramReview = {
   name: string;
@@ -31,7 +32,7 @@ const CATEGORY_CONTEXT: Record<
   {
     problem: string[];
     audience: string[];
-    skills: string[];
+    skillSlugs: string[];
     modules: ProgramModule[];
     extras: string[];
     nextIds: number[];
@@ -45,7 +46,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно перейти из роли исполнителя в роль координатора результата"
     ],
     audience: ["Project Manager", "руководитель проекта", "Team Lead", "специалист, который переходит в проектное управление"],
-    skills: ["планирование проекта", "управление рисками", "статусы и коммуникации", "контроль сроков", "декомпозиция работ"],
+    skillSlugs: ["project-management", "planning", "task-setting", "feedback", "leadership"],
     modules: [
       {
         title: "Проект как система",
@@ -74,7 +75,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно внедрить Scrum, Kanban или гибкий ритм без театра"
     ],
     audience: ["Scrum Master", "Agile Coach", "Project Manager", "Team Lead", "руководитель продуктовой команды"],
-    skills: ["Scrum", "Kanban", "ограничение WIP", "ретроспективы", "управление потоком"],
+    skillSlugs: ["scrum", "kanban", "planning", "feedback", "change-management"],
     modules: [
       {
         title: "Принципы гибкой работы",
@@ -103,7 +104,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно выстроить стратегический ритм без бюрократии"
     ],
     audience: ["руководитель", "Product Manager", "Project Manager", "собственник", "лидер изменений"],
-    skills: ["OKR", "стратегический фокус", "метрики результата", "приоритизация", "управленческий ритм"],
+    skillSlugs: ["okr", "planning", "leadership", "task-setting", "feedback"],
     modules: [
       {
         title: "Логика целей",
@@ -132,7 +133,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно систематизировать управление без микроменеджмента"
     ],
     audience: ["руководитель", "Team Lead", "начинающий менеджер", "Project Manager", "специалист перед повышением"],
-    skills: ["делегирование", "обратная связь", "управленческий ритм", "ответственность", "One-to-One"],
+    skillSlugs: ["delegation", "feedback", "one-to-one", "task-setting", "leadership"],
     modules: [
       {
         title: "Роль руководителя",
@@ -161,7 +162,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно научиться мыслить шире отдельного процесса"
     ],
     audience: ["руководитель", "аналитик", "Product Manager", "Project Manager", "архитектор изменений"],
-    skills: ["системное мышление", "карты связей", "поиск ограничений", "причинно-следственный анализ", "архитектура решений"],
+    skillSlugs: ["planning", "okr", "project-management", "change-management", "ai"],
     modules: [
       {
         title: "Система и связи",
@@ -190,7 +191,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно перейти к гипотезам, пользователю и результату"
     ],
     audience: ["Product Manager", "Project Manager", "руководитель продукта", "аналитик", "предприниматель"],
-    skills: ["продуктовое мышление", "гипотезы", "приоритизация", "метрики", "исследование пользователя"],
+    skillSlugs: ["planning", "okr", "task-setting", "project-management", "ai"],
     modules: [
       {
         title: "Проблема и ценность",
@@ -219,7 +220,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно синхронизировать продукт, процессы и управление"
     ],
     audience: ["Agile Coach", "руководитель направления", "Project Manager", "Product Manager", "лидер трансформации"],
-    skills: ["SAFe", "масштабирование Agile", "портфель работ", "синхронизация команд", "управление зависимостями"],
+    skillSlugs: ["scrum", "kanban", "change-management", "project-management", "planning"],
     modules: [
       {
         title: "Масштаб и зависимости",
@@ -248,7 +249,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно встроить ИИ в реальные рабочие сценарии"
     ],
     audience: ["руководитель", "Project Manager", "Product Manager", "аналитик", "специалист, который работает с текстами и решениями"],
-    skills: ["промт-инжиниринг", "ChatGPT", "AI-сценарии", "проверка результата", "автоматизация рутины"],
+    skillSlugs: ["ai", "task-setting", "planning", "change-management", "feedback"],
     modules: [
       {
         title: "Постановка задачи ИИ",
@@ -277,7 +278,7 @@ const CATEGORY_CONTEXT: Record<
       "нужно выстроить профессиональное позиционирование"
     ],
     audience: ["эксперт", "руководитель", "консультант", "Product Manager", "специалист, который хочет расти публично"],
-    skills: ["позиционирование", "экспертный контент", "упаковка опыта", "коммуникация ценности", "личная стратегия"],
+    skillSlugs: ["leadership", "feedback", "planning", "task-setting", "ai"],
     modules: [
       {
         title: "Позиционирование эксперта",
@@ -319,9 +320,9 @@ export function getProgramPage(course: StepikCourse): ProgramPageData {
     problem: context.problem,
     audience: context.audience,
     results,
-    skills: context.skills.map((skill) => ({
-      title: skill,
-      href: `/skills/${slugifySkill(skill)}`
+    skills: getSkillsBySlugs(context.skillSlugs).map((skill) => ({
+      title: skill.title,
+      href: `/skills/${skill.slug}`
     })),
     modules: context.modules,
     extras: context.extras,
@@ -365,51 +366,4 @@ function buildReviews(course: StepikCourse): ProgramReview[] {
       result: course.result
     }
   ];
-}
-
-function slugifySkill(value: string): string {
-  const map: Record<string, string> = {
-    "а": "a",
-    "б": "b",
-    "в": "v",
-    "г": "g",
-    "д": "d",
-    "е": "e",
-    "ё": "e",
-    "ж": "zh",
-    "з": "z",
-    "и": "i",
-    "й": "y",
-    "к": "k",
-    "л": "l",
-    "м": "m",
-    "н": "n",
-    "о": "o",
-    "п": "p",
-    "р": "r",
-    "с": "s",
-    "т": "t",
-    "у": "u",
-    "ф": "f",
-    "х": "h",
-    "ц": "ts",
-    "ч": "ch",
-    "ш": "sh",
-    "щ": "sch",
-    "ъ": "",
-    "ы": "y",
-    "ь": "",
-    "э": "e",
-    "ю": "yu",
-    "я": "ya"
-  };
-
-  return value
-    .toLowerCase()
-    .split("")
-    .map((char) => map[char] ?? char)
-    .join("")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .replace(/-{2,}/g, "-");
 }

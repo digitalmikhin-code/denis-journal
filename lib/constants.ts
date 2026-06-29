@@ -163,6 +163,7 @@ export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "\u0421 \u0447\u0435\u0433\u043e \u043d\u0430\u0447\u0430\u0442\u044c", href: "/start" },
   { label: "\u0421\u0442\u0430\u0442\u044c\u0438", href: "/articles" },
   { label: "Рабочие задачи", href: "/solutions" },
+  { label: "Навыки", href: "/skills" },
   { label: "\u0425\u0430\u0431\u044b", href: "/hubs" },
   { label: "Инструменты", href: "/tools" },
   { label: "Практика изменений", href: "/practice" },

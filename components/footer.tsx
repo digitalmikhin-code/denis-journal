@@ -6,6 +6,7 @@ const footerLinks = [
   { label: "Журнал", href: "/articles", external: false },
   { label: "Направления", href: "/hubs", external: false },
   { label: "Рабочие задачи", href: "/solutions", external: false },
+  { label: "Навыки", href: "/skills", external: false },
   { label: "Карьерные маршруты", href: "/start", external: false },
   { label: "Программы", href: "/training", external: false },
   { label: "Контакты", href: TELEGRAM_CONSULT_URL, external: true },

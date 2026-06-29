@@ -13,6 +13,7 @@ import { ArticleTelegramCta } from "@/components/article-telegram-cta";
 import { ArticleWorkTasks, type ArticleWorkTask } from "@/components/article-work-tasks";
 import { MetrikaGoal } from "@/components/metrika-goal";
 import { ReadingProgress } from "@/components/reading-progress";
+import { SkillCardSection } from "@/components/skill-card-section";
 import { mdxComponents } from "@/components/mdx-components";
 import {
   CATEGORY_LABELS,
@@ -31,6 +32,7 @@ import {
   type ArticleSummary
 } from "@/lib/content";
 import { STEPIK_COURSES, type StepikCourse, type StepikCourseCategory } from "@/lib/stepik-courses";
+import { getSkillsForArticle } from "@/lib/skills";
 import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { calculateWordCount, formatDate } from "@/lib/utils";
 
@@ -157,6 +159,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const workTasks = buildWorkTasks(article, category);
   const relatedPrograms = buildRelatedPrograms(article, category);
   const relatedArticles = buildRelatedArticles(article, allArticles);
+  const articleSkills = getSkillsForArticle(article, 4);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -255,6 +258,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
         <div className="space-y-8">
           <ArticleTakeaways items={article.frontmatter.takeaways} />
+          <SkillCardSection skills={articleSkills} />
           <ArticleNextStep step={nextStep} />
           <ArticleWorkTasks tasks={workTasks} />
           <ArticleRelatedPrograms articleTitle={article.frontmatter.title} courses={relatedPrograms} />

@@ -23,6 +23,7 @@ export type ArticleFrontmatter = {
   workTasks?: string[];
   programIds?: number[];
   relatedSlugs?: string[];
+  skills?: string[];
 };
 
 export type Article = {
@@ -97,6 +98,12 @@ export function getAllArticles(includeDraft = false): Article[] {
             .map((item: unknown) => String(item).trim())
             .filter(Boolean)
             .slice(0, 4)
+        : undefined,
+      skills: Array.isArray(parsed.data.skills)
+        ? parsed.data.skills
+            .map((item: unknown) => String(item).trim())
+            .filter(Boolean)
+            .slice(0, 8)
         : undefined
     };
 
