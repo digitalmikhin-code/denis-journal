@@ -1,161 +1,70 @@
-﻿import Link from "next/link";
-import {
-  MAX_CHANNEL_URL,
-  TELEGRAM_CHANNEL_URL,
-  TELEGRAM_CONSULT_URL,
-  VK_PROFILE_URL
-} from "@/lib/constants";
+import Link from "next/link";
+import { TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+
+const footerLinks = [
+  { label: "Главная", href: "/", external: false },
+  { label: "Журнал", href: "/articles", external: false },
+  { label: "Направления", href: "/hubs", external: false },
+  { label: "Карьерные маршруты", href: "/start", external: false },
+  { label: "Программы", href: "/training", external: false },
+  { label: "Контакты", href: TELEGRAM_CONSULT_URL, external: true },
+  { label: "Политика конфиденциальности", href: "/privacy", external: false },
+  { label: "Пользовательское соглашение", href: "/privacy#personal-data", external: false }
+] as const;
 
 export function SiteFooter(): JSX.Element {
   return (
-    <footer className="site-footer mt-14">
-      <div className="container-shell">
-        <div className="rounded-t-[2.2rem] border border-b-0 border-[#efb8d2] bg-[linear-gradient(135deg,#f6c6dd_0%,#ffddeb_34%,#ecf7ff_100%)] p-6 md:p-8">
-          <div className="grid gap-6 md:grid-cols-[1.05fr_0.95fr]">
-            <div className="space-y-5">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                  Авторский журнал
-                </p>
-                <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-                  Денис Михин
-                </h2>
-              </div>
+    <footer className="site-footer mt-14 border-t border-slate-200 bg-white">
+      <div className="container-shell py-8">
+        <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Денис Михин
+            </p>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
+              Образовательная экосистема для управленческого роста
+            </h2>
+            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
+              Статьи, программы, маршруты и практические материалы для руководителей,
+              Project Manager, Product Manager и специалистов, которые растут в управление.
+            </p>
+            <p className="mt-4 text-sm text-slate-500">
+              © 2025-{new Date().getFullYear()} Денис Михин. Все права защищены.
+            </p>
+          </div>
 
-              <p className="max-w-[58ch] text-base leading-8 text-slate-800">
-                Журнал о том, как видеть управленческую систему, находить ограничения и принимать решения,
-                которые выдерживают реальную работу.
-                Копирование и использование публикаций без письменного разрешения автора запрещено.
-              </p>
-
-              <p className="text-sm leading-7 text-slate-700">
-                © 2025-{new Date().getFullYear()} Денис Михин. Все права защищены.
-              </p>
-
-              <div className="rounded-[1.5rem] border border-slate-900/10 bg-white/70 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                  Разработка сайта
-                </p>
-                <p className="mt-2 text-sm leading-7 text-slate-700">
-                  Концепция, структура и реализация сайта собраны Денисом Михиным. Если вам нужен
-                  экспертный сайт, который не выглядит как шаблонная визитка, это можно обсудить отдельно.
-                </p>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              Навигация
+            </p>
+            <nav className="mt-4 grid gap-2 sm:grid-cols-2">
+              {footerLinks.map((item) => (
                 <Link
-                  href={TELEGRAM_CONSULT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+                  key={item.label}
+                  href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 hover:bg-slate-50"
                 >
-                  Обсудить сайт
+                  {item.label}
                 </Link>
-              </div>
-            </div>
-
-            <div className="rounded-[2rem] border border-slate-900/10 bg-white/70 p-5 backdrop-blur-sm">
-              <p className="text-sm font-semibold uppercase tracking-[0.14em] text-slate-500">
-                Полезные ссылки
-              </p>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Link
-                  href="/articles"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Все статьи
-                </Link>
-                <Link
-                  href="/videos"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Видео
-                </Link>
-                <Link
-                  href="/training"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Обучение
-                </Link>
-                <Link
-                  href="/about"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Обо мне
-                </Link>
-                <Link
-                  href={TELEGRAM_CHANNEL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Telegram-канал
-                </Link>
-                <Link
-                  href={MAX_CHANNEL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Канал в Max
-                </Link>
-                <Link
-                  href="/rss"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  RSS
-                </Link>
-                <Link
-                  href="/privacy"
-                  className="rounded-xl border border-slate-900/12 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-50"
-                >
-                  Cookies и данные
-                </Link>
-              </div>
-              <div className="mt-5 rounded-[1.5rem] bg-[#6964d9] p-5 text-white shadow-[0_16px_0_0_rgba(46,42,130,0.28)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/70">
-                  Быть рядом с новыми материалами
-                </p>
-                <p className="mt-2 text-2xl font-black leading-tight">
-                  Подписывайтесь там, где удобнее читать короткие мысли и новые разборы.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Link
-                    href={MAX_CHANNEL_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#2e2a82]"
-                  >
-                    Подписаться в Max
-                  </Link>
-                  <Link
-                    href={TELEGRAM_CHANNEL_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex rounded-xl border border-white/35 bg-transparent px-5 py-3 text-sm font-semibold text-white"
-                  >
-                    Telegram-канал
-                  </Link>
-                </div>
-              </div>
-              <div className="mt-4 rounded-[1.5rem] border border-[#1c57d8] bg-[linear-gradient(135deg,#2787f5_0%,#1f6fe0_55%,#185cc2_100%)] p-5 text-white shadow-[0_16px_0_0_rgba(14,62,143,0.32)]">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
-                  VK
-                </p>
-                <p className="mt-2 text-2xl font-black leading-tight">
-                  Коротко во VK
-                </p>
-                <p className="mt-2 text-sm text-white/90">
-                  Наблюдения, обновления и короткие заметки без длинного формата статей.
-                </p>
-                <div className="mt-4">
-                  <Link
-                    href={VK_PROFILE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#1861d2] shadow-[0_4px_0_0_rgba(6,48,115,0.24)] transition hover:bg-[#f4f8ff]"
-                  >
-                    Подписаться во VK
-                  </Link>
-                </div>
-              </div>
+              ))}
+            </nav>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                href={TELEGRAM_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+              >
+                Перейти в Telegram
+              </Link>
+              <Link
+                href="/articles"
+                className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-bold text-slate-900 transition hover:border-slate-600"
+              >
+                Читать журнал
+              </Link>
             </div>
           </div>
         </div>
