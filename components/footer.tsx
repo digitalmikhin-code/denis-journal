@@ -8,7 +8,6 @@ const footerGroups = [
       { label: "Главная", href: "/" },
       { label: "С чего начать", href: "/start" },
       { label: "Поиск", href: "/search" },
-      { label: "Кабинет", href: "/account" }
     ]
   },
   {
