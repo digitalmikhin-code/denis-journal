@@ -127,7 +127,7 @@ export default function TrainingPage(): JSX.Element {
                 [STEPIK_PROFILE_FACTS.coursesCount, "курса в профиле"],
                 [STEPIK_PROFILE_FACTS.lessonsCount, "уроков"],
                 [STEPIK_PROFILE_FACTS.followersCount, "подписчиков"],
-                [STEPIK_PROFILE_FACTS.certificatesCount, "сертификата"]
+                [STEPIK_PROFILE_FACTS.studentsText, "учатся по программам"]
               ].map(([value, label]) => (
                 <div key={label} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                   <p className="text-3xl font-black text-slate-950">{value}</p>

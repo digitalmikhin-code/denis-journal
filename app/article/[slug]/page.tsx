@@ -141,6 +141,12 @@ export function generateMetadata({ params }: Props): Metadata {
       siteName: SITE_NAME,
       type: "article",
       images: [{ url: `${SITE_URL}${article.frontmatter.cover}` }]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.frontmatter.title,
+      description: article.frontmatter.excerpt,
+      images: [`${SITE_URL}${article.frontmatter.cover}`]
     }
   };
 }
@@ -164,7 +170,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     headline: article.frontmatter.title,
     description: article.frontmatter.excerpt,
     datePublished: article.frontmatter.date,
@@ -228,6 +234,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       />
 
       <article className="space-y-10">
+        <Breadcrumbs title={article.frontmatter.title} />
         <ArticleHero article={article} category={category} />
 
         {shouldShowToc ? (
@@ -268,10 +275,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             <section id="related-articles" className="space-y-5">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                  Похожие статьи
+                  Читайте также
                 </p>
                 <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50">
-                  Продолжить чтение по теме
+                  Материалы по теме
                 </h2>
               </div>
               <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -321,6 +328,22 @@ function ArticleHero({ article, category }: { article: Article; category: Catego
         </p>
       </div>
     </header>
+  );
+}
+
+function Breadcrumbs({ title }: { title: string }): JSX.Element {
+  return (
+    <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-slate-500 dark:text-slate-400" aria-label="Хлебные крошки">
+      <Link href="/" className="hover:text-brand">
+        Главная
+      </Link>
+      <span>/</span>
+      <Link href="/articles" className="hover:text-brand">
+        Статьи
+      </Link>
+      <span>/</span>
+      <span className="line-clamp-1 text-slate-800 dark:text-slate-200">{title}</span>
+    </nav>
   );
 }
 

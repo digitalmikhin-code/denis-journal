@@ -1,74 +1,112 @@
 import Link from "next/link";
 import { TELEGRAM_CHANNEL_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
-const footerLinks = [
-  { label: "Главная", href: "/", external: false },
-  { label: "Журнал", href: "/articles", external: false },
-  { label: "Направления", href: "/hubs", external: false },
-  { label: "Карьерные маршруты", href: "/career-paths", external: false },
-  { label: "Рабочие задачи", href: "/solutions", external: false },
-  { label: "Навыки", href: "/skills", external: false },
-  { label: "С чего начать", href: "/start", external: false },
-  { label: "Программы", href: "/training", external: false },
-  { label: "Контакты", href: TELEGRAM_CONSULT_URL, external: true },
-  { label: "Политика конфиденциальности", href: "/privacy", external: false },
-  { label: "Пользовательское соглашение", href: "/privacy#personal-data", external: false }
+const footerGroups = [
+  {
+    title: "Навигация",
+    links: [
+      { label: "Главная", href: "/" },
+      { label: "С чего начать", href: "/start" },
+      { label: "Поиск", href: "/search" },
+      { label: "Кабинет", href: "/account" }
+    ]
+  },
+  {
+    title: "Обучение",
+    links: [
+      { label: "Курсы", href: "/training" },
+      { label: "Карьерные маршруты", href: "/career-paths" },
+      { label: "Навыки", href: "/skills" },
+      { label: "Рабочие задачи", href: "/solutions" }
+    ]
+  },
+  {
+    title: "Журнал",
+    links: [
+      { label: "Статьи", href: "/articles" },
+      { label: "Хабы", href: "/hubs" },
+      { label: "Видео", href: "/videos" },
+      { label: "Практика", href: "/practice" }
+    ]
+  },
+  {
+    title: "Проекты",
+    links: [
+      { label: "Диагностика", href: "/diagnostics" },
+      { label: "Зрелость руководителя", href: "/diagnostics/management-maturity-index" },
+      { label: "Telegram Mini App", href: "/telegram-mini-app" },
+      { label: "Консалтинг", href: "/consulting" }
+    ]
+  }
 ] as const;
 
 export function SiteFooter(): JSX.Element {
   return (
-    <footer className="site-footer mt-14 border-t border-slate-200 bg-white">
-      <div className="container-shell py-8">
-        <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+    <footer className="site-footer mt-14 border-t border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+      <div className="container-shell py-10">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_1.6fr] lg:items-start">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
               Денис Михин
             </p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
+            <h2 className="mt-2 max-w-xl text-2xl font-black tracking-tight text-slate-950 dark:text-slate-50">
               Образовательная экосистема для управленческого роста
             </h2>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600">
-              Статьи, программы, маршруты и практические материалы для руководителей,
-              Project Manager, Product Manager и специалистов, которые растут в управление.
+            <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
+              Статьи, программы, маршруты и практические материалы для руководителей, Project Manager,
+              Product Manager и специалистов, которые растут в управление.
             </p>
-            <p className="mt-4 text-sm text-slate-500">
-              © 2025-{new Date().getFullYear()} Денис Михин. Все права защищены.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Навигация
-            </p>
-            <nav className="mt-4 grid gap-2 sm:grid-cols-2">
-              {footerLinks.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  target={item.external ? "_blank" : undefined}
-                  rel={item.external ? "noopener noreferrer" : undefined}
-                  className="rounded-lg border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 hover:bg-slate-50"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="mt-5 flex flex-wrap gap-3">
               <Link
                 href={TELEGRAM_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#0a91d8] dark:bg-white dark:text-slate-950"
               >
-                Перейти в Telegram
+                Telegram
               </Link>
               <Link
-                href="/articles"
-                className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-bold text-slate-900 transition hover:border-slate-600"
+                href={TELEGRAM_CONSULT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-slate-600 dark:border-slate-700 dark:text-slate-100"
               >
-                Читать журнал
+                Связаться
               </Link>
             </div>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            {footerGroups.map((group) => (
+              <nav key={group.title} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+                <h3 className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                  {group.title}
+                </h3>
+                <div className="mt-3 grid gap-2">
+                  {group.links.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="rounded-xl px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </nav>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col gap-3 border-t border-slate-200 pt-5 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400 md:flex-row md:items-center md:justify-between">
+          <p>© 2025-{new Date().getFullYear()} Денис Михин. Все права защищены.</p>
+          <div className="flex flex-wrap gap-4">
+            <Link href="/privacy" className="hover:text-slate-950 dark:hover:text-white">
+              Политика конфиденциальности
+            </Link>
+            <Link href="/privacy#personal-data" className="hover:text-slate-950 dark:hover:text-white">
+              Пользовательское соглашение
+            </Link>
           </div>
         </div>
       </div>
