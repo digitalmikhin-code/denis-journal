@@ -33,42 +33,42 @@ const workTasks = [
   {
     title: "Меня повысили до руководителя",
     text: "Собрать управленческую базу, границы ответственности и первые решения в новой роли.",
-    href: "/start"
+    href: "/solutions/promoted-manager"
   },
   {
     title: "Нужно внедрить ИИ",
     text: "Понять, где ИИ помогает управлению, аналитике, решениям и ежедневной работе.",
-    href: "/category/ai"
+    href: "/solutions/implement-ai"
   },
   {
     title: "Хочу перейти в управление проектами",
     text: "Разобраться с проектной логикой, сроками, рисками, коммуникацией и результатом.",
-    href: "/category/management"
+    href: "/solutions/project-management"
   },
   {
     title: "Не понимаю Agile",
     text: "Отделить рабочие принципы Agile от ритуалов, терминов и командного театра.",
-    href: "/category/agile"
+    href: "/solutions/implement-agile"
   },
   {
     title: "Команда не берет ответственность",
     text: "Найти, где ломаются договоренности, владельцы, контроль и управленческий фокус.",
-    href: "/category/management"
+    href: "/solutions/team-responsibility"
   },
   {
     title: "Постоянно не хватает времени",
     text: "Снизить перегруз, вернуть контроль над задачами и убрать лишнюю операционку.",
-    href: "/training#management"
+    href: "/solutions/time-management"
   },
   {
     title: "Хочу стать Product Manager",
     text: "Перейти от задач и функций к ценности, пользователю, гипотезам и метрикам.",
-    href: "/training#product-thinking"
+    href: "/solutions/product-manager"
   },
   {
     title: "Нужно выстроить систему управления",
     text: "Собрать цели, ритм, ответственность, метрики и прозрачность исполнения.",
-    href: "/category/architecture"
+    href: "/solutions/management-system"
   }
 ] as const;
 

@@ -45,49 +45,49 @@ const WORK_TASKS: Record<string, ArticleWorkTask> = {
     id: "new_manager",
     title: "Меня повысили до руководителя",
     text: "Понять новую роль, ответственность и первые управленческие решения.",
-    href: "/start"
+    href: "/solutions/promoted-manager"
   },
   ai: {
     id: "ai",
     title: "Нужно внедрить ИИ",
     text: "Отделить практичные сценарии применения ИИ от шума и моды.",
-    href: "/category/ai"
+    href: "/solutions/implement-ai"
   },
   project_management: {
     id: "project_management",
     title: "Хочу перейти в управление проектами",
     text: "Собрать базу по срокам, рискам, коммуникации и результату.",
-    href: "/training#project-management"
+    href: "/solutions/project-management"
   },
   agile: {
     id: "agile",
     title: "Не понимаю Agile",
     text: "Разобраться с Scrum, Kanban и гибкостью без ритуального театра.",
-    href: "/category/agile"
+    href: "/solutions/implement-agile"
   },
   responsibility: {
     id: "responsibility",
     title: "Команда не берет ответственность",
     text: "Найти, где теряются владельцы, договоренности и контроль результата.",
-    href: "/category/management"
+    href: "/solutions/team-responsibility"
   },
   time: {
     id: "time",
     title: "Постоянно не хватает времени",
     text: "Снизить перегруз и вернуть управляемость задачам.",
-    href: "/training#management"
+    href: "/solutions/time-management"
   },
   product: {
     id: "product",
     title: "Хочу стать Product Manager",
     text: "Перейти от задач к ценности, пользователю, гипотезам и метрикам.",
-    href: "/training#product-thinking"
+    href: "/solutions/product-manager"
   },
   system: {
     id: "system",
     title: "Нужно выстроить систему управления",
     text: "Связать цели, ритм, ответственность, метрики и исполнение.",
-    href: "/category/architecture"
+    href: "/solutions/management-system"
   }
 };
 
