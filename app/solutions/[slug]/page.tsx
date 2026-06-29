@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
+import { RecommendationBlock } from "@/components/recommendation-block";
 import { TrackedLink } from "@/components/tracked-link";
 import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
+import { getCareerPathPrograms, getRecommendedCareerPathForSolution } from "@/lib/career-paths";
 import {
   CATEGORY_SHORT_LABELS,
   CATEGORY_THEME,
@@ -12,6 +14,7 @@ import {
   TELEGRAM_CHANNEL_URL
 } from "@/lib/constants";
 import { getAllArticles, type Article, type ArticleSummary } from "@/lib/content";
+import { getRecommendation } from "@/lib/recommendations";
 import { getAllSolutions, getRelatedSolutions, getSolution, type Solution } from "@/lib/solutions";
 import { STEPIK_COURSES, type StepikCourse } from "@/lib/stepik-courses";
 
@@ -58,6 +61,8 @@ export default function SolutionPage({ params }: Props): JSX.Element {
   const articles = pickSolutionArticles(solution);
   const programs = pickSolutionPrograms(solution);
   const relatedSolutions = getRelatedSolutions(solution);
+  const recommendedCareerPath = getRecommendedCareerPathForSolution(solution.slug);
+  const recommendation = getRecommendation("solution", solution.slug);
 
   const pageUrl = `${SITE_URL}/solutions/${solution.slug}`;
   const howToSchema = {
@@ -268,6 +273,35 @@ export default function SolutionPage({ params }: Props): JSX.Element {
           })}
         </div>
       </section>
+
+      {recommendedCareerPath ? (
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_42px_rgba(15,23,42,0.06)] md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+            Рекомендуемый маршрут
+          </p>
+          <div className="mt-4 grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+            <div>
+              <h2 className="text-3xl font-black tracking-tight text-slate-950">
+                Для решения этой задачи подойдет маршрут «{recommendedCareerPath.title}»
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+                {recommendedCareerPath.description}
+              </p>
+              <p className="mt-4 text-sm font-bold text-slate-500">
+                {getCareerPathPrograms(recommendedCareerPath).length} этапов развития
+              </p>
+            </div>
+            <Link
+              href={`/career-paths/${recommendedCareerPath.slug}`}
+              className="rounded-2xl bg-slate-950 px-5 py-3 text-center text-sm font-black text-white transition hover:-translate-y-0.5"
+            >
+              Открыть маршрут
+            </Link>
+          </div>
+        </section>
+      ) : null}
+
+      <RecommendationBlock recommendation={recommendation} />
 
       <section className="rounded-[2rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] md:p-8">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-white/45">Следующий шаг</p>

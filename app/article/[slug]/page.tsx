@@ -5,7 +5,6 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleAuthorCard } from "@/components/article-author-card";
 import { ArticleCard } from "@/components/article-card";
-import { ArticleNextStep } from "@/components/article-next-step";
 import { ArticleRelatedPrograms } from "@/components/article-related-programs";
 import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleTakeaways } from "@/components/article-takeaways";
@@ -13,6 +12,7 @@ import { ArticleTelegramCta } from "@/components/article-telegram-cta";
 import { ArticleWorkTasks, type ArticleWorkTask } from "@/components/article-work-tasks";
 import { MetrikaGoal } from "@/components/metrika-goal";
 import { ReadingProgress } from "@/components/reading-progress";
+import { RecommendationBlock } from "@/components/recommendation-block";
 import { SkillCardSection } from "@/components/skill-card-section";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -33,6 +33,7 @@ import {
 } from "@/lib/content";
 import { STEPIK_COURSES, type StepikCourse, type StepikCourseCategory } from "@/lib/stepik-courses";
 import { getSkillsForArticle } from "@/lib/skills";
+import { getRecommendation } from "@/lib/recommendations";
 import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { calculateWordCount, formatDate } from "@/lib/utils";
 
@@ -155,11 +156,11 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const articleUrl = `${SITE_URL}/article/${article.slug}`;
   const articleBody = addTableOfContentsAnchors(article.content);
   const shouldShowToc = calculateWordCount(article.content) > LONG_ARTICLE_WORDS;
-  const nextStep = buildNextStep(article, category);
   const workTasks = buildWorkTasks(article, category);
   const relatedPrograms = buildRelatedPrograms(article, category);
   const relatedArticles = buildRelatedArticles(article, allArticles);
   const articleSkills = getSkillsForArticle(article, 4);
+  const recommendation = getRecommendation("article", article.slug);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -259,7 +260,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         <div className="space-y-8">
           <ArticleTakeaways items={article.frontmatter.takeaways} />
           <SkillCardSection skills={articleSkills} />
-          <ArticleNextStep step={nextStep} />
+          <RecommendationBlock recommendation={recommendation} />
           <ArticleWorkTasks tasks={workTasks} />
           <ArticleRelatedPrograms articleTitle={article.frontmatter.title} courses={relatedPrograms} />
 

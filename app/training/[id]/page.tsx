@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ProgramStepikCta } from "@/components/program-stepik-cta";
+import { RecommendationBlock } from "@/components/recommendation-block";
 import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
+import { getCareerPathPrograms, getCareerPathsForProgram } from "@/lib/career-paths";
 import {
   SITE_NAME,
   SITE_URL,
@@ -11,6 +13,7 @@ import {
   TELEGRAM_CONSULT_URL
 } from "@/lib/constants";
 import { getProgramPage, getProgramPageById, getProgramPath } from "@/lib/program-pages";
+import { getRecommendation } from "@/lib/recommendations";
 import { STEPIK_COURSES, type StepikCourse } from "@/lib/stepik-courses";
 
 type Props = {
@@ -53,6 +56,8 @@ export default function ProgramPage({ params }: Props): JSX.Element {
   }
 
   const course = program.course;
+  const careerPaths = getCareerPathsForProgram(course.id);
+  const recommendation = getRecommendation("program", course.id);
   const courseId = getCourseIdFromUrl(course.url);
   const stepikHref = buildStepikUtmUrl(course.url, {
     medium: "course_catalog",
@@ -97,7 +102,7 @@ export default function ProgramPage({ params }: Props): JSX.Element {
                 className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5"
               />
               <Link
-                href="/solutions"
+                href="/career-paths"
                 className="rounded-2xl border border-white/20 px-6 py-3 text-base font-bold text-white transition hover:border-white/45"
               >
                 Посмотреть маршрут развития
@@ -116,6 +121,34 @@ export default function ProgramPage({ params }: Props): JSX.Element {
           </div>
         </div>
       </section>
+
+      {careerPaths.length > 0 ? (
+        <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.05)] md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-400">
+            Программа входит в маршрут
+          </p>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {careerPaths.map((careerPath) => {
+              const pathPrograms = getCareerPathPrograms(careerPath);
+              const stageIndex = pathPrograms.findIndex((item) => item.id === course.id);
+
+              return (
+                <Link
+                  key={careerPath.slug}
+                  href={`/career-paths/${careerPath.slug}`}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-slate-400 hover:bg-white"
+                >
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-slate-400">
+                    Этап {stageIndex + 1} из {pathPrograms.length}
+                  </span>
+                  <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">{careerPath.title}</h2>
+                  <p className="mt-2 text-sm leading-6 text-slate-650">{careerPath.description}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ) : null}
 
       <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
         <ContentBlock eyebrow="Проблема" title="Когда стоит проходить эту программу">
@@ -236,6 +269,8 @@ export default function ProgramPage({ params }: Props): JSX.Element {
           ))}
         </div>
       </ContentBlock>
+
+      <RecommendationBlock recommendation={recommendation} />
 
       <section className="grid gap-5 lg:grid-cols-[0.95fr_1.05fr]">
         <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.05)] md:p-8">

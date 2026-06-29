@@ -3,9 +3,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { ArticleCard } from "@/components/article-card";
+import { RecommendationBlock } from "@/components/recommendation-block";
+import { getCareerPathsForSkill } from "@/lib/career-paths";
 import { getProgramPath } from "@/lib/program-pages";
 import { getAllArticles, type Article } from "@/lib/content";
 import { SITE_URL } from "@/lib/constants";
+import { getRecommendation } from "@/lib/recommendations";
 import { getAllSkills, getSkill, getSkillsBySlugs, type Skill } from "@/lib/skills";
 import { getSolution, type Solution } from "@/lib/solutions";
 import { STEPIK_COURSES } from "@/lib/stepik-courses";
@@ -57,6 +60,8 @@ export default function SkillPage({ params }: Props): JSX.Element {
     .map((slug) => getSolution(slug))
     .filter((solution): solution is Solution => Boolean(solution));
   const nextSkills = getSkillsBySlugs(skill.nextSkillSlugs, 4);
+  const careerPaths = getCareerPathsForSkill(skill.slug);
+  const recommendation = getRecommendation("skill", skill.slug);
 
   const schema = {
     "@context": "https://schema.org",
@@ -196,6 +201,26 @@ export default function SkillPage({ params }: Props): JSX.Element {
           ))}
         </div>
       </ContentBlock>
+
+      <RecommendationBlock recommendation={recommendation} />
+
+      {careerPaths.length > 0 ? (
+        <ContentBlock eyebrow="Карьерные маршруты" title="Навык развивается в следующих маршрутах">
+          <div className="grid gap-4 md:grid-cols-3">
+            {careerPaths.map((careerPath) => (
+              <Link
+                key={careerPath.slug}
+                href={`/career-paths/${careerPath.slug}`}
+                className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-slate-400 hover:bg-white"
+              >
+                <h3 className="text-xl font-black leading-tight text-slate-950">{careerPath.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-650">{careerPath.description}</p>
+                <span className="mt-5 inline-flex text-sm font-black text-slate-950">Открыть маршрут →</span>
+              </Link>
+            ))}
+          </div>
+        </ContentBlock>
+      ) : null}
     </article>
   );
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { RecommendationBlock } from "@/components/recommendation-block";
 import { TrackedLink } from "@/components/tracked-link";
 import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
 import {
@@ -11,7 +12,9 @@ import {
   TELEGRAM_CHANNEL_URL,
   type Category
 } from "@/lib/constants";
+import { getAllCareerPaths, getCareerPathPrograms, type CareerPath } from "@/lib/career-paths";
 import { getFeaturedArticles, getLatestArticles, type ArticleSummary } from "@/lib/content";
+import { getRecommendation } from "@/lib/recommendations";
 import { STEPIK_COURSES, STEPIK_PROFILE_FACTS, type StepikCourse } from "@/lib/stepik-courses";
 
 export const metadata: Metadata = {
@@ -165,15 +168,18 @@ const trustFacts = [
 export default function HomePage(): JSX.Element {
   const popularArticles = getPopularArticles();
   const popularPrograms = getPopularPrograms();
+  const homepageCareerPaths = getAllCareerPaths().slice(0, 4);
+  const recommendation = getRecommendation("home");
 
   return (
     <div className="space-y-16">
       <HeroSection />
       <WorkTasksSection />
       <DevelopmentDirectionsSection />
-      <CareerRoutesSection />
+      <CareerRoutesSection paths={homepageCareerPaths} />
       <PopularArticlesSection articles={popularArticles} />
       <PopularProgramsSection courses={popularPrograms} />
+      <RecommendationBlock recommendation={recommendation} />
       <TrustSection />
       <TelegramSection />
     </div>
@@ -295,7 +301,7 @@ function DevelopmentDirectionsSection(): JSX.Element {
   );
 }
 
-function CareerRoutesSection(): JSX.Element {
+function CareerRoutesSection({ paths }: { paths: CareerPath[] }): JSX.Element {
   return (
     <section className="space-y-6">
       <SectionHeader
@@ -304,14 +310,14 @@ function CareerRoutesSection(): JSX.Element {
         text="Каждый маршрут показывает ожидаемый результат и количество программ, без слова «курс»."
       />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {careerRoutes.map((route) => (
-          <article key={route.title} className="rounded-lg border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_44px_rgba(15,23,42,0.16)]">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">{route.label}</p>
+        {paths.map((route) => (
+          <article key={route.slug} className="rounded-lg border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_44px_rgba(15,23,42,0.16)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Маршрут</p>
             <h3 className="mt-3 text-2xl font-black tracking-tight">{route.title}</h3>
-            <p className="mt-4 text-sm leading-7 text-white/70">{route.result}</p>
-            <p className="mt-5 text-sm font-bold text-[#f2cf63]">{route.programs}</p>
+            <p className="mt-4 text-sm leading-7 text-white/70">{route.description}</p>
+            <p className="mt-5 text-sm font-bold text-[#f2cf63]">{getCareerPathPrograms(route).length} этапов</p>
             <Link
-              href={route.href}
+              href={`/career-paths/${route.slug}`}
               className="mt-5 inline-flex rounded-lg bg-white px-4 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-slate-100"
             >
               Посмотреть маршрут
