@@ -8,6 +8,7 @@ import {
   getRecommendedCareerPathForSolution
 } from "@/lib/career-paths";
 import { getProgramPageById, getProgramPath } from "@/lib/program-pages";
+import { getSearchRelatedItems } from "@/lib/search-engine";
 import { getAllSkills, getSkill, getSkillsForArticle, getSkillsForProgram } from "@/lib/skills";
 import { getAllSolutions, getSolution } from "@/lib/solutions";
 import { STEPIK_COURSES } from "@/lib/stepik-courses";
@@ -59,10 +60,7 @@ function recommendForHome(): RecommendationResult {
     description: path.description,
     ctaLabel: "Открыть маршрут",
     href: `/career-paths/${path.slug}`,
-    relatedMaterials: getAllCareerPaths()
-      .filter((item) => item.slug !== path.slug)
-      .slice(0, 3)
-      .map(careerPathItem),
+    relatedMaterials: getSearchRelatedItems(path.title, `/career-paths/${path.slug}`, 3).map(searchItem),
     relatedPrograms: getCareerPathPrograms(path).slice(0, 3).map(programItem)
   };
 }
@@ -248,5 +246,15 @@ function solutionItem(solution: NonNullable<ReturnType<typeof getSolution>>): Re
     description: solution.description,
     href: `/solutions/${solution.slug}`,
     label: "Рабочая задача"
+  };
+}
+
+function searchItem(item: ReturnType<typeof getSearchRelatedItems>[number]): RecommendationItem {
+  return {
+    type: item.type,
+    title: item.title,
+    description: item.description,
+    href: item.href,
+    label: item.label
   };
 }

@@ -7,6 +7,7 @@ import { CookieConsentBanner } from "@/components/cookie-consent-banner";
 import { ScrollEffects } from "@/components/scroll-effects";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, TELEGRAM_CHANNEL_URL, VK_PROFILE_URL } from "@/lib/constants";
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
+import { getSearchIndex } from "@/lib/search-engine";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -113,6 +114,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
+  const searchItems = getSearchIndex();
+
   return (
     <html lang="ru">
       <body>
@@ -133,7 +136,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
-        <SiteHeader />
+        <SiteHeader searchItems={searchItems} />
         <main className="container-shell py-8">{children}</main>
         <ScrollEffects />
         <SiteFooter />

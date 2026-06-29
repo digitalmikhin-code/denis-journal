@@ -57,6 +57,21 @@ export function ArticleInPageSearch({ targetId }: ArticleInPageSearchProps): JSX
     paintHighlights(matches, activeIndex);
   }, [activeIndex, matches]);
 
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "f") {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [targetId]);
+
   function goToMatch(direction: 1 | -1): void {
     if (matches.length === 0) return;
 
@@ -99,7 +114,7 @@ export function ArticleInPageSearch({ targetId }: ArticleInPageSearchProps): JSX
             className="rounded-2xl border border-slate-200 bg-white px-3 text-sm font-black text-slate-500 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800"
             aria-label="Очистить поиск"
           >
-            x
+            ×
           </button>
         ) : null}
       </div>
@@ -125,7 +140,7 @@ export function ArticleInPageSearch({ targetId }: ArticleInPageSearchProps): JSX
 
       {query.trim().length === 1 ? (
         <p className="mt-3 text-xs leading-5 text-slate-500 dark:text-slate-400">
-          Введите минимум 2 символа.
+          Введите минимум 2 символа. Поле можно открыть сочетанием Ctrl + F.
         </p>
       ) : null}
     </section>
@@ -171,9 +186,7 @@ function paintHighlights(matches: SearchMatch[], activeIndex: number): void {
   CSS.highlights.delete(SEARCH_HIGHLIGHT);
   CSS.highlights.delete(ACTIVE_HIGHLIGHT);
 
-  const passiveRanges = matches
-    .filter((_, index) => index !== activeIndex)
-    .map((match) => match.range);
+  const passiveRanges = matches.filter((_, index) => index !== activeIndex).map((match) => match.range);
   const activeRange = matches[activeIndex]?.range;
 
   if (passiveRanges.length > 0) {

@@ -2,10 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { GlobalSearch } from "@/components/global-search";
 import { FIRST_MENU, SECOND_MENU } from "@/lib/constants";
+import type { SearchItem } from "@/lib/search-shared";
 import { cn } from "@/lib/utils";
 
-export function SiteHeader(): JSX.Element {
+type SiteHeaderProps = {
+  searchItems: SearchItem[];
+};
+
+export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
   const [dark, setDark] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -85,12 +91,7 @@ export function SiteHeader(): JSX.Element {
             </span>
           </Link>
           <div className="flex shrink-0 items-center gap-2 md:pt-1">
-            <Link
-              href="/search"
-              className="rounded-xl border border-slate-300/70 bg-white/75 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-slate-500/60 hover:bg-white md:text-sm"
-            >
-              Поиск
-            </Link>
+            <GlobalSearch items={searchItems} />
             <button
               type="button"
               onClick={toggleTheme}
