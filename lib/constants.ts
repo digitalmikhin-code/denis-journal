@@ -165,6 +165,7 @@ export const SECOND_MENU: Array<{ label: string; href: string }> = [
   { label: "Карьерные маршруты", href: "/career-paths" },
   { label: "Рабочие задачи", href: "/solutions" },
   { label: "Навыки", href: "/skills" },
+  { label: "Кабинет", href: "/account" },
   { label: "\u0425\u0430\u0431\u044b", href: "/hubs" },
   { label: "Инструменты", href: "/tools" },
   { label: "Практика изменений", href: "/practice" },
