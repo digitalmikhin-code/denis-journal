@@ -4,6 +4,7 @@ import { AiCitationBlock } from "@/components/ai-citation-block";
 import { TrackedLink } from "@/components/tracked-link";
 import { buildStepikUtmUrl, getCourseIdFromUrl } from "@/lib/analytics";
 import { STEPIK_TEACH_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import { getProgramPath } from "@/lib/program-pages";
 import { COURSE_CATEGORIES, STEPIK_COURSES, STEPIK_PROFILE_FACTS, type StepikCourse } from "@/lib/stepik-courses";
 
 export const metadata: Metadata = {
@@ -344,31 +345,39 @@ function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
           <Meta label="Отзывы" value={course.reviews} />
           <Meta label="Статус" value={course.status} />
         </div>
-        <TrackedLink
-          href={courseHref}
-          goal="stepik_click"
-          params={{
-            course_id: courseId,
-            course_title: course.title,
-            course_url: course.url,
-            source: "course_catalog"
-          }}
-          extraGoals={[
-            {
-              goal: "course_page_view",
-              params: {
-                course_id: courseId,
-                course_title: course.title,
-                course_url: course.url
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href={getProgramPath(course)}
+            className="inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+          >
+            Подробнее о программе
+          </Link>
+          <TrackedLink
+            href={courseHref}
+            goal="stepik_click"
+            params={{
+              course_id: courseId,
+              course_title: course.title,
+              course_url: course.url,
+              source: "course_catalog"
+            }}
+            extraGoals={[
+              {
+                goal: "course_page_view",
+                params: {
+                  course_id: courseId,
+                  course_title: course.title,
+                  course_url: course.url
+                }
               }
-            }
-          ]}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
-        >
-          Перейти к курсу
-        </TrackedLink>
+            ]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex rounded-2xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-950 transition hover:border-slate-500"
+          >
+            Stepik
+          </TrackedLink>
+        </div>
       </div>
     </article>
   );
