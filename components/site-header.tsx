@@ -15,13 +15,12 @@ type SiteHeaderProps = {
 type MobileMenuItem = {
   label: string;
   href: string;
-  accent?: boolean;
 };
 
 export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
   const [dark, setDark] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const mobileMenuItems: MobileMenuItem[] = [{ label: "Курсы", href: "/training", accent: true }, ...FIRST_MENU];
+  const headerMenuItems: MobileMenuItem[] = [...FIRST_MENU, ...SECOND_MENU.slice(0, 6)];
 
   useEffect(() => {
     let initialDark = false;
@@ -86,8 +85,8 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
       )}
     >
       <div className="container-shell py-2.5 md:py-3">
-        <div className="flex items-center justify-between gap-3 lg:gap-4">
-          <Link href="/" className="group flex shrink-0 items-center gap-3 leading-none">
+        <div className="flex items-center justify-between gap-3">
+          <Link href="/" className="group flex min-w-0 items-center gap-3 leading-none">
             <span className="relative size-11 overflow-hidden rounded-full border border-slate-200 bg-slate-950 shadow-[0_10px_24px_rgba(9,22,43,0.14)] transition group-hover:border-brand dark:border-slate-700 md:size-12">
               <Image
                 src="/images/denis-mikhin-logo.png"
@@ -98,28 +97,15 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
                 priority
               />
             </span>
-            <span>
-              <span className="block text-[9px] font-semibold uppercase text-slate-500 transition group-hover:text-brand dark:text-slate-400 md:text-[10px]">
+            <span className="min-w-0">
+              <span className="block truncate text-[9px] font-semibold uppercase text-slate-500 transition group-hover:text-brand dark:text-slate-400 md:text-[10px]">
                 Авторский журнал
               </span>
-              <span className="mt-1 block text-[1.05rem] font-black uppercase text-slate-950 transition group-hover:text-brand dark:text-slate-100 md:text-[1.25rem]">
+              <span className="mt-1 block truncate text-[1rem] font-black uppercase text-slate-950 transition group-hover:text-brand dark:text-slate-100 md:text-[1.25rem]">
                 Денис Михин
               </span>
             </span>
           </Link>
-          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
-            {[...FIRST_MENU, ...SECOND_MENU.slice(0, 6)].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                target={item.href.startsWith("http") ? "_blank" : undefined}
-                rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="whitespace-nowrap border border-transparent px-3 py-2 text-sm font-bold text-slate-600 transition hover:border-slate-200 hover:bg-slate-50 hover:text-brand dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:text-white"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <Link
               href="/training"
@@ -141,17 +127,14 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
             </button>
           </div>
         </div>
-        <nav className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden">
-          {mobileMenuItems.map((item) => (
+        <nav className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1">
+          {headerMenuItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className={cn(
-                "shrink-0 border px-3 py-1.5 text-xs font-semibold transition md:px-4 md:text-sm",
-                item.accent
-                  ? "border-brand bg-brand text-white shadow-[0_10px_24px_rgba(11,77,186,0.2)] hover:border-brand-dark hover:bg-brand-dark"
-                  : "border-slate-200 bg-white text-slate-700 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-              )}
+              target={item.href.startsWith("http") ? "_blank" : undefined}
+              rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="shrink-0 border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 md:px-4 md:text-sm"
             >
               {item.label}
             </Link>
