@@ -100,18 +100,18 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
 
   return (
     <section className="space-y-6">
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+      <div className="border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
         <div className="grid gap-3 lg:grid-cols-[1.2fr_1fr_1fr_1fr]">
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Поиск по заголовку, тегам, тексту..."
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
+            className="border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
           />
           <select
             value={category}
             onChange={(event) => setCategory(event.target.value as "all" | Category)}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
+            className="border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
           >
             <option value="all">Все рубрики</option>
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
@@ -123,7 +123,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
           <select
             value={tag}
             onChange={(event) => setTag(event.target.value)}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
+            className="border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
           >
             <option value="all">Все теги</option>
             {allTags.map((itemTag) => (
@@ -135,7 +135,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
           <select
             value={sortMode}
             onChange={(event) => setSortMode(event.target.value as SortMode)}
-            className="rounded-xl border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
+            className="border border-slate-300 px-4 py-2 text-sm outline-none ring-brand/25 focus:ring dark:border-slate-700 dark:bg-slate-950"
           >
             <option value="newest">Сначала новые</option>
             <option value="popular">Популярные</option>
@@ -152,8 +152,8 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
               onClick={() => setQuickFilter((current) => (current === item.key ? null : item.key))}
               className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
                 quickFilter === item.key
-                  ? "border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-950"
-                  : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
+                  ? "border-brand bg-brand text-white dark:border-white dark:bg-white dark:text-slate-950"
+                  : "border-slate-200 bg-slate-50 text-slate-700 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
               }`}
             >
               {item.label}
@@ -173,7 +173,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
             <button
               type="button"
               onClick={resetFilters}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:bg-slate-800"
             >
               Сбросить фильтры
             </button>
@@ -188,7 +188,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
           ))}
         </div>
       ) : (
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-8 text-center shadow-soft dark:border-slate-800 dark:bg-slate-900">
+        <div className="border border-slate-200 bg-white p-8 text-center shadow-soft dark:border-slate-800 dark:bg-slate-900">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Ничего не найдено</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">
             Попробуйте ослабить фильтры
@@ -200,7 +200,7 @@ export function ArticlesFilter({ items, allTags }: Props): JSX.Element {
           <button
             type="button"
             onClick={resetFilters}
-            className="mt-5 rounded-2xl bg-slate-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+            className="mt-5 bg-brand px-5 py-3 text-sm font-bold text-white transition hover:bg-brand-dark"
           >
             Сбросить фильтры
           </button>

@@ -25,9 +25,9 @@ export default function ArticlesPage(): JSX.Element {
 
   return (
     <div className="space-y-6">
-      <header className="space-y-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Архив</p>
-        <h1 className="text-4xl font-extrabold tracking-tight">Все статьи</h1>
+      <header className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.05)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <p className="border-l-4 border-brand pl-3 text-xs font-semibold uppercase text-brand">Архив</p>
+        <h1 className="mt-3 text-4xl font-black uppercase text-slate-950 dark:text-slate-50">Все статьи</h1>
         <p className="max-w-reading text-slate-600 dark:text-slate-300">
           Фильтруйте публикации по рубрикам, тегам и поисковому запросу.
         </p>

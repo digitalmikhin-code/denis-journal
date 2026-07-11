@@ -60,7 +60,7 @@ export function SiteFooter(): JSX.Element {
                 href={TELEGRAM_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#0a91d8] dark:bg-white dark:text-slate-950"
+                className="bg-brand px-5 py-3 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand-dark dark:bg-white dark:text-slate-950"
               >
                 Telegram
               </Link>
@@ -68,7 +68,7 @@ export function SiteFooter(): JSX.Element {
                 href={TELEGRAM_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-slate-300 px-5 py-3 text-sm font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-slate-600 dark:border-slate-700 dark:text-slate-100"
+                className="border border-slate-300 px-5 py-3 text-sm font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:text-brand dark:border-slate-700 dark:text-slate-100"
               >
                 Связаться
               </Link>
@@ -77,7 +77,7 @@ export function SiteFooter(): JSX.Element {
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {footerGroups.map((group) => (
-              <nav key={group.title} className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-900/70">
+              <nav key={group.title} className="border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-800 dark:bg-slate-900/70">
                 <h3 className="text-xs font-black uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
                   {group.title}
                 </h3>
@@ -86,7 +86,7 @@ export function SiteFooter(): JSX.Element {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="rounded-xl px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                      className="px-2 py-1.5 text-sm font-semibold text-slate-700 transition hover:bg-white hover:text-brand dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                     >
                       {item.label}
                     </Link>

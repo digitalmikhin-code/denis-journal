@@ -172,7 +172,7 @@ export default function HomePage(): JSX.Element {
   const recommendation = getRecommendation("home");
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-14">
       <HeroSection />
       <WorkTasksSection />
       <DevelopmentDirectionsSection />
@@ -188,12 +188,14 @@ export default function HomePage(): JSX.Element {
 
 function HeroSection(): JSX.Element {
   return (
-    <section className="border-b border-slate-200 pb-14 pt-8 dark:border-slate-800 md:pb-20 md:pt-14">
-      <div className="max-w-5xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#9f2f73] dark:text-[#f0a6cf]">
+    <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-10">
+      <div className="pointer-events-none absolute inset-0 ambient-grid opacity-55" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-72 bg-[linear-gradient(135deg,transparent_0%,transparent_38%,rgba(11,77,186,0.16)_38%,rgba(11,77,186,0.16)_66%,rgba(8,46,115,0.92)_66%)] md:h-56 md:w-[28rem]" />
+      <div className="relative max-w-5xl">
+        <p className="text-sm font-semibold uppercase text-brand dark:text-blue-300">
           Навигатор профессионального развития
         </p>
-        <h1 className="mt-5 max-w-5xl text-4xl font-black leading-[1.02] tracking-tight text-slate-950 dark:text-slate-50 md:text-6xl">
+        <h1 className="mt-5 max-w-5xl text-4xl font-black uppercase leading-[1.02] text-slate-950 dark:text-slate-50 md:text-6xl">
           Найдите следующий шаг в карьере, управлении и обучении
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700 dark:text-slate-300 md:text-xl">
@@ -203,16 +205,23 @@ function HeroSection(): JSX.Element {
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/training"
-            className="inline-flex justify-center rounded-2xl bg-slate-950 px-6 py-3 text-base font-bold text-white shadow-[0_14px_30px_rgba(15,23,42,0.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#9f2f73] hover:shadow-[0_20px_44px_rgba(159,47,115,0.28)] dark:bg-white dark:text-slate-950"
+            className="inline-flex justify-center bg-brand px-6 py-3 text-base font-bold text-white shadow-[0_14px_30px_rgba(11,77,186,0.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-brand-dark dark:bg-white dark:text-slate-950"
           >
             Подобрать программу развития
           </Link>
           <Link
             href="/articles"
-            className="inline-flex justify-center rounded-2xl border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-slate-500 hover:shadow-[0_14px_30px_rgba(15,23,42,0.08)] dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+            className="inline-flex justify-center border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
           >
             Читать журнал
           </Link>
+        </div>
+        <div className="mt-12 grid max-w-3xl grid-cols-2 border border-slate-200 bg-white/82 dark:border-slate-800 dark:bg-slate-950/60 md:grid-cols-4">
+          {["Управление", "Продажи", "ИИ", "Трансформации"].map((item) => (
+            <div key={item} className="border-b border-r border-slate-200 px-4 py-3 text-xs font-black uppercase text-slate-600 last:border-r-0 dark:border-slate-800 dark:text-slate-300 md:border-b-0">
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -232,13 +241,13 @@ function WorkTasksSection(): JSX.Element {
           <Link
             key={task.title}
             href={task.href}
-            className="group flex min-h-48 flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#9f2f73]/40 hover:shadow-[0_20px_46px_rgba(15,23,42,0.10)] dark:border-slate-800 dark:bg-slate-900"
+            className="group flex min-h-48 flex-col justify-between border border-slate-200 bg-white p-5 shadow-[0_14px_36px_rgba(9,22,43,0.05)] transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:shadow-[0_20px_46px_rgba(9,22,43,0.09)] dark:border-slate-800 dark:bg-slate-900"
           >
             <div>
               <h3 className="text-xl font-black leading-tight tracking-tight text-slate-950 dark:text-slate-50">{task.title}</h3>
               <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{task.text}</p>
             </div>
-            <span className="mt-5 inline-flex rounded-2xl bg-[#fff0f7] px-4 py-3 text-base font-black text-[#9f2f73] transition group-hover:bg-[#9f2f73] group-hover:text-white dark:bg-[#3a1830] dark:text-[#f0a6cf]">
+            <span className="mt-5 inline-flex border border-slate-200 bg-slate-50 px-4 py-3 text-base font-black text-brand transition group-hover:border-brand group-hover:bg-brand group-hover:text-white dark:border-slate-700 dark:bg-slate-950">
               Собрать следующий шаг
             </span>
           </Link>
@@ -265,12 +274,12 @@ function DevelopmentDirectionsSection(): JSX.Element {
             : 0;
 
           return (
-            <article key={direction.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
+            <article key={direction.title} className="border border-slate-200 bg-white p-5 shadow-[0_14px_36px_rgba(9,22,43,0.05)] dark:border-slate-800 dark:bg-slate-900">
               <div className="flex items-start justify-between gap-4">
                 <h3 className="text-2xl font-black tracking-tight text-slate-950 dark:text-slate-50">{direction.title}</h3>
                 {direction.category ? (
                   <span
-                    className="rounded-full border px-3 py-1 text-xs font-bold"
+                    className="border px-3 py-1 text-xs font-bold uppercase"
                     style={{
                       backgroundColor: CATEGORY_THEME[direction.category].badgeBg,
                       borderColor: CATEGORY_THEME[direction.category].badgeBorder,
@@ -284,12 +293,12 @@ function DevelopmentDirectionsSection(): JSX.Element {
               <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">{direction.description}</p>
               <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500 dark:text-slate-400">
                 <span>{articlesCount || "скоро"} статей</span>
-                <span>В·</span>
+                <span>/</span>
                 <span>{direction.programsCount} программ</span>
               </div>
               <Link
                 href={direction.href}
-                className="mt-5 inline-flex rounded-2xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-900 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-[#9f2f73] hover:bg-[#9f2f73] hover:text-white hover:shadow-[0_14px_30px_rgba(159,47,115,0.22)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+                className="mt-5 inline-flex border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-900 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:text-white hover:shadow-[0_14px_30px_rgba(11,77,186,0.18)] dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
               >
                 Подробнее
               </Link>
@@ -311,21 +320,21 @@ function CareerRoutesSection({ paths }: { paths: CareerPath[] }): JSX.Element {
       />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {paths.map((route) => (
-          <article key={route.slug} className="rounded-2xl border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_44px_rgba(15,23,42,0.16)] dark:border-slate-800">
+          <article key={route.slug} className="border border-slate-800 bg-slate-950 p-5 text-white shadow-[0_18px_44px_rgba(9,22,43,0.18)] dark:border-slate-800">
             <div className="flex items-center justify-between gap-3">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Маршрут</p>
               {"badge" in route && typeof route.badge === "string" ? (
-                <span className="rounded-full bg-[#a9e070] px-3 py-1 text-xs font-black text-[#224f18]">
+                <span className="border border-blue-300 bg-blue-50 px-3 py-1 text-xs font-black text-brand">
                   {route.badge}
                 </span>
               ) : null}
             </div>
             <h3 className="mt-3 text-2xl font-black tracking-tight">{route.title}</h3>
             <p className="mt-4 text-sm leading-7 text-white/70">{route.description}</p>
-            <p className="mt-5 text-sm font-bold text-[#f2cf63]">{getCareerPathPrograms(route).length} этапов</p>
+            <p className="mt-5 text-sm font-bold text-blue-200">{getCareerPathPrograms(route).length} этапов</p>
             <Link
               href={`/career-paths/${route.slug}`}
-              className="mt-5 inline-flex rounded-2xl bg-white px-4 py-2.5 text-sm font-bold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:bg-[#f2cf63] hover:shadow-[0_14px_30px_rgba(242,207,99,0.24)]"
+              className="mt-5 inline-flex bg-white px-4 py-2.5 text-sm font-bold text-slate-950 transition duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:text-brand"
             >
               Посмотреть маршрут
             </Link>
@@ -346,7 +355,7 @@ function PopularArticlesSection({ articles }: { articles: ArticleSummary[] }): J
       />
       <div className="grid gap-5 lg:grid-cols-3">
         {articles.map((article) => (
-          <article key={article.slug} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_34px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900">
+          <article key={article.slug} className="overflow-hidden border border-slate-200 bg-white shadow-[0_14px_34px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
             <Link href={`/article/${article.slug}`} className="block">
               <div className="relative aspect-[16/9] bg-slate-100">
                 <Image
@@ -371,7 +380,7 @@ function PopularArticlesSection({ articles }: { articles: ArticleSummary[] }): J
                   <span className="text-sm font-semibold text-slate-500">
                     {article.frontmatter.readingTime} мин чтения
                   </span>
-                  <span className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-bold text-white">
+                  <span className="bg-brand px-4 py-2 text-sm font-bold text-white">
                     Читать
                   </span>
                 </div>
@@ -402,10 +411,10 @@ function PopularProgramsSection({ courses }: { courses: StepikCourse[] }): JSX.E
           });
 
           return (
-            <article key={course.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_12px_32px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
+            <article key={course.id} className="border border-slate-200 bg-white p-5 shadow-[0_14px_36px_rgba(9,22,43,0.05)] dark:border-slate-800 dark:bg-slate-900">
               <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-[0.12em]">
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-slate-600">{course.level}</span>
-                <span className="rounded-full bg-[#edf7f1] px-3 py-1 text-[#23704a]">
+                <span className="border border-slate-200 bg-slate-50 px-3 py-1 text-slate-600">{course.level}</span>
+                <span className="border border-blue-100 bg-blue-50 px-3 py-1 text-brand">
                   {course.learners ? `${new Intl.NumberFormat("ru-RU").format(course.learners)} слушателей` : "новая программа"}
                 </span>
               </div>
@@ -416,7 +425,7 @@ function PopularProgramsSection({ courses }: { courses: StepikCourse[] }): JSX.E
               <div className="mt-5 flex flex-wrap gap-3">
                 <Link
                   href="/training"
-                  className="rounded-2xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-[#9f2f73] hover:bg-[#9f2f73] hover:text-white dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
+                  className="border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-900 transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:text-white dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 >
                   Подробнее
                 </Link>
@@ -431,7 +440,7 @@ function PopularProgramsSection({ courses }: { courses: StepikCourse[] }): JSX.E
                   }}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="rounded-2xl bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[#9f2f73] hover:shadow-[0_14px_30px_rgba(159,47,115,0.22)] dark:bg-white dark:text-slate-950"
+                  className="bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-brand hover:shadow-[0_14px_30px_rgba(11,77,186,0.18)] dark:bg-white dark:text-slate-950"
                 >
                   Начать обучение
                 </TrackedLink>
@@ -454,7 +463,7 @@ function TrustSection(): JSX.Element {
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {trustFacts.map(([value, label]) => (
-          <div key={label} className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+          <div key={label} className="border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
             <p className="text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50">{value}</p>
             <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{label}</p>
           </div>
@@ -466,10 +475,10 @@ function TrustSection(): JSX.Element {
 
 function TelegramSection(): JSX.Element {
   return (
-    <section className="rounded-[2rem] border border-[#7ccfff] bg-gradient-to-br from-[#eaf8ff] to-white p-6 shadow-[0_22px_54px_rgba(2,132,199,0.12)] dark:border-sky-800 dark:from-slate-900 dark:to-slate-950 md:p-8">
+    <section className="border border-slate-200 bg-white p-6 shadow-[0_22px_54px_rgba(9,22,43,0.07)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0a4f7b] dark:text-sky-300">Telegram</p>
+          <p className="text-xs font-semibold uppercase text-brand dark:text-sky-300">Telegram</p>
           <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl">
             Подпишитесь, чтобы не терять полезные разборы и быстрее находить следующий шаг
           </h2>
@@ -482,7 +491,7 @@ function TelegramSection(): JSX.Element {
           href={TELEGRAM_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex shrink-0 justify-center rounded-2xl bg-slate-950 px-6 py-3 text-base font-bold text-white shadow-[0_16px_34px_rgba(15,23,42,0.20)] transition duration-300 hover:-translate-y-0.5 hover:bg-[#0a91d8] hover:shadow-[0_20px_46px_rgba(10,145,216,0.28)] dark:bg-white dark:text-slate-950"
+          className="inline-flex shrink-0 justify-center bg-brand px-6 py-3 text-base font-bold text-white shadow-[0_16px_34px_rgba(11,77,186,0.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-brand-dark dark:bg-white dark:text-slate-950"
         >
           Перейти в Telegram
         </Link>
@@ -502,8 +511,8 @@ function SectionHeader({
 }): JSX.Element {
   return (
     <div className="max-w-4xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">{eyebrow}</p>
-      <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50 md:text-4xl">{title}</h2>
+      <p className="border-l-4 border-brand pl-3 text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">{eyebrow}</p>
+      <h2 className="mt-2 text-3xl font-black uppercase text-slate-950 dark:text-slate-50 md:text-4xl">{title}</h2>
       <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">{text}</p>
     </div>
   );

@@ -17,32 +17,32 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
 
   return (
     <article
-      className="mag-hover fade-in group overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white shadow-[0_22px_50px_rgba(15,23,42,0.08)]"
-      style={{ boxShadow: `0 24px 48px -28px ${theme.glow}` }}
+      className="mag-hover fade-in group overflow-hidden border border-slate-200/90 bg-white shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900"
+      style={{ boxShadow: `0 18px 44px -30px ${theme.glow}` }}
     >
       <Link href={`/article/${article.slug}`} className="block">
-        <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+        <div className="relative aspect-[16/9] overflow-hidden bg-slate-100">
           <Image
             src={article.frontmatter.cover}
             alt={article.frontmatter.title}
             fill
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="object-cover saturate-[0.82] transition duration-500 group-hover:scale-[1.02] group-hover:saturate-100"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/28 via-transparent to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1 bg-brand" />
         </div>
 
-        <div className="space-y-4 bg-white p-5 md:p-6">
-          <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+        <div className="space-y-4 bg-white p-5 dark:bg-slate-900 md:p-6">
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3 text-[0.7rem] font-semibold uppercase text-slate-500 dark:border-slate-800">
             <span>{formatDate(article.frontmatter.date)}</span>
-            <span>·</span>
+            <span>/</span>
             <span>{article.frontmatter.readingTime} мин</span>
-            <span>·</span>
+            <span>/</span>
             <span>{premiumMeta.format}</span>
           </div>
 
           <div className="space-y-3">
             <span
-              className="inline-flex shrink-0 items-center rounded-full border px-3 py-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] shadow-sm"
+              className="inline-flex shrink-0 items-center border px-3 py-1 text-[0.68rem] font-bold uppercase"
               style={{
                 backgroundColor: theme.badgeBg,
                 color: theme.badgeText,
@@ -51,18 +51,18 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
             >
               {categoryLabel}
             </span>
-            <h3 className="max-w-[20ch] text-[1.7rem] font-black leading-[1.03] tracking-tight text-slate-900">
+            <h3 className="max-w-[22ch] text-[1.55rem] font-black leading-[1.08] text-slate-950 dark:text-slate-50">
               {article.frontmatter.title}
             </h3>
           </div>
 
-          <p className="line-clamp-3 text-[1rem] leading-7 text-slate-600">
+          <p className="line-clamp-3 text-[1rem] leading-7 text-slate-600 dark:text-slate-300">
             {article.frontmatter.excerpt}
           </p>
 
           <div className="flex items-center justify-between gap-3 pt-2">
-            <span className={`h-2 flex-1 rounded-full bg-gradient-to-r ${theme.line}`} />
-            <span className="text-sm font-semibold text-slate-700 transition group-hover:text-slate-900">
+            <span className={`h-px flex-1 bg-gradient-to-r ${theme.line}`} />
+            <span className="text-sm font-bold text-brand transition group-hover:text-brand-dark">
               Читать разбор
             </span>
           </div>

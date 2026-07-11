@@ -42,7 +42,7 @@ export function ReadingProgress({ targetId }: ReadingProgressProps): JSX.Element
       className="fixed left-0 right-0 top-0 z-50 h-1 bg-transparent"
     >
       <div
-        className="h-full bg-[linear-gradient(90deg,#ff5a36_0%,#22d3ee_42%,#22c55e_72%,#f59e0b_100%)] shadow-[0_0_18px_rgba(34,211,238,0.35)] transition-[width] duration-150 ease-out"
+        className="h-full bg-[linear-gradient(90deg,#082e73_0%,#0b4dba_100%)] shadow-[0_0_14px_rgba(11,77,186,0.24)] transition-[width] duration-150 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

@@ -11,16 +11,16 @@ const config: Config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#FF5A36",
-          dark: "#E64722",
-          soft: "#FFE8E2"
+          DEFAULT: "#0B4DBA",
+          dark: "#082E73",
+          soft: "#EAF1FF"
         }
       },
       maxWidth: {
         reading: "78ch"
       },
       boxShadow: {
-        soft: "0 10px 30px rgba(15, 21, 31, 0.08)"
+        soft: "0 16px 42px rgba(9, 22, 43, 0.07)"
       }
     }
   },
@@ -28,4 +28,3 @@ const config: Config = {
 };
 
 export default config;
-

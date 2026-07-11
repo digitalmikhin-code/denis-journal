@@ -60,8 +60,8 @@ export function CoursePromoBanner({
   const ctaText = variant === "A" ? ctaLabel : ctaLabelAlt;
   const ctaClassName =
     variant === "A"
-      ? "inline-flex w-fit shrink-0 items-center rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
-      : "inline-flex w-fit shrink-0 items-center rounded-xl border border-slate-900/20 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-slate-50";
+      ? "inline-flex w-fit shrink-0 items-center bg-brand px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-dark"
+      : "inline-flex w-fit shrink-0 items-center border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-900 transition hover:border-brand hover:text-brand";
 
   return (
     <section
@@ -69,13 +69,13 @@ export function CoursePromoBanner({
       data-ab-variant={variant}
       className={
         className ??
-        "rounded-2xl border border-[#c8d8ef] bg-[linear-gradient(135deg,#f4f9ff_0%,#f8f4ff_52%,#fff8ef_100%)] p-4 shadow-[0_10px_24px_rgba(15,23,42,0.06)] md:p-5"
+        "border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(9,22,43,0.06)] md:p-5"
       }
     >
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1.5">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
-          <h3 className="text-lg font-extrabold leading-tight tracking-tight text-slate-900 md:text-xl">{title}</h3>
+          <p className="text-[11px] font-semibold uppercase text-brand">{label}</p>
+          <h3 className="text-lg font-black leading-tight text-slate-950 md:text-xl">{title}</h3>
           {note ? <p className="text-sm leading-6 text-slate-600">{note}</p> : null}
         </div>
         <TrackedLink
