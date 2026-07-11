@@ -12,9 +12,16 @@ type SiteHeaderProps = {
   searchItems: SearchItem[];
 };
 
+type MobileMenuItem = {
+  label: string;
+  href: string;
+  accent?: boolean;
+};
+
 export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
   const [dark, setDark] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const mobileMenuItems: MobileMenuItem[] = [{ label: "Курсы", href: "/training", accent: true }, ...FIRST_MENU];
 
   useEffect(() => {
     let initialDark = false;
@@ -79,8 +86,8 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
       )}
     >
       <div className="container-shell py-2.5 md:py-3">
-        <div className="flex items-center justify-between gap-4">
-          <Link href="/" className="group flex items-center gap-3 leading-none">
+        <div className="flex items-center justify-between gap-3 lg:gap-4">
+          <Link href="/" className="group flex shrink-0 items-center gap-3 leading-none">
             <span className="relative size-11 overflow-hidden rounded-full border border-slate-200 bg-slate-950 shadow-[0_10px_24px_rgba(9,22,43,0.14)] transition group-hover:border-brand dark:border-slate-700 md:size-12">
               <Image
                 src="/images/denis-mikhin-logo.png"
@@ -100,26 +107,33 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
               </span>
             </span>
           </Link>
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex">
             {[...FIRST_MENU, ...SECOND_MENU.slice(0, 6)].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 target={item.href.startsWith("http") ? "_blank" : undefined}
                 rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="border border-transparent px-3 py-2 text-sm font-bold text-slate-600 transition hover:border-slate-200 hover:bg-slate-50 hover:text-brand dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:text-white"
+                className="whitespace-nowrap border border-transparent px-3 py-2 text-sm font-bold text-slate-600 transition hover:border-slate-200 hover:bg-slate-50 hover:text-brand dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900 dark:hover:text-white"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <Link
+              href="/training"
+              className="group inline-flex shrink-0 items-center gap-2 border border-brand bg-brand px-3 py-2 text-xs font-black uppercase text-white shadow-[0_12px_28px_rgba(11,77,186,0.24)] transition hover:border-brand-dark hover:bg-brand-dark dark:border-blue-400 dark:bg-blue-500 dark:hover:bg-blue-400 sm:px-4 md:text-sm"
+            >
+              <span className="size-1.5 bg-white transition group-hover:scale-125 md:size-2" />
+              Курсы
+            </Link>
             <GlobalSearch items={searchItems} />
             <button
               type="button"
               onClick={toggleTheme}
               className={cn(
-                "border px-3 py-1.5 text-xs font-semibold transition md:text-sm",
+                "hidden border px-3 py-1.5 text-xs font-semibold transition sm:inline-flex md:text-sm",
                 "border-slate-300 bg-white text-slate-700 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               )}
             >
@@ -128,11 +142,16 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
           </div>
         </div>
         <nav className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1 lg:hidden">
-          {FIRST_MENU.map((item) => (
+          {mobileMenuItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="shrink-0 border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-brand hover:text-brand md:px-4 md:text-sm"
+              className={cn(
+                "shrink-0 border px-3 py-1.5 text-xs font-semibold transition md:px-4 md:text-sm",
+                item.accent
+                  ? "border-brand bg-brand text-white shadow-[0_10px_24px_rgba(11,77,186,0.2)] hover:border-brand-dark hover:bg-brand-dark"
+                  : "border-slate-200 bg-white text-slate-700 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+              )}
             >
               {item.label}
             </Link>
