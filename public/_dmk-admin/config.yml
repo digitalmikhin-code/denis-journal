@@ -31,6 +31,7 @@ collections:
       - label: "Категория"
         name: "category"
         widget: "select"
+        default: "management"
         options:
           - { label: "Карьера", value: "career" }
           - { label: "Управление и проекты", value: "management" }
@@ -39,8 +40,8 @@ collections:
           - { label: "Архитектура решений", value: "architecture" }
           - { label: "Реальные кейсы", value: "cases" }
           - { label: "ИИ в управлении", value: "ai" }
-      - { label: "Tags", name: "tags", widget: "list", allow_add: true }
-      - { label: "Excerpt", name: "excerpt", widget: "text", hint: "До 200 символов" }
+      - { label: "Tags", name: "tags", widget: "list", allow_add: true, required: false, default: [] }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: false, default: "", hint: "До 200 символов" }
       - { label: "Cover", name: "cover", widget: "image", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: true }
       - { label: "Featured", name: "featured", widget: "boolean", required: false, default: false }
