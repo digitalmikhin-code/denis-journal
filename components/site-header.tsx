@@ -20,7 +20,7 @@ type MobileMenuItem = {
 export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
   const [dark, setDark] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const headerMenuItems: MobileMenuItem[] = [...FIRST_MENU, ...SECOND_MENU.slice(0, 6)];
+  const headerMenuItems: MobileMenuItem[] = [...FIRST_MENU, ...SECOND_MENU.slice(0, 5)];
 
   useEffect(() => {
     let initialDark = false;
@@ -109,9 +109,8 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <Link
               href="/training"
-              className="group inline-flex shrink-0 items-center gap-2 border border-brand bg-brand px-3 py-2 text-xs font-black uppercase text-white shadow-[0_12px_28px_rgba(11,77,186,0.24)] transition hover:border-brand-dark hover:bg-brand-dark dark:border-blue-400 dark:bg-blue-500 dark:hover:bg-blue-400 sm:px-4 md:text-sm"
+              className="inline-flex shrink-0 items-center border border-brand bg-brand px-4 py-2 text-xs font-black uppercase text-white shadow-[0_12px_28px_rgba(11,77,186,0.24)] transition hover:border-brand-dark hover:bg-brand-dark dark:border-blue-400 dark:bg-blue-500 dark:hover:bg-blue-400 md:text-sm"
             >
-              <span className="size-1.5 bg-white transition group-hover:scale-125 md:size-2" />
               Курсы
             </Link>
             <GlobalSearch items={searchItems} />
