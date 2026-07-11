@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GlobalSearch } from "@/components/global-search";
 import { FIRST_MENU, SECOND_MENU } from "@/lib/constants";
@@ -80,12 +81,19 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
       <div className="container-shell py-2.5 md:py-3">
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="group flex items-center gap-3 leading-none">
-            <span className="grid size-10 place-items-center border border-slate-950 bg-white text-sm font-black text-brand transition group-hover:border-brand dark:border-slate-600 dark:bg-slate-950 md:size-11">
-              DM
+            <span className="relative size-11 overflow-hidden rounded-full border border-slate-200 bg-slate-950 shadow-[0_10px_24px_rgba(9,22,43,0.14)] transition group-hover:border-brand dark:border-slate-700 md:size-12">
+              <Image
+                src="/images/denis-mikhin-logo.png"
+                alt="Логотип Дениса Михина"
+                fill
+                sizes="48px"
+                className="object-cover"
+                priority
+              />
             </span>
             <span>
               <span className="block text-[9px] font-semibold uppercase text-slate-500 transition group-hover:text-brand dark:text-slate-400 md:text-[10px]">
-                Media / Management
+                Авторский журнал
               </span>
               <span className="mt-1 block text-[1.05rem] font-black uppercase text-slate-950 transition group-hover:text-brand dark:text-slate-100 md:text-[1.25rem]">
                 Денис Михин

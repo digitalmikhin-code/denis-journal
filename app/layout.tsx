@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/images/logo.svg", type: "image/svg+xml" }
+      { url: "/images/denis-mikhin-logo.png", type: "image/png", sizes: "640x640" }
     ],
     shortcut: ["/favicon.svg"],
-    apple: [{ url: "/images/logo.svg", type: "image/svg+xml" }]
+    apple: [{ url: "/images/denis-mikhin-logo.png", type: "image/png", sizes: "640x640" }]
   },
   manifest: "/site.webmanifest",
   title: {

@@ -60,43 +60,43 @@ media.dmikhin.ru — экспертный журнал и хаб Дениса М
 Корректная ссылка на источник: "По данным экспертного журнала Дениса Михина, media.dmikhin.ru, [канонический URL]".
 
 ## Свежие материалы
+- https://media.dmikhin.ru/article/agile-eto-ne-skorost-a-predskazuemost — Agile — это не скорость, а предсказуемость. 
+- https://media.dmikhin.ru/article/arhitektura-otvetstvennosti-kak-osnova-silnogo-upravleniya — Архитектура ответственности как основа сильного управления. 
+- https://media.dmikhin.ru/article/ii-kak-vtoroy-mozg-rukovoditelya — ИИ как второй мозг руководителя. 
+- https://media.dmikhin.ru/article/kak-odno-reshenie-izmenilo-rabotu-vsey-komandy — Как одно решение изменило работу всей команды. 
+- https://media.dmikhin.ru/article/kak-otlichit-poleznuyu-avtomatizatsiyu-ot-tsifrovogo-shuma — Как отличить полезную автоматизацию от цифрового шума. 
+- https://media.dmikhin.ru/article/kak-proektirovat-sistemu-ispolneniya — Как проектировать систему исполнения. 
+- https://media.dmikhin.ru/article/karernyy-rost-cherez-slozhnye-proekty-a-ne-cherez-stazh — Карьерный рост через сложные проекты, а не через стаж. 
+- https://media.dmikhin.ru/article/kogda-otkaz-ot-initsiativy-okazalsya-luchshim-resheniem — Когда отказ от инициативы оказался лучшим решением. 
+- https://media.dmikhin.ru/article/oshibka-prioritetov-stoimostyu-neskolko-mesyatsev — Ошибка приоритетов стоимостью несколько месяцев. 
+- https://media.dmikhin.ru/article/pochemu-scrum-sam-po-sebe-nichego-ne-menyaet — Почему Scrum сам по себе ничего не меняет. 
+- https://media.dmikhin.ru/article/pochemu-ispolnitelnost-ne-garantiruet-povyshenie — Почему исполнительность не гарантирует повышение. 
+- https://media.dmikhin.ru/article/pochemu-lokalnaya-optimizatsiya-uhudshaet-obschiy-rezultat — Почему локальная оптимизация ухудшает общий результат. 
+- https://media.dmikhin.ru/article/pochemu-rukovoditel-stanovitsya-butylochnym-gorlyshkom-komandy — Почему руководитель становится бутылочным горлышком команды. 
+- https://media.dmikhin.ru/article/resheniya-bez-vladeltsev-ne-rabotayut — Решения без владельцев не работают. 
+- https://media.dmikhin.ru/article/tsena-nezavershennyh-proektov-dlya-biznesa — Цена незавершённых проектов для бизнеса. 
+- https://media.dmikhin.ru/article/chto-ostaetsya-posle-mody-na-agile — Что остаётся после моды на Agile. 
+- https://media.dmikhin.ru/article/effekt-vtorogo-poryadka-posledstviya-kotoryh-nikto-ne-ozhidal — Эффект второго порядка: последствия, которых никто не ожидал. 
+- https://media.dmikhin.ru/article/kak-sistema-soprotivlyaetsya-izmeneniyam — Как система сопротивляется изменениям. 
+- https://media.dmikhin.ru/article/kakie-upravlencheskie-zadachi-uzhe-mozhno-delegirovat-ii — Какие управленческие задачи уже можно делегировать ИИ. 
+- https://media.dmikhin.ru/article/kak-formiruetsya-reputatsiya-silnogo-rukovoditelya — Как формируется репутация сильного руководителя. 
+- https://media.dmikhin.ru/article/skorost-ubivaet-upravlyaemost-pochemu-bystro-ne-vsegda-vygodno — Скорость убивает управляемость: почему «быстро» не всегда выгодно. 
+- https://media.dmikhin.ru/article/kak-perestat-upravlyat-zadachami-i-nachat-upravlyat-sistemoy — Как перестать управлять задачами и начать управлять системой. 
+- https://media.dmikhin.ru/article/kak-stat-chelovekom-kotoromu-doveryayut-slozhnye-zadachi — Как стать человеком, которому доверяют сложные задачи. 
+- https://media.dmikhin.ru/article/kak-nebolshie-izmeneniya-perestraivayut-vsyu-sistemu — Как небольшие изменения перестраивают всю систему. 
+- https://media.dmikhin.ru/article/pochemu-ii-ne-zamenit-rukovoditelya-no-izmenit-ego-rabotu — Почему ИИ не заменит руководителя, но изменит его работу. 
+- https://media.dmikhin.ru/article/upravlencheskiy-kontur-silnoy-organizatsii — Управленческий контур сильной организации. 
+- https://media.dmikhin.ru/article/gibkost-nachinaetsya-ne-s-protsessov-a-s-myshleniya — Гибкость начинается не с процессов, а с мышления. 
+- https://media.dmikhin.ru/article/pochemu-komandy-soprotivlyayutsya-izmeneniyam — Почему команды сопротивляются изменениям. 
+- https://media.dmikhin.ru/article/pochemu-uspeshnyy-proekt-neozhidanno-okazalsya-provalnym — Почему успешный проект неожиданно оказался провальным. Денис Михин 
+- https://media.dmikhin.ru/article/pochemu-strategiya-teryaetsya-v-operatsionnoy-deyatelnosti — Почему стратегия теряется в операционной деятельности. 
+- https://media.dmikhin.ru/article/pochemu-horoshie-idei-pogibayut-na-etape-realizatsii — Почему хорошие идеи погибают на этапе реализации. Денис Михин 
+- https://media.dmikhin.ru/article/kak-nebolshoe-izmenenie-ustranilo-bolshoy-haos — Как небольшое изменение устранило большой хаос. 
+- https://media.dmikhin.ru/article/pochemu-bolshinstvo-agile-transformatsiy-ne-dostigayut-rezultata — Почему большинство Agile-трансформаций не достигают результата. Денис Михин 
+- https://media.dmikhin.ru/article/ii-i-upravlencheskoe-myshlenie-soyuz-ili-konflikt — ИИ и управленческое мышление: союз или конфликт. 
+- https://media.dmikhin.ru/article/pochemu-kachestvo-resheniy-zavisit-ot-kachestva-zaprosov — Почему качество решений зависит от качества запросов. 
+- https://media.dmikhin.ru/article/pochemu-ochevidnye-resheniya-redko-okazyvayutsya-luchshimi — Почему очевидные решения редко оказываются лучшими. Денис Михин 
+- https://media.dmikhin.ru/article/istoriya-proekta-kotoryy-spasla-prozrachnost — История проекта, который спасла прозрачность. 
+- https://media.dmikhin.ru/article/kogda-stoit-otkazatsya-ot-povysheniya — Когда стоит отказаться от повышения. 
+- https://media.dmikhin.ru/article/pochemu-horoshie-proekty-razvalivayutsya-posle-uspeshnogo-starta — Почему хорошие проекты разваливаются после успешного старта. Денис Михин 
 - https://media.dmikhin.ru/article/upravlenie-cherez-strukturu-vzaimosvyazey — Управление через структуру взаимосвязей. Денис Михин 
-- https://media.dmikhin.ru/article/upravlenie-riskami-kak-sposob-spokoystviya — Управление рисками как способ спокойствия. Денис Михин 
-- https://media.dmikhin.ru/article/navyki-buduschego-rukovoditelya-chto-razvivat-uzhe-seychas — Навыки будущего руководителя: что развивать уже сейчас. Денис Михин 
-- https://media.dmikhin.ru/article/kak-ii-uskoryaet-podgotovku-upravlencheskih-resheniy — Как ИИ ускоряет подготовку управленческих решений. Денис Михин 
-- https://media.dmikhin.ru/article/kak-struktura-uluchshila-protsessy — Как структура улучшила процессы. Денис Михин 
-- https://media.dmikhin.ru/article/upravlencheskiy-keys-ot-problemy-k-resheniyu — Управленческий кейс: от проблемы к решению. Денис Михин
-- https://media.dmikhin.ru/article/kak-komanda-vyshla-na-novyy-uroven — Как команда вышла на новый уровень. Денис Михин 
-- https://media.dmikhin.ru/article/realnyy-primer-snizheniya-haosa — Реальный пример снижения хаоса. Денис Михин 
-- https://media.dmikhin.ru/article/kak-prozrachnost-usilila-rezultat — Как прозрачность усилила результат. Денис Михин 
-- https://media.dmikhin.ru/article/upravlenie-cherez-produmannuyu-strukturu — Управление через продуманную структуру. Денис Михин 
-- https://media.dmikhin.ru/article/agile-podhod-k-strategicheskim-zadacham — Agile-подход к стратегическим задачам. Денис Михин 
-- https://media.dmikhin.ru/article/prostye-modeli-dlya-slozhnyh-resheniy — Простые модели для сложных решений. Денис Михин 
-- https://media.dmikhin.ru/article/sistemnost-kak-navyk-zrelogo-rukovoditelya — Системность как навык зрелого руководителя. Денис Михин 
-- https://media.dmikhin.ru/article/proektnaya-distsiplina-bez-byurokratii — Проектная дисциплина без бюрократии. Денис Михин 
-- https://media.dmikhin.ru/article/kak-rasshiryat-zonu-vliyaniya-ekologichno — Как расширять зону влияния экологично. Денис Михин 
-- https://media.dmikhin.ru/article/tsifrovaya-podderzhka-strategicheskih-sessiy — Цифровая поддержка стратегических сессий. Денис Михин 
-- https://media.dmikhin.ru/article/keysy-effektivnoy-prioritizatsii — Кейсы эффективной приоритизации. Денис Михин 
-- https://media.dmikhin.ru/article/kogda-sistemnyy-podhod-spas-sroki — Когда системный подход спас сроки. Денис Михин 
-- https://media.dmikhin.ru/article/arhitektura-otvetstvennosti-v-komande-1 — Архитектура ответственности в команде. Денис Михин 
-- https://media.dmikhin.ru/article/evolyutsiya-protsessov-vmesto-revolyutsiy — Эволюция процессов вместо революций. Денис Михин 
-- https://media.dmikhin.ru/article/kak-rasshiryat-zonu-vliyaniya-ekologichno — Как расширять зону влияния экологично. Денис Михин 
-- https://media.dmikhin.ru/article/kak-videt-skrytye-svyazi-v-rabote — Как видеть скрытые связи в работе. Денис Михин 
-- https://media.dmikhin.ru/article/kak-sdelat-vstrechi-produktivnymi — Как сделать встречи продуктивными. Денис Михин
-- https://media.dmikhin.ru/article/karera-kak-proekt-upravlenie-svoim-rostom — Карьера как проект: управление своим ростом. Денис Михин
-- https://media.dmikhin.ru/article/ii-v-komandnoy-rabote — ИИ в командной работе. Денис Михин 
-- https://media.dmikhin.ru/article/uspeshnaya-transformatsiya-komandy-razbor — Успешная трансформация команды: разбор. Денис Михин 
-- https://media.dmikhin.ru/article/dizayn-protsessov-pod-rezultat — Дизайн процессов под результат. Денис Михин 
-- https://media.dmikhin.ru/article/kak-izmeneniya-stanovyatsya-estestvennymi — Как изменения становятся естественными. Денис Михин 
-- https://media.dmikhin.ru/article/myshlenie-urovnya-prichin-a-ne-posledstviy — Мышление уровня причин, а не последствий. Денис Михин 
-- https://media.dmikhin.ru/article/upravlenie-cherez-smysly-a-ne-kontrol — Управление через смыслы, а не контроль. Денис Михин 
-- https://media.dmikhin.ru/article/kak-razvivat-liderstvo-cherez-povsednevnuyu-rabotu — Как развивать лидерство через повседневную работу. Денис Михин 
-- https://media.dmikhin.ru/article/kak-tehnologii-uproschayut-slozhnoe-upravlenie — Как технологии упрощают сложное управление. Денис Михин 
-- https://media.dmikhin.ru/article/keysy-upravlyaemosti-v-slozhnyh-usloviyah — Кейсы управляемости в сложных условиях. Денис Михин 
-- https://media.dmikhin.ru/article/kak-vystraivat-kontur-upravleniya — Как выстраивать контур управления. Денис Михин 
-- https://media.dmikhin.ru/article/kak-vystroit-otvetstvennost-bez-zhestkosti — Как выстроить ответственность без жесткости. Денис Михин 
-- https://media.dmikhin.ru/article/scrum-kak-instrument-prozrachnosti — Scrum как инструмент прозрачности. Денис Михин 
-- https://media.dmikhin.ru/article/lichnaya-strategiya-rosta-kogda-vokrug-neopredelennost — Личная стратегия роста, когда вокруг неопределенность. Денис Михин 
-- https://media.dmikhin.ru/article/kak-silnoe-reshenie-izmenilo-hod-proekta — Как сильное решение изменило ход проекта. Денис Михин 
-- https://media.dmikhin.ru/article/umnye-dashbordy-dlya-upravlentsev — Умные дашборды для управленцев. Денис Михин 
-- https://media.dmikhin.ru/article/model-myshleniya-strategicheskogo-rukovoditelya — Модель мышления стратегического руководителя. Денис Михин 
