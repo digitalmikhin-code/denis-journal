@@ -86,29 +86,31 @@ export default function CareerPathPage({ params }: Props): JSX.Element {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
 
-      <section className="rounded-[2.35rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-36 w-64 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
         <Link
           href="/career-paths"
-          className="rounded-full border border-white/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white/60 transition hover:border-white/40 hover:text-white"
+          className="relative border border-slate-300 bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-slate-600 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
         >
           Все маршруты
         </Link>
-        <h1 className="mt-5 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+        <h1 className="relative mt-5 max-w-4xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white md:text-6xl">
           {path.title}
         </h1>
-        <p className="mt-5 max-w-[64ch] text-base leading-8 text-white/72 md:text-lg">
+        <p className="relative mt-5 max-w-[64ch] text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
           {path.description}
         </p>
-        <div className="mt-7 flex flex-wrap gap-3">
+        <div className="relative mt-7 flex flex-wrap gap-3">
           <Link
             href="#map"
-            className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5"
+            className="bg-brand px-6 py-3 text-base font-black text-white transition hover:bg-brand-dark"
           >
             Начать маршрут
           </Link>
           <Link
             href="#programs"
-            className="rounded-2xl border border-white/20 px-6 py-3 text-base font-bold text-white transition hover:border-white/45"
+            className="border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-950 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-white"
           >
             Посмотреть программы
           </Link>

@@ -537,20 +537,20 @@ const LEVELS: Record<LevelKey, LevelResult> = {
 
 const LEVEL_STYLES: Record<LevelKey, { chip: string; panel: string }> = {
   visualization: {
-    chip: "border-[#ef9a9a] bg-[#ffebee] text-[#9f2f2f]",
-    panel: "border-[#efc7c7] bg-[linear-gradient(135deg,#fff3f3_0%,#fff8f8_100%)]"
+    chip: "border-slate-200 bg-slate-100 text-slate-700",
+    panel: "border-slate-200 bg-white"
   },
   flow: {
-    chip: "border-[#f4b36a] bg-[#fff3e5] text-[#9c5300]",
-    panel: "border-[#f3d1a7] bg-[linear-gradient(135deg,#fff7ea_0%,#fffaf2_100%)]"
+    chip: "border-slate-200 bg-slate-100 text-slate-700",
+    panel: "border-slate-200 bg-white"
   },
   system: {
-    chip: "border-[#e9d06b] bg-[#fffbe6] text-[#7c6800]",
-    panel: "border-[#efe19a] bg-[linear-gradient(135deg,#fffde8_0%,#fffef5_100%)]"
+    chip: "border-slate-200 bg-slate-100 text-slate-700",
+    panel: "border-slate-200 bg-white"
   },
   pro: {
-    chip: "border-[#7ccf8d] bg-[#e8f9ed] text-[#1e7a38]",
-    panel: "border-[#b8e6c4] bg-[linear-gradient(135deg,#edfdf2_0%,#f7fff9_100%)]"
+    chip: "border-brand/20 bg-brand/5 text-brand",
+    panel: "border-slate-200 bg-white"
   }
 };
 
@@ -630,9 +630,12 @@ export function KanbanProQuiz(): JSX.Element {
 
   if (!started) {
     return (
-      <section className="rounded-[2rem] border border-[#bfd9ef] bg-[linear-gradient(135deg,#eef8ff_0%,#f7f2ff_52%,#fff6ec_100%)] p-7 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-9">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Новая диагностика</p>
-        <h2 className="mt-3 max-w-[18ch] text-4xl font-black leading-[0.95] tracking-tight text-slate-900 md:text-5xl">
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-35" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-40 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
+        <div className="relative">
+        <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">Новая диагностика</p>
+        <h2 className="mt-4 max-w-4xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 md:text-6xl">
           Насколько ты готов к уровню Kanban Pro
         </h2>
         <p className="mt-4 text-base leading-8 text-slate-700 md:text-lg">
@@ -646,10 +649,11 @@ export function KanbanProQuiz(): JSX.Element {
         <button
           type="button"
           onClick={startQuiz}
-          className="mt-7 inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          className="mt-7 inline-flex bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-brand"
         >
           Начать тест
         </button>
+        </div>
       </section>
     );
   }
@@ -657,10 +661,10 @@ export function KanbanProQuiz(): JSX.Element {
   if (finished) {
     const styles = LEVEL_STYLES[result.key];
     return (
-      <section className={`rounded-[2rem] border p-7 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-9 ${styles.panel}`}>
+      <section className={`border p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8 ${styles.panel}`}>
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Результат диагностики</p>
         <div className="mt-3 flex flex-wrap items-center gap-3">
-          <span className={`inline-flex rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${styles.chip}`}>
+          <span className={`inline-flex border px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] ${styles.chip}`}>
             Уровень: {result.title}
           </span>
           <span className="text-sm font-medium text-slate-600">
@@ -671,7 +675,7 @@ export function KanbanProQuiz(): JSX.Element {
         <p className="mt-4 text-lg leading-8 text-slate-800">{result.summary}</p>
 
         <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-200/80 bg-white/70 p-4">
+          <div className="border border-slate-200 bg-slate-50 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Где ты силён</p>
             <ul className="mt-2 space-y-2 text-sm leading-7 text-slate-700">
               {result.strengths.map((item) => (
@@ -679,7 +683,7 @@ export function KanbanProQuiz(): JSX.Element {
               ))}
             </ul>
           </div>
-          <div className="rounded-xl border border-slate-200/80 bg-white/70 p-4">
+          <div className="border border-slate-200 bg-slate-50 p-4">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что слабее</p>
             <ul className="mt-2 space-y-2 text-sm leading-7 text-slate-700">
               {result.gaps.map((item) => (
@@ -689,12 +693,12 @@ export function KanbanProQuiz(): JSX.Element {
           </div>
         </div>
 
-        <div className="mt-5 rounded-xl border border-slate-200/80 bg-white/70 p-4">
+        <div className="mt-5 border border-slate-200 bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Что мешает перейти выше</p>
           <p className="mt-2 text-sm leading-7 text-slate-700">{result.blocker}</p>
         </div>
 
-        <div className="mt-5 rounded-xl border border-slate-200/80 bg-white/70 p-4">
+        <div className="mt-5 border border-slate-200 bg-slate-50 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Рекомендация</p>
           <p className="mt-2 text-sm leading-7 text-slate-700">{result.recommendation}</p>
         </div>
@@ -710,14 +714,14 @@ export function KanbanProQuiz(): JSX.Element {
                 score_total: totalScore
               })
             }
-            className="inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            className="inline-flex bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-brand"
           >
             {result.ctaLabel}
           </Link>
           <button
             type="button"
             onClick={startQuiz}
-            className="inline-flex rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            className="inline-flex border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand hover:text-brand"
           >
             Пройти заново
           </button>
@@ -727,7 +731,7 @@ export function KanbanProQuiz(): JSX.Element {
   }
 
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white p-7 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-9">
+    <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{getBlockTitle(question.id)}</p>
@@ -737,8 +741,8 @@ export function KanbanProQuiz(): JSX.Element {
         </div>
         <p className="text-sm font-medium text-slate-600">{progress}%</p>
       </div>
-      <div className="mt-2 h-2 rounded-full bg-slate-100">
-        <div className="h-2 rounded-full bg-slate-900 transition-all" style={{ width: `${progress}%` }} />
+      <div className="mt-2 h-2 bg-slate-100">
+        <div className="h-2 bg-brand transition-all" style={{ width: `${progress}%` }} />
       </div>
 
       <h3 className="mt-6 text-2xl font-black leading-tight tracking-tight text-slate-900 md:text-3xl">{question.text}</h3>
@@ -751,7 +755,7 @@ export function KanbanProQuiz(): JSX.Element {
               key={key}
               type="button"
               onClick={() => chooseAnswer(key)}
-              className={`rounded-xl border px-4 py-3 text-left text-sm leading-7 transition ${
+              className={`border px-4 py-3 text-left text-sm leading-7 transition ${
                 active
                   ? "border-slate-900 bg-slate-900 text-white"
                   : "border-slate-200 bg-slate-50 text-slate-800 hover:border-slate-300 hover:bg-slate-100"
@@ -771,7 +775,7 @@ export function KanbanProQuiz(): JSX.Element {
           type="button"
           onClick={goBack}
           disabled={index === 0}
-          className="inline-flex rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-brand hover:text-brand disabled:cursor-not-allowed disabled:opacity-50"
         >
           Назад
         </button>
@@ -779,7 +783,7 @@ export function KanbanProQuiz(): JSX.Element {
           type="button"
           onClick={goNext}
           disabled={!selected}
-          className="inline-flex rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-brand disabled:cursor-not-allowed disabled:opacity-50"
         >
           {index === QUESTIONS.length - 1 ? "Показать результат" : "Далее"}
         </button>

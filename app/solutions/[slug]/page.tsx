@@ -110,21 +110,19 @@ export default function SolutionPage({ params }: Props): JSX.Element {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([howToSchema, breadcrumbSchema]) }}
       />
 
-      <section className="relative overflow-hidden rounded-[2.35rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
-        <div
-          className="absolute -right-20 -top-24 h-72 w-72 rounded-full blur-3xl"
-          style={{ backgroundColor: theme.glow }}
-        />
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-36 w-64 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
         <div className="relative">
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/solutions"
-              className="rounded-full border border-white/15 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-white/60 transition hover:border-white/40 hover:text-white"
+              className="border border-slate-300 bg-white px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-slate-600 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
             >
               Рабочие задачи
             </Link>
             <span
-              className="rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
+              className="border px-3 py-1 text-xs font-bold uppercase tracking-[0.18em]"
               style={{
                 backgroundColor: theme.badgeBg,
                 borderColor: theme.badgeBorder,
@@ -134,10 +132,10 @@ export default function SolutionPage({ params }: Props): JSX.Element {
               {CATEGORY_SHORT_LABELS[solution.category]}
             </span>
           </div>
-          <h1 className="mt-5 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+          <h1 className="mt-5 max-w-4xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white md:text-6xl">
             {solution.title}
           </h1>
-          <p className="mt-6 max-w-[68ch] text-base leading-8 text-white/72 md:text-lg">
+          <p className="mt-6 max-w-[68ch] text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
             {solution.heroText}
           </p>
         </div>
