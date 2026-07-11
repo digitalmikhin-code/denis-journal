@@ -177,31 +177,31 @@ export default function StartPage(): JSX.Element {
   }));
 
   return (
-    <div className="space-y-10">
-      <section className="relative overflow-hidden rounded-[2.35rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
-        <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/35" />
-        <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#f5d45d]/30" />
+    <div className="space-y-8">
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-72 bg-[linear-gradient(135deg,transparent_0%,transparent_42%,rgba(11,77,186,0.14)_42%,rgba(11,77,186,0.14)_68%,rgba(8,46,115,0.9)_68%)]" />
         <div className="relative max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+          <p className="border-l-4 border-brand pl-3 text-xs font-semibold uppercase text-brand">
             Навигатор по журналу
           </p>
-          <h1 className="mt-4 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+          <h1 className="mt-4 max-w-[13ch] text-4xl font-black uppercase leading-[1.02] text-slate-950 dark:text-slate-50 md:text-6xl">
             Найдите свой вход
           </h1>
-          <p className="mt-5 max-w-[64ch] text-base leading-8 text-white/72 md:text-lg">
+          <p className="mt-5 max-w-[64ch] text-base leading-8 text-slate-700 dark:text-slate-300 md:text-lg">
             Выберите ситуацию, которая ближе всего к вашей. Я собрал маршруты так, чтобы вы не тонули
             в архиве, а сразу попадали к нужной теме, инструменту и следующему шагу.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <a
               href="#routes"
-              className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+              className="bg-brand px-6 py-3 text-base font-black text-white transition hover:-translate-y-0.5 hover:bg-brand-dark"
             >
               Выбрать свою ситуацию
             </a>
             <Link
               href="/hubs"
-              className="rounded-2xl border border-white/20 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
+              className="border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-900 transition hover:-translate-y-0.5 hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
             >
               Смотреть хабы
             </Link>
@@ -215,12 +215,12 @@ export default function StartPage(): JSX.Element {
           ["2", "Соберите оптику", "Одна статья дает вход, следующие материалы помогают увидеть систему."],
           ["3", "Перейдите к действию", "Диагностика, курс или разбор нужны тогда, когда появляется конкретный узел."]
         ].map(([step, title, text]) => (
-          <div key={step} className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-soft">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-black text-white">
+          <div key={step} className="border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-slate-900">
+            <span className="flex h-10 w-10 items-center justify-center bg-brand text-sm font-black text-white">
               {step}
             </span>
-            <h2 className="mt-4 text-xl font-black tracking-tight text-slate-900">{title}</h2>
-            <p className="mt-2 text-sm leading-7 text-slate-600">{text}</p>
+            <h2 className="mt-4 text-xl font-black text-slate-950 dark:text-slate-50">{title}</h2>
+            <p className="mt-2 text-sm leading-7 text-slate-600 dark:text-slate-300">{text}</p>
           </div>
         ))}
       </section>
@@ -232,31 +232,30 @@ export default function StartPage(): JSX.Element {
           return (
             <article
               key={route.slug}
-              className="overflow-hidden rounded-[2.2rem] border border-slate-200 bg-white shadow-[0_26px_62px_rgba(15,23,42,0.08)]"
+              className="overflow-hidden border border-slate-200 bg-white shadow-[0_22px_54px_rgba(9,22,43,0.07)] dark:border-slate-800 dark:bg-slate-900"
             >
               <div className="grid gap-0 xl:grid-cols-[0.82fr_1.18fr]">
-                <div className="relative overflow-hidden border-b border-slate-200 bg-[linear-gradient(135deg,#f8fafc_0%,#fff8e8_100%)] p-6 md:p-8 xl:border-b-0 xl:border-r">
+                <div className="relative overflow-hidden border-b border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8 xl:border-b-0 xl:border-r">
                   <div
-                    className="pointer-events-none absolute -right-14 -top-16 h-48 w-48 rounded-full opacity-30"
-                    style={{ backgroundColor: route.accent }}
+                    className="pointer-events-none absolute bottom-0 right-0 h-28 w-48 bg-[linear-gradient(135deg,transparent_0%,transparent_42%,rgba(11,77,186,0.14)_42%,rgba(11,77,186,0.14)_100%)]"
                   />
                   <div className="relative">
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
                       {route.audience}
                     </p>
-                    <h2 className="mt-3 text-3xl font-black leading-tight tracking-tight text-slate-900 md:text-4xl">
+                    <h2 className="mt-3 text-3xl font-black uppercase leading-tight text-slate-950 dark:text-slate-50 md:text-4xl">
                       {route.title}
                     </h2>
-                    <p className="mt-4 text-base leading-8 text-slate-700">{route.description}</p>
+                    <p className="mt-4 text-base leading-8 text-slate-700 dark:text-slate-300">{route.description}</p>
 
-                    <div className="mt-6 rounded-[1.5rem] border border-white/80 bg-white/80 p-4 shadow-sm">
+                    <div className="mt-6 border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                         Инструмент
                       </p>
-                      <p className="mt-2 text-lg font-black text-slate-900">{route.tool}</p>
+                      <p className="mt-2 text-lg font-black text-slate-950 dark:text-slate-50">{route.tool}</p>
                       <Link
                         href={route.toolHref}
-                        className="mt-3 inline-flex rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
+                        className="mt-3 inline-flex border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-800 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                       >
                         Перейти к инструменту
                       </Link>
@@ -266,16 +265,16 @@ export default function StartPage(): JSX.Element {
 
                 <div className="p-6 md:p-8">
                   {firstArticle ? (
-                    <div className="rounded-[1.75rem] border border-slate-200 bg-slate-50 p-5">
+                    <div className="border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950">
                       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                         Начните с этой статьи
                       </p>
-                      <h3 className="mt-3 text-2xl font-black tracking-tight text-slate-900">
+                      <h3 className="mt-3 text-2xl font-black text-slate-950 dark:text-slate-50">
                         <Link href={`/article/${firstArticle.slug}`} className="hover:text-brand">
                           {firstArticle.frontmatter.title}
                         </Link>
                       </h3>
-                      <p className="mt-3 text-sm leading-7 text-slate-600">
+                      <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
                         {firstArticle.frontmatter.excerpt}
                       </p>
                     </div>
@@ -287,12 +286,12 @@ export default function StartPage(): JSX.Element {
                         <Link
                           key={article.slug}
                           href={`/article/${article.slug}`}
-                          className="rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50"
+                          className="border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand dark:border-slate-800 dark:bg-slate-900"
                         >
                           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                             Читать дальше 0{index + 1}
                           </p>
-                          <h3 className="mt-2 text-lg font-black leading-tight text-slate-900">
+                          <h3 className="mt-2 text-lg font-black leading-tight text-slate-950 dark:text-slate-50">
                             {article.frontmatter.title}
                           </h3>
                         </Link>
@@ -301,33 +300,33 @@ export default function StartPage(): JSX.Element {
                   ) : null}
 
                   <div className="mt-5 grid gap-4 lg:grid-cols-2">
-                    <div className="rounded-[1.5rem] border border-[#95dff5] bg-[#eaf8ff] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#005b75]">
+                    <div className="border border-blue-100 bg-blue-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
                         Курс
                       </p>
-                      <p className="mt-2 text-lg font-black text-slate-900">{route.course.title}</p>
+                      <p className="mt-2 text-lg font-black text-slate-950 dark:text-slate-50">{route.course.title}</p>
                       <Link
                         href={route.course.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex rounded-xl bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-slate-800"
+                        className="mt-3 inline-flex bg-brand px-4 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
                       >
                         Смотреть курс
                       </Link>
                     </div>
 
-                    <div className="rounded-[1.5rem] border border-[#efb8d2] bg-[#fff0f7] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9f2f73]">
+                    <div className="border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
                         Когда нужна консультация
                       </p>
-                      <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">
+                      <p className="mt-2 text-sm font-semibold leading-6 text-slate-800 dark:text-slate-200">
                         {route.consultWhen}
                       </p>
                       <Link
                         href={TELEGRAM_CONSULT_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-flex rounded-xl bg-[#ff6a3d] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#ef5d31]"
+                        className="mt-3 inline-flex bg-slate-950 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-brand dark:bg-white dark:text-slate-950"
                       >
                         Обсудить задачу
                       </Link>
@@ -340,21 +339,21 @@ export default function StartPage(): JSX.Element {
         })}
       </section>
 
-      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 text-center shadow-soft md:p-8">
+      <section className="border border-slate-200 bg-white p-6 text-center shadow-soft dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
           Не уверены, с чего начать?
         </p>
-        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
+        <h2 className="mt-3 text-3xl font-black uppercase text-slate-950 dark:text-slate-50 md:text-4xl">
           Начните с диагностики или принесите задачу на разбор
         </h2>
-        <p className="mx-auto mt-4 max-w-[58ch] text-base leading-8 text-slate-700">
+        <p className="mx-auto mt-4 max-w-[58ch] text-base leading-8 text-slate-700 dark:text-slate-300">
           Если ситуация уже болит, не обязательно читать все подряд. Быстрее понять, где ограничение,
           и выбрать маршрут под вашу задачу.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Link
             href="/diagnostics"
-            className="rounded-2xl border border-slate-200 bg-white px-6 py-3 text-base font-bold text-slate-800 transition hover:bg-slate-50"
+            className="border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-800 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
           >
             Пройти диагностику
           </Link>
@@ -362,7 +361,7 @@ export default function StartPage(): JSX.Element {
             href={TELEGRAM_CONSULT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-2xl bg-slate-950 px-6 py-3 text-base font-bold text-white transition hover:bg-slate-800"
+            className="bg-brand px-6 py-3 text-base font-bold text-white transition hover:bg-brand-dark"
           >
             Обсудить задачу
           </Link>
