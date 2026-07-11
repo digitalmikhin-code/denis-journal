@@ -17,7 +17,7 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
 
   return (
     <article
-      className="mag-hover fade-in group overflow-hidden border border-slate-200/90 bg-white shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900"
+      className="mag-hover fade-in group overflow-hidden border border-slate-200/90 bg-white shadow-[0_18px_44px_rgba(9,22,43,0.06)] transition hover:border-slate-300 dark:border-slate-800 dark:bg-slate-900"
       style={{ boxShadow: `0 18px 44px -30px ${theme.glow}` }}
     >
       <Link href={`/article/${article.slug}`} className="block">
@@ -28,7 +28,7 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
             fill
             className="object-cover saturate-[0.82] transition duration-500 group-hover:scale-[1.02] group-hover:saturate-100"
           />
-          <div className="absolute inset-x-0 bottom-0 h-1 bg-brand" />
+          <div className={`absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r ${theme.line}`} />
         </div>
 
         <div className="space-y-4 bg-white p-5 dark:bg-slate-900 md:p-6">
@@ -42,11 +42,11 @@ export function ArticleCard({ article }: ArticleCardProps): JSX.Element {
 
           <div className="space-y-3">
             <span
-              className="inline-flex shrink-0 items-center border px-3 py-1 text-[0.68rem] font-bold uppercase"
+              className="inline-flex shrink-0 items-center border-l-4 bg-slate-50 px-3 py-1 text-[0.68rem] font-black uppercase tracking-[0.08em] dark:bg-slate-950"
               style={{
-                backgroundColor: theme.badgeBg,
                 color: theme.badgeText,
-                borderColor: theme.badgeBorder
+                borderColor: theme.badgeBorder,
+                borderLeftColor: theme.badgeText
               }}
             >
               {categoryLabel}

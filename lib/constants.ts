@@ -79,14 +79,14 @@ export const CATEGORY_THEME: Record<
     badgeBorder: "#c8d5e8"
   },
   management: {
-    chip: "border-[#b8cae7] bg-[#eaf1ff] text-[#0b4dba]",
-    chipSoft: "bg-[#f1f6ff] text-[#0b4dba]",
-    line: "from-[#0b4dba] to-[#1d5fd0]",
-    glow: "rgba(11, 77, 186, 0.18)",
+    chip: "border-[#b9d8cf] bg-[#edf8f4] text-[#11614d]",
+    chipSoft: "bg-[#f2faf7] text-[#11614d]",
+    line: "from-[#11614d] to-[#1f8a70]",
+    glow: "rgba(17, 97, 77, 0.16)",
     icon: "\u25c6",
-    badgeBg: "#eaf1ff",
-    badgeText: "#0b4dba",
-    badgeBorder: "#b8cae7"
+    badgeBg: "#edf8f4",
+    badgeText: "#11614d",
+    badgeBorder: "#b9d8cf"
   },
   thinking: {
     chip: "border-[#d3d8df] bg-[#f6f7f9] text-[#111827]",
@@ -99,14 +99,14 @@ export const CATEGORY_THEME: Record<
     badgeBorder: "#d3d8df"
   },
   agile: {
-    chip: "border-[#b7c9dc] bg-[#eef6ff] text-[#0a3c68]",
-    chipSoft: "bg-[#f3f8ff] text-[#0a3c68]",
-    line: "from-[#0a3c68] to-[#0b4dba]",
-    glow: "rgba(10, 60, 104, 0.15)",
+    chip: "border-[#bfd4e8] bg-[#eff6fb] text-[#0f4f76]",
+    chipSoft: "bg-[#f4f9fc] text-[#0f4f76]",
+    line: "from-[#0f4f76] to-[#2f7fa9]",
+    glow: "rgba(15, 79, 118, 0.15)",
     icon: "\u25c9",
-    badgeBg: "#eef6ff",
-    badgeText: "#0a3c68",
-    badgeBorder: "#b7c9dc"
+    badgeBg: "#eff6fb",
+    badgeText: "#0f4f76",
+    badgeBorder: "#bfd4e8"
   },
   architecture: {
     chip: "border-[#bfc7d2] bg-[#f2f5f8] text-[#1f2a3a]",
