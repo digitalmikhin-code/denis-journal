@@ -53,6 +53,15 @@ body::before {
   @apply mx-auto w-[min(1160px,92vw)];
 }
 
+body:has(.telegram-mini-app-shell) .site-footer {
+  display: none;
+}
+
+body:has(.telegram-mini-app-shell) main.container-shell {
+  width: 100%;
+  padding-block: 0;
+}
+
 .no-scrollbar {
   scrollbar-width: none;
 }

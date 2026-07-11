@@ -3,7 +3,7 @@ import { getAllCareerPaths, getCareerPathPrograms } from "@/lib/career-paths";
 import { getRecommendation } from "@/lib/recommendations";
 import { getSearchIndex, runSearch } from "@/lib/search-engine";
 import { getAllSolutions } from "@/lib/solutions";
-import { STEPIK_COURSES } from "@/lib/stepik-courses";
+import { COURSE_CATEGORIES, STEPIK_COURSES } from "@/lib/stepik-courses";
 import type {
   MiniAppCareerPath,
   MiniAppFocus,
@@ -54,7 +54,11 @@ export function pickMiniAppProgram(
       ? {
           id: Number(programItem.id.replace("program:", "")),
           title: programItem.title,
+          category: "search",
+          categoryTitle: programItem.label,
           level: programItem.level,
+          price: "Stepik",
+          summary: programItem.description,
           result: programItem.description,
           href: programItem.href
         }
@@ -103,7 +107,11 @@ function getMiniAppPrograms(): MiniAppProgram[] {
   return STEPIK_COURSES.map((course) => ({
     id: course.id,
     title: course.title,
+    category: course.category,
+    categoryTitle: COURSE_CATEGORIES.find((category) => category.id === course.category)?.title ?? "Курс",
     level: course.level,
+    price: course.price,
+    summary: course.summary,
     result: course.result || course.summary,
     href: `/training/${course.id}`
   }));

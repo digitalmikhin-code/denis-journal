@@ -33,7 +33,11 @@ export type MiniAppCareerPath = {
 export type MiniAppProgram = {
   id: number;
   title: string;
+  category: string;
+  categoryTitle: string;
   level: string;
+  price: string;
+  summary: string;
   result: string;
   href: string;
 };

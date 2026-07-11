@@ -50,7 +50,8 @@ export function TelegramScrollBanner(): JSX.Element | null {
   if (
     pathname.startsWith("/_dmk-admin") ||
     pathname.startsWith("/admin") ||
-    pathname.startsWith("/studio")
+    pathname.startsWith("/studio") ||
+    pathname.startsWith("/telegram-mini-app")
   ) {
     return null;
   }

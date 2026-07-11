@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { GlobalSearch } from "@/components/global-search";
 import { FIRST_MENU, SECOND_MENU } from "@/lib/constants";
 import type { SearchItem } from "@/lib/search-shared";
@@ -18,6 +19,7 @@ type MobileMenuItem = {
 };
 
 export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
+  const pathname = usePathname();
   const [dark, setDark] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const headerMenuItems: MobileMenuItem[] = [...FIRST_MENU, ...SECOND_MENU.slice(0, 5)];
@@ -75,6 +77,10 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
     } catch {
       // Ignore storage failures and keep theme only for the current session.
     }
+  }
+
+  if (pathname.startsWith("/telegram-mini-app")) {
+    return <></>;
   }
 
   return (

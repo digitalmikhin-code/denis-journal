@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { TelegramMiniAppClient } from "@/components/telegram-mini-app-client";
 import { getTelegramMiniAppSnapshot, pickMiniAppProgram } from "@/lib/telegram-mini-app-api";
 
@@ -22,7 +23,8 @@ export default function TelegramMiniAppPage(): JSX.Element {
   const initialPick = pickMiniAppProgram("manager", "management", "beginner");
 
   return (
-    <div className="-mx-4 -my-8 bg-slate-100 px-4 py-5 dark:bg-slate-950 md:mx-0 md:my-0 md:border md:border-slate-200 md:bg-white md:shadow-[0_24px_70px_rgba(9,22,43,0.08)]">
+    <div className="telegram-mini-app-shell min-h-screen bg-[#f5f7fa] dark:bg-slate-950">
+      <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive" />
       <TelegramMiniAppClient snapshot={snapshot} initialPick={initialPick} />
     </div>
   );

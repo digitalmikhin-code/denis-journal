@@ -9,6 +9,11 @@ export function CookieConsentBanner(): JSX.Element | null {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (window.location.pathname.startsWith("/telegram-mini-app")) {
+      setVisible(false);
+      return;
+    }
+
     try {
       const accepted = window.localStorage.getItem(STORAGE_KEY);
       if (!accepted) {
