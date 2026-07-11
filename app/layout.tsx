@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   applicationName: SITE_NAME,
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/images/denis-mikhin-logo.png", type: "image/png", sizes: "640x640" }
+      { url: "/images/denis-mikhin-logo.png", type: "image/png", sizes: "640x640" },
+      { url: "/favicon.svg", type: "image/svg+xml" }
     ],
-    shortcut: ["/favicon.svg"],
+    shortcut: ["/images/denis-mikhin-logo.png"],
     apple: [{ url: "/images/denis-mikhin-logo.png", type: "image/png", sizes: "640x640" }]
   },
   manifest: "/site.webmanifest",
