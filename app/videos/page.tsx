@@ -35,46 +35,45 @@ export default function VideosPage(): JSX.Element {
   }, {});
 
   return (
-    <div className="space-y-10">
-      <section className="relative overflow-hidden rounded-[2.25rem] border border-[#b7a9ff] bg-[#6d67df] px-8 py-10 text-white shadow-[0_32px_72px_rgba(67,56,202,0.24)] md:px-10 md:py-12">
-        <div className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full border-[14px] border-white/75" />
-        <div className="pointer-events-none absolute -bottom-24 right-20 h-72 w-72 rounded-full border-[10px] border-white/55" />
-        <div className="pointer-events-none absolute left-[56%] top-[18%] h-36 w-36 rounded-[2rem] border-2 border-[#2f2b86]/70 bg-white/15" />
+    <div className="space-y-8">
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
 
         <div className="relative grid gap-8 md:grid-cols-[1.08fr_0.92fr] md:items-center">
           <div className="space-y-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80">
+            <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">
               Видеоматериалы
             </p>
-            <h1 className="max-w-[11ch] text-5xl font-black leading-[0.93] tracking-tight md:text-7xl">
+            <h1 className="max-w-3xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white md:text-6xl">
               Видео Дениса Михина
             </h1>
-            <p className="max-w-[31ch] text-[1.45rem] leading-tight text-white/95 md:text-[1.8rem]">
+            <p className="max-w-2xl text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
               Здесь собраны разборы, вебинары и короткие практические видео о карьере,
               управлении и системном росте.
             </p>
             <div className="grid max-w-3xl gap-3 md:grid-cols-3">
-              <div className="rounded-[1.4rem] border border-[#f1e786] bg-[#fff7c8] p-4 text-[#403300] shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#7c6800]">
+              <div className="border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">
                   Формат
                 </p>
-                <p className="mt-2 text-sm font-medium leading-6">
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-650 dark:text-slate-300">
                   Коротко, по делу, без перегруза и лишних теорий.
                 </p>
               </div>
-              <div className="rounded-[1.4rem] border border-[#96e4cf] bg-[#ddfff3] p-4 text-[#104e3b] shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#0f7758]">
+              <div className="border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">
                   Польза
                 </p>
-                <p className="mt-2 text-sm font-medium leading-6">
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-650 dark:text-slate-300">
                   Конкретные управленческие выводы, которые можно применить в работе.
                 </p>
               </div>
-              <div className="rounded-[1.4rem] border border-[#f3b7d8] bg-[#ffe8f4] p-4 text-[#6f164c] shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9f2f73]">
+              <div className="border border-slate-200 bg-slate-50 p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">
                   Канал
                 </p>
-                <p className="mt-2 text-sm font-medium leading-6">
+                <p className="mt-2 text-sm font-medium leading-6 text-slate-650 dark:text-slate-300">
                   Видео дополняют статьи и Telegram, а не дублируют их.
                 </p>
               </div>
@@ -82,20 +81,20 @@ export default function VideosPage(): JSX.Element {
           </div>
 
           <div className="grid gap-4">
-            <div className="rounded-[2rem] border-4 border-[#2f2b86] bg-[#8b87eb] p-6 shadow-[0_14px_0_0_rgba(39,34,106,0.34)]">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/80">
+            <div className="border border-slate-200 bg-slate-950 p-6 text-white shadow-[0_18px_40px_rgba(9,22,43,0.14)] dark:border-slate-700">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
                 Внутри раздела
               </p>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-2xl bg-white/16 p-4">
+                <div className="border border-white/10 bg-white/[0.06] p-4">
                   <p className="text-3xl font-black leading-none">{videos.length}</p>
                   <p className="mt-2 text-sm text-white/90">Видео в архиве</p>
                 </div>
-                <div className="rounded-2xl bg-white/16 p-4">
+                <div className="border border-white/10 bg-white/[0.06] p-4">
                   <p className="text-3xl font-black leading-none">{byPlatform.rutube || 0}</p>
                   <p className="mt-2 text-sm text-white/90">RuTube</p>
                 </div>
-                <div className="rounded-2xl bg-white/16 p-4">
+                <div className="border border-white/10 bg-white/[0.06] p-4">
                   <p className="text-3xl font-black leading-none">
                     {(byPlatform.youtube || 0) + (byPlatform.vk || 0)}
                   </p>
@@ -109,14 +108,14 @@ export default function VideosPage(): JSX.Element {
             </div>
 
             {latest ? (
-              <article className="rounded-[1.8rem] border border-white/25 bg-white/14 p-5 backdrop-blur">
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/75">
+              <article className="border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
                   Свежий выпуск
                 </p>
-                <h2 className="mt-3 text-2xl font-black leading-tight tracking-tight">
+                <h2 className="mt-3 text-2xl font-black leading-tight tracking-tight text-slate-950 dark:text-white">
                   {latest.frontmatter.title}
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/85">
+                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
                   {formatDate(latest.frontmatter.date)} • {PLATFORM_LABEL[latest.frontmatter.platform] || latest.frontmatter.platform}
                 </p>
               </article>
@@ -126,8 +125,8 @@ export default function VideosPage(): JSX.Element {
       </section>
 
       <section className="grid gap-5 md:grid-cols-3">
-        <article className="rounded-[1.8rem] border border-cyan-200 bg-gradient-to-br from-cyan-50 via-white to-sky-50 p-6 shadow-[0_18px_40px_rgba(8,145,178,0.08)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">
+        <article className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">
             Как использовать
           </p>
           <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
@@ -139,8 +138,8 @@ export default function VideosPage(): JSX.Element {
           </p>
         </article>
 
-        <article className="rounded-[1.8rem] border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-violet-50 p-6 shadow-[0_18px_40px_rgba(99,102,241,0.08)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-indigo-700">
+        <article className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">
             Что внутри
           </p>
           <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
@@ -152,8 +151,8 @@ export default function VideosPage(): JSX.Element {
           </p>
         </article>
 
-        <article className="rounded-[1.8rem] border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-lime-50 p-6 shadow-[0_18px_40px_rgba(16,185,129,0.08)]">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-700">
+        <article className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">
             Связанный канал
           </p>
           <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
@@ -167,7 +166,7 @@ export default function VideosPage(): JSX.Element {
             href={TELEGRAM_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 inline-flex text-sm font-semibold text-emerald-700 hover:underline"
+            className="mt-4 inline-flex text-sm font-bold text-brand hover:underline"
           >
             Перейти в Telegram
           </Link>

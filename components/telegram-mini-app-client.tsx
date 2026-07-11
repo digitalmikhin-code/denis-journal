@@ -87,11 +87,12 @@ export function TelegramMiniAppClient({
   );
 
   return (
-    <div className="mx-auto min-h-[calc(100vh-4rem)] max-w-[520px] space-y-4 rounded-[2rem] bg-slate-950 p-3 text-white shadow-[0_24px_80px_rgba(15,23,42,0.28)]">
-      <header className="rounded-[1.7rem] bg-gradient-to-br from-[#2AABEE] to-[#1788D4] p-5">
-        <p className="text-xs font-black uppercase tracking-[0.18em] text-white/75">Telegram Mini App</p>
+    <div className="mx-auto min-h-[calc(100vh-4rem)] max-w-[520px] space-y-4 border border-slate-200 bg-white p-3 text-slate-950 shadow-[0_24px_70px_rgba(9,22,43,0.08)]">
+      <header className="relative overflow-hidden border border-slate-200 bg-slate-950 p-5 text-white">
+        <div className="pointer-events-none absolute bottom-0 right-0 h-16 w-28 bg-brand [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
+        <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-white/70">Telegram Mini App</p>
         <h1 className="mt-2 text-3xl font-black leading-tight">Навигатор развития</h1>
-        <p className="mt-2 text-sm font-semibold leading-6 text-white/85">
+        <p className="mt-2 text-sm font-semibold leading-6 text-white/78">
           Привет, {userName}. Что хотите сделать сегодня?
         </p>
       </header>
@@ -141,7 +142,7 @@ export function TelegramMiniAppClient({
         <FavoritesView snapshot={snapshot} isAuthorized={isAuthorized} favoriteIds={favoriteIds} />
       ) : null}
 
-      <footer className="rounded-[1.5rem] bg-white/5 p-4 text-center text-xs font-bold text-white/45">
+      <footer className="border border-slate-200 bg-slate-50 p-4 text-center text-xs font-bold text-slate-500">
         Mini App использует Search Engine, Recommendation Engine и API личного кабинета сайта.
       </footer>
     </div>
@@ -170,7 +171,7 @@ function HomeView({
               if (view) onOpen(view);
               if (action.id === "site") window.location.href = "/";
             }}
-            className="rounded-[1.5rem] bg-white p-4 text-left text-slate-950 transition active:scale-[0.98]"
+            className="border border-slate-200 bg-white p-4 text-left text-slate-950 transition active:scale-[0.98]"
           >
             <span className="block text-lg font-black">{action.title}</span>
             <span className="mt-1 block text-sm font-bold text-slate-500">{action.description}</span>
@@ -204,8 +205,8 @@ function PickerView({
       <ChoiceGroup title="Кто вы?" value={role} options={MINI_APP_ROLES} onChange={(value) => setRole(value as MiniAppRole)} />
       <ChoiceGroup title="Что хотите улучшить?" value={focus} options={MINI_APP_FOCUSES} onChange={(value) => setFocus(value as MiniAppFocus)} />
       <ChoiceGroup title="Какой уровень?" value={level} options={MINI_APP_LEVELS} onChange={(value) => setLevel(value as MiniAppLevel)} />
-      <div className="rounded-[1.5rem] bg-white p-4 text-slate-950">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1788D4]">Рекомендация</p>
+      <div className="border border-slate-200 bg-white p-4 text-slate-950">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">Рекомендация</p>
         <h2 className="mt-2 text-xl font-black">{pick.program.title}</h2>
         <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{pick.program.result}</p>
         <div className="mt-4 grid gap-2">
@@ -239,14 +240,14 @@ function SolutionsView({
             onClick={() => onSelect(solution.slug)}
             className={cn(
               "rounded-[1.25rem] p-4 text-left font-black transition active:scale-[0.98]",
-              selectedSlug === solution.slug ? "bg-[#2AABEE] text-white" : "bg-white text-slate-950"
+              selectedSlug === solution.slug ? "bg-brand text-white" : "bg-white text-slate-950"
             )}
           >
             {solution.title}
           </button>
         ))}
       </div>
-      <div className="rounded-[1.5rem] bg-white p-4 text-slate-950">
+      <div className="border border-slate-200 bg-white p-4 text-slate-950">
         <h2 className="text-xl font-black">{selectedSolution.title}</h2>
         <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{selectedSolution.description}</p>
         <MiniLink href={selectedSolution.href} label="Открыть подробное решение на сайте" />
@@ -302,7 +303,7 @@ function SearchView({
       <div className="grid gap-2">
         {results.map((item) => (
           <Link key={item.id} href={item.href} className="rounded-[1.25rem] bg-white p-4 text-slate-950">
-            <span className="text-xs font-black uppercase tracking-[0.14em] text-[#1788D4]">{item.label}</span>
+            <span className="text-xs font-black uppercase tracking-[0.14em] text-brand">{item.label}</span>
             <span className="mt-1 block text-lg font-black">{item.title}</span>
           </Link>
         ))}
@@ -315,7 +316,7 @@ function CareerPathsView({ snapshot }: { snapshot: TelegramMiniAppSnapshot }): J
   return (
     <section className="grid gap-3">
       {snapshot.careerPaths.map((path) => (
-        <div key={path.slug} className="rounded-[1.5rem] bg-white p-4 text-slate-950">
+        <div key={path.slug} className="border border-slate-200 bg-white p-4 text-slate-950">
           <h2 className="text-xl font-black">{path.title}</h2>
           <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{path.description}</p>
           <p className="mt-3 text-xs font-black text-slate-400">
@@ -332,8 +333,8 @@ function ProgramsView({ snapshot }: { snapshot: TelegramMiniAppSnapshot }): JSX.
   return (
     <section className="grid gap-3">
       {snapshot.programs.slice(0, 12).map((program) => (
-        <div key={program.id} className="rounded-[1.5rem] bg-white p-4 text-slate-950">
-          <p className="text-xs font-black uppercase tracking-[0.14em] text-[#1788D4]">{program.level}</p>
+        <div key={program.id} className="border border-slate-200 bg-white p-4 text-slate-950">
+          <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">{program.level}</p>
           <h2 className="mt-1 text-xl font-black">{program.title}</h2>
           <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{program.result}</p>
           <MiniLink href={program.href} label="Начать обучение" />
@@ -367,7 +368,7 @@ function FavoritesView({
     <section className="grid gap-3">
       {(favorites.length > 0 ? favorites : snapshot.account.favoriteCandidates.slice(0, 5)).map((item) => (
         <Link key={item.id} href={item.href} className="rounded-[1.25rem] bg-white p-4 text-slate-950">
-          <span className="text-xs font-black uppercase tracking-[0.14em] text-[#1788D4]">{item.label}</span>
+          <span className="text-xs font-black uppercase tracking-[0.14em] text-brand">{item.label}</span>
           <span className="mt-1 block text-lg font-black">{item.title}</span>
         </Link>
       ))}
@@ -397,7 +398,7 @@ function ChoiceGroup({
             onClick={() => onChange(option.id)}
             className={cn(
               "rounded-full px-3 py-2 text-xs font-black transition",
-              value === option.id ? "bg-[#2AABEE] text-white" : "bg-white text-slate-950"
+              value === option.id ? "bg-brand text-white" : "bg-white text-slate-950"
             )}
           >
             {option.label}
@@ -410,8 +411,8 @@ function ChoiceGroup({
 
 function MiniRecommendation({ recommendation }: { recommendation: TelegramMiniAppSnapshot["recommendation"] }): JSX.Element {
   return (
-    <section className="rounded-[1.5rem] bg-white p-4 text-slate-950">
-      <p className="text-xs font-black uppercase tracking-[0.16em] text-[#1788D4]">Следующий шаг</p>
+    <section className="border border-slate-200 bg-white p-4 text-slate-950">
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">Следующий шаг</p>
       <h2 className="mt-2 text-xl font-black">{recommendation.title}</h2>
       <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{recommendation.description}</p>
       <MiniLink href={recommendation.href} label={recommendation.ctaLabel} />
@@ -421,7 +422,7 @@ function MiniRecommendation({ recommendation }: { recommendation: TelegramMiniAp
 
 function MiniList({ title, items }: { title: string; items: Array<{ title: string; href: string }> }): JSX.Element {
   return (
-    <section className="rounded-[1.5rem] bg-white p-4 text-slate-950">
+    <section className="border border-slate-200 bg-white p-4 text-slate-950">
       <h2 className="text-lg font-black">{title}</h2>
       <div className="mt-3 grid gap-2">
         {items.map((item) => (
@@ -440,7 +441,7 @@ function MiniLink({ href, label, secondary = false }: { href: string; label: str
       href={href}
       className={cn(
         "mt-4 inline-flex w-full justify-center rounded-2xl px-4 py-3 text-center text-sm font-black",
-        secondary ? "bg-slate-100 text-slate-800" : "bg-[#2AABEE] text-white"
+        secondary ? "bg-slate-100 text-slate-800" : "bg-brand text-white"
       )}
     >
       {label}

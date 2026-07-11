@@ -22,7 +22,7 @@ export default function TelegramMiniAppPage(): JSX.Element {
   const initialPick = pickMiniAppProgram("manager", "management", "beginner");
 
   return (
-    <div className="-mx-4 -my-8 bg-slate-950 px-4 py-5 md:mx-0 md:my-0 md:rounded-[2rem]">
+    <div className="-mx-4 -my-8 bg-slate-100 px-4 py-5 dark:bg-slate-950 md:mx-0 md:my-0 md:border md:border-slate-200 md:bg-white md:shadow-[0_24px_70px_rgba(9,22,43,0.08)]">
       <TelegramMiniAppClient snapshot={snapshot} initialPick={initialPick} />
     </div>
   );

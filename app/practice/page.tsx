@@ -39,19 +39,19 @@ const designNotes = [
 
 export default function PracticePage(): JSX.Element {
   return (
-    <div className="space-y-12">
-      <section className="relative overflow-hidden rounded-[2.5rem] border border-slate-200 bg-[#111827] px-6 py-10 text-white shadow-[0_30px_80px_rgba(15,23,42,0.24)] md:px-10 md:py-14">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full border-[18px] border-[#f2c14e]/25" />
-        <div className="pointer-events-none absolute bottom-8 right-24 h-28 w-28 rounded-[2rem] border border-white/20 bg-white/5 rotate-12" />
+    <div className="space-y-8">
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/55">
+            <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">
               Кейс-библиотека
             </p>
-            <h1 className="mt-4 max-w-4xl text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+            <h1 className="mt-4 max-w-4xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white md:text-6xl">
               Практика изменений
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-white/76 md:text-xl">
+            <p className="mt-6 max-w-3xl text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
               Разборы управленческих ситуаций без раскрытия конфиденциальных данных: проблема,
               причина, система, решение и эффект. Этот раздел показывает, как изменения работают
               в реальной организационной механике.
@@ -59,7 +59,7 @@ export default function PracticePage(): JSX.Element {
             <div className="mt-7 flex flex-wrap gap-3">
               <Link
                 href="#cases"
-                className="rounded-2xl bg-white px-6 py-3 text-base font-bold text-slate-950 transition hover:bg-slate-100"
+                className="bg-brand px-6 py-3 text-base font-bold text-white transition hover:bg-brand-dark"
               >
                 Смотреть разборы
               </Link>
@@ -67,21 +67,21 @@ export default function PracticePage(): JSX.Element {
                 href={TELEGRAM_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-white/25 bg-white/10 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/15"
+                className="border border-slate-300 bg-white px-6 py-3 text-base font-semibold text-slate-950 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-white"
               >
                 Разобрать мою ситуацию
               </Link>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/8 p-5 backdrop-blur">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+          <div className="border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_18px_40px_rgba(9,22,43,0.12)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/60">
               Как читать кейсы
             </p>
             <div className="mt-4 grid gap-3">
               {["Симптом", "Системная причина", "Изменение", "Эффект"].map((item, index) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-white/8 p-4">
-                  <p className="text-xs font-black uppercase tracking-[0.14em] text-[#f2c14e]">
+                <div key={item} className="border border-white/10 bg-white/[0.06] p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.14em] text-brand-light">
                     0{index + 1}
                   </p>
                   <p className="mt-1 text-lg font-black">{item}</p>
@@ -94,14 +94,14 @@ export default function PracticePage(): JSX.Element {
 
       <section className="grid gap-5 md:grid-cols-3">
         {principles.map((item) => (
-          <article key={item.title} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(15,23,42,0.06)]">
+          <article key={item.title} className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
             <h2 className="text-2xl font-black tracking-tight text-slate-950">{item.title}</h2>
             <p className="mt-3 text-sm leading-7 text-slate-650">{item.text}</p>
           </article>
         ))}
       </section>
 
-      <section className="rounded-[2rem] border border-slate-200 bg-[#f7f1e7] p-6 md:p-8">
+      <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -117,8 +117,8 @@ export default function PracticePage(): JSX.Element {
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {PRACTICE_CASE_TEMPLATE.map((item, index) => (
-              <div key={item} className="rounded-2xl border border-[#e2d0b3] bg-white/78 p-4">
-                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6427]">
+              <div key={item} className="border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">{item}</p>
@@ -147,7 +147,7 @@ export default function PracticePage(): JSX.Element {
           {PRACTICE_CASES.map((item, index) => (
             <article
               key={item.slug}
-              className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_20px_55px_rgba(15,23,42,0.07)]"
+              className="overflow-hidden border border-slate-200 bg-white shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900"
             >
               <div className="grid gap-0 lg:grid-cols-[0.35fr_0.65fr]">
                 <div className="bg-slate-950 p-6 text-white md:p-7">
@@ -155,13 +155,13 @@ export default function PracticePage(): JSX.Element {
                     Кейс {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-4 text-3xl font-black leading-tight tracking-tight">{item.title}</h3>
-                  <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-[#f2c14e]">
+                  <p className="mt-5 text-sm font-semibold uppercase tracking-[0.16em] text-brand-light">
                     Ситуация
                   </p>
                   <p className="mt-2 text-sm leading-7 text-white/72">{item.situation}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold text-white/78">
+                    <span key={tag} className="border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold text-white/78">
                         {tag}
                       </span>
                     ))}
@@ -204,8 +204,8 @@ export default function PracticePage(): JSX.Element {
                       </ul>
                     </CaseBlock>
                   </div>
-                  <div className="rounded-2xl border border-[#f0d68b] bg-[#fff8dc] p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6500]">
+                  <div className="border border-brand/20 bg-brand/5 p-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">
                       Когда стоит обратиться за консультацией
                     </p>
                     <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">{item.consultWhen}</p>
@@ -218,7 +218,7 @@ export default function PracticePage(): JSX.Element {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-[1fr_0.78fr]">
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_rgba(15,23,42,0.05)] md:p-8">
+        <div className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
             Рекомендации по оформлению
           </p>
@@ -227,21 +227,21 @@ export default function PracticePage(): JSX.Element {
           </h2>
           <div className="mt-5 grid gap-3">
             {designNotes.map((item) => (
-              <p key={item} className="rounded-2xl bg-slate-50 p-4 text-sm font-semibold leading-7 text-slate-700">
+              <p key={item} className="border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-7 text-slate-700 dark:border-slate-800 dark:bg-slate-950">
                 {item}
               </p>
             ))}
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-[#f2c14e] p-6 text-slate-950 shadow-[0_18px_45px_rgba(242,193,78,0.22)] md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-700">
+        <div className="border border-slate-200 bg-slate-950 p-6 text-white shadow-[0_18px_44px_rgba(9,22,43,0.12)] md:p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
             CTA на консалтинг
           </p>
           <h2 className="mt-2 text-3xl font-black tracking-tight">
             Узнаёте свою ситуацию?
           </h2>
-          <p className="mt-4 text-base font-semibold leading-7 text-slate-800">
+          <p className="mt-4 text-base font-semibold leading-7 text-white/76">
             Если в вашей компании есть похожий симптом, можно разобрать не “кто виноват”, а какая
             управленческая механика создаёт проблему и что стоит изменить первым.
           </p>
@@ -249,7 +249,7 @@ export default function PracticePage(): JSX.Element {
             href={TELEGRAM_CONSULT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex rounded-2xl bg-slate-950 px-6 py-3 text-base font-black text-white transition hover:bg-slate-800"
+            className="mt-6 inline-flex bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:bg-slate-100"
           >
             Обсудить консультацию
           </Link>
@@ -267,7 +267,7 @@ export default function PracticePage(): JSX.Element {
 
 function CaseBlock({ title, children }: { title: string; children: ReactNode }): JSX.Element {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+    <div className="border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">{title}</p>
       <div className="mt-2 text-sm leading-7 text-slate-650">{children}</div>
     </div>

@@ -125,7 +125,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
     const block = MATURITY_BLOCKS.find((item) => item.key === question.block);
 
     return (
-      <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_30px_80px_rgba(15,23,42,0.1)]">
+      <section className="overflow-hidden border border-slate-200 bg-white shadow-[0_24px_70px_rgba(9,22,43,0.08)]">
         <div className="grid gap-0 lg:grid-cols-[0.75fr_1.25fr]">
           <aside className="border-b border-slate-200 bg-slate-950 p-6 text-white md:p-8 lg:border-b-0 lg:border-r">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
@@ -134,7 +134,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
             <h2 className="mt-3 text-3xl font-black tracking-tight">{block?.title}</h2>
             <p className="mt-3 text-sm leading-7 text-white/70">{block?.description}</p>
             <div className="mt-7 h-3 overflow-hidden rounded-full bg-white/10">
-              <div className="h-full rounded-full bg-[#f5d45d] transition-all" style={{ width: `${progress}%` }} />
+              <div className="h-full rounded-full bg-brand transition-all" style={{ width: `${progress}%` }} />
             </div>
             <p className="mt-3 text-sm font-semibold text-white/60">Прогресс: {progress}%</p>
             <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.06] p-4">
@@ -216,27 +216,27 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
 
   return (
     <div className="space-y-8">
-      <section className="relative overflow-hidden rounded-[2.35rem] border border-slate-800 bg-slate-950 p-7 text-white shadow-[0_36px_92px_rgba(15,23,42,0.24)] md:p-10">
-        <div className="pointer-events-none absolute -right-20 top-10 h-64 w-64 rounded-full border-[18px] border-[#f5d45d]/35" />
-        <div className="pointer-events-none absolute -bottom-28 left-10 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/30" />
+      <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+            <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">
               {MANAGEMENT_MATURITY_INDEX.price}
             </p>
-            <h1 className="mt-4 max-w-[12ch] text-5xl font-black leading-[0.92] tracking-tight md:text-7xl">
+            <h1 className="mt-4 max-w-4xl text-4xl font-black leading-[0.98] tracking-tight text-slate-950 dark:text-white md:text-6xl">
               {MANAGEMENT_MATURITY_INDEX.title}
             </h1>
-            <p className="mt-5 max-w-[60ch] text-xl font-semibold leading-tight text-white/90 md:text-2xl">
+            <p className="mt-5 max-w-[60ch] text-xl font-semibold leading-tight text-slate-950 dark:text-white md:text-2xl">
               {MANAGEMENT_MATURITY_INDEX.promise}
             </p>
-            <p className="mt-5 max-w-[68ch] text-base leading-8 text-white/72">
+            <p className="mt-5 max-w-[68ch] text-base leading-8 text-slate-650 dark:text-slate-300">
               {MANAGEMENT_MATURITY_INDEX.subtitle}
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a
                 href="#access"
-                className="rounded-2xl bg-white px-6 py-3 text-base font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+                className="bg-brand px-6 py-3 text-base font-black text-white transition hover:bg-brand-dark"
               >
                 Открыть диагностику
               </a>
@@ -244,7 +244,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
                 href={TELEGRAM_CONSULT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-white/20 bg-white/[0.06] px-6 py-3 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/[0.1]"
+                className="border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-950 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-white"
               >
                 Обсудить доступ
               </Link>
@@ -258,7 +258,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
               ["900", "баллов индекса"],
               ["PDF", "отчет с планом"]
             ].map(([value, label]) => (
-              <div key={label} className="rounded-[1.5rem] border border-white/10 bg-white/[0.06] p-5">
+              <div key={label} className="border border-slate-200 bg-slate-950 p-5 text-white dark:border-slate-700">
                 <p className="text-4xl font-black leading-none">{value}</p>
                 <p className="mt-2 text-sm font-semibold leading-6 text-white/68">{label}</p>
               </div>
@@ -268,8 +268,8 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
-        <div id="access" className="scroll-mt-28 rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-soft md:p-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8a6e00]">Бесплатная диагностика</p>
+        <div id="access" className="scroll-mt-28 border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Бесплатная диагностика</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Начните с честного среза</h2>
           <p className="mt-4 text-base leading-8 text-slate-700">
             Регистрация не нужна. Диагностика сразу покажет общий индекс, сильные стороны, зоны развития
@@ -278,18 +278,18 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
           <button
             type="button"
             onClick={startTest}
-            className="mt-5 rounded-2xl bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-slate-800"
+            className="mt-5 bg-slate-950 px-5 py-3 text-sm font-black text-white transition hover:bg-brand"
           >
             Начать диагностику
           </button>
         </div>
 
-        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+        <div className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Что внутри отчета</p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">Не “тип личности”, а управленческая карта</h2>
           <div className="mt-5 grid gap-3">
             {MANAGEMENT_MATURITY_INDEX.reportSections.map((item, index) => (
-              <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div key={item} className="border border-slate-200 bg-slate-50 p-4">
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-400">0{index + 1}</p>
                 <p className="mt-2 text-sm font-semibold leading-6 text-slate-800">{item}</p>
               </div>
@@ -298,7 +298,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
+      <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] md:p-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Методология</p>
@@ -311,7 +311,7 @@ export function ManagementMaturityIndexProduct(): JSX.Element {
         </div>
         <div className="mt-6 grid gap-3 md:grid-cols-3">
           {MATURITY_BLOCKS.map((block) => (
-            <article key={block.key} className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+            <article key={block.key} className="border border-slate-200 bg-slate-50 p-4">
               <h3 className="text-lg font-black tracking-tight text-slate-900">{block.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{block.description}</p>
             </article>
@@ -354,8 +354,8 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
         </div>
 
         <div className="space-y-4">
-          <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Ваш управленческий профиль</p>
+          <div className="border border-brand/20 bg-brand/5 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Ваш управленческий профиль</p>
             <h3 className="mt-2 text-2xl font-black tracking-tight text-slate-900">{profile.title}</h3>
             <p className="mt-3 text-sm leading-7 text-slate-700">{profile.summary}</p>
           </div>
@@ -424,8 +424,8 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
             </div>
           </div>
 
-          <div className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Главный вывод</p>
+          <div className="border border-brand/20 bg-brand/5 p-5">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Главный вывод</p>
             <p className="mt-3 text-sm leading-7 text-slate-700">{level.recommendation}</p>
           </div>
         </div>
@@ -464,8 +464,8 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
         </div>
       </section>
 
-      <section className="rounded-[1.8rem] border border-[#f1d973] bg-[#fff9d4] p-5">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">Рекомендуем изучить</p>
+      <section className="border border-brand/20 bg-brand/5 p-5">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Рекомендуем изучить</p>
         <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-900">
           Курсы под ваши зоны развития
         </h3>
@@ -513,7 +513,7 @@ function MaturityResult({ answers, onRestart }: { answers: AnswerMap; onRestart:
                 rel="noopener noreferrer"
                 className="rounded-2xl border border-white/70 bg-white/75 p-4 transition hover:-translate-y-0.5 hover:bg-white"
               >
-                <p className="text-xs font-black uppercase tracking-[0.14em] text-[#8a6e00]">{block.fullTitle}</p>
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">{block.fullTitle}</p>
                 <h4 className="mt-2 text-xl font-black leading-tight text-slate-900">{recommendation.title}</h4>
                 <p className="mt-2 text-sm leading-6 text-slate-700">
                   Этот курс закрывает дефицит, который диагностика показала в зоне “{block.fullTitle}”.

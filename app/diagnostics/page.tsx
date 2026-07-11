@@ -17,18 +17,22 @@ export default function DiagnosticsPage(): JSX.Element {
   ];
 
   return (
-    <div className="space-y-6">
-      <header className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#eef8ff_0%,#f7f2ff_52%,#fff6ec_100%)] p-7 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-9">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Новый раздел</p>
-        <h1 className="mt-2 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">Диагностика</h1>
-        <p className="mt-4 max-w-[64ch] text-base leading-8 text-slate-700 md:text-lg">
+    <div className="space-y-8">
+      <header className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
+        <div className="relative max-w-4xl">
+        <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">Новый раздел</p>
+        <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-slate-950 dark:text-white md:text-6xl">Диагностика</h1>
+        <p className="mt-4 max-w-[64ch] text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
           В этом разделе собраны диагностические тесты по управлению, командам и системам работы.
           Выбирайте актуальную диагностику, проходите за несколько минут и получайте персональные ориентиры для роста.
         </p>
+        </div>
       </header>
 
-      <section className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-slate-950 p-6 text-white shadow-[0_28px_70px_rgba(15,23,42,0.18)] md:p-8">
-        <div className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full border-[14px] border-[#f5d45d]/35" />
+      <section className="relative overflow-hidden border border-slate-200 bg-slate-950 p-6 text-white shadow-[0_24px_70px_rgba(9,22,43,0.12)] md:p-8">
+        <div className="pointer-events-none absolute bottom-0 right-0 h-24 w-40 bg-brand [clip-path:polygon(44%_0,100%_0,100%_100%,0_100%)]" />
         <div className="relative grid gap-6 lg:grid-cols-[1fr_0.9fr] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
@@ -43,7 +47,7 @@ export default function DiagnosticsPage(): JSX.Element {
             </p>
             <Link
               href="/diagnostics/management-maturity-index"
-              className="mt-6 inline-flex rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:-translate-y-0.5 hover:bg-slate-100"
+              className="mt-6 inline-flex bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-slate-100"
             >
               Открыть ИУЗ
             </Link>
@@ -55,7 +59,7 @@ export default function DiagnosticsPage(): JSX.Element {
               ["9", "зон управления"],
               ["PDF", "отчет и план развития"]
             ].map(([value, label]) => (
-              <div key={label} className="rounded-[1.4rem] border border-white/10 bg-white/[0.06] p-4">
+              <div key={label} className="border border-white/10 bg-white/[0.06] p-4">
                 <p className="text-3xl font-black leading-none">{value}</p>
                 <p className="mt-2 text-sm font-semibold leading-6 text-white/68">{label}</p>
               </div>
@@ -64,7 +68,7 @@ export default function DiagnosticsPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
+      <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -84,7 +88,7 @@ export default function DiagnosticsPage(): JSX.Element {
             <Link
               key={title}
               href={href}
-              className="rounded-[1.4rem] border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-[0_16px_34px_rgba(15,23,42,0.07)]"
+              className="border border-slate-200 bg-slate-50 p-4 transition hover:border-brand hover:bg-white hover:shadow-[0_16px_34px_rgba(9,22,43,0.07)] dark:border-slate-800 dark:bg-slate-950"
             >
               <h3 className="text-base font-black leading-tight text-slate-900">{title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
@@ -93,8 +97,8 @@ export default function DiagnosticsPage(): JSX.Element {
         </div>
       </section>
 
-      <section className="rounded-[2rem] border border-[#f1d973] bg-[#fff9d4] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8a6e00]">
+      <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">
           Лид-магнит для бизнеса
         </p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
@@ -106,14 +110,14 @@ export default function DiagnosticsPage(): JSX.Element {
         </p>
         <Link
           href="/lead/business-control-diagnostic"
-          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+          className="mt-5 inline-flex bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand"
         >
           Получить диагностику
         </Link>
       </section>
 
-      <section className="rounded-[2rem] border border-[#ec9a48] bg-[#fff0df] p-6 shadow-[0_18px_40px_rgba(15,23,42,0.06)] md:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#9a4d00]">
+      <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-brand">
           PDF для руководителя
         </p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
@@ -125,7 +129,7 @@ export default function DiagnosticsPage(): JSX.Element {
         </p>
         <Link
           href="/lead/manager-ai-prompts"
-          className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+          className="mt-5 inline-flex bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand"
         >
           Получить PDF
         </Link>
