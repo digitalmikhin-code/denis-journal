@@ -49,6 +49,7 @@ collections:
       - label: "Body"
         name: "body"
         widget: "markdown"
+        required: false
         hint: "Шаблон: Вступление → 3 тезиса → Вывод и CTA"
         default: |
           ## Вступление
