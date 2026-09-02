@@ -76,6 +76,10 @@ function sendTelegram(text) {
     const req = https.request(
       {
         hostname: "api.telegram.org",
+        family: 4,
+        lookup: (_hostname, _options, callback) => {
+          callback(null, "149.154.167.220", 4);
+        },
         path: `/bot${token}/sendMessage`,
         method: "POST",
         headers: {
@@ -102,6 +106,9 @@ function sendTelegram(text) {
     );
 
     req.on("error", reject);
+    req.setTimeout(6000, () => {
+      req.destroy(new Error("Telegram API request timed out after 6 seconds"));
+    });
     req.write(body);
     req.end();
   });
@@ -139,6 +146,11 @@ module.exports.handler = async function handler(event) {
       `\u{1F3E2} <b>\u041a\u043e\u043c\u043f\u0430\u043d\u0438\u044f:</b> ${escapeHtml(data.company)}`,
       `\u{1F4BC} <b>\u0414\u043e\u043b\u0436\u043d\u043e\u0441\u0442\u044c:</b> ${escapeHtml(data.role)}`,
       `\u{1F4AC} <b>Telegram:</b> ${escapeHtml(data.telegram)}`,
+      formatLine("\u{1F4DE} <b>Контакт:</b>", data.contact),
+      formatLine("\u{1F4F2} <b>Предпочтительный способ связи:</b>", data.preferredContact),
+      formatLine("\u{1F3AF} <b>Интерес:</b>", data.interest),
+      formatLine("\u{1F4E6} <b>Пакет:</b>", data.package),
+      formatLine("\u{1F4B0} <b>Стоимость:</b>", data.price),
       `\u{1F517} <b>\u0418\u0441\u0442\u043e\u0447\u043d\u0438\u043a:</b> ${escapeHtml(data.source)}`,
       formatLine("\u{1F4D8} <b>\u041b\u0438\u0434-\u043c\u0430\u0433\u043d\u0438\u0442:</b>", data.leadMagnet),
       formatLine("\u{1F4CA} <b>\u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442 / \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442:</b>", data.result),
