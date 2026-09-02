@@ -44,15 +44,12 @@ export function HrSubscriptionClient(): JSX.Element {
 
   return (
     <div className="space-y-20 pb-6 text-[#1F2328] dark:text-slate-100">
-      <HrLocalNav />
-
       <section className="relative overflow-hidden rounded-[10px] border border-slate-200 bg-white px-5 py-10 dark:border-slate-800 dark:bg-slate-900 md:px-10 md:py-14 lg:px-14">
-        <div className="absolute bottom-0 right-0 hidden h-full w-[38%] border-l border-slate-100 bg-[#F5F8FF] lg:block dark:border-slate-800 dark:bg-slate-950" />
-        <div className="relative grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div className="relative grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:items-stretch">
           <div>
             <Eyebrow>HR по подписке</Eyebrow>
-            <h1 className="mt-5 max-w-[18ch] text-4xl font-black leading-[1.02] tracking-[-0.035em] text-slate-950 dark:text-white md:text-6xl">
-              HR-функции для бизнеса без необходимости создавать большой HR-отдел
+            <h1 className="mt-5 max-w-[17ch] text-4xl font-black leading-[1.02] tracking-[-0.04em] text-slate-950 dark:text-white md:text-[3.55rem]">
+              Не нанимайте целый HR-отдел, если вам нужна <span className="text-[#2F6BFF]">конкретная HR-задача.</span>
             </h1>
             <p className="mt-6 max-w-[69ch] text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
               Подбор персонала, адаптация, HR-аудит, оргструктура, аналитика, развитие сотрудников и управление HR-функцией — подключайте только то, что необходимо вашему бизнесу сейчас.
@@ -70,12 +67,30 @@ export function HrSubscriptionClient(): JSX.Element {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 lg:pb-2">
-            {["Подбор", "Адаптация", "Аналитика", "Оргструктура", "HRBP", "HRD"].map((item, index) => (
-              <div key={item} className={`flex min-h-24 items-end rounded-lg border p-4 ${index > 3 ? "border-[#2F6BFF] bg-[#2F6BFF] text-white" : "border-slate-200 bg-white text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-white"}`}>
-                <span className="text-sm font-extrabold">{String(index + 1).padStart(2, "0")} · {item}</span>
-              </div>
-            ))}
+          <div className="relative flex min-h-[530px] flex-col overflow-hidden rounded-[10px] bg-[#101B36] p-5 text-white md:p-6">
+            <div className="absolute -right-16 -top-14 size-48 rounded-full border-[32px] border-[#2F6BFF]/35" />
+            <div className="absolute -left-20 top-44 size-44 rounded-full bg-[#38BDF8]/10 blur-2xl" />
+            <div className="relative flex items-center justify-between text-[11px] font-black uppercase tracking-[0.18em] text-white/55">
+              <span>HR-конструктор</span>
+              <span>01—06</span>
+            </div>
+            <p className="relative mt-10 max-w-[12ch] text-3xl font-black leading-[1.05] tracking-[-0.03em] md:text-4xl">
+              Соберите HR-функцию под задачу бизнеса
+            </p>
+            <div className="relative mt-auto grid grid-cols-2 gap-2 pt-10">
+              {[
+                ["Подбор", "bg-[#2F6BFF] text-white"],
+                ["Адаптация", "bg-[#BDEAD7] text-[#13352A]"],
+                ["Аналитика", "bg-[#F4C95D] text-[#3A2A05]"],
+                ["Оргструктура", "bg-[#D9D1FF] text-[#29234E]"],
+                ["HRBP", "bg-[#087F8C] text-white"],
+                ["HRD", "bg-[#EF745B] text-white"]
+              ].map(([item, colors], index) => (
+                <div key={item} className={`flex min-h-24 items-end rounded-lg p-4 ${colors}`}>
+                  <span className="text-sm font-extrabold">{String(index + 1).padStart(2, "0")} · {item}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -229,18 +244,6 @@ export function HrSubscriptionClient(): JSX.Element {
         <a href="#solutions" className={`${buttonPrimary} w-full`}>Выбрать HR-решение</a>
       </div>
     </div>
-  );
-}
-
-function HrLocalNav(): JSX.Element {
-  return (
-    <nav aria-label="Навигация по HR-странице" className="sticky top-[86px] z-30 -mx-[4vw] -mt-8 mb-8 border-b border-slate-200 bg-white/95 px-[4vw] py-2 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95 md:top-[118px]">
-      <div className="no-scrollbar mx-auto flex max-w-[1160px] items-center gap-2 overflow-x-auto">
-        <span className="mr-2 shrink-0 text-xs font-black uppercase tracking-[0.14em] text-[#2F6BFF]">HR по подписке</span>
-        {[['HR-решения', '#solutions'], ['Как работаем', '#process'], ['Обо мне', '#about'], ['FAQ', '#faq']].map(([label, href]) => <a key={href} href={href} className="shrink-0 rounded-md px-3 py-2 text-xs font-bold text-slate-600 hover:bg-[#F5F8FF] hover:text-[#2F6BFF] dark:text-slate-300 dark:hover:bg-slate-900">{label}</a>)}
-        <Link href="/" className="ml-auto shrink-0 rounded-md px-3 py-2 text-xs font-bold text-slate-600 hover:text-[#2F6BFF] dark:text-slate-300">Экспертный журнал ↗</Link>
-      </div>
-    </nav>
   );
 }
 
