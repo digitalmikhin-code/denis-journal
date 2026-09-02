@@ -3,13 +3,13 @@ import { HrSubscriptionClient } from "@/components/hr-subscription-client";
 import { SITE_URL } from "@/lib/constants";
 import { HR_SOLUTIONS } from "@/lib/hr-subscription-data";
 
-const title = "HR по подписке — HR-услуги для бизнеса | Денис Михин";
-const description = "Подбор персонала, HR-аудит, адаптация, оргструктура, HR-аналитика, автоматизация, HRBP и HRD по подписке. Готовые HR-решения с понятной стоимостью и результатом.";
+const title = "HR по подписке — HR для бизнеса без расширения штата | Денис Михин";
+const description = "Внешний HR для бизнеса: подбор, адаптация, HR-аудит, аналитика, организационное развитие, HRBP и HRD без найма в штат. Готовые решения с открытой стоимостью.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  keywords: ["HR по подписке", "HR услуги для бизнеса", "HRBP по подписке", "HRD по подписке", "HR аудит", "подбор персонала"],
+  keywords: ["HR по подписке", "HR-консалтинг", "внешний HR", "HR-аутсорсинг", "HR-сопровождение", "HR услуги для бизнеса", "HRBP по подписке", "HRD по подписке", "HR аудит", "HR-система", "организационное развитие", "подбор персонала"],
   alternates: { canonical: "/hr" },
   openGraph: {
     type: "website",
@@ -34,7 +34,7 @@ const serviceSchema = {
     url: `${SITE_URL}/about`
   },
   areaServed: "RU",
-  serviceType: "HR-функции для бизнеса по подписке",
+  serviceType: "HR по подписке и HR-консалтинг для бизнеса",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "HR-решения",

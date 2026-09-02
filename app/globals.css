@@ -57,6 +57,10 @@ body:has(.telegram-mini-app-shell) .site-footer {
   display: none;
 }
 
+body:has(.hr-subscription-shell) .site-footer {
+  display: none;
+}
+
 body:has(.telegram-mini-app-shell) main.container-shell {
   width: 100%;
   padding-block: 0;
