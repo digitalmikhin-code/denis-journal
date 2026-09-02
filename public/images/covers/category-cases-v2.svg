@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none">
+  <rect width="1200" height="675" rx="40" fill="#FFF8FA"/>
+  <rect x="54" y="54" width="1092" height="567" rx="36" fill="#FFFFFF" stroke="#F4D7DE" stroke-width="2"/>
+  <rect x="86" y="86" width="1028" height="503" rx="28" fill="#FFF0F4"/>
+  <circle cx="986" cy="164" r="170" fill="#FFC6D6"/>
+  <circle cx="226" cy="598" r="178" fill="#FFE0EA"/>
+  <rect x="132" y="136" width="276" height="48" rx="24" fill="#FFE3EC"/>
+  <text x="164" y="167" fill="#BE185D" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="2">РЕАЛЬНЫЕ КЕЙСЫ</text>
+  <rect x="132" y="230" width="526" height="34" rx="17" fill="#FFD3E0"/>
+  <rect x="132" y="282" width="446" height="34" rx="17" fill="#FFB4CA"/>
+  <rect x="132" y="334" width="492" height="34" rx="17" fill="#FFE4EC"/>
+  <rect x="730" y="206" width="278" height="244" rx="36" fill="#FFF9FB" stroke="#FDA4AF" stroke-width="3"/>
+  <path d="M788 334L842 388L952 278" stroke="#E11D48" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="788" cy="334" r="72" fill="#F43F5E" fill-opacity="0.12"/>
+  <rect x="132" y="424" width="364" height="18" rx="9" fill="#F43F5E"/>
+  <rect x="132" y="466" width="308" height="18" rx="9" fill="#FB7185"/>
+</svg>
