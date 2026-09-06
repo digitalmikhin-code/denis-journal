@@ -1,3 +1,4 @@
+import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
@@ -12,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: "Об авторе",
   description:
-    "Денис Михин: Head of HR PMO, практик управления изменениями, Agile, OKR, проектного управления и ИИ в управлении. Помогаю бизнесу расти через управление, продажи, ИИ и системные изменения.",
+    AUTHOR_ENTITY.shortDescription,
   alternates: {
     canonical: "/about"
   },
@@ -62,6 +63,21 @@ const EXPERTISE_TOPICS = [
 export default function AboutPage(): JSX.Element {
   return (
     <div className="space-y-10">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org", "@type": "ProfilePage", "@id": `${SITE_URL}/about/#profile`,
+        url: `${SITE_URL}/about/`, name: "Денис Михин — об авторе", description: AUTHOR_ENTITY.shortDescription,
+        mainEntity: { "@id": `${SITE_URL}/#denis-mikhin` }
+      }) }} />
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-2xl font-black">HR-консалтинг, обучение и авторские материалы</h2>
+        <p className="mt-3 max-w-4xl leading-7">{AUTHOR_ENTITY.shortDescription}</p>
+        <nav aria-label="Работа с Денисом Михиным" className="mt-4 flex flex-wrap gap-4 font-bold text-brand dark:text-blue-300">
+          <Link href="/hr/" className="underline">HR по подписке — услуги и стоимость</Link>
+          <Link href="/training/" className="underline">Авторские курсы</Link>
+          <Link href="/practice/" className="underline">Кейсы и практика изменений</Link>
+          <Link href="/articles/" className="underline">Статьи журнала</Link>
+        </nav>
+      </section>
       <section className="relative overflow-hidden rounded-[2.35rem] border border-[#1f2937] bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
         <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/35" />
         <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#f5d45d]/30" />
