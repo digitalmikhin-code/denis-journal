@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
+import { TrackedLink } from "@/components/tracked-link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { GlobalSearch } from "@/components/global-search";
@@ -113,12 +114,6 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
             </span>
           </Link>
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <Link
-              href="/training"
-              className="inline-flex shrink-0 items-center border border-brand bg-brand px-4 py-2 text-xs font-black uppercase text-white shadow-[0_12px_28px_rgba(11,77,186,0.24)] transition hover:border-brand-dark hover:bg-brand-dark dark:border-blue-400 dark:bg-blue-500 dark:hover:bg-blue-400 md:text-sm"
-            >
-              Курсы
-            </Link>
             <GlobalSearch items={searchItems} />
             <button
               type="button"
@@ -132,6 +127,10 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
             </button>
           </div>
         </div>
+        <nav aria-label="Курсы и услуги" className="mt-3 grid grid-cols-2 gap-2 sm:flex">
+          <TrackedLink href="/training/" goal="journal_course_click" params={{ source: "header", page: pathname }} className="inline-flex min-h-11 items-center justify-center rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white transition hover:bg-brand-dark">Курсы</TrackedLink>
+          <TrackedLink href="/hr/" goal="journal_hr_click" params={{ source: "header", page: pathname }} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-brand bg-blue-50 px-4 py-2 text-sm font-bold text-brand transition hover:bg-blue-100 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-300">HR по подписке</TrackedLink>
+        </nav>
         <nav className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1">
           {headerMenuItems.map((item) => (
             <Link
