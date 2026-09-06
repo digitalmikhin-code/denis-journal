@@ -6,9 +6,8 @@
     "dev": "next dev",
     "verify:site-url": "node scripts/verify-site-url.mjs",
     "build:content": "node scripts/generate-content-assets.mjs",
-    "build": "npm run build:content && next build",
+    "build": "npm run build:content && node scripts/generate-seo-assets.mjs && next build",
     "build:prod": "npm run verify:site-url && npm run build",
-    "postbuild": "node scripts/generate-seo-assets.mjs",
     "start": "next start",
     "lint": "next lint"
   },
