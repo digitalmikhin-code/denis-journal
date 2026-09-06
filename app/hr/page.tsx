@@ -3,19 +3,19 @@ import { HrSubscriptionClient } from "@/components/hr-subscription-client";
 import { SITE_URL } from "@/lib/constants";
 import { HR_SOLUTIONS } from "@/lib/hr-subscription-data";
 
-const title = "HR по подписке — HR для бизнеса без расширения штата | Денис Михин";
+const title = "HR-консалтинг и HR по подписке для бизнеса — Денис Михин";
 const description = "Внешний HR для бизнеса: подбор, адаптация, HR-аудит, аналитика, организационное развитие, HRBP и HRD без найма в штат. Готовые решения с открытой стоимостью.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
   keywords: ["HR по подписке", "HR-консалтинг", "внешний HR", "HR-аутсорсинг", "HR-сопровождение", "HR услуги для бизнеса", "HRBP по подписке", "HRD по подписке", "HR аудит", "HR-система", "организационное развитие", "подбор персонала"],
-  alternates: { canonical: "/hr" },
+  alternates: { canonical: "/hr/" },
   openGraph: {
     type: "website",
     title,
     description,
-    url: `${SITE_URL}/hr`,
+    url: `${SITE_URL}/hr/`,
     siteName: "Денис Михин",
     locale: "ru_RU"
   },
@@ -27,9 +27,10 @@ const serviceSchema = {
   "@type": "Service",
   name: "HR по подписке",
   description,
-  url: `${SITE_URL}/hr`,
+  url: `${SITE_URL}/hr/`,
   provider: {
     "@type": "Person",
+    "@id": `${SITE_URL}/#denis-mikhin`,
     name: "Денис Михин",
     url: `${SITE_URL}/about`
   },
