@@ -78,7 +78,8 @@ const websiteSchema = {
   description: SITE_DESCRIPTION,
   publisher: {
     "@type": "Person",
-    name: "Денис Михин"
+    "@id": AUTHOR_ENTITY.id,
+    name: AUTHOR_ENTITY.name
   },
   potentialAction: {
     "@type": "SearchAction",
@@ -102,7 +103,7 @@ const organizationSchema = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "@id": `${SITE_URL}/#denis-mikhin`,
+  "@id": AUTHOR_ENTITY.id,
   name: AUTHOR_ENTITY.name,
   alternateName: AUTHOR_ENTITY.alternateNames,
   url: AUTHOR_ENTITY.url,
@@ -110,7 +111,7 @@ const personSchema = {
   jobTitle: AUTHOR_ENTITY.jobTitle,
   description: AUTHOR_ENTITY.shortDescription,
   knowsAbout: AUTHOR_ENTITY.knowsAbout,
-  mainEntityOfPage: `${SITE_URL}/about`
+  mainEntityOfPage: AUTHOR_ENTITY.url
 };
 
 export default function RootLayout({
