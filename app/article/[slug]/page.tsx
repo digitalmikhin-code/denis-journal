@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { JournalNextStep } from "@/components/journal-next-step";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
@@ -180,7 +181,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
     image: [`${SITE_URL}${article.frontmatter.cover}`],
     author: {
       "@type": "Person",
-      name: article.frontmatter.author
+      name: article.frontmatter.author,
+      ...(article.frontmatter.author === "Денис Михин" ? { "@id": `${SITE_URL}/#denis-mikhin`, url: `${SITE_URL}/about/` } : {})
     },
     publisher: {
       "@type": "Organization",
@@ -266,6 +268,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
 
         <div className="space-y-8">
           <ArticleTakeaways items={article.frontmatter.takeaways} />
+          <JournalNextStep source="article" articleSlug={article.slug} />
           <SkillCardSection skills={articleSkills} />
           <RecommendationBlock recommendation={recommendation} />
           <ArticleWorkTasks tasks={workTasks} />

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { JournalNextStep } from "@/components/journal-next-step";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { RecommendationBlock } from "@/components/recommendation-block";
@@ -174,6 +175,7 @@ export default function HomePage(): JSX.Element {
   return (
     <div className="space-y-14">
       <HeroSection />
+      <JournalNextStep source="home" />
       <WorkTasksSection />
       <DevelopmentDirectionsSection />
       <CareerRoutesSection paths={homepageCareerPaths} />
@@ -193,21 +195,21 @@ function HeroSection(): JSX.Element {
       <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-72 bg-[linear-gradient(135deg,transparent_0%,transparent_38%,rgba(11,77,186,0.16)_38%,rgba(11,77,186,0.16)_66%,rgba(8,46,115,0.92)_66%)] md:h-56 md:w-[28rem]" />
       <div className="relative max-w-5xl">
         <p className="text-sm font-semibold uppercase text-brand dark:text-blue-300">
-          Навигатор профессионального развития
+          Авторский журнал Дениса Михина
         </p>
         <h1 className="mt-5 max-w-5xl text-4xl font-black uppercase leading-[1.02] text-slate-950 dark:text-slate-50 md:text-6xl">
-          Найдите следующий шаг в карьере, управлении и обучении
+          Идеи для роста. Знания для работы. Решения для бизнеса.
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700 dark:text-slate-300 md:text-xl">
-          Сайт помогает не просто читать статьи, а выбрать понятный маршрут: решить рабочую задачу,
-          развить навык, подобрать программу и перейти к действию.
+          Пишу об управлении, командах, карьере и ИИ. Читайте журнал, развивайте навыки на моих курсах
+          или подключайте HR по подписке, чтобы решить задачи вашего бизнеса.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/training"
             className="inline-flex justify-center bg-brand px-6 py-3 text-base font-bold text-white shadow-[0_14px_30px_rgba(11,77,186,0.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-brand-dark dark:bg-white dark:text-slate-950"
           >
-            Подобрать программу развития
+            Выбрать курс
           </Link>
           <Link
             href="/articles"
@@ -234,7 +236,7 @@ function WorkTasksSection(): JSX.Element {
       <SectionHeader
         eyebrow="Рабочие задачи"
         title="Начните с того, что сейчас мешает росту"
-        text="Главная страница ведет не в ленту и не в каталог, а к ближайшей профессиональной задаче."
+        text="Выберите задачу — найдите полезные материалы и программы, которые помогут её решить."
       />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {workTasks.map((task) => (
@@ -265,7 +267,7 @@ function DevelopmentDirectionsSection(): JSX.Element {
       <SectionHeader
         eyebrow="Направления развития"
         title="Выберите область, которую нужно усилить"
-        text="В карточках уже заложены места для количества статей и программ, чтобы дальше подключить автоматические счетчики."
+        text="Статьи и программы по ключевым направлениям профессионального развития."
       />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {developmentDirections.map((direction) => {

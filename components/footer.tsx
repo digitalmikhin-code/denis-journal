@@ -34,7 +34,8 @@ const footerGroups = [
       { label: "Диагностика", href: "/diagnostics" },
       { label: "Зрелость руководителя", href: "/diagnostics/management-maturity-index" },
       { label: "Telegram Mini App", href: "/telegram-mini-app" },
-      { label: "Консалтинг", href: "/consulting" }
+      { label: "Консалтинг", href: "/consulting" },
+      { label: "HR-консалтинг и HR по подписке", href: "/hr/" }
     ]
   }
 ] as const;
@@ -49,11 +50,11 @@ export function SiteFooter(): JSX.Element {
               Денис Михин
             </p>
             <h2 className="mt-2 max-w-xl text-2xl font-black tracking-tight text-slate-950 dark:text-slate-50">
-              Образовательная экосистема для управленческого роста
+              Журнал, курсы и HR для бизнеса
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-              Статьи, программы, маршруты и практические материалы для руководителей, Project Manager,
-              Product Manager и специалистов, которые растут в управление.
+              Читайте статьи, развивайте навыки на курсах и решайте задачи команды
+              с помощью HR по подписке. Три направления работы Дениса Михина на одном сайте.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link

@@ -49,10 +49,10 @@ export function HrSubscriptionClient(): JSX.Element {
           <div>
             <Eyebrow>HR по подписке</Eyebrow>
             <h1 className="mt-5 max-w-[17ch] text-4xl font-black leading-[1.02] tracking-[-0.04em] text-slate-950 dark:text-white md:text-[3.55rem]">
-              HR, который решает задачи бизнеса — <span className="text-[#2F6BFF]">без расширения штата</span>
+              HR по подписке для бизнеса — <span className="text-[#2F6BFF]">без расширения штата</span>
             </h1>
             <p className="mt-6 max-w-[69ch] text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
-              Подбор, адаптация, удержание, HR-аналитика, организационное развитие или полноценная функция HRBP/HRD. Подключайте именно ту HR-компетенцию, которая нужна бизнесу сейчас.
+              HR-консалтинг Дениса Михина: подбор персонала, адаптация, удержание, HR-аудит, HR-аналитика, организационное развитие или полноценная функция внешнего HRBP/HRD. Подключайте именно ту HR-компетенцию, которая нужна бизнесу сейчас.
             </p>
             <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-bold text-slate-800 dark:text-slate-200">
               {["Фиксированная стоимость", "Под конкретную задачу", "Без найма в штат", "Можно масштабировать"].map((item) => <span key={item} className="before:mr-2 before:text-[#2F6BFF] before:content-['•']">{item}</span>)}
