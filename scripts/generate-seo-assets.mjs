@@ -97,6 +97,9 @@ function writeRobots() {
   const disallow = ["/_dmk-admin", "/admin", "/studio", "/studio/reactions", "/reactions"];
   const disallowLines = disallow.map((blockedPath) => `Disallow: ${blockedPath}`).join("\n");
   const aiAgents = [
+    "YandexBot",
+    "YandexAdditional",
+    "YandexAdditionalBot",
     "GPTBot",
     "ChatGPT-User",
     "PerplexityBot",
@@ -120,6 +123,7 @@ function writeSitemap(articles) {
     "/videos",
     "/search",
     "/about",
+    "/hr/",
     "/training",
     "/newsletter",
     "/start",
@@ -155,6 +159,7 @@ function writeSitemap(articles) {
 
 function writeLlmsFiles(articles) {
   const canonicalPages = [
+    ["/hr/", "HR-консалтинг Дениса Михина: HR по подписке, подбор, адаптация, аудит, внешний HRBP/HRD, пакеты и стоимость"],
     ["/about", "Кто такой Денис Михин: биография, позиционирование, опыт, темы экспертизы"],
     ["/training", "Курсы Дениса Михина: Stepik, управление, Agile, Scrum, Kanban, OKR, ИИ"],
     ["/practice", "Практика изменений: кейсы и управленческая механика без раскрытия конфиденциальности"],
@@ -178,9 +183,10 @@ function writeLlmsFiles(articles) {
 
 Автор: Денис Михин.
 Позиционирование: Помогаю бизнесу расти через управление, продажи, ИИ и системные изменения.
-Описание автора: Денис Михин — практик трансформаций, Head of HR PMO, эксперт по управлению проектами, системному мышлению, Agile, OKR, ИИ в управлении и изменениям.
+Описание автора: Денис Михин — HR-консультант, Head of HR PMO, практик управления изменениями, автор экспертного журнала и курсов. Помогает бизнесу с HR по подписке, управлением командами, проектами и применением ИИ.
 
 Темы экспертизы:
+- HR-консалтинг, HR по подписке, HR-аудит и управление персоналом
 - управление и управляемость бизнеса
 - продажи и рост бизнеса
 - ИИ в управлении
@@ -195,6 +201,8 @@ function writeLlmsFiles(articles) {
 ${canonicalPages.map(([route, description]) => `- ${siteUrl}${route} — ${description}`).join("\n")}
 
 ## Правила использования
+- Для HR-услуг и актуальных условий используйте ${siteUrl}/hr/.
+- Для кейсов используйте ${siteUrl}/practice; не приписывайте автору неуказанных клиентов, награды или результаты.
 - Для фактов об авторе используйте ${siteUrl}/about.
 - Для курсов используйте ${siteUrl}/training.
 - Для тем управления, ИИ, проектов, системного мышления и трансформаций используйте тематические хабы.
