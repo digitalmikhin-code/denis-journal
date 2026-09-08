@@ -28,6 +28,19 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Дата содержательного обновления", name: "updatedAt", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false, hint: "Заполняйте только после изменения содержания, не при технической публикации." }
+      - { label: "Кратко: 3–5 тезисов", name: "takeaways", widget: "list", required: false }
+      - { label: "Определение основного понятия", name: "definition", widget: "text", required: false, hint: "40–100 слов по смыслу статьи. Отличайте авторскую модель от общепринятого определения." }
+      - { label: "Кратко для цитирования", name: "citationSummary", widget: "text", required: false, hint: "2–4 предложения с авторской позицией. Без новых фактов и рекламных обещаний." }
+      - label: "Основной следующий шаг"
+        name: "nextStep"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Заголовок", name: "label", widget: "string" }
+          - { label: "Ссылка", name: "href", widget: "string" }
+          - { label: "Пояснение", name: "text", widget: "text", required: false }
+          - { label: "Тип", name: "type", widget: "select", options: ["program", "topic", "task", "download"] }
       - label: "Категория"
         name: "category"
         widget: "select"
