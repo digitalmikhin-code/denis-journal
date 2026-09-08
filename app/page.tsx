@@ -21,14 +21,14 @@ import { STEPIK_COURSES, STEPIK_PROFILE_FACTS, type StepikCourse } from "@/lib/s
 export const metadata: Metadata = {
   title: "Журнал Дениса Михина",
   description:
-    "Журнал Дениса Михина для руководителей и сильных специалистов: как принимать решения, расти и управлять сложными системами.",
+    "Практические идеи и инструменты Дениса Михина об управлении бизнесом, HR, проектах, системном мышлении, Agile и искусственном интеллекте.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
     title: "Журнал Дениса Михина",
     description:
-      "Журнал Дениса Михина для руководителей и сильных специалистов: как принимать решения, расти и управлять сложными системами.",
+      "Практические идеи и инструменты Дениса Михина об управлении бизнесом, HR, проектах, системном мышлении, Agile и искусственном интеллекте.",
     url: SITE_URL
   }
 };
@@ -198,11 +198,11 @@ function HeroSection(): JSX.Element {
           Авторский журнал Дениса Михина
         </p>
         <h1 className="mt-5 max-w-5xl text-4xl font-black uppercase leading-[1.02] text-slate-950 dark:text-slate-50 md:text-6xl">
-          Идеи для роста. Знания для работы. Решения для бизнеса.
+          Авторский журнал Дениса Михина об управлении бизнесом, HR и проектах
         </h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700 dark:text-slate-300 md:text-xl">
-          Пишу об управлении, командах, карьере и ИИ. Читайте журнал, развивайте навыки на моих курсах
-          или подключайте HR по подписке, чтобы решить задачи вашего бизнеса.
+          Практические идеи, модели и инструменты для руководителей, HR-лидеров и специалистов:
+          системное мышление, проектное управление, Agile, искусственный интеллект и организационные изменения.
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
@@ -219,7 +219,7 @@ function HeroSection(): JSX.Element {
           </Link>
         </div>
         <div className="mt-12 grid max-w-3xl grid-cols-2 border border-slate-200 bg-white/82 dark:border-slate-800 dark:bg-slate-950/60 md:grid-cols-4">
-          {["Управление", "Продажи", "ИИ", "Трансформации"].map((item) => (
+          {["Управление", "HR", "Проекты", "ИИ"].map((item) => (
             <div key={item} className="border-b border-r border-slate-200 px-4 py-3 text-xs font-black uppercase text-slate-600 last:border-r-0 dark:border-slate-800 dark:text-slate-300 md:border-b-0">
               {item}
             </div>

@@ -1,3 +1,4 @@
+import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import Link from "next/link";
 import { JournalNextStep } from "@/components/journal-next-step";
 import type { Metadata } from "next";
@@ -182,7 +183,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
     author: {
       "@type": "Person",
       name: article.frontmatter.author,
-      ...(article.frontmatter.author === "Денис Михин" ? { "@id": `${SITE_URL}/#denis-mikhin`, url: `${SITE_URL}/about/` } : {})
+      ...(article.frontmatter.author === "Денис Михин" ? { "@id": AUTHOR_ENTITY.id, url: AUTHOR_ENTITY.url } : {})
     },
     publisher: {
       "@type": "Organization",
