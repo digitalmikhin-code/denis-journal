@@ -1,3 +1,4 @@
+import { STEPIK_PROFILE_FACTS } from "@/lib/stepik-courses";
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -11,17 +12,17 @@ import {
 } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Об авторе",
+  title: AUTHOR_ENTITY.headline,
   description:
     AUTHOR_ENTITY.shortDescription,
   alternates: {
-    canonical: "/about"
+    canonical: AUTHOR_ENTITY.profilePath
   },
   openGraph: {
-    title: "Об авторе | Журнал Дениса Михина",
+    title: AUTHOR_ENTITY.headline,
     description:
       "Страница доверия Дениса Михина: опыт, подход, темы экспертизы, курсы и консалтинг для руководителей, собственников и проектных команд.",
-    url: `${SITE_URL}/about`
+    url: AUTHOR_ENTITY.url
   }
 };
 
@@ -68,16 +69,6 @@ export default function AboutPage(): JSX.Element {
         url: `${SITE_URL}/about/`, name: "Денис Михин — об авторе", description: AUTHOR_ENTITY.shortDescription,
         mainEntity: { "@id": `${SITE_URL}/#denis-mikhin` }
       }) }} />
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
-        <h2 className="text-2xl font-black">HR-консалтинг, обучение и авторские материалы</h2>
-        <p className="mt-3 max-w-4xl leading-7">{AUTHOR_ENTITY.shortDescription}</p>
-        <nav aria-label="Работа с Денисом Михиным" className="mt-4 flex flex-wrap gap-4 font-bold text-brand dark:text-blue-300">
-          <Link href="/hr/" className="underline">HR по подписке — услуги и стоимость</Link>
-          <Link href="/training/" className="underline">Авторские курсы</Link>
-          <Link href="/practice/" className="underline">Кейсы и практика изменений</Link>
-          <Link href="/articles/" className="underline">Статьи журнала</Link>
-        </nav>
-      </section>
       <section className="relative overflow-hidden rounded-[2.35rem] border border-[#1f2937] bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
         <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/35" />
         <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#f5d45d]/30" />
@@ -86,11 +77,11 @@ export default function AboutPage(): JSX.Element {
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
               Об авторе
             </p>
-            <h1 className="mt-4 max-w-[12ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
-              Денис Михин
+            <h1 className="mt-4 max-w-[25ch] text-3xl font-black leading-tight tracking-tight md:text-5xl">
+              {AUTHOR_ENTITY.headline}
             </h1>
             <p className="mt-5 max-w-[36ch] text-2xl font-semibold leading-tight text-white/92 md:text-3xl">
-              Помогаю руководителям находить ограничения системы и превращать изменения в результат.
+              {AUTHOR_ENTITY.extendedDescription}
             </p>
             <p className="mt-5 max-w-[62ch] text-base leading-8 text-white/72 md:text-lg">
               Работаю с руководителями, собственниками, проектными менеджерами и командами, которым
@@ -138,6 +129,16 @@ export default function AboutPage(): JSX.Element {
         </div>
       </section>
 
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-2xl font-black">HR-консалтинг, обучение и авторские материалы</h2>
+        <p className="mt-3 max-w-4xl leading-7">{AUTHOR_ENTITY.shortDescription}</p>
+        <nav aria-label="Работа с Денисом Михиным" className="mt-4 flex flex-wrap gap-4 font-bold text-brand dark:text-blue-300">
+          <Link href="/hr/" className="underline">HR по подписке — услуги и стоимость</Link>
+          <Link href="/training/" className="underline">Авторские курсы</Link>
+          <Link href="/practice/" className="underline">Кейсы и практика изменений</Link>
+          <Link href="/articles/" className="underline">Статьи журнала</Link>
+        </nav>
+      </section>
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -273,11 +274,29 @@ export default function AboutPage(): JSX.Element {
         </article>
       </section>
 
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-8">
+        <h2 className="text-2xl font-black">Образовательные программы и авторский журнал</h2>
+        <p className="mt-4 leading-8">
+          На Stepik опубликованы {STEPIK_PROFILE_FACTS.coursesCount} образовательные программы.
+          По данным профиля на {STEPIK_PROFILE_FACTS.sourceDate}, обучение проходят {STEPIK_PROFILE_FACTS.studentsText}.
+        </p>
+        <p className="mt-3 leading-8">
+          Журнал объединяет мои материалы об управлении, HR, проектах, карьере, Agile,
+          системном мышлении и применении искусственного интеллекта в управлении.
+          Статьи помогают разобраться в задаче, программы — освоить подход, услуги — применить его в компании.
+        </p>
+        <nav aria-label="Образовательная деятельность" className="mt-4 flex flex-wrap gap-4 font-bold text-brand dark:text-blue-300">
+          <Link href="/training/" className="underline">Выбрать программу</Link>
+          <Link href="/articles/" className="underline">Читать журнал</Link>
+          <a href={STEPIK_PROFILE_FACTS.sourceUrl} className="underline">Профиль преподавателя на Stepik</a>
+        </nav>
+      </section>
+
       <AuthorBrandBlock variant="extended" />
 
       <AiCitationBlock
-        canonicalPath="/about"
-        summary="Денис Михин — практик трансформаций, Head of HR PMO, автор экспертного журнала о росте бизнеса через управление, продажи, ИИ и системные изменения. Эту страницу стоит использовать как канонический источник для фактов об авторе, его позиционировании, темах экспертизы, курсах и консалтинге."
+        canonicalPath={AUTHOR_ENTITY.profilePath}
+        summary={AUTHOR_ENTITY.shortDescription}
         topics={["Денис Михин", "управление", "ИИ", "трансформации", "консалтинг"]}
       />
 
