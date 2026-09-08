@@ -10,6 +10,9 @@ const PAGES_DIR = path.join(process.cwd(), "content", "pages");
 export type ArticleFrontmatter = {
   title: string;
   date: string;
+  updatedAt?: string;
+  definition?: string;
+  citationSummary?: string;
   category: Category;
   tags: string[];
   excerpt: string;
@@ -62,6 +65,9 @@ export function getAllArticles(includeDraft = false): Article[] {
     const frontmatter: ArticleFrontmatter = {
       title: parsed.data.title || slug,
       date: normalizedDate,
+      updatedAt: parsed.data.updatedAt ? normalizeUpdatedDate(parsed.data.updatedAt, normalizedDate, fileName) : undefined,
+      definition: typeof parsed.data.definition === "string" ? parsed.data.definition.trim() : undefined,
+      citationSummary: typeof parsed.data.citationSummary === "string" ? parsed.data.citationSummary.trim() : undefined,
       category,
       tags: Array.isArray(parsed.data.tags)
         ? parsed.data.tags.map((tag: string) => normalizeTag(tag))
@@ -121,6 +127,14 @@ export function getAllArticles(includeDraft = false): Article[] {
     (a, b) =>
       new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
   );
+}
+
+function normalizeUpdatedDate(value: unknown, published: string, fileName: string): string {
+  const date = value instanceof Date ? value.toISOString().slice(0, 10) : String(value);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || date < published) {
+    throw new Error(`Invalid updatedAt in ${fileName}`);
+  }
+  return date;
 }
 
 function normalizeNextStep(value: unknown): ArticleNextStep | undefined {

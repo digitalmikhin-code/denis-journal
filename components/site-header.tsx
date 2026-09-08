@@ -130,6 +130,8 @@ export function SiteHeader({ searchItems }: SiteHeaderProps): JSX.Element {
         <nav aria-label="Курсы и услуги" className="mt-3 grid grid-cols-2 gap-2 sm:flex">
           <TrackedLink href="/training/" goal="journal_course_click" params={{ source: "header", page: pathname }} className="inline-flex min-h-11 items-center justify-center rounded-lg bg-brand px-4 py-2 text-sm font-bold text-white transition hover:bg-brand-dark">Курсы</TrackedLink>
           <TrackedLink href="/hr/" goal="journal_hr_click" params={{ source: "header", page: pathname }} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-brand bg-blue-50 px-4 py-2 text-sm font-bold text-brand transition hover:bg-blue-100 dark:border-blue-400 dark:bg-slate-900 dark:text-blue-300">HR по подписке</TrackedLink>
+          <TrackedLink href="/consulting/" goal="journal_consulting_click" params={{ source: "header", page: pathname }} className="inline-flex min-h-11 items-center justify-center px-4 py-2 text-sm font-bold hover:underline">Консалтинг</TrackedLink>
+          <Link href="/about/" className="inline-flex min-h-11 items-center justify-center px-4 py-2 text-sm font-bold hover:underline">О Денисе</Link>
         </nav>
         <nav className="no-scrollbar -mx-4 mt-2 flex gap-2 overflow-x-auto px-4 pb-1">
           {headerMenuItems.map((item) => (

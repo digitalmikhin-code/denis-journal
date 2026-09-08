@@ -63,6 +63,8 @@ export default function TrainingPage(): JSX.Element {
         </div>
       </section>
 
+      <ProgramTaskPicker />
+
       <section className="grid gap-3 border border-slate-200 bg-white p-4 shadow-[0_14px_36px_rgba(9,22,43,0.05)] dark:border-slate-800 dark:bg-slate-900 md:grid-cols-4">
         <Stat value={String(STEPIK_COURSES.length)} label="курса в каталоге" />
         <Stat value={String(paidCourses)} label="платных программ" />
@@ -226,4 +228,41 @@ function CourseCard({ course }: { course: StepikCourse }): JSX.Element {
       </div>
     </article>
   );
+}
+
+
+function ProgramTaskPicker(): JSX.Element {
+  const tasks: Array<{ title: string; category: StepikCourse["category"]; preferredId?: number }> = [
+    { title: "Я стал руководителем", category: "management" },
+    { title: "Хочу перейти в управление проектами", category: "project-management" },
+    { title: "Хочу разобраться в Agile", category: "agile-scrum-kanban" },
+    { title: "Хочу использовать ИИ в работе", category: "ai-prompting" },
+    { title: "Хочу развить системное мышление", category: "systems-thinking" },
+    { title: "Хочу стать Product Manager", category: "product-thinking" },
+    { title: "Хочу повысить личную эффективность", category: "management", preferredId: 284646 }
+  ];
+  const levels: Record<string, number> = { "Начальный": 0, "Средний": 1, "Продвинутый": 2 };
+  return <section aria-labelledby="program-task-title" className="border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+    <h2 id="program-task-title" className="text-2xl font-black md:text-3xl">Подберите программу под свою задачу</h2>
+    <p className="mt-3 text-slate-600 dark:text-slate-300">Раскройте подходящую задачу. Полный каталог программ находится ниже.</p>
+    <div className="mt-5 grid gap-3 md:grid-cols-2">
+      {tasks.map((task) => {
+        const courses = STEPIK_COURSES.filter((course) => course.category === task.category)
+          .sort((a, b) => (levels[a.level] ?? 3) - (levels[b.level] ?? 3));
+        const start = courses.find((course) => course.id === task.preferredId) ?? courses[0];
+        const next = courses.find((course) => course.id !== start?.id && (levels[course.level] ?? 0) > (levels[start?.level] ?? 0));
+        const free = courses.find((course) => course.price.toLowerCase() === "бесплатно" && course.id !== start?.id && course.id !== next?.id);
+        return <details key={task.title} className="self-start rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+          <summary className="cursor-pointer font-bold">{task.title}</summary>
+          <div className="mt-4 space-y-4">
+            {[{ label: "Начните здесь", course: start }, { label: "Следующий уровень", course: next }, { label: "Бесплатный материал", course: free }].map(({ label, course }) => course ? <div key={course.id}>
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{label}</p>
+              <TrackedLink href={getProgramPath(course)} goal="course_task_select" params={{ task: task.title, course_id: course.id }} className="font-bold text-brand underline dark:text-blue-300">{course.title}</TrackedLink>
+              <p className="mt-1 text-sm leading-6">{course.summary}</p>
+            </div> : null)}
+          </div>
+        </details>;
+      })}
+    </div>
+  </section>;
 }
