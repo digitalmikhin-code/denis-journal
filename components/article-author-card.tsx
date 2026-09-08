@@ -1,3 +1,4 @@
+import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import Image from "next/image";
 import Link from "next/link";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
@@ -17,12 +18,12 @@ export function ArticleAuthorCard({ author }: ArticleAuthorCardProps): JSX.Eleme
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
             Автор статьи
           </p>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-slate-50">{author}</h2>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 dark:text-slate-50">{author === AUTHOR_ENTITY.name ? <Link href={AUTHOR_ENTITY.profilePath} className="hover:underline">{author}</Link> : author}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300">
-            Практик трансформаций и Head of HR PMO. Пишу о системном мышлении,
-            управлении, проектах, карьере и применении ИИ в работе руководителя.
+            {author === AUTHOR_ENTITY.name ? AUTHOR_ENTITY.shortDescription : "Автор материала журнала."}
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
+            {author === AUTHOR_ENTITY.name && <Link href={AUTHOR_ENTITY.profilePath} className="rounded-xl border border-slate-300 px-4 py-2.5 text-sm font-bold dark:border-slate-700">Об авторе и его подходе</Link>}
             <Link
               href={TELEGRAM_CHANNEL_URL}
               target="_blank"
