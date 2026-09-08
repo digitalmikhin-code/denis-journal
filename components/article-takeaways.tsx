@@ -11,9 +11,7 @@ export function ArticleTakeaways({ items }: ArticleTakeawaysProps): JSX.Element 
 
   return (
     <section className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_16px_36px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-6">
-      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-        Что важно запомнить
-      </p>
+      <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Кратко</h2>
       <div className="mt-4 grid gap-3">
         {visibleItems.map((item) => (
           <div

@@ -1,8 +1,9 @@
-import Link from "next/link";
+import { TrackedLink } from "@/components/tracked-link";
 import type { ArticleNextStep as ArticleNextStepData } from "@/lib/content";
 
 type ArticleNextStepProps = {
   step: ArticleNextStepData;
+  articleSlug?: string;
 };
 
 const TYPE_LABELS: Record<NonNullable<ArticleNextStepData["type"]>, string> = {
@@ -12,7 +13,7 @@ const TYPE_LABELS: Record<NonNullable<ArticleNextStepData["type"]>, string> = {
   download: "Скачать шаблон"
 };
 
-export function ArticleNextStep({ step }: ArticleNextStepProps): JSX.Element {
+export function ArticleNextStep({ step, articleSlug }: ArticleNextStepProps): JSX.Element {
   const label = step.type ? TYPE_LABELS[step.type] : "Следующий шаг";
   const isExternal = step.href.startsWith("http");
 
@@ -24,14 +25,16 @@ export function ArticleNextStep({ step }: ArticleNextStepProps): JSX.Element {
           <h2 className="mt-3 text-3xl font-black tracking-tight md:text-4xl">{step.label}</h2>
           {step.text ? <p className="mt-3 max-w-2xl text-base leading-7 text-white/70">{step.text}</p> : null}
         </div>
-        <Link
+        <TrackedLink
           href={step.href}
+          goal={step.href.startsWith("/hr") ? "journal_hr_click" : step.href.startsWith("/consulting") ? "journal_consulting_click" : step.type === "program" ? "journal_course_click" : "article_next_step_click"}
+          params={{ source: "article", article_slug: articleSlug ?? "" }}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
           className="inline-flex justify-center rounded-2xl bg-white px-5 py-3 text-sm font-black text-slate-950 transition hover:bg-slate-100"
         >
           Перейти
-        </Link>
+        </TrackedLink>
       </div>
     </section>
   );
