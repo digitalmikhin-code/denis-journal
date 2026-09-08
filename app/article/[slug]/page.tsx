@@ -1,20 +1,19 @@
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import Link from "next/link";
-import { JournalNextStep } from "@/components/journal-next-step";
+import { ArticleNextStep } from "@/components/article-next-step";
+import { AiCitationBlock } from "@/components/ai-citation-block";
+import { getProgramPath } from "@/lib/program-pages";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { ArticleAuthorCard } from "@/components/article-author-card";
 import { ArticleCard } from "@/components/article-card";
-import { ArticleRelatedPrograms } from "@/components/article-related-programs";
 import { ArticleTableOfContents } from "@/components/article-table-of-contents";
 import { ArticleTakeaways } from "@/components/article-takeaways";
-import { ArticleTelegramCta } from "@/components/article-telegram-cta";
 import { ArticleWorkTasks, type ArticleWorkTask } from "@/components/article-work-tasks";
 import { MetrikaGoal } from "@/components/metrika-goal";
 import { ReadingProgress } from "@/components/reading-progress";
-import { RecommendationBlock } from "@/components/recommendation-block";
 import { SkillCardSection } from "@/components/skill-card-section";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -35,7 +34,6 @@ import {
 } from "@/lib/content";
 import { STEPIK_COURSES, type StepikCourse, type StepikCourseCategory } from "@/lib/stepik-courses";
 import { getSkillsForArticle } from "@/lib/skills";
-import { getRecommendation } from "@/lib/recommendations";
 import { addTableOfContentsAnchors } from "@/lib/table-of-contents";
 import { calculateWordCount, formatDate } from "@/lib/utils";
 
@@ -165,10 +163,10 @@ export default function ArticlePage({ params }: Props): JSX.Element {
   const articleBody = addTableOfContentsAnchors(article.content);
   const shouldShowToc = calculateWordCount(article.content) > LONG_ARTICLE_WORDS;
   const workTasks = buildWorkTasks(article, category);
-  const relatedPrograms = buildRelatedPrograms(article, category);
+  const nextStep = buildNextStep(article, category);
   const relatedArticles = buildRelatedArticles(article, allArticles);
   const articleSkills = getSkillsForArticle(article, 4);
-  const recommendation = getRecommendation("article", article.slug);
+
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -176,7 +174,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
     headline: article.frontmatter.title,
     description: article.frontmatter.excerpt,
     datePublished: article.frontmatter.date,
-    dateModified: article.frontmatter.date,
+    dateModified: article.frontmatter.updatedAt ?? article.frontmatter.date,
     inLanguage: "ru-RU",
     mainEntityOfPage: articleUrl,
     image: [`${SITE_URL}${article.frontmatter.cover}`],
@@ -239,6 +237,8 @@ export default function ArticlePage({ params }: Props): JSX.Element {
       <article className="space-y-10">
         <Breadcrumbs title={article.frontmatter.title} />
         <ArticleHero article={article} category={category} />
+        <ArticleTakeaways items={article.frontmatter.takeaways} />
+        {article.frontmatter.definition && <section className="rounded-2xl border border-slate-200 p-6 dark:border-slate-700"><h2 className="text-xl font-bold">Основное понятие</h2><p className="mt-3 leading-8">{article.frontmatter.definition}</p></section>}
 
         {shouldShowToc ? (
           <div className="xl:hidden">
@@ -254,7 +254,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             <div className="prose-journal">
               <MDXRemote
                 source={articleBody.content}
-                components={mdxComponents}
+                components={{ ...mdxComponents, h1: (props) => <h2 {...props} /> }}
                 options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
               />
             </div>
@@ -268,12 +268,16 @@ export default function ArticlePage({ params }: Props): JSX.Element {
         </div>
 
         <div className="space-y-8">
-          <ArticleTakeaways items={article.frontmatter.takeaways} />
-          <JournalNextStep source="article" articleSlug={article.slug} />
+          {!article.content.includes("Данный материал носит исключительно ознакомительный и дискуссионный характер и отражает личное мнение автора.") && (
+            <blockquote className="border-l-4 border-slate-300 pl-5 italic text-slate-600 dark:text-slate-300">
+              Данный материал носит исключительно ознакомительный и дискуссионный характер и отражает личное мнение автора.
+            </blockquote>
+          )}
+          {article.frontmatter.citationSummary && <AiCitationBlock canonicalPath={`/article/${article.slug}/`} summary={article.frontmatter.citationSummary} />}
+          <ArticleAuthorCard author={article.frontmatter.author || AUTHOR_ENTITY.name} />
+          <ArticleNextStep step={nextStep} articleSlug={article.slug} />
           <SkillCardSection skills={articleSkills} />
-          <RecommendationBlock recommendation={recommendation} />
           <ArticleWorkTasks tasks={workTasks} />
-          <ArticleRelatedPrograms articleTitle={article.frontmatter.title} courses={relatedPrograms} />
 
           {relatedArticles.length > 0 ? (
             <section id="related-articles" className="space-y-5">
@@ -293,8 +297,7 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             </section>
           ) : null}
 
-          <ArticleTelegramCta />
-          <ArticleAuthorCard author={article.frontmatter.author || "Денис Михин"} />
+
         </div>
       </article>
     </div>
@@ -320,8 +323,9 @@ function ArticleHero({ article, category }: { article: Article; category: Catego
             {CATEGORY_SHORT_LABELS[category]}
           </span>
           <span className="text-sm font-medium text-slate-500 dark:text-slate-400">
-            {article.frontmatter.author || "Денис Михин"} · {formatDate(article.frontmatter.date)} ·{" "}
+            {article.frontmatter.author === AUTHOR_ENTITY.name ? <Link href={AUTHOR_ENTITY.profilePath} className="underline">{AUTHOR_ENTITY.name}</Link> : article.frontmatter.author} · <time dateTime={article.frontmatter.date}>{formatDate(article.frontmatter.date)}</time> ·{" "}
             {article.frontmatter.readingTime} мин чтения
+            {article.frontmatter.updatedAt && <> · Обновлено <time dateTime={article.frontmatter.updatedAt}>{formatDate(article.frontmatter.updatedAt)}</time></>}
           </span>
         </div>
         <h1 className="mt-5 text-4xl font-black leading-[1.02] tracking-tight text-slate-950 dark:text-slate-50 md:text-6xl">
@@ -356,13 +360,20 @@ function buildNextStep(article: Article, category: Category): ArticleNextStepDat
     return article.frontmatter.nextStep;
   }
 
+  const subject = `${article.frontmatter.title} ${article.frontmatter.tags.join(" ")}`.toLowerCase();
+  if (/\bhr(?:bp|d)?\b|персонал|текучест|адаптаци|оргструктур|подбор/.test(subject)) {
+    return { type: "task", label: "Решить HR-задачу бизнеса", href: "/hr/", text: "Подбор, адаптация, HR-аудит и сопровождение: выберите подходящую услугу с открытой стоимостью." };
+  }
+  if (category === "architecture" || category === "cases") {
+    return { type: "task", label: "Разобрать управленческую задачу", href: "/consulting/", text: "Когда нужен разбор причин, взаимосвязей и ограничений конкретной компании." };
+  }
   const course = buildRelatedPrograms(article, category)[0];
 
   if (course) {
     return {
       type: "program",
       label: course.title,
-      href: course.url,
+      href: getProgramPath(course),
       text: course.result
     };
   }
@@ -386,10 +397,12 @@ function buildRelatedPrograms(article: Article, category: Category): StepikCours
     return STEPIK_COURSES.filter((course) => idSet.has(course.id)).slice(0, 3);
   }
 
-  const categories = CATEGORY_PROGRAMS[category];
+  const subject = `${article.frontmatter.title} ${article.frontmatter.tags.join(" ")}`.toLowerCase();
+  const categories: StepikCourseCategory[] = /проект|\bpmo\b/.test(subject) ? ["project-management"] : CATEGORY_PROGRAMS[category];
+  const primaryCategory = categories[0];
   return [...STEPIK_COURSES]
     .filter((course) => categories.includes(course.category))
-    .sort((left, right) => (right.learners ?? 0) - (left.learners ?? 0))
+    .sort((left, right) => Number(right.category === primaryCategory) - Number(left.category === primaryCategory) || (right.learners ?? 0) - (left.learners ?? 0))
     .slice(0, 3);
 }
 
