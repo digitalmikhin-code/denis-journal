@@ -1,3 +1,4 @@
+import { getArticleDescription } from "@/lib/article-description.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -72,7 +73,7 @@ export function getAllArticles(includeDraft = false): Article[] {
       tags: Array.isArray(parsed.data.tags)
         ? parsed.data.tags.map((tag: string) => normalizeTag(tag))
         : [],
-      excerpt: parsed.data.excerpt || "",
+      excerpt: getArticleDescription(parsed.data.excerpt, parsed.content, parsed.data.author || DEFAULT_AUTHOR),
       cover: CATEGORY_COVER_MAP[category] || "/images/covers/default-cover.svg",
       draft: Boolean(parsed.data.draft),
       author: parsed.data.author || DEFAULT_AUTHOR,
