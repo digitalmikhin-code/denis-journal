@@ -1,3 +1,4 @@
+import { getArticleDescription } from "../lib/article-description.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -83,7 +84,7 @@ function getPublishedArticles() {
       return {
         slug: slugFromFilename(fileName),
         title: parsed.data.title || "",
-        excerpt: parsed.data.excerpt || "",
+        excerpt: getArticleDescription(parsed.data.excerpt, parsed.content, parsed.data.author || "Денис Михин"),
         date: normalizedDate,
         category: parsed.data.category || "",
         tags: Array.isArray(parsed.data.tags) ? parsed.data.tags.map((tag) => String(tag).toLowerCase()) : []
