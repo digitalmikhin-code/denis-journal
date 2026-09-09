@@ -1,3 +1,4 @@
+import { getArticleDescription } from "../lib/article-description.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
@@ -110,7 +111,7 @@ function main() {
         title: parsed.data.title || "",
         category: parsed.data.category || "",
         tags: Array.isArray(parsed.data.tags) ? parsed.data.tags.map((tag) => String(tag).toLowerCase()) : [],
-        excerpt: parsed.data.excerpt || "",
+        excerpt: getArticleDescription(parsed.data.excerpt, parsed.content, parsed.data.author || "Денис Михин"),
         date: normalizedDate,
         cover: categoryCoverMap[parsed.data.category] || "/images/covers/default-cover.svg",
         readingTime: parsed.data.readingTime ? Number(parsed.data.readingTime) : readingTime(parsed.content),
