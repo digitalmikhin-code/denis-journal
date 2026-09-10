@@ -1,3 +1,4 @@
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import { HrSubscriptionClient } from "@/components/hr-subscription-client";
 import { SITE_URL } from "@/lib/constants";
@@ -57,6 +58,7 @@ export default function HrSubscriptionPage(): JSX.Element {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <PageBreadcrumbs items={[{ name: "HR по подписке", href: "/hr/" }]} />
       <HrSubscriptionClient />
     </>
   );
