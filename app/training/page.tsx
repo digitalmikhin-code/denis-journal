@@ -1,3 +1,4 @@
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
@@ -46,6 +47,7 @@ export default function TrainingPage(): JSX.Element {
 
   return (
     <div className="space-y-8">
+      <PageBreadcrumbs items={[{ name: "Курсы", href: "/training/" }]} />
       <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-36 w-64 bg-[linear-gradient(135deg,transparent_0%,transparent_42%,rgba(11,77,186,0.14)_42%,rgba(11,77,186,0.14)_68%,rgba(8,46,115,0.9)_68%)]" />
