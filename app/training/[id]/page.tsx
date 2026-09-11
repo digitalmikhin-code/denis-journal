@@ -1,3 +1,4 @@
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -68,6 +69,10 @@ export default function ProgramPage({ params }: Props): JSX.Element {
 
   return (
     <article className="space-y-10">
+      <PageBreadcrumbs items={[
+        { name: "Курсы", href: "/training/" },
+        { name: course.title, href: `${program.path.replace(/\/$/, "")}/` }
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
