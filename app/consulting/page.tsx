@@ -2,6 +2,7 @@ import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
+import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import { CONSULTING_PRODUCTS } from "@/lib/platform-ecosystem";
 import { SITE_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
@@ -20,9 +21,42 @@ export const metadata: Metadata = {
   }
 };
 
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${SITE_URL}/consulting/#service`,
+  name: "Консалтинг Дениса Михина",
+  description: metadata.description,
+  url: `${SITE_URL}/consulting/`,
+  serviceType: "Управленческий консалтинг и корпоративные проекты",
+  provider: {
+    "@type": "Person",
+    "@id": AUTHOR_ENTITY.id,
+    name: AUTHOR_ENTITY.name,
+    url: AUTHOR_ENTITY.url
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Направления консалтинга",
+    itemListElement: CONSULTING_PRODUCTS.map((product) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: product.title,
+        description: `${product.problem} ${product.result}`,
+        provider: { "@id": AUTHOR_ENTITY.id }
+      }
+    }))
+  }
+};
+
 export default function ConsultingPage(): JSX.Element {
   return (
     <div className="space-y-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }}
+      />
       <PageBreadcrumbs items={[{ name: "Консалтинг", href: "/consulting/" }]} />
       <section className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
