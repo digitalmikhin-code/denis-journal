@@ -1,3 +1,4 @@
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -66,6 +67,7 @@ export default function HubPage({ params }: Props): JSX.Element {
 
   return (
     <div className="space-y-10">
+      <PageBreadcrumbs items={[{ name: "Тематические хабы", href: "/hubs/" }, { name: hub.title, href: `/hub/${hub.slug}/` }]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(hubSchema) }}

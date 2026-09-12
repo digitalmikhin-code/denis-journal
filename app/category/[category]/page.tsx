@@ -1,3 +1,4 @@
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
@@ -41,6 +42,7 @@ export default function CategoryPage({ params }: Props): JSX.Element {
 
   return (
     <div className="space-y-6">
+      <PageBreadcrumbs items={[{ name: "Статьи", href: "/articles/" }, { name: CATEGORY_LABELS[category], href: `/category/${category}/` }]} />
       <header className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Рубрика</p>
         <h1 className="text-4xl font-extrabold tracking-tight">{CATEGORY_LABELS[category]}</h1>
