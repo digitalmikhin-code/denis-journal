@@ -125,6 +125,7 @@ function writeSitemap(articles) {
     "/search",
     "/about",
     "/hr/",
+    "/consulting/",
     "/training",
     "/newsletter",
     "/start",
@@ -145,7 +146,7 @@ function writeSitemap(articles) {
   ];
   const categoryRoutes = [...new Set(articles.map((item) => `/category/${item.category}`))];
   const articleRoutes = articles.map((item) => `/article/${item.slug}`);
-  const allRoutes = [...staticRoutes, ...categoryRoutes, ...articleRoutes];
+  const allRoutes = [...new Set([...staticRoutes, ...categoryRoutes, ...articleRoutes])];
 
   const entries = allRoutes
     .map((route) => {
@@ -160,6 +161,7 @@ function writeSitemap(articles) {
 
 function writeLlmsFiles(articles) {
   const canonicalPages = [
+    ["/consulting/", "Консалтинг Дениса Михина: управление бизнесом, PMO, KPI и OKR, CRM и продажи, AI-трансформация, стратегические сессии"],
     ["/hr/", "HR-консалтинг Дениса Михина: HR по подписке, подбор, адаптация, аудит, внешний HRBP/HRD, пакеты и стоимость"],
     ["/about", "Кто такой Денис Михин: биография, позиционирование, опыт, темы экспертизы"],
     ["/training", "Курсы Дениса Михина: Stepik, управление, Agile, Scrum, Kanban, OKR, ИИ"],
