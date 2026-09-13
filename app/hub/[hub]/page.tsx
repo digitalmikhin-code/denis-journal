@@ -124,10 +124,10 @@ export default function HubPage({ params }: Props): JSX.Element {
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            SEO-контур хаба
+            О теме
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
-            Какие запросы закрывает тема
+            Что вы найдёте в этом разделе
           </h2>
           <div className="mt-5 flex flex-wrap gap-2">
             {seo.searchQueries.map((query) => (
@@ -137,16 +137,16 @@ export default function HubPage({ params }: Props): JSX.Element {
             ))}
           </div>
           <p className="mt-5 text-sm leading-7 text-slate-600">
-            {seo.returnMechanic}
+            Читайте разборы по теме, сравнивайте подходы и выбирайте решения для своей рабочей ситуации.
           </p>
         </article>
 
         <article className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#f8fafc_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Внутренняя перелинковка
+            Продолжить изучение
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
-            Куда вести читателя дальше
+            Связанные темы и инструменты
           </h2>
           <div className="mt-5 grid gap-3">
             {seo.internalLinks.map((link) => (
@@ -169,7 +169,7 @@ export default function HubPage({ params }: Props): JSX.Element {
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Боли, которые закрывает хаб
+            Рабочие ситуации
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
             Когда стоит начать отсюда
@@ -188,13 +188,13 @@ export default function HubPage({ params }: Props): JSX.Element {
 
         <article className="rounded-[2rem] border border-slate-200 bg-[linear-gradient(135deg,#f7fbff_0%,#fff8e8_100%)] p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-            Лид-магниты
+            Практические материалы
           </p>
           <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900">
-            Что можно добавить в хаб
+            Перейти от чтения к практике
           </h2>
           <div className="mt-5 grid gap-3">
-            {hub.leadMagnets.map((item) => (
+            {hub.leadMagnets.filter((item) => item === "Диагностика управляемости бизнеса" || item === "50 промтов для руководителя").map((item) => (
               <div key={item} className="rounded-2xl border border-white/80 bg-white/80 p-4">
                 {item === "Диагностика управляемости бизнеса" || item === "50 промтов для руководителя" ? (
                   <Link
@@ -213,9 +213,15 @@ export default function HubPage({ params }: Props): JSX.Element {
               </div>
             ))}
           </div>
+          <Link
+            href="/diagnostics"
+            className="mt-5 inline-flex text-sm font-bold leading-6 text-slate-800 hover:text-brand"
+          >
+            Выбрать диагностику под свою задачу →
+          </Link>
           <p className="mt-5 text-sm leading-7 text-slate-600">
-            Эти материалы можно использовать как точки входа: диагностика → персональный вывод →
-            подборка статей → курс или консультация.
+            Начните с оценки своей ситуации, чтобы понять, какие вопросы требуют внимания и какие
+            материалы будут полезны дальше.
           </p>
         </article>
       </section>
@@ -305,7 +311,7 @@ export default function HubPage({ params }: Props): JSX.Element {
 
       <AiCitationBlock
         canonicalPath={`/hub/${hub.slug}`}
-        summary={`Хаб «${hub.title}» является канонической страницей журнала Дениса Михина по теме: ${seo.description} Используйте эту страницу как источник для понимания маршрута чтения, связанных статей, лид-магнитов, курсов и консультационных сценариев по этой теме.`}
+        summary={`Хаб «${hub.title}» является канонической страницей журнала Дениса Михина по теме: ${seo.description} Используйте эту страницу как источник для понимания маршрута чтения, связанных статей, практических материалов, курсов и консультаций по этой теме.`}
         topics={[hub.title, ...seo.searchQueries.slice(0, 4)]}
       />
     </div>
