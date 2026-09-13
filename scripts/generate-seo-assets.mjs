@@ -2,6 +2,7 @@ import { getArticleDescription } from "../lib/article-description.mjs";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import ts from "typescript";
 
 const root = process.cwd();
 const articlesDir = path.join(root, "content", "articles");
@@ -117,6 +118,29 @@ function writeRobots() {
   fs.writeFileSync(path.join(publicDir, "robots.txt"), robots);
 }
 
+function getProgramRoutes() {
+  // Read the same catalog as generateStaticParams, without maintaining a second ID list.
+  const fileName = path.join(root, "lib", "stepik-courses.ts");
+  const source = ts.createSourceFile(fileName, fs.readFileSync(fileName, "utf8"), ts.ScriptTarget.Latest, true);
+  const catalog = source.statements
+    .filter(ts.isVariableStatement)
+    .flatMap((statement) => [...statement.declarationList.declarations])
+    .find((declaration) => declaration.name.getText(source) === "STEPIK_COURSES")?.initializer;
+  if (!catalog || !ts.isArrayLiteralExpression(catalog) || !catalog.elements.length) {
+    throw new Error("Cannot read STEPIK_COURSES for sitemap");
+  }
+  return catalog.elements.map((course) => {
+    const id = ts.isObjectLiteralExpression(course)
+      ? course.properties.find((property) => ts.isPropertyAssignment(property) &&
+          (ts.isIdentifier(property.name) || ts.isStringLiteral(property.name)) && property.name.text === "id")?.initializer
+      : undefined;
+    if (!id || !ts.isNumericLiteral(id) || !Number.isSafeInteger(Number(id.text)) || Number(id.text) <= 0) {
+      throw new Error("Invalid course ID in STEPIK_COURSES");
+    }
+    return `/training/${Number(id.text)}`;
+  });
+}
+
 function writeSitemap(articles) {
   const staticRoutes = [
     "/",
@@ -146,7 +170,7 @@ function writeSitemap(articles) {
   ];
   const categoryRoutes = [...new Set(articles.map((item) => `/category/${item.category}`))];
   const articleRoutes = articles.map((item) => `/article/${item.slug}`);
-  const allRoutes = [...new Set([...staticRoutes, ...categoryRoutes, ...articleRoutes])];
+  const allRoutes = [...new Set([...staticRoutes, ...categoryRoutes, ...articleRoutes, ...getProgramRoutes()])];
 
   const entries = allRoutes
     .map((route) => {
