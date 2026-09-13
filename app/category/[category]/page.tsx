@@ -3,9 +3,19 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/article-card";
 import { CoursePromoBanner } from "@/components/course-promo-banner";
-import { CATEGORY_LABELS, type Category } from "@/lib/constants";
+import { CATEGORY_LABELS, SITE_URL, type Category } from "@/lib/constants";
 import { CATEGORY_SECTION_PROMO_KEYS, SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 import { getArticlesByCategory } from "@/lib/content";
+
+const CATEGORY_DESCRIPTIONS: Record<Category, string> = {
+  career: "Статьи Дениса Михина о карьерном росте: профессиональная репутация, инициатива, влияние и переход от специалиста к руководителю.",
+  management: "Как управлять командой и проектами: цели, сроки, поток работы, метрики и условия для результата. Статьи Дениса Михина о практике управления.",
+  thinking: "Системное мышление в управлении: как находить причины проблем, видеть взаимосвязи и ограничения, оценивать последствия решений. Статьи Дениса Михина.",
+  agile: "Гибкие трансформации бизнеса: Agile, доверие в команде, постоянные улучшения и причины неудачных изменений. Авторские разборы Дениса Михина.",
+  architecture: "Архитектура управленческих решений: роли, ответственность, приоритеты и устройство системы управления. Статьи Дениса Михина о проектировании бизнеса.",
+  cases: "Разборы управленческих ситуаций: перегруженные проекты, работа команд, поиск причин проблем и последствия решений. Материалы Дениса Михина.",
+  ai: "ИИ в работе руководителя: автоматизация, управление знаниями, организация работы команды и ответственность за решения. Статьи Дениса Михина."
+};
 
 type Props = {
   params: {
@@ -25,6 +35,13 @@ export function generateMetadata({ params }: Props): Metadata {
   }
   return {
     title: label,
+    description: CATEGORY_DESCRIPTIONS[category],
+    openGraph: {
+      title: label,
+      description: CATEGORY_DESCRIPTIONS[category],
+      url: `${SITE_URL}/category/${category}/`,
+      type: "website"
+    },
     alternates: {
       canonical: `/category/${category}`
     }
@@ -46,6 +63,9 @@ export default function CategoryPage({ params }: Props): JSX.Element {
       <header className="space-y-3">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand">Рубрика</p>
         <h1 className="text-4xl font-extrabold tracking-tight">{CATEGORY_LABELS[category]}</h1>
+        <p className="max-w-3xl text-base leading-7 text-slate-700 dark:text-slate-300">
+          {CATEGORY_DESCRIPTIONS[category]}
+        </p>
         <p className="text-slate-600 dark:text-slate-300">
           Всего материалов: {items.length}
         </p>
