@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleCard } from "@/components/article-card";
 import { getAllArticles, type ArticleSummary } from "@/lib/content";
-import { STEPIK_TEACH_URL, TELEGRAM_CONSULT_URL, type Category } from "@/lib/constants";
+import { TELEGRAM_CONSULT_URL, type Category } from "@/lib/constants";
 
 type StartRoute = {
   slug: string;
@@ -34,7 +34,7 @@ const START_ROUTES: StartRoute[] = [
     toolHref: "/lead/business-control-diagnostic",
     course: {
       title: "Все курсы Дениса Михина",
-      href: STEPIK_TEACH_URL
+      href: "/training/"
     },
     consultWhen:
       "Когда есть задача роста, но непонятно, где главный ограничитель: продажи, процессы, команда или система управления.",
@@ -48,11 +48,11 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для руководителя, которому нужно больше предсказуемости: понятные роли, ответственность, ритмы и решения.",
     categories: ["management", "architecture", "thinking"],
     signals: ["руковод", "управ", "команд", "ответствен", "ритм", "контроль", "решен"],
-    tool: "Чек-лист управляемости команды",
+    tool: "Диагностики управленческих задач",
     toolHref: "/diagnostics",
     course: {
       title: "Эффективный руководитель",
-      href: "https://stepik.org/course/271020/promo"
+      href: "/training/271020/"
     },
     consultWhen:
       "Когда команда перегружена, задачи расползаются, а руководителю приходится держать систему вручную.",
@@ -66,11 +66,11 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для тех, кто отвечает за движение задач к результату: сроки, риски, приоритеты, поток работы и прозрачность.",
     categories: ["management", "agile", "architecture", "cases"],
     signals: ["проект", "agile", "scrum", "kanban", "приоритет", "срок", "риск", "delivery"],
-    tool: "Карта здоровья проекта",
+    tool: "Материалы по управлению проектами",
     toolHref: "/hub/projects",
     course: {
       title: "Основы управления проектами",
-      href: "https://stepik.org/course/259560/promo"
+      href: "/training/259560/"
     },
     consultWhen:
       "Когда проект важный, сроки давят, риски растут, а команда теряет общий фокус.",
@@ -84,11 +84,11 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для HR и лидеров изменений: как соединить культуру, процессы, управленческий ритм и бизнес-задачи.",
     categories: ["agile", "management", "architecture", "cases"],
     signals: ["изменен", "трансформац", "команд", "культур", "адаптив", "ответствен", "ритм"],
-    tool: "Карта готовности команды к изменениям",
+    tool: "Материалы по управлению изменениями",
     toolHref: "/hub/transformations",
     course: {
       title: "Agile AI Transformation",
-      href: "https://stepik.org/course/255881/promo"
+      href: "/training/255881/"
     },
     consultWhen:
       "Когда изменения запускаются, но команда устает, сопротивляется или не переносит новые практики в ежедневную работу.",
@@ -102,11 +102,11 @@ const START_ROUTES: StartRoute[] = [
       "Маршрут для сильного специалиста: как нарастить влияние, показать результат, развить управленческое мышление и двигаться дальше.",
     categories: ["career", "management", "thinking"],
     signals: ["карьер", "рост", "влия", "замет", "специалист", "руковод", "ответствен"],
-    tool: "Карта карьерного роста на 90 дней",
+    tool: "Материалы о карьерном росте",
     toolHref: "/hub/career",
     course: {
       title: "Эффективный руководитель",
-      href: "https://stepik.org/course/271020/promo"
+      href: "/training/271020/"
     },
     consultWhen:
       "Когда вы готовы расти, но неясно, какой следующий шаг даст заметность, влияние и доверие руководства.",
@@ -124,7 +124,7 @@ const START_ROUTES: StartRoute[] = [
     toolHref: "/lead/manager-ai-prompts",
     course: {
       title: "Промт-инжиниринг с нуля",
-      href: "https://stepik.org/course/243614/promo"
+      href: "/training/243614/"
     },
     consultWhen:
       "Когда ИИ уже нужен в работе команды, но пока нет понятной карты сценариев, правил и управленческого эффекта.",
@@ -250,14 +250,14 @@ export default function StartPage(): JSX.Element {
 
                     <div className="mt-6 border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                       <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                        Инструмент
+                        Материалы для работы
                       </p>
                       <p className="mt-2 text-lg font-black text-slate-950 dark:text-slate-50">{route.tool}</p>
                       <Link
                         href={route.toolHref}
                         className="mt-3 inline-flex border border-slate-300 bg-white px-4 py-2.5 text-sm font-bold text-slate-800 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                       >
-                        Перейти к инструменту
+                        Открыть материалы
                       </Link>
                     </div>
                   </div>
@@ -307,11 +307,9 @@ export default function StartPage(): JSX.Element {
                       <p className="mt-2 text-lg font-black text-slate-950 dark:text-slate-50">{route.course.title}</p>
                       <Link
                         href={route.course.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
                         className="mt-3 inline-flex bg-brand px-4 py-2.5 text-sm font-bold text-white transition hover:bg-brand-dark"
                       >
-                        Смотреть курс
+                        {route.course.href === "/training/" ? "Выбрать программу" : "Подробнее о курсе"}
                       </Link>
                     </div>
 
