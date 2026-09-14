@@ -326,7 +326,8 @@ export function getProgramPage(course: StepikCourse): ProgramPageData {
     })),
     modules: context.modules,
     extras: context.extras,
-    reviews: buildReviews(course),
+    // Publish reviews only when their original text and source are verified.
+    reviews: [],
     nextCourses
   };
 }
@@ -353,17 +354,3 @@ function buildResults(course: StepikCourse): string[] {
   return Array.from(new Set(base.filter(Boolean))).slice(0, Math.max(6, Math.min(base.length, 8)));
 }
 
-function buildReviews(course: StepikCourse): ProgramReview[] {
-  if (course.reviews === "0" || course.reviews.trim() === "") {
-    return [];
-  }
-
-  return [
-    {
-      name: "Слушатель Stepik",
-      role: course.forWhom.split(",")[0] || "специалист",
-      problem: "нужно было быстро разобраться в теме и применить материал в работе",
-      result: course.result
-    }
-  ];
-}
