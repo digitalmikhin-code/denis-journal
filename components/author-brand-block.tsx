@@ -1,9 +1,6 @@
 import Link from "next/link";
-import {
-  STEPIK_TEACH_URL,
-  TELEGRAM_CHANNEL_URL,
-  TELEGRAM_CONSULT_URL
-} from "@/lib/constants";
+import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { TrackedLink } from "@/components/tracked-link";
 
 type AuthorBrandBlockVariant = "short" | "extended" | "soft-sell";
 
@@ -98,22 +95,22 @@ export function AuthorBrandBlock({
             >
               Читать канал
             </Link>
-            <Link
-              href={STEPIK_TEACH_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <TrackedLink
+              href="/training/"
+              goal="journal_course_click"
+              params={{ source: "author_brand_block", variant }}
               className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-center text-sm font-bold text-slate-800 shadow-sm transition hover:-translate-y-0.5 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-800"
             >
               Выбрать курс
-            </Link>
-            <Link
-              href={TELEGRAM_CONSULT_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            </TrackedLink>
+            <TrackedLink
+              href="/consulting/"
+              goal="journal_consulting_click"
+              params={{ source: "author_brand_block", variant }}
               className="rounded-2xl bg-slate-950 px-4 py-3 text-center text-sm font-bold text-white shadow-[0_7px_0_0_rgba(15,23,42,0.16)] transition hover:-translate-y-0.5 hover:bg-slate-800 dark:bg-white dark:text-slate-950"
             >
               Разобрать задачу
-            </Link>
+            </TrackedLink>
           </div>
         </div>
       </div>
