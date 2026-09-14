@@ -8,6 +8,8 @@ import { AuthorBrandBlock } from "@/components/author-brand-block";
 import { TrackedLink } from "@/components/tracked-link";
 import { getAllArticles } from "@/lib/content";
 import { getHubSeo } from "@/lib/ecosystem";
+import { STEPIK_TEACH_URL } from "@/lib/constants";
+import { getProgramPageById } from "@/lib/program-pages";
 import { getAllHubs, getHub, getHubArticles, getHubConsultUrl, type HubSlug } from "@/lib/hubs";
 
 type Props = {
@@ -46,6 +48,12 @@ export default function HubPage({ params }: Props): JSX.Element {
   const leadArticles = articles.slice(0, 3);
   const restArticles = articles.slice(3);
   const seo = getHubSeo(params.hub);
+  const courseId = hub.course.href.match(/stepik\.org\/course\/(\d+)/)?.[1];
+  const program = courseId ? getProgramPageById(courseId) : undefined;
+  const courseHref = program
+    ? `${program.path}/`
+    : hub.course.href === STEPIK_TEACH_URL ? "/training/" : hub.course.href;
+  const isExternalCourse = courseHref.startsWith("http");
   const hubSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -254,14 +262,14 @@ export default function HubPage({ params }: Props): JSX.Element {
           </h2>
           <p className="mt-4 text-base leading-8 text-slate-700">{hub.course.note}</p>
           <TrackedLink
-            href={hub.course.href}
+            href={courseHref}
             goal="hub_course_click"
             params={{ hub: hub.slug, course: hub.course.title }}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={isExternalCourse ? "_blank" : undefined}
+            rel={isExternalCourse ? "noopener noreferrer" : undefined}
             className="mt-5 inline-flex rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Смотреть курс
+            {courseHref === "/training/" ? "Выбрать программу" : "Подробнее о курсе"}
           </TrackedLink>
         </article>
 
