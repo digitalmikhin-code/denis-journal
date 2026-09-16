@@ -141,12 +141,41 @@ function getProgramRoutes() {
   });
 }
 
+function getKnowledgeRoutes() {
+  const catalogs = [
+    ["skills.ts", "SKILLS", "/skills", "skill"],
+    ["solutions.ts", "SOLUTIONS", "/solutions"],
+    ["career-paths.ts", "CAREER_PATHS", "/career-paths"]
+  ];
+  return catalogs.flatMap(([file, name, prefix, factory]) => {
+    const fileName = path.join(root, "lib", file);
+    const source = ts.createSourceFile(fileName, fs.readFileSync(fileName, "utf8"), ts.ScriptTarget.Latest, true);
+    const catalog = source.statements.filter(ts.isVariableStatement)
+      .flatMap((statement) => [...statement.declarationList.declarations])
+      .find((declaration) => declaration.name.getText(source) === name)?.initializer;
+    if (!catalog || !ts.isArrayLiteralExpression(catalog) || !catalog.elements.length) {
+      throw new Error(`Cannot read ${name} for sitemap`);
+    }
+    return catalog.elements.map((item) => {
+      const slug = factory && ts.isCallExpression(item) && item.expression.getText(source) === factory
+        ? item.arguments[0]
+        : ts.isObjectLiteralExpression(item)
+          ? item.properties.find((property) => ts.isPropertyAssignment(property) &&
+              (ts.isIdentifier(property.name) || ts.isStringLiteral(property.name)) && property.name.text === "slug")?.initializer
+          : undefined;
+      if (!slug || !ts.isStringLiteral(slug) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug.text)) {
+        throw new Error(`Invalid slug in ${name}`);
+      }
+      return `${prefix}/${slug.text}`;
+    });
+  });
+}
+
 function writeSitemap(articles) {
   const staticRoutes = [
     "/",
     "/articles",
     "/videos",
-    "/search",
     "/about",
     "/hr/",
     "/consulting/",
@@ -162,6 +191,10 @@ function writeSitemap(articles) {
     "/hub/career",
     "/hub/transformations",
     "/diagnostics",
+    "/diagnostics/management-maturity-index",
+    "/skills",
+    "/solutions",
+    "/career-paths",
     "/lead/business-control-diagnostic",
     "/lead/manager-ai-prompts",
     "/practice",
@@ -170,7 +203,7 @@ function writeSitemap(articles) {
   ];
   const categoryRoutes = [...new Set(articles.map((item) => `/category/${item.category}`))];
   const articleRoutes = articles.map((item) => `/article/${item.slug}`);
-  const allRoutes = [...new Set([...staticRoutes, ...categoryRoutes, ...articleRoutes, ...getProgramRoutes()])];
+  const allRoutes = [...new Set([...staticRoutes, ...categoryRoutes, ...articleRoutes, ...getProgramRoutes(), ...getKnowledgeRoutes()])];
 
   const entries = allRoutes
     .map((route) => {
