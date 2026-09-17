@@ -5,6 +5,7 @@ import { MaxChannelBanner } from "@/components/max-channel-banner";
 import { SECTION_COURSE_PROMOS } from "@/lib/course-promos";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/newsletter/" },
   title: "Канал в Max",
   description:
     "Подпишитесь на канал Дениса Михина в Max: новые разборы, практические инструменты и анонсы материалов журнала."
