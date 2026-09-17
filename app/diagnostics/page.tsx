@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DiagnosticsHub } from "@/components/diagnostics-hub";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/diagnostics/" },
   title: "Диагностика",
   description: "Раздел для материалов по диагностике: разборы, инструменты и рабочие схемы."
 };
