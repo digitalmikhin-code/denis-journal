@@ -2,8 +2,8 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
-import Link from "next/link";
-import { LEADS_API_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import { TrackedLink } from "@/components/tracked-link";
+import { LEADS_API_URL } from "@/lib/constants";
 import { BUSINESS_CONTROL_DIAGNOSTIC } from "@/lib/business-control-diagnostic";
 
 type LeadForm = {
@@ -467,14 +467,14 @@ function DiagnosticResult({
           >
             {sendStatus === "sending" ? "Отправляем..." : "Отправить диагностику Денису"}
           </button>
-          <Link
-            href={TELEGRAM_CONSULT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <TrackedLink
+            href="/consulting/"
+            goal="journal_consulting_click"
+            params={{ source: "business_control_diagnostic", placement: "result" }}
             className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Обсудить результаты
-          </Link>
+            Консалтинг по результатам диагностики
+          </TrackedLink>
           <button
             type="button"
             onClick={onRestart}

@@ -2,8 +2,8 @@
 
 import type { FormEvent } from "react";
 import { useState } from "react";
-import Link from "next/link";
-import { LEADS_API_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
+import { TrackedLink } from "@/components/tracked-link";
+import { LEADS_API_URL } from "@/lib/constants";
 import { ALL_MANAGER_PROMPTS, MANAGER_AI_PROMPTS, type ManagerPrompt } from "@/lib/manager-ai-prompts";
 
 type LeadForm = {
@@ -260,22 +260,22 @@ function UnlockedPrompts(): JSX.Element {
           >
             {pdfStatus === "generating" ? "Формируем PDF..." : "Скачать PDF"}
           </button>
-          <Link
-            href="https://stepik.org/course/243614/promo"
-            target="_blank"
-            rel="noopener noreferrer"
+          <TrackedLink
+            href="/training/243614/"
+            goal="journal_course_click"
+            params={{ source: "manager_ai_prompts", placement: "result", course_id: 243614 }}
             className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-slate-50"
           >
-            Смотреть курс
-          </Link>
-          <Link
-            href={TELEGRAM_CONSULT_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            Подробнее о курсе
+          </TrackedLink>
+          <TrackedLink
+            href="/consulting/"
+            goal="journal_consulting_click"
+            params={{ source: "manager_ai_prompts", placement: "result" }}
             className="rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
           >
-            Обсудить внедрение ИИ
-          </Link>
+            Консалтинг по внедрению ИИ
+          </TrackedLink>
         </div>
         {pdfStatus === "success" ? (
           <p className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800">
