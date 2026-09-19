@@ -395,6 +395,13 @@ function NextCourseCard({ course }: { course: StepikCourse }): JSX.Element {
 }
 
 function buildCourseSchema(course: StepikCourse, path: string): Record<string, unknown> {
+  // Only unambiguous catalog prices belong in machine-readable offers.
+  const rubles = course.price.trim().match(/^(\d+(?:[ \u00a0\u202f]\d{3})*(?:[.,]\d{1,2})?)\s*₽$/);
+  const price = /^бесплатно$/i.test(course.price.trim())
+    ? 0
+    : rubles ? Number(rubles[1].replace(/[ \u00a0\u202f]/g, "").replace(",", ".")) : undefined;
+  const hours = course.duration.trim().match(/^(\d+(?:[.,]\d+)?)\s*час(?:а|ов)?$/i);
+
   return {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -404,16 +411,22 @@ function buildCourseSchema(course: StepikCourse, path: string): Record<string, u
     provider: {
       "@type": "Person",
       name: "Денис Михин",
-      url: SITE_URL
+      url: `${SITE_URL}/about/`
     },
-    courseMode: "online",
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      url: course.url
+    },
     educationalLevel: course.level,
-    timeRequired: course.duration,
-    offers: {
-      "@type": "Offer",
-      price: course.price,
-      url: course.url,
-      availability: "https://schema.org/InStock"
-    }
+    ...(hours ? { timeRequired: `PT${hours[1].replace(",", ".")}H` } : {}),
+    ...(price !== undefined && Number.isFinite(price) ? {
+      offers: {
+        "@type": "Offer",
+        price,
+        priceCurrency: "RUB",
+        url: course.url
+      }
+    } : {})
   };
 }
