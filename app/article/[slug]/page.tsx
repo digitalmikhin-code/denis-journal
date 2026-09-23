@@ -1,4 +1,5 @@
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
+import { getAllHubs, HUB_READING_ROUTES } from "@/lib/hubs";
 import Link from "next/link";
 import { ArticleNextStep } from "@/components/article-next-step";
 import { AiCitationBlock } from "@/components/ai-citation-block";
@@ -274,6 +275,17 @@ export default function ArticlePage({ params }: Props): JSX.Element {
             </blockquote>
           )}
           {article.frontmatter.citationSummary && <AiCitationBlock canonicalPath={`/article/${article.slug}/`} summary={article.frontmatter.citationSummary} />}
+          {getAllHubs().filter((hub) => HUB_READING_ROUTES[hub.slug]?.includes(article.slug)).map((hub) => (
+            <nav key={hub.slug} aria-label={`Маршрут чтения: ${hub.title}`} className="rounded-2xl border border-slate-200 bg-slate-50 p-6 dark:border-slate-700 dark:bg-slate-900">
+              <h2 className="text-xl font-bold text-slate-950 dark:text-slate-50">Продолжить изучение темы</h2>
+              <p className="mt-3 leading-7 text-slate-700 dark:text-slate-300">
+                Эта статья входит в маршрут «{hub.title}». В разделе собраны материалы для последовательного изучения темы, обучение и практические инструменты.
+              </p>
+              <Link href={`/hub/${hub.slug}/`} className="mt-4 inline-flex font-semibold text-brand underline underline-offset-4">
+                Перейти к маршруту «{hub.title}» →
+              </Link>
+            </nav>
+          ))}
           <ArticleAuthorCard author={article.frontmatter.author || AUTHOR_ENTITY.name} />
           <ArticleNextStep step={nextStep} articleSlug={article.slug} />
           <SkillCardSection skills={articleSkills} />
