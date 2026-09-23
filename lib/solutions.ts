@@ -331,7 +331,7 @@ export const SOLUTIONS: Solution[] = [
       { title: "Выбрать подход", text: "Понять, где нужен Scrum, Kanban или гибрид.", href: "/category/agile" },
       { title: "Сделать поток видимым", text: "Показать задачи, блокеры, WIP и ожидания.", href: "/category/management" },
       { title: "Настроить обратную связь", text: "Проводить ретроспективы с конкретными экспериментами.", href: "/category/agile" },
-      { title: "Закрепить метрики", text: "Следить за скоростью, качеством, предсказуемостью и нагрузкой.", href: "/training#agile" }
+      { title: "Закрепить метрики", text: "Следить за скоростью, качеством, предсказуемостью и нагрузкой.", href: "/training/#agile-scrum-kanban" }
     ],
     materials: soonMaterials("implement-agile", [
       "Карта Agile-внедрения",
