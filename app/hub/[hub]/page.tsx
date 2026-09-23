@@ -129,6 +129,8 @@ export default function HubPage({ params }: Props): JSX.Element {
         </div>
       </section>
 
+      {hub.slug === "management" && <ManagementGuide />}
+
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
@@ -323,5 +325,89 @@ export default function HubPage({ params }: Props): JSX.Element {
         topics={[hub.title, ...seo.searchQueries.slice(0, 4)]}
       />
     </div>
+  );
+}
+
+function ManagementGuide(): JSX.Element {
+  return (
+    <section aria-labelledby="management-guide-title" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900 md:p-10">
+      <h2 id="management-guide-title" className="text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50">
+        Управление как связь целей, решений и работы команды
+      </h2>
+      <div className="mt-6 max-w-3xl space-y-5 leading-8 text-slate-700 dark:text-slate-300">
+        <p>
+          Управление связывает желаемый результат с повседневными решениями: какую работу начать,
+          кому передать полномочия, как распределить ограниченное время и по каким признакам оценить
+          прогресс. Если эти решения противоречат друг другу, даже занятая и компетентная команда
+          может не приблизиться к цели.
+        </p>
+        <p>
+          В материалах Дениса Михина управленческая задача рассматривается через устройство всей
+          работы: цели, роли, процессы, ограничения и обратную связь. Например, задержка может быть
+          связана с очередью согласований или конфликтом приоритетов. Прежде чем усиливать контроль,
+          полезно проверить, где возникает ожидание и какое решение способно изменить ситуацию.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">На какие понятия опираться</h3>
+        <p>
+          <strong>Цель</strong> описывает нужное изменение результата. <strong>Приоритет</strong>
+          {" "}определяет выбор при нехватке ресурсов. <strong>Ответственность</strong> задаёт,
+          кто отвечает за результат, а полномочия — какие решения этот человек может принимать.
+          Согласовать ответственность и полномочия важно до того, как требовать исполнения.
+        </p>
+        <p>
+          <strong>Ограничение</strong> мешает работе двигаться с нужной скоростью или качеством.
+          <strong> Обратная связь</strong> показывает последствия решений и позволяет пересмотреть
+          подход. При этом количество завершённых задач ещё не подтверждает, что получен полезный
+          эффект: оценивать нужно и выполненную работу, и изменение результата.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Как разбирать управленческую ситуацию</h3>
+        <p>
+          Начните с наблюдаемого расхождения: какого результата ожидали и что происходит фактически.
+          Затем проследите путь работы между людьми и подразделениями. Где меняются приоритеты,
+          накапливаются задачи или требуется решение за пределами полномочий команды? Такое описание
+          помогает сформулировать несколько объяснений проблемы и выбрать данные для их проверки.
+        </p>
+        <p>
+          После изменения правила, порядка согласования или распределения нагрузки важно проверить
+          последствия для всего процесса. Ускорение одного участка может увеличить очередь на другом.
+          Поэтому управленческий цикл продолжается после выполнения плана: наблюдения возвращаются
+          в обсуждение целей, приоритетов и организации работы.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Выберите материал под свою задачу</h3>
+        <ul className="list-disc space-y-4 pl-5">
+          <li>
+            Если инициатив много, а ресурсы пересекаются, начните со статьи{" "}
+            <Link href="/article/strategiya-kotoraya-prevraschaetsya-v-rezultat/" className="font-semibold text-brand underline underline-offset-4">о стратегическом выборе и портфеле инициатив</Link>.
+            Она помогает перейти от списка желаний к приоритетам компании.
+          </li>
+          <li>
+            Если задачи выполняются, но эффект неясен, прочитайте{" "}
+            <Link href="/article/kak-svyazat-tseli-i-deystviya/" className="font-semibold text-brand underline underline-offset-4">как связать цели и действия</Link>:
+            что должна изменить работа и какими наблюдениями проверить её вклад.
+          </li>
+          <li>
+            Если решение принято, но исполнение застревает, переходите к статье{" "}
+            <Link href="/article/kak-sobirat-sistemu-realizatsii/" className="font-semibold text-brand underline underline-offset-4">о системе реализации</Link> —
+            полномочиях владельца, загрузке, препятствиях и приёмке результата.
+          </li>
+        </ul>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Когда общего подхода недостаточно</h3>
+        <p>
+          Эти материалы полезны для постановки вопросов и выбора следующего действия, но не заменяют
+          изучения конкретной организации. Причину повторяющейся проблемы нужно проверять данными;
+          для этого есть отдельный разбор{" "}
+          <Link href="/article/prichiny-glubzhe-simptomov-upravlencheskiy-vzglyad/" className="font-semibold text-brand underline underline-offset-4">проверки управленческих гипотез</Link>.
+          Если препятствие связано с условиями работы людей, обсуждение процессов нужно дополнить
+          разбором нагрузки, ролей и доступной поддержки.
+        </p>
+        <p>
+          Для первоначального разбора ситуации можно использовать{" "}
+          <Link href="/lead/business-control-diagnostic/" className="font-semibold text-brand underline underline-offset-4">диагностику управляемости бизнеса</Link>.
+          Для работы с конкретной задачей компании — изучить{" "}
+          <Link href="/consulting/" className="font-semibold text-brand underline underline-offset-4">направления управленческого консалтинга</Link>.
+          Связанный курс и дополнительные статьи находятся ниже на странице.
+        </p>
+      </div>
+    </section>
   );
 }
