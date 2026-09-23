@@ -220,10 +220,37 @@ export function getHub(slug: string): Hub | null {
   return HUBS[slug as HubSlug] ?? null;
 }
 
+// Editorial starting points; remaining articles keep relevance-based ordering.
+export const HUB_READING_ROUTES: Partial<Record<HubSlug, readonly string[]>> = {
+  management: [
+    "strategiya-kotoraya-prevraschaetsya-v-rezultat",
+    "kak-svyazat-tseli-i-deystviya",
+    "kak-sobirat-sistemu-realizatsii"
+  ],
+  "systems-thinking": [
+    "kak-videt-sistemu-a-ne-otdelnye-sobytiya",
+    "prichiny-glubzhe-simptomov-upravlencheskiy-vzglyad"
+  ],
+  transformations: [
+    "kak-vnedryat-izmeneniya-ekologichno",
+    "transformatsii-bez-stressa-dlya-lyudey",
+    "pochemu-komandy-soprotivlyayutsya-izmeneniyam"
+  ]
+};
+
 export function getHubArticles(articles: ArticleSummary[], hub: Hub, limit = 12): ArticleSummary[] {
   const signals = hub.signals.map((signal) => signal.toLowerCase());
 
-  return articles
+  const published = articles.filter((article) => !article.frontmatter.draft);
+  const route = HUB_READING_ROUTES[hub.slug] ?? [];
+  const selected = route.flatMap((slug) => {
+    const article = published.find((item) => item.slug === slug);
+    return article ? [article] : [];
+  });
+  const selectedSlugs = new Set(selected.map((article) => article.slug));
+
+  const ranked = published
+    .filter((article) => !selectedSlugs.has(article.slug))
     .map((article) => {
       const text = `${article.frontmatter.title} ${article.frontmatter.excerpt} ${
         article.frontmatter.tags?.join(" ") ?? ""
@@ -244,8 +271,9 @@ export function getHubArticles(articles: ArticleSummary[], hub: Hub, limit = 12)
       }
       return new Date(right.article.frontmatter.date).getTime() - new Date(left.article.frontmatter.date).getTime();
     })
-    .slice(0, limit)
     .map((item) => item.article);
+
+  return [...selected, ...ranked].slice(0, Math.max(0, limit));
 }
 
 export function getHubConsultUrl(): string {
