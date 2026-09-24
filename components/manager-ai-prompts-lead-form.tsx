@@ -369,7 +369,8 @@ function renderManagerPromptsPages(): PdfCanvasPage[] {
   y += 28;
   let promptIndex = 1;
   MANAGER_AI_PROMPTS.sections.forEach((section) => {
-    ensureSpace(120);
+    const firstPromptHeight = section.prompts[0] ? measurePromptCard(context, section.prompts[0]) : 0;
+    ensureSpace(112 + firstPromptHeight + 28);
     y = drawSectionTitle(context, section.title, y, margin);
 
     section.prompts.forEach((prompt) => {
@@ -381,7 +382,11 @@ function renderManagerPromptsPages(): PdfCanvasPage[] {
     });
   });
 
-  ensureSpace(280);
+  const closingTextWidth = width - margin * 2;
+  const closingHeight = 112 + 22 +
+    wrapCanvasText(context, MANAGER_AI_PROMPTS.courseCta, closingTextWidth, "30px Arial").length * 40 +
+    wrapCanvasText(context, MANAGER_AI_PROMPTS.afterDownloadMessage, closingTextWidth, "30px Arial").length * 40;
+  ensureSpace(closingHeight);
   y = drawSectionTitle(context, "Следующий шаг", y, margin);
   y += drawWrappedText(context, MANAGER_AI_PROMPTS.courseCta, margin, y, width - margin * 2, {
     font: "30px Arial",
@@ -504,7 +509,8 @@ function measurePromptCard(context: CanvasRenderingContext2D, prompt: ManagerPro
   const promptLines = wrapCanvasText(context, prompt.prompt, contentWidth, "28px Arial");
   const whenLines = wrapCanvasText(context, `Когда применять: ${prompt.whenToUse}`, contentWidth, "25px Arial");
   const resultLines = wrapCanvasText(context, `Результат: ${prompt.expectedResult}`, contentWidth, "25px Arial");
-  return 126 + promptLines.length * 36 + whenLines.length * 32 + resultLines.length * 32;
+  // Match drawPromptCard: text starts at 166, gaps total 30, bottom padding is 26.
+  return 222 + promptLines.length * 36 + whenLines.length * 32 + resultLines.length * 32;
 }
 
 function drawPromptCard(
