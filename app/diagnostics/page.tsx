@@ -5,16 +5,15 @@ import { DiagnosticsHub } from "@/components/diagnostics-hub";
 export const metadata: Metadata = {
   alternates: { canonical: "/diagnostics/" },
   title: "Диагностика",
-  description: "Раздел для материалов по диагностике: разборы, инструменты и рабочие схемы."
+  description: "Диагностики и практические материалы Дениса Михина: управленческая зрелость, управляемость бизнеса, тесты по проектам и Agile, 50 промптов для руководителя."
 };
 
 export default function DiagnosticsPage(): JSX.Element {
-  const diagnosticRoadmap = [
+  const diagnosticResources = [
     ["Индекс управленческой зрелости", "180 вопросов, 9 блоков, отчет, карта компетенций и план развития.", "/diagnostics/management-maturity-index"],
-    ["Индекс зрелости руководителя", "Лидерство, делегирование, коммуникация, решения, команда и системное мышление.", "/diagnostics/management-maturity-index"],
-    ["Индекс зрелости команды", "Доверие, ответственность, коммуникация, результативность и клиентоцентричность.", "/diagnostics"],
-    ["Диагностика бизнеса", "Управление, продажи, маркетинг, финансы, команда и процессы.", "/lead/business-control-diagnostic"],
-    ["Диагностика цифровой зрелости", "CRM, автоматизация, ИИ, аналитика и процессы.", "/lead/manager-ai-prompts"]
+    ["Тематические тесты", "Самопроверка по управлению проектами, продуктам, Scrum, Kanban и другим направлениям.", "#topic-tests"],
+    ["Диагностика управляемости бизнеса", "24 вопроса для разбора управляемости, фокуса и работы компании.", "/lead/business-control-diagnostic"],
+    ["50 промптов для руководителя", "PDF с примерами запросов для анализа ситуаций, подготовки решений и работы с командой.", "/lead/manager-ai-prompts"]
   ];
 
   return (
@@ -26,8 +25,8 @@ export default function DiagnosticsPage(): JSX.Element {
         <p className="border-l-4 border-brand pl-3 text-xs font-black uppercase tracking-[0.18em] text-brand">Новый раздел</p>
         <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-slate-950 dark:text-white md:text-6xl">Диагностика</h1>
         <p className="mt-4 max-w-[64ch] text-base leading-8 text-slate-650 dark:text-slate-300 md:text-lg">
-          В этом разделе собраны диагностические тесты по управлению, командам и системам работы.
-          Выбирайте актуальную диагностику, проходите за несколько минут и получайте персональные ориентиры для роста.
+          Выберите инструмент под свою задачу: оценку управленческой зрелости, диагностику
+          управляемости бизнеса, тематический тест или PDF с промптами для работы руководителя.
         </p>
         </div>
       </header>
@@ -73,19 +72,20 @@ export default function DiagnosticsPage(): JSX.Element {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              Центральный элемент платформы
+              Выберите формат
             </p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
-              Диагностика связывает проблему с обучением
+              Диагностики, тесты и практические материалы
             </h2>
           </div>
           <p className="max-w-xl text-sm leading-7 text-slate-600">
-            Диагностики должны быть бесплатными, без регистрации и лишнего давления. Их задача -
-            показать текущий уровень, зоны развития и курс, который поможет закрыть дефицит компетенций.
+            Тесты помогают наметить вопросы для дальнейшего изучения. Диагностика бизнеса
+            предлагает разбор рабочей ситуации, а сборник промптов — примеры запросов к ИИ.
+            Выбирайте формат по задаче; условия получения указаны на странице материала.
           </p>
         </div>
-        <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-          {diagnosticRoadmap.map(([title, text, href]) => (
+        <div className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {diagnosticResources.map(([title, text, href]) => (
             <Link
               key={title}
               href={href}
@@ -136,7 +136,9 @@ export default function DiagnosticsPage(): JSX.Element {
         </Link>
       </section>
 
-      <DiagnosticsHub />
+      <div id="topic-tests" className="scroll-mt-28">
+        <DiagnosticsHub />
+      </div>
     </div>
   );
 }
