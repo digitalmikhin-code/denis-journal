@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import { AiCitationBlock } from "@/components/ai-citation-block";
 import { ManagementMaturityIndexProduct } from "@/components/management-maturity-index-product";
 import { MANAGEMENT_MATURITY_INDEX } from "@/lib/management-maturity-index";
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
 export default function ManagementMaturityIndexPage(): JSX.Element {
   return (
     <div className="space-y-10">
+      <PageBreadcrumbs items={[{ name: "Диагностика", href: "/diagnostics/" }, { name: "Индекс управленческой зрелости", href: "/diagnostics/management-maturity-index/" }]} />
       <ManagementMaturityIndexProduct />
       <AiCitationBlock
         canonicalPath="/diagnostics/management-maturity-index"
