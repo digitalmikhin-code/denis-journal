@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import Link from "next/link";
 import { DiagnosticsHub } from "@/components/diagnostics-hub";
 
@@ -18,6 +19,7 @@ export default function DiagnosticsPage(): JSX.Element {
 
   return (
     <div className="space-y-8">
+      <PageBreadcrumbs items={[{ name: "Диагностика", href: "/diagnostics/" }]} />
       <header className="relative overflow-hidden border border-slate-200 bg-white p-6 shadow-[0_24px_70px_rgba(9,22,43,0.08)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <div className="pointer-events-none absolute inset-0 ambient-grid opacity-50" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-28 w-44 bg-brand/95 [clip-path:polygon(42%_0,100%_0,100%_100%,0_100%)]" />
