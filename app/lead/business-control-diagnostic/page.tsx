@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import Link from "next/link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
 import { BusinessControlLeadForm } from "@/components/business-control-lead-form";
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 export default function BusinessControlDiagnosticPage(): JSX.Element {
   return (
     <div className="space-y-10">
+      <PageBreadcrumbs items={[{ name: "Диагностика", href: "/diagnostics/" }, { name: "Диагностика управляемости бизнеса", href: "/lead/business-control-diagnostic/" }]} />
       <section className="relative overflow-hidden rounded-[2.35rem] border border-slate-200 bg-slate-950 p-7 text-white shadow-[0_34px_82px_rgba(15,23,42,0.22)] md:p-10">
         <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#2bd0e2]/35" />
         <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#f5d45d]/30" />
