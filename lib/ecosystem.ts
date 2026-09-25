@@ -418,7 +418,7 @@ export const HUB_SEO_ARCHITECTURE: Record<HubSlug, HubSeoArchitecture> = {
     h3: ["сроки", "риски", "приоритеты", "delivery"],
     searchQueries: ["управление проектами", "как управлять рисками проекта", "портфель проектов", "проектный менеджмент"],
     internalLinks: [
-      { label: "Карта рисков", href: "/diagnostics" },
+      { label: "Тематические тесты", href: "/diagnostics/#topic-tests" },
       { label: "Курс по управлению проектами", href: "https://stepik.org/course/259560/promo" },
       { label: "Практика изменений", href: "/practice" }
     ],
