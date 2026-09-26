@@ -28,11 +28,11 @@ export default function ManagerAiPromptsPage(): JSX.Element {
         <div className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border-[16px] border-[#ffb267]/35" />
         <div className="pointer-events-none absolute -bottom-24 left-8 h-60 w-60 rounded-full border-[14px] border-[#2bd0e2]/30" />
         <div className="relative grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-          <div>
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
               ИИ для управленческой работы
             </p>
-            <h1 className="mt-4 max-w-[13ch] text-5xl font-black leading-[0.94] tracking-tight md:text-7xl">
+            <h1 className="mt-4 max-w-full text-[clamp(1.5rem,7.5vw,3rem)] font-black leading-tight tracking-tight [overflow-wrap:anywhere] sm:text-5xl md:max-w-[13ch] md:text-7xl md:leading-[0.94]">
               {MANAGER_AI_PROMPTS.title}
             </h1>
             <p className="mt-5 max-w-[58ch] text-xl font-semibold leading-tight text-white/90 md:text-2xl">
