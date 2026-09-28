@@ -132,6 +132,7 @@ export default function HubPage({ params }: Props): JSX.Element {
       {hub.slug === "management" && <ManagementGuide />}
       {hub.slug === "systems-thinking" && <SystemsThinkingGuide />}
       {hub.slug === "projects" && <ProjectsGuide />}
+      {hub.slug === "ai-management" && <AiManagementGuide />}
 
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <article className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft md:p-8">
@@ -591,6 +592,62 @@ function ManagementGuide(): JSX.Element {
           <Link href="/consulting/" className="font-semibold text-brand underline underline-offset-4">направления управленческого консалтинга</Link>.
           Связанный курс и дополнительные статьи находятся ниже на странице.
         </p>
+      </div>
+    </section>
+  );
+}
+
+
+function AiManagementGuide(): JSX.Element {
+  return (
+    <section aria-labelledby="ai-guide-title" className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-slate-900 md:p-10">
+      <h2 id="ai-guide-title" className="text-3xl font-black tracking-tight text-slate-950 dark:text-slate-50">
+        ИИ для руководителя: от рабочего сценария к проверяемому результату
+      </h2>
+      <div className="mt-6 max-w-3xl space-y-5 leading-8 text-slate-700 dark:text-slate-300">
+        <p>
+          Применение ИИ в управлении начинается с конкретной работы: разобрать материалы встречи,
+          сопоставить предложения, подготовить вопросы к отчёту или собрать черновик решения.
+          Пользу определяет качество этой работы и время на её выполнение вместе с проверкой результата.
+          Само количество запросов к нейросети не показывает, стала ли команда работать лучше.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Что можно поручить помощнику</h3>
+        <p>
+          В подготовке решений ИИ может помочь структурировать исходные материалы, предложить варианты
+          и выделить вопросы для уточнения. При работе со знаниями — подготовить краткое изложение
+          документа и найти противоречия для последующей проверки. В процессах — составить черновик
+          инструкции по описанному порядку работы. Руководитель проверяет факты, учитывает контекст
+          и принимает решение о применении результата.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Как выбрать первый сценарий</h3>
+        <p>
+          Выберите повторяющуюся задачу с понятным входом и проверяемым выходом. Опишите исходные данные,
+          ожидаемый формат, критерии качества и ответственного за проверку. Сравните обычное выполнение
+          с работой при помощи ИИ на нескольких сопоставимых примерах: учитывайте время исправлений,
+          пропущенные факты и пригодность результата для следующего шага.
+        </p>
+        <p>
+          Например, для протокола встречи можно проверить, сохранены ли принятые решения, исполнители
+          и сроки, не добавлены ли несуществующие договорённости. Это учебный пример сценария,
+          а не описание внедрения у клиента. Если проверка занимает больше времени, чем подготовка
+          вручную, стоит изменить задачу или отказаться от автоматизации этого участка.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Границы применения</h3>
+        <p>
+          Убедительный текст может содержать ошибки. Числа и ссылки нужно сверять с исходными
+          материалами; отсутствующие данные — запрашивать, а не заменять предположениями.
+          Для рабочих документов выбирайте инструменты и данные, разрешённые правилами компании.
+          Переход от черновиков к автоматическим действиям требует отдельно определить права доступа,
+          условия согласования и способ остановить ошибочное действие.
+        </p>
+        <h3 className="text-xl font-bold text-slate-950 dark:text-slate-50">Продолжить по своей задаче</h3>
+        <ul className="list-disc space-y-3 pl-5">
+          <li><Link href="/lead/manager-ai-prompts/" className="font-semibold text-blue-700 underline dark:text-blue-300">Подборка промптов для руководителя</Link> — отправная точка для собственных рабочих запросов.</li>
+          <li><Link href="/training/243614/" className="font-semibold text-blue-700 underline dark:text-blue-300">Курс по промпт-инжинирингу</Link> — обучение постановке задач ИИ.</li>
+          <li><Link href="/hub/management/" className="font-semibold text-blue-700 underline dark:text-blue-300">Управление</Link> — цели, ответственность и обратная связь, к которым нужно привязать внедрение.</li>
+          <li><Link href="/consulting/" className="font-semibold text-blue-700 underline dark:text-blue-300">Консалтинг</Link> — обсуждение процесса, ограничений и подходящего сценария изменений.</li>
+        </ul>
+        <p>Статьи ниже помогают подробнее разобрать подготовку решений, работу с информацией и роль руководителя.</p>
       </div>
     </section>
   );
