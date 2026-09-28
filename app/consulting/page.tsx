@@ -1,6 +1,6 @@
 import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
-import Link from "next/link";
+import { TrackedLink } from "@/components/tracked-link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
 import { CONSULTING_PRODUCTS } from "@/lib/platform-ecosystem";
@@ -80,14 +80,16 @@ export default function ConsultingPage(): JSX.Element {
               >
                 Смотреть направления
               </a>
-              <Link
+              <TrackedLink
                 href={TELEGRAM_CONSULT_URL}
+                goal="consulting_contact_click"
+                params={{ source: "hero" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-slate-300 bg-white px-6 py-3 text-base font-bold text-slate-950 transition hover:border-brand hover:text-brand dark:border-slate-700 dark:bg-slate-950 dark:text-white"
               >
                 Обсудить задачу
-              </Link>
+              </TrackedLink>
             </div>
           </div>
 
@@ -109,7 +111,7 @@ export default function ConsultingPage(): JSX.Element {
 
       <section id="products" className="scroll-mt-28 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {CONSULTING_PRODUCTS.map((product) => (
-          <article key={product.title} className="border border-slate-200 bg-white p-5 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
+          <article key={product.title} className="flex flex-col border border-slate-200 bg-white p-5 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900">
             <h2 className="text-2xl font-black tracking-tight text-slate-900">{product.title}</h2>
             <div className="mt-4 border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">Проблема</p>
@@ -118,6 +120,19 @@ export default function ConsultingPage(): JSX.Element {
             <div className="mt-3 border border-brand/20 bg-brand/5 p-4">
               <p className="text-xs font-black uppercase tracking-[0.14em] text-brand">Результат</p>
               <p className="mt-2 text-sm leading-6 text-slate-700">{product.result}</p>
+            </div>
+            <div className="mt-auto pt-5">
+              <TrackedLink
+                href={TELEGRAM_CONSULT_URL}
+                goal="consulting_contact_click"
+                params={{ source: "product_card", direction: product.title }}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center rounded-lg border border-brand px-4 py-3 text-sm font-bold text-brand transition hover:bg-brand hover:text-white dark:text-blue-300"
+              >
+                Обсудить направление
+                <span className="sr-only">: {product.title}</span>
+              </TrackedLink>
             </div>
           </article>
         ))}
@@ -132,14 +147,16 @@ export default function ConsultingPage(): JSX.Element {
           Перед консалтингом важно понять, где настоящий ограничитель. Поэтому первый шаг - короткий разбор:
           контекст, симптомы, цена проблемы, текущая система решений и возможный формат работы.
         </p>
-        <Link
+        <TrackedLink
           href={TELEGRAM_CONSULT_URL}
+          goal="consulting_contact_click"
+          params={{ source: "diagnostic" }}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-5 inline-flex bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-brand"
         >
           Начать с разбора
-        </Link>
+        </TrackedLink>
       </section>
 
       <AiCitationBlock
