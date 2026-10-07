@@ -1,5 +1,6 @@
 import { PageBreadcrumbs } from "@/components/page-breadcrumbs";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { TrackedLink } from "@/components/tracked-link";
 import { AiCitationBlock } from "@/components/ai-citation-block";
 import { AUTHOR_ENTITY } from "@/lib/entity-profile";
@@ -7,9 +8,9 @@ import { CONSULTING_PRODUCTS } from "@/lib/platform-ecosystem";
 import { SITE_URL, TELEGRAM_CONSULT_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Консалтинг",
+  title: "Управленческий консалтинг для бизнеса — Денис Михин",
   description:
-    "Консалтинг Дениса Михина: контур управления, PMO, KPI, CRM, продажи, AI-трансформация, организационные изменения и стратегические сессии.",
+    "Управленческий консалтинг Дениса Михина: диагностика проблем бизнеса, ответственность, PMO, KPI и внедрение изменений. Направления, выбор формата и подготовка к разбору.",
   alternates: {
     canonical: "/consulting"
   },
@@ -138,6 +139,41 @@ export default function ConsultingPage(): JSX.Element {
         ))}
       </section>
 
+      <section aria-labelledby="consulting-choice" className="border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <h2 id="consulting-choice" className="text-2xl font-black md:text-3xl">С какой задачей обращаться</h2>
+        <p className="mt-4 text-base leading-8">Управленческий консалтинг помогает разобрать повторяющуюся проблему на уровне целей, решений, ролей и процессов. Отправная точка — наблюдаемая ситуация, а не заранее выбранный инструмент. Внедрение CRM, KPI или ИИ имеет смысл, когда понятно, какое ограничение оно должно снять.</p>
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
+          <div>
+            <h3 className="text-lg font-bold">Проблема проходит через несколько функций</h3>
+            <p className="mt-2 text-sm leading-7">Например, продажи обещают сроки, производство меняет приоритеты, а руководитель ежедневно разбирает конфликты. Здесь важно исследовать весь путь выполнения обязательства: кто принимает заказ, распределяет ресурсы и согласует изменения.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Локальное исправление не удерживает результат</h3>
+            <p className="mt-2 text-sm leading-7">Новый регламент или встреча временно помогают, затем возвращаются задержки и ручной контроль. В разборе стоит проверить не только исполнение, но и совместимость целей, полномочий, нагрузки и обратной связи.</p>
+          </div>
+        </div>
+        <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300">Это примеры ситуаций, а не описание клиентских кейсов. Если задача ограничена HR-процессом, начните с <Link href="/hr/" className="font-bold text-brand underline dark:text-blue-300">HR по подписке</Link>. Если нужно освоить метод и работать самостоятельно — с <Link href="/training/" className="font-bold text-brand underline dark:text-blue-300">программы обучения</Link>.</p>
+      </section>
+
+      <section aria-labelledby="consulting-scope" className="border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <h2 id="consulting-scope" className="text-2xl font-black md:text-3xl">Что важно согласовать до начала проекта</h2>
+        <div className="mt-5 grid gap-6 md:grid-cols-3">
+          <div>
+            <h3 className="text-lg font-bold">Границы диагностики</h3>
+            <p className="mt-2 text-sm leading-7">Какой процесс рассматриваем, какие симптомы проверяем и какие данные доступны. Важно отделить наблюдаемые факты от предположений о причинах, чтобы не проектировать изменения под неподтверждённый диагноз.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Результат работы</h3>
+            <p className="mt-2 text-sm leading-7">В зависимости от задачи предметом работы могут быть карта процесса, распределение ответственности, правила приоритизации или план пилота. Конкретные материалы, сроки и критерии приёмки нужно согласовать для выбранного проекта.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Участие команды</h3>
+            <p className="mt-2 text-sm leading-7">Кто со стороны компании принимает решения, предоставляет данные и отвечает за внедрение. Рекомендация сама по себе не меняет работу: нужны полномочия, ресурсы и способ проверять результат после изменений.</p>
+          </div>
+        </div>
+        <p className="mt-5 text-sm leading-7 text-slate-600 dark:text-slate-300">Указанные на странице суммы — стартовые ориентиры, а не одинаковый пакет для всех направлений. Объём, стоимость и формат определяются после уточнения задачи. Рост выручки или другой бизнес-показатель нельзя обещать без анализа исходных условий.</p>
+      </section>
+
       <section className="border border-slate-200 bg-white p-6 shadow-[0_18px_44px_rgba(9,22,43,0.06)] dark:border-slate-800 dark:bg-slate-900 md:p-8">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Как начинается работа</p>
         <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-900 md:text-4xl">
@@ -146,6 +182,11 @@ export default function ConsultingPage(): JSX.Element {
         <p className="mt-4 max-w-4xl text-base leading-8 text-slate-700">
           Перед консалтингом важно понять, где настоящий ограничитель. Поэтому первый шаг - короткий разбор:
           контекст, симптомы, цена проблемы, текущая система решений и возможный формат работы.
+        </p>
+        <p className="mt-3 max-w-4xl text-base leading-8 text-slate-700 dark:text-slate-300">
+          Для первого сообщения достаточно описать, что происходит, как часто повторяется проблема,
+          на что она влияет и что уже пробовали изменить. Не присылайте персональные данные сотрудников
+          или конфиденциальные документы: на старте достаточно обезличенного описания.
         </p>
         <TrackedLink
           href={TELEGRAM_CONSULT_URL}
@@ -157,6 +198,11 @@ export default function ConsultingPage(): JSX.Element {
         >
           Начать с разбора
         </TrackedLink>
+      </section>
+
+      <section aria-labelledby="consulting-approach" className="border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <h2 id="consulting-approach" className="text-2xl font-black md:text-3xl">Познакомиться с подходом Дениса Михина</h2>
+        <p className="mt-4 text-base leading-8">В основе подхода — рассмотрение бизнеса как системы взаимосвязанных решений. На <Link href="/about/" className="font-bold text-brand underline dark:text-blue-300">странице автора</Link> собраны направления работы. В журнале можно изучить <Link href="/hub/systems-thinking/" className="font-bold text-brand underline dark:text-blue-300">системное мышление</Link> и <Link href="/hub/management/" className="font-bold text-brand underline dark:text-blue-300">управление бизнесом</Link>, прежде чем обсуждать собственную задачу.</p>
       </section>
 
       <AiCitationBlock
