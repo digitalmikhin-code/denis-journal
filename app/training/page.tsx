@@ -8,9 +8,9 @@ import { getProgramPath } from "@/lib/program-pages";
 import { COURSE_CATEGORIES, STEPIK_COURSES, STEPIK_PROFILE_FACTS, type StepikCourse } from "@/lib/stepik-courses";
 
 export const metadata: Metadata = {
-  title: "Курсы Дениса Михина",
+  title: "Курсы по управлению, проектам и ИИ — Денис Михин",
   description:
-    "Краткая витрина курсов Дениса Михина по управлению, Agile, Scrum, Kanban, OKR, системному мышлению, продуктам, SAFe, ИИ и промт-инжинирингу.",
+    "Выберите курс Дениса Михина под рабочую задачу: управление командой, проекты, Agile, системное мышление или ИИ. Сравните уровни и изучите программу на Stepik.",
   alternates: {
     canonical: "/training"
   }
@@ -56,16 +56,36 @@ export default function TrainingPage(): JSX.Element {
             Курсы Дениса Михина
           </p>
           <h1 className="mt-4 max-w-4xl text-4xl font-black uppercase leading-[1.02] text-slate-950 dark:text-slate-50 md:text-6xl">
-            Лаконичная карта обучения
+            Курсы по управлению, проектам и ИИ
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-8 text-slate-700 dark:text-slate-300 md:text-lg">
-            Короткая витрина без перегруза: выберите направление, посмотрите название курса и быстро поймите,
-            для какого навыка или рабочей задачи он нужен.
+            Авторские программы Дениса Михина для руководителей и специалистов, которые хотят связать
+            обучение с рабочей задачей: организовать работу команды, управлять проектами, разобраться
+            в системных причинах проблем или применять ИИ. Ниже можно выбрать отправную точку и сравнить курсы.
           </p>
         </div>
       </section>
 
       <ProgramTaskPicker />
+
+      <section aria-labelledby="learning-choice" className="border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-8">
+        <h2 id="learning-choice" className="text-2xl font-black md:text-3xl">Как выбрать курс и применить его в работе</h2>
+        <div className="mt-5 grid gap-6 md:grid-cols-3">
+          <div>
+            <h3 className="text-lg font-bold">Сформулируйте задачу</h3>
+            <p className="mt-2 text-sm leading-7">Вместо «изучить управление» выберите ситуацию: задачи возвращаются к руководителю, сроки проектов сдвигаются или отчёты занимают слишком много времени. Так проще сопоставить программу с тем, что нужно изменить.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Проверьте исходный уровень</h3>
+            <p className="mt-2 text-sm leading-7">Если термины и подходы незнакомы, начните с вводной программы. Если базу уже используете, изучите содержание следующего уровня. Ссылка «Подробнее» открывает описание курса, а Stepik — страницу обучения с актуальными условиями.</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold">Выберите способ проверки</h3>
+            <p className="mt-2 text-sm leading-7">До начала обучения определите, что попробуете на практике: распределить ответственность, ограничить число параллельных задач или проверить ответ ИИ по исходным данным. После применения сравните наблюдения с исходной ситуацией.</p>
+          </div>
+        </div>
+        <p className="mt-5 text-sm leading-7 text-slate-600 dark:text-slate-300">Например, задержка проекта не всегда означает нехватку знаний о Scrum. Если проблема в конкурирующих приоритетах и ресурсах, сначала полезно разобраться в управлении проектами. Agile-подходы изучайте в связи с устройством работы команды, а не как замену постановке целей.</p>
+      </section>
 
       <section className="grid gap-3 border border-slate-200 bg-white p-4 shadow-[0_14px_36px_rgba(9,22,43,0.05)] dark:border-slate-800 dark:bg-slate-900 md:grid-cols-4">
         <Stat value={String(STEPIK_COURSES.length)} label="курса в каталоге" />
@@ -154,6 +174,12 @@ export default function TrainingPage(): JSX.Element {
             Подобрать маршрут
           </Link>
         </div>
+      </section>
+
+      <section aria-labelledby="learning-format" className="border border-slate-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-8">
+        <h2 id="learning-format" className="text-2xl font-black md:text-3xl">Обучение или работа с задачей компании?</h2>
+        <p className="mt-4 text-base leading-8">Курс подходит, когда нужно освоить подход и самостоятельно применять его. Если требуется разобраться в конкретной системе управления и согласовать изменения с командой, рассмотрите <Link href="/consulting/" className="font-bold text-brand underline dark:text-blue-300">консалтинг</Link>. Для задач подбора, адаптации и других HR-процессов есть <Link href="/hr/" className="font-bold text-brand underline dark:text-blue-300">HR по подписке</Link>.</p>
+        <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">Необязательно начинать с покупки: познакомьтесь с подходом в <Link href="/hubs/" className="font-bold text-brand underline dark:text-blue-300">тематических разделах журнала</Link>. Об авторе и его направлениях работы — на <Link href="/about/" className="font-bold text-brand underline dark:text-blue-300">странице Дениса Михина</Link>. Цену, доступ и состав конкретной программы проверяйте на Stepik перед записью.</p>
       </section>
     </div>
   );
