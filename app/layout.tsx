@@ -119,7 +119,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>): JSX.Element {
-  const searchItems = getSearchIndex();
+  // Header suggestions use titles, summaries and keywords. Full article text
+  // stays in the dedicated search page instead of travelling with every page.
+  const searchItems = getSearchIndex().map((item) => ({ ...item, content: "" }));
 
   return (
     <html lang="ru">
