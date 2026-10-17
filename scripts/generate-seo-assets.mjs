@@ -207,7 +207,7 @@ function writeSitemap(articles) {
 
   const entries = allRoutes
     .map((route) => {
-      const loc = `${siteUrl}${route}`;
+      const loc = `${siteUrl}${route.endsWith("/") ? route : `${route}/`}`;
       return `<url><loc>${xmlEscape(loc)}</loc></url>`;
     })
     .join("");
