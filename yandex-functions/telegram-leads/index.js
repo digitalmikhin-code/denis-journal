@@ -77,9 +77,6 @@ function sendTelegram(text) {
       {
         hostname: "api.telegram.org",
         family: 4,
-        lookup: (_hostname, _options, callback) => {
-          callback(null, "149.154.167.220", 4);
-        },
         path: `/bot${token}/sendMessage`,
         method: "POST",
         headers: {
@@ -185,3 +182,4 @@ module.exports.handler = async function handler(event) {
     };
   }
 };
+
